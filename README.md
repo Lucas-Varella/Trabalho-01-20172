@@ -3,5 +3,7 @@ Trabalho DSO Sistemas da informação
 
 >Logs::
 >>Lucas - (EXEMPLO) 11/09 -> Editando classe X, implementando Y... 
-Marcos -
-Sadi -
+
+>>Marcos -
+
+>>Sadi -
