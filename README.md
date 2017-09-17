@@ -6,4 +6,4 @@ Trabalho DSO Sistemas da informação
 
 >>Marcos -
 
->>Sadi -
+>>Sadi - 17/09 -> Upou o documento Descrição informal do trabalho;
