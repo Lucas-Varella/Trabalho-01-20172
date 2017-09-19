@@ -7,3 +7,6 @@ Trabalho DSO Sistemas da informação
 >>Marcos -
 
 >>Sadi - 17/09 -> Upou o documento Descrição informal do trabalho;
+
+>Reminders ::
+>>Enum can be used in the different privileges (Full access, Restricted, no access...)
