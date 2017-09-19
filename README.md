@@ -4,7 +4,7 @@ Trabalho DSO Sistemas da informação
 >Logs::
 >>Lucas - (EXEMPLO) 11/09 -> Editando classe X, implementando Y... 
 
->>Marcos -
+>>Marcos - 18/09 -> Tomou um copo de água;
 
 >>Sadi - 17/09 -> Upou o documento Descrição informal do trabalho;
 
