@@ -1,6 +1,11 @@
-package trabalhodso_01;
+package ine.view;
+
+import ine.controller.*;
+import ine.model.*;
+import ine.view.*;
 
 import java.util.Scanner;
+
 
 public class MainScreen {
 	private MainScreenCtrl mainScreenCtrl;
@@ -30,7 +35,7 @@ public class MainScreen {
 				numOption = Integer.parseInt(option);
 				switch(numOption) {
 				case 1:
-					mainScreenCtrl.employeeMenu()
+					mainScreenCtrl.employeeMenu();
 					break;
 				case 2:
 					mainScreenCtrl.employmentMenu();
@@ -47,7 +52,7 @@ public class MainScreen {
 			}catch(Exception e) {
 				System.out.println("Please enter only numbers");
 			}
-		}while(numOption!=0);
+		}while(numOption == 0 || numOption == 1 || numOption == 2 || numOption == 3);
 		keyboard.close(); //fecha o Scanner para economizar memória;
 	}
 	

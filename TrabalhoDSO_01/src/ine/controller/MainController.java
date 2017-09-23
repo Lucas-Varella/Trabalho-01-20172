@@ -1,4 +1,17 @@
-package trabalhodso_01;
+package ine.controller;
+
+/*
+ * Refazer os imports em todas as classes do projeto, detalhando os
+ * que são usados e excluindo os não utilizados;
+ * 
+ * Lembre-me de mudar o nome do package pai(ine) para algo melhor(o padrão
+ * que o Jean explicou mas como eu não prestei atenção, não me lembro 
+ * qual era);
+ */
+
+import ine.controller.*;
+import ine.model.*;
+import ine.view.*;
 
 public class MainController {
 	private MainScreenCtrl mainScreenCtrl;
@@ -25,7 +38,7 @@ public class MainController {
 		employeeCtrl.menu();
 	}
 	
-	public void showEmploymentMenu() {
+	public void showEmploymentMenu() throws Exception {
 		employmentCtrl.menu();
 	}
 	

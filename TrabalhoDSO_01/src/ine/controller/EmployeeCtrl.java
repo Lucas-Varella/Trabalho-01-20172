@@ -1,4 +1,11 @@
-package trabalhodso_01;
+package ine.controller;
+
+import ine.controller.*;
+import ine.model.*;
+import ine.view.*;
+
+import ine.model.Employee;
+import ine.view.EmployeeScreen;
 
 public class EmployeeCtrl {
 	private MainController mainCtrl;

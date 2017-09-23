@@ -1,4 +1,9 @@
-package trabalhodso_01;
+package ine.controller;
+
+
+import ine.controller.*;
+import ine.model.*;
+import ine.view.*;
 
 public class MainScreenCtrl {
 	private MainController mainCtrl;
@@ -17,7 +22,7 @@ public class MainScreenCtrl {
 		mainCtrl.showEmployeeMenu();
 	}
 	
-	public void employmentMenu() {
+	public void employmentMenu() throws Exception {
 		mainCtrl.showEmploymentMenu();
 	}
 	

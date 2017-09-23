@@ -1,4 +1,8 @@
-package trabalhodso_01;
+package ine.controller;
+
+import ine.controller.*;
+import ine.model.*;
+import ine.view.*;
 
 public class HoraryCtrl {
 

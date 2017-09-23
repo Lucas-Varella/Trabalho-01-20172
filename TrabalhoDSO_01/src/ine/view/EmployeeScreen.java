@@ -1,6 +1,13 @@
-package trabalhodso_01;
+package ine.view;
+
+import ine.controller.*;
+import ine.model.*;
+import ine.view.*;
+
+import ine.controller.EmployeeCtrl;
 
 import java.util.Scanner;
+
 
 public class EmployeeScreen {
 	private EmployeeCtrl employeeCtrl;
