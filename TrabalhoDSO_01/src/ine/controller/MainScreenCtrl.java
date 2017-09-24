@@ -14,7 +14,7 @@ public class MainScreenCtrl {
 		mainScreen = new MainScreen(this);
 	}
 	
-	public void menu() throws Exception {
+	public void menu() {
 		mainScreen.showMenu();
 	}
 	
@@ -22,7 +22,7 @@ public class MainScreenCtrl {
 		mainCtrl.showEmployeeMenu();
 	}
 	
-	public void employmentMenu() throws Exception {
+	public void employmentMenu() {
 		mainCtrl.showEmploymentMenu();
 	}
 	

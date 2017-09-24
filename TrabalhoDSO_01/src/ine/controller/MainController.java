@@ -30,7 +30,7 @@ public class MainController {
 		horaryCtrl = new HoraryCtrl(this);
 	}
 	
-	public void showMainScreen() throws Exception {
+	public void showMainScreen() {
 		mainScreenCtrl.menu();
 	}
 	
@@ -38,7 +38,7 @@ public class MainController {
 		employeeCtrl.menu();
 	}
 	
-	public void showEmploymentMenu() throws Exception {
+	public void showEmploymentMenu() {
 		employmentCtrl.menu();
 	}
 	

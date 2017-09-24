@@ -26,11 +26,11 @@ public class EmploymentCtrl {
 		this.employments = new ArrayList();
 		}
 
-	public void mainMenu() throws Exception {
+	public void mainMenu() {
 		mainCtrl.showMainScreen();
 	}
 	
-	public void menu() throws Exception {
+	public void menu() {
 		employmentScreen.employmentMenu();
 	}
 	

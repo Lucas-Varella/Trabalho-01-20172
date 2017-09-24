@@ -15,9 +15,13 @@ public class EmploymentScreen {
 		keyboard = new Scanner(System.in);
 	}
 
-	public void employmentMenu() throws Exception {
+	public void employmentMenu() {
 		int numOption = 0;
 		do {
+			/*
+			 * Verificar por que motivo o catch é executado sempre;
+			 * Refazer esse try catch;
+			 */
 			try {
 				System.out.println("Welcome!");
 				System.out
@@ -30,9 +34,6 @@ public class EmploymentScreen {
 				String option = keyboard.nextLine();
 				numOption = Integer.parseInt(option);
 				switch (numOption) {
-				/*
-				 * Criar um método separado que gera os códigos dos cargos
-				 */
 				case 1:
 					addEmployment();
 					break;
@@ -55,19 +56,10 @@ public class EmploymentScreen {
 
 			} catch (Exception e) {
 				System.out.println("Please enter only numbers");
-
 			}
 		}while (numOption != 0);
 		employmentCtrl.mainMenu();
 	}
-
-	/*
-	 * Os métodos abaixo eram uma ideia que eu tinha de dividir cada ação tomada
-	 * na tela(Adicionar, editar e excluir employments) em várias partes e
-	 * apenas os invocar no tela da classe quando necessário, porém, conforme eu
-	 * fui codando, acabei me esquecendo desta ideia, mas se alguém quiser a
-	 * implementar, fique à vontade;
-	 */
 
 	/*
 	 * Resolvi não dar ao usuário a alternativa de ele escolher o código do
@@ -99,8 +91,7 @@ public class EmploymentScreen {
 				gen = Privileges.No;
 				break;
 			default:
-				System.out
-						.println("The number you entered is not valid. Please try again.");
+				System.out.println("The number you entered is not valid. Please try again.");
 			}
 		} while (option > 3 || option == 0);
 		employmentCtrl.addEmployment(name, gen);
@@ -130,8 +121,8 @@ public class EmploymentScreen {
 			/*
 			 * recomendo não dar ao usuário o poder de mudar o código do cargo
 			 * 
-			 * System.out.println("1 - Code"); System.out.println("Actually - "
-			 * + generic.getCode());
+			 * System.out.println("1 - Code"); 
+			 * System.out.println("Actually - " + generic.getCode());
 			 */
 			System.out.println("1 - Name");
 			System.out.println("Actually - " + generic.getName());
@@ -142,8 +133,10 @@ public class EmploymentScreen {
 			switch (option) {
 
 			/*
-			 * case 1: System.out.println("Enter a new code: "); option =
-			 * keyboard.nextInt(); generic.setCode(option); break;
+			 * case 1: System.out.println("Enter a new code: "); 
+			 * option = keyboard.nextInt(); 
+			 * generic.setCode(option); 
+			 * break;
 			 */
 			
 			/*

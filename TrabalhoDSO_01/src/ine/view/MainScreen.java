@@ -16,7 +16,7 @@ public class MainScreen {
 		keyboard = new Scanner(System.in);
 	}
 	
-	public void showMenu() throws Exception {
+	public void showMenu() {
 		int numOption = 0;
 		do {
 			System.out.println("Welcome!");
@@ -30,7 +30,7 @@ public class MainScreen {
 			 * caso o usuário seja retardado e digite uma letra 
 			 * ou símbolo;
 			 */
-			try {
+			//try {
 				String option = keyboard.nextLine();
 				numOption = Integer.parseInt(option);
 				switch(numOption) {
@@ -49,9 +49,9 @@ public class MainScreen {
 				default:
 					System.out.println("The number you entered is not valid. Please try again.");
 				}
-			}catch(Exception e) {
-				System.out.println("Please enter only numbers");
-			}
+			//}catch(Exception e) {
+			//	System.out.println("Please enter only numbers");
+			//}
 		}while(numOption > 3);
 		keyboard.close(); //fecha o Scanner para economizar memória;
 	}
