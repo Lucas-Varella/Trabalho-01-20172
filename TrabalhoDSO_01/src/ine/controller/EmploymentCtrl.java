@@ -18,22 +18,26 @@ public class EmploymentCtrl {
 	private EmploymentScreen employmentScreen;
 	private Employment employment;
 	private ArrayList<Employment> employments;
-
+	private static int code = 999;
+	
 	public EmploymentCtrl(MainController mainCtrl) {
 		this.mainCtrl = mainCtrl;
 		this.employmentScreen = new EmploymentScreen(this);
 		this.employments = new ArrayList();
 		}
 
-	public void menu() throws Exception {
-		employmentScreen.employmentMenu();
-	}
 	public void mainMenu() throws Exception {
 		mainCtrl.showMainScreen();
 	}
 	
-	public void addEmployment(int code, String name, Privileges option) {
-		employments.add(new Employment(code, name, option, this));
+	public void menu() throws Exception {
+		employmentScreen.employmentMenu();
+	}
+	
+	
+	public void addEmployment(String name, Privileges option) {
+		employments.add(new Employment(getCode(), name, option, this));
+		setCode(getCode() + 1 );
 	}
 	
 	public void delEmployment(Employment employment) {
@@ -52,8 +56,23 @@ public class EmploymentCtrl {
 		
 	}
 	
-	public ArrayList<Employment> listEmployments() {
-		return employments;
+	public void listEmployments() {
+		for(Employment e : employments) {
+			int i = 1;
+			System.out.println(i + " - " + e.getName());
+		}
+	}
+	
+	public Employment getEmployment(int num) {
+		return employments.get(num);
+	}
+
+	public static int getCode() {
+		return code;
+	}
+
+	public static void setCode(int code) {
+		EmploymentCtrl.code = code;
 	}
 
 }

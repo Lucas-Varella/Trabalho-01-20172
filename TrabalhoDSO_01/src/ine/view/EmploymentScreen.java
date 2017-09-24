@@ -4,7 +4,6 @@ import ine.controller.EmploymentCtrl;
 import ine.model.Employment;
 import ine.model.Privileges;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EmploymentScreen {
@@ -34,91 +33,11 @@ public class EmploymentScreen {
 				 * Criar um método separado que gera os códigos dos cargos
 				 */
 				case 1:
-					System.out.println("Please enter the name of employment:");
-					String name = keyboard.nextLine();
-					int optionAccess = 0;
-					Privileges gen = null;
-					do{
-					System.out.println("Choice your privilege: ");
-					System.out.println("1 - " +Privileges.Full);
-					System.out.println("2 - " +Privileges.Restricted);
-					System.out.println("3 - " +Privileges.No);
-					//O erro estava neste caralho de linha logo abaixo;
-					//keyboard.nextLine();
-					optionAccess = keyboard.nextInt();
-					
-						switch(optionAccess) {
-						case 1:
-							gen = Privileges.Full;
-							break;
-						case 2:
-							gen = Privileges.Restricted;
-							break;
-						case 3:
-							gen = Privileges.No;
-							break;
-						default:
-							System.out.println("The number you entered is not valid. Please try again.");	
-						}
-					}while(optionAccess > 3);
-					employmentCtrl.addEmployment(0, name, gen);
+					addEmployment();
 					break;				
 				
 				case 2:
-					System.out.println("Please enter the number corresponding to your choice: ");
-					printEmployments();
-					int op = keyboard.nextInt(); 
-					Employment generic = employmentCtrl.listEmployments().get(op - 1);
-					do {
-						System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
-						/*
-						 * recomendo não dar ao usuário o poder de mudar o código do cargo
-						 */
-						System.out.println("1 - Code");
-						System.out.println("Actually - " + generic.getClass());
-						System.out.println("2 - Name");
-						System.out.println("Actually - " + generic.getName());
-						System.out.println("3 - Privilege");
-						System.out.println("Actually - " + generic.getPrivilege());
-						System.out.println("Or 0 to exit");
-						op = keyboard.nextInt();
-						switch(op) {
-						case 1:
-							System.out.println("Enter a new code: ");
-							op = keyboard.nextInt();
-							generic.setCodigo(op);
-							break;
-						case 2:
-							System.out.println("Enter a new name: ");
-							name = keyboard.nextLine();
-							generic.setName(name);
-							break;
-						case 3:
-							System.out.println("Enter the number of a new privilege: ");
-							System.out.println("1 - " +Privileges.Full);
-							System.out.println("2 - " +Privileges.Restricted);
-							System.out.println("3 - " +Privileges.No);
-							keyboard.nextLine();
-							op = keyboard.nextInt();
-							switch(op) {
-							case 1:
-								generic.setPrivilege(Privileges.Full);
-								break;
-							case 2: 
-								generic.setPrivilege(Privileges.Restricted);
-								break;
-							case 3:
-								generic.setPrivilege(Privileges.No);
-								break;
-							default:
-								System.out.println("Choice a valid number mother fucker!");	
-							}
-						case 0:
-
-							System.out.println("Goodbye");
-								
-						}
-					}while(op == 1 || op == 2 || op == 3 || op == 0);
+					editEmployment();
 					break;
 				
 				case 3:
@@ -126,13 +45,14 @@ public class EmploymentScreen {
 					//mudar o que é printado(com vocês, Varella e Marcos)
 					
 					System.out.println("Please enter the number corresponding to your choice: ");
-					printEmployments();
-					int choice = keyboard.nextInt(); 
-					employmentCtrl.delEmployment(employmentCtrl.listEmployments().get(choice - 1));
+					employmentCtrl.listEmployments();
+					int choice = keyboard.nextInt() - 1; 
+					employmentCtrl.delEmployment(employmentCtrl.getEmployment(choice));
 					break;
 				
 				case 0:
 					System.out.println("Goodbye and have a good day");
+					employmentCtrl.mainMenu();
 					break;
 				
 				default:
@@ -146,71 +66,121 @@ public class EmploymentScreen {
 		}while(numOption == 0 || numOption == 1 || numOption == 2 || numOption == 3);
 		employmentCtrl.mainMenu();
 	}
+	/*
+	 * Os métodos abaixo eram uma ideia que eu tinha de dividir cada ação tomada na tela(Adicionar, editar e excluir employments)
+	 * em várias partes e apenas os invocar no tela da classe quando necessário, porém, conforme eu fui codando, acabei me esquecendo desta
+	 * ideia, mas se alguém quiser a implementar, fique à vontade;
+	 */
 	
+	/*
+	 * Resolvi não dar ao usuário a alternativa de ele escolher o código 
+	 * do cargo. Ao invés disso, criei(+/-) um método dentro do controlador 
+	 * que gera o código automaticamente;
+	 */
 	public void addEmployment() {
-		int numOption = 0;
+		System.out.println("Please enter the name of employment:");
+		String name = keyboard.nextLine();
+		int option = 0;
+		Privileges gen = null;
+		do{
+		System.out.println("Choice your privilege: ");
+		System.out.println("1 - " +Privileges.Full);
+		System.out.println("2 - " +Privileges.Restricted);
+		System.out.println("3 - " +Privileges.No);
+		//O erro estava neste caralho de linha logo abaixo;
+		//keyboard.nextLine();
+		option = keyboard.nextInt();
+		
+			switch(option) {
+			case 1:
+				gen = Privileges.Full;
+				break;
+			case 2:
+				gen = Privileges.Restricted;
+				break;
+			case 3:
+				gen = Privileges.No;
+				break;
+			default:
+				System.out.println("The number you entered is not valid. Please try again.");	
+			}
+		}while(option > 3 || option == 0);
+		employmentCtrl.addEmployment(name, gen);
+		System.out.println("Congratulations, you just successfully registered a employment!");
+		System.out.println("These are the employment data:");
+		System.out.println("Code: " + EmploymentCtrl.getCode() + 1);		
+		System.out.println("Name: " + name);		
+		System.out.println("Privilege: " + gen);
+	}
+	
+	public void editEmployment() {
+		System.out.println("Please enter the number corresponding to your choice: ");
+		employmentCtrl.listEmployments();
+		int option = keyboard.nextInt() - 1; 
+		Employment generic = employmentCtrl.getEmployment(option);
 		do {
+			System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
 			/*
-			 * Fazer um try catch aqui para caso o usuário digite
-			 * o código como letras e não números
-			 * 
-			 * Ideia: criar uma classe abstrata que verifica isso
-			 * e é extendida por todas as telas;
-			 * 
-			 */
-				System.out.println("Welcome!");
-				System.out.println("Please enter the required information: ");
-				System.out.println("Code: ");
-				int code = keyboard.nextInt();
-				System.out.println("Name: ");
+			 * recomendo não dar ao usuário o poder de mudar o código do cargo
+			 *
+			 * System.out.println("1 - Code");
+			 * System.out.println("Actually - " + generic.getCode());
+			*/
+			System.out.println("1 - Name");
+			System.out.println("Actually - " + generic.getName());
+			System.out.println("2 - Privilege");
+			System.out.println("Actually - " + generic.getPrivilege());
+			System.out.println("Or 0 to exit");
+			option = keyboard.nextInt();
+			switch(option) {
+			
+			/*
+			case 1:
+				System.out.println("Enter a new code: ");
+				option = keyboard.nextInt();
+				generic.setCode(option);
+				break;
+			*/
+			case 1:
+				System.out.println("Enter a new name: ");
 				String name = keyboard.nextLine();
-				System.out.println("Privileges options: ");
-				Privileges option = setPrivileges();
-				employmentCtrl.addEmployment(code, name, option);
-		}while(numOption != 0);
+				generic.setName(name);
+				break;
+			
+			case 2:
+				System.out.println("Enter the number of a new privilege: ");
+				System.out.println("1 - " +Privileges.Full);
+				System.out.println("2 - " +Privileges.Restricted);
+				System.out.println("3 - " +Privileges.No);
+				keyboard.nextLine();
+				option = keyboard.nextInt();
+				do{
+				switch(option) {
+				case 1:
+					generic.setPrivilege(Privileges.Full);
+					break;
+				case 2: 
+					generic.setPrivilege(Privileges.Restricted);
+					break;
+				case 3:
+					generic.setPrivilege(Privileges.No);
+					break;
+				default:
+					System.out.println("Choice a valid number!");	
+				}
+				}while();
+			case 0:
+
+				System.out.println("Goodbye");
+					
+			}
+		}while(option != 0);
 	}
 	
 	public void delEMployment() {
 		
 	}
 	
-	public void editEmployment() {
-		
-	}
 	
-	public Privileges setPrivileges() {
-		for(Privileges p : Privileges.values()) {
-			int i = 1;
-			System.out.println(i+"º - "+p.name());
-		}
-		int option = keyboard.nextInt();
-		Privileges pri;
-		switch(option) {
-		case 1:
-			pri = Privileges.Full;
-			break;
-		case 2:
-			pri = Privileges.Restricted;
-			break;
-		case 3:
-			pri = Privileges.No;
-			break;
-		default:
-			/*
-			 * Colocar uma exceção aqui:
-			 */
-			System.out.println("The number you entered is not valid. Please try again.");
-		}
-		return null;
-		
-	}
-	
-	public void printEmployments() {
-		ArrayList<Employment> employments = employmentCtrl.listEmployments();
-		for(Employment e : employments) {
-			int i = 1;
-			System.out.println(i + " - " + e.getName());
-		}
-	}
 
 }

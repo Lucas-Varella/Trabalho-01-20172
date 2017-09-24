@@ -7,26 +7,26 @@ import ine.model.*;
 import ine.view.*;
 
 public class Employment {
-	private int codigo;
+	private int code;
 	private String name;
 	private Privileges privilege;
 	private ArrayList<Employee> employees;
 	private EmploymentCtrl employmentCtrl;
 	
-	public Employment(int codigo, String name, Privileges privilege, EmploymentCtrl employmentCtrl) {
-		this.setCodigo(codigo);
+	public Employment(int code, String name, Privileges privilege, EmploymentCtrl employmentCtrl) {
+		this.setCode(code);
 		this.setName(name);
 		this.setPrivilege(privilege);
 		this.employmentCtrl = employmentCtrl;
 		employees = new ArrayList();
 	}
 
-	public int getCodigo() {
-		return codigo;
+	public int getCode() {
+		return code;
 	}
 
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setCode(int code) {
+		this.code = code;
 	}
 
 	public String getName() {
