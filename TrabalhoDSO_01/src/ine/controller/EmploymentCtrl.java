@@ -44,14 +44,6 @@ public class EmploymentCtrl {
 		
 	}
 	
-	public void editEmployment() {
-		employment.getCodigo();
-		employment.getName();
-		employment.getPrivilege();
-		
-		
-	}
-	
 	public void findEmployeeByEmployment(Employment employment) {
 		
 	}

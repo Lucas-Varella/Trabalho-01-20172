@@ -52,7 +52,7 @@ public class MainScreen {
 			}catch(Exception e) {
 				System.out.println("Please enter only numbers");
 			}
-		}while(numOption == 0 || numOption == 1 || numOption == 2 || numOption == 3);
+		}while(numOption > 3);
 		keyboard.close(); //fecha o Scanner para economizar memória;
 	}
 	
