@@ -114,11 +114,19 @@ public class EmploymentScreen {
 	}
 	
 	public void editEmployment() {
-		System.out.println("Please enter the number corresponding to your choice: ");
-		employmentCtrl.listEmployments();
-		int option = keyboard.nextInt() - 1; 
-		Employment generic = employmentCtrl.getEmployment(option);
-		do {
+		int option = 0;
+		do{
+			System.out.println("Please enter the number corresponding to your choice: ");
+			employmentCtrl.listEmployments();
+			
+			/*
+			 * Fazer um try catch aqui, caso o usuário seja filho da puta ao
+			 * ponto de digitar 0;
+			 */
+			
+			option = keyboard.nextInt() - 1; 
+			Employment generic = employmentCtrl.getEmployment(option);
+			
 			System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
 			/*
 			 * recomendo não dar ao usuário o poder de mudar o código do cargo
@@ -149,26 +157,28 @@ public class EmploymentScreen {
 			
 			case 2:
 				System.out.println("Enter the number of a new privilege: ");
-				System.out.println("1 - " +Privileges.Full);
-				System.out.println("2 - " +Privileges.Restricted);
-				System.out.println("3 - " +Privileges.No);
-				keyboard.nextLine();
-				option = keyboard.nextInt();
 				do{
-				switch(option) {
-				case 1:
-					generic.setPrivilege(Privileges.Full);
-					break;
-				case 2: 
-					generic.setPrivilege(Privileges.Restricted);
-					break;
-				case 3:
-					generic.setPrivilege(Privileges.No);
-					break;
-				default:
-					System.out.println("Choice a valid number!");	
-				}
-				}while();
+					System.out.println("1 - " +Privileges.Full);
+					System.out.println("2 - " +Privileges.Restricted);
+					System.out.println("3 - " +Privileges.No);
+					keyboard.nextLine();
+					option = keyboard.nextInt();
+					switch(option) {
+					case 1:
+						generic.setPrivilege(Privileges.Full);
+						break;
+					case 2: 
+						generic.setPrivilege(Privileges.Restricted);
+						break;
+					case 3:
+						generic.setPrivilege(Privileges.No);
+						break;
+					default:
+						System.out.println("Choice a valid number!");	
+					}
+					
+				}while(option != 1 && option !=2 && option != 3);
+			
 			case 0:
 
 				System.out.println("Goodbye");
