@@ -10,13 +10,13 @@ public class Employment {
 	private int code;
 	private String name;
 	private Privileges privilege;
-	private Contract employees;
+	private ArrayList<Contract> employees;
 	private EmploymentCtrl employmentCtrl;
 	
 	public Employment(int code, String name, Privileges privilege, EmploymentCtrl employmentCtrl) {
 		this.code = code;
-		this.name = name; //setName(name);
-		this.privilege = privilege;//setPrivilege(privilege);
+		this.name = name;
+		this.privilege = privilege;
 		this.employmentCtrl = employmentCtrl;
 	}
     /*
@@ -30,23 +30,44 @@ public class Employment {
    */
 	
 	public void addContract(Contract contract) throws Exception {
-			if(c.equals(contract)) {
-				throw new Exception("This list of employees is already registered in the employment");
-			}else{
-				employees.add(contract);
+		Employee employee = contract.getEmployee();
+		if(findContractByEmployee(employee) == null); {
+			employees.add(contract);
+			if(employee.getEmployment() != contract) {
+				employee.setEmployment(contract.getEmployment());
 			}
 		}
+		// tentei colocar um else na linha acima e deu erro.
+		// Verificar o porquê depois
+		throw new Exception("Attempted duplication of contract. The employee " +employee.getName() + 
+					" already has a contract with the employment " + contract.getEmployment().getName());
 	}
-	/*
-	 * IMplementar depois
-	 */
-	public void delContract() {
-		
+	
+	public Contract findContractByEmployee(Employee employee) {
+		for(Contract c : employees) {
+			if(c.getEmployee().equals(employee)) {
+				return c;
+			}
+		}
+		return null;
+	}
+	
+	public void delContract(Employee employee) {
+		if(employee != null) {
+			Contract c = findContractByEmployee(employee);
+			if(c != null) {
+				employees.remove(c);
+				employee.setEmployment(null);
+			}
+			
+		}
 	}
 	
 	public void listEmployees() {
+		int i = 1;
 		for(Contract c : employees) {
-			c.
+			System.out.println(i+ "º - " + c.getEmployee().getName());
+			i++;
 		}
 	}
 	

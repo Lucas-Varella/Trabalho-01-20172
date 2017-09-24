@@ -44,16 +44,6 @@ public class EmploymentCtrl {
 		
 	}
 	
-	public void addContract(Contract contract) {
-		for(Contract c : employees) {
-			
-		}
-	}
-	
-	public void findEmployeeByEmployment(Employment employment) {
-		employment.
-	}
-	
 	public void listEmployments() {
 		for(Employment e : employments) {
 			int i = 1;

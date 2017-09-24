@@ -69,12 +69,12 @@ public class Employee {
 		this.salary = salary;
 	}
 	
-	public Employment getEmployment() {
+	public Contract getEmployment() {
 		return employment;
 	}
 	
 	public void setEmployment(Employment employment) {
-		this.employment = employment;
+		this.employment.setEmployment(employment);
 	}
 
 	

@@ -54,7 +54,4 @@ public class MainController {
 		return employmentCtrl.getEmployment(index);
 	}
 	
-	public void addContract(Contract contract) {
-		employmentCtrl.
-	}
 }

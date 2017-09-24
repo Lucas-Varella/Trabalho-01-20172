@@ -40,10 +40,10 @@ public class EmployeeCtrl {
 		return new Contract(employment, employee);
 	}
 	
-	public void addContract(Contract contract) {
-		employee.addContract(contract);
-		mainCtrl.addContract(contract);
-	}
+	//public void addContract(Contract contract) {
+		//employee.addContract(contract);
+		//mainCtrl.addContract(contract);
+//	}
 	
 	public void delEmployee(int index) {
 		employees.remove(index);
@@ -75,6 +75,11 @@ public class EmployeeCtrl {
 
 	public static void setCode(int code) {
 		EmployeeCtrl.code = code;
+	}
+
+	public void mainMenu() {
+		mainCtrl.showMainScreen();
+		
 	}
 	
 	

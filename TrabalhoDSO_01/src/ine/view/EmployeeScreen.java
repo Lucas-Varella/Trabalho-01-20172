@@ -63,7 +63,7 @@ public class EmployeeScreen {
 			}
 
 		} while (numOption != 0);
-
+		employeeCtrl.mainMenu();
 	}
 	
 	public void addEmployee() {
@@ -85,13 +85,13 @@ public class EmployeeScreen {
 		int option = keyboard.nextInt() - 1;
 		Employment gen = employeeCtrl.findEmploymentByIndex(option);
 		Contract contract = employeeCtrl.addContract(gen, generic);
-		employeeCtrl.addContract(contract);
+		//employeeCtrl.addContract(contract);
 		System.out.println("Congratulations, you have created a new employee with the following characteristics: ");
 		System.out.println("Number of registration - " + generic.getNumRegistration());
 		System.out.println("Birthday - " + generic.getDateBirth());
 		System.out.println("Phone - " + generic.getPhone());
 		System.out.println("Salary - " + generic.getSalary());
-		System.out.println("Employment - " + generic.getEmployment().getName());
+		System.out.println("Employment - " + generic.getEmployment().getEmployment().getName());
 	}
 	
 	public void editEmployee() {
@@ -121,7 +121,7 @@ public class EmployeeScreen {
 			System.out.println("4 - Salary");
 			System.out.println("Actually - " + generic.getSalary());
 			System.out.println("5 - Employment");
-			System.out.println("Actually - " + generic.getEmployment().getName());
+			System.out.println("Actually - " + generic.getEmployment().getEmployment().getName());
 			System.out.println("Or 0 to exit");			
 			option = keyboard.nextInt();
 			switch (option) {

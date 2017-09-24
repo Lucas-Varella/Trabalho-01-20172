@@ -1,19 +1,16 @@
 package ine.model;
 
-import java.util.ArrayList;
-
 import ine.controller.*;
 import ine.model.*;
 import ine.view.*;
 
 public class Contract {
 	private Employment employment;
-	private ArrayList<Employee> employees;
+	private Employee employee;
 	
 	public Contract(Employment employment, Employee employee) {
 		this.setEmployment(employment);
-		this.employees = new ArrayList();
-		employees.add(employee);
+		this.employee = employee;
 	}
 
 	public Employment getEmployment() {
@@ -24,33 +21,13 @@ public class Contract {
 		this.employment = employment;
 	}
 	
-	/*public void listEmployees() {
-		int i = 1;
-		for(Employee e : employees) {
-			System.out.println(i+"º - " + e.getName());
-		}
-	}*/
-	
-	public void addEmployee(Employee employee) throws Exception {
-		for(Employee e : employees) {
-			if(e.equals(employee)) {
-				throw new Exception("The employee is already registered");
-			}else{
-				employees.add(employee);
-			}
-		}
+	public Employee getEmployee(){
+		return employee;
 	}
 	
-	public void delEmployee(Employee employee) throws Exception {
-		for(Employee e : employees) {
-			if(e.equals(employee)) {
-				employees.remove(employee);
-			}else{
-				throw new Exception("The employee is not registered");
-			}
-		}
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
-	
 	
 
 }
