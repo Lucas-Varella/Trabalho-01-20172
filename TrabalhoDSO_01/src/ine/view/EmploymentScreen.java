@@ -43,7 +43,11 @@ public class EmploymentScreen {
 					break;
 
 				case 3:
-					delEMployment();
+					delEmployment();
+					break;
+					
+				case 4:
+					employmentCtrl.listEmployments();
 					break;
 
 				case 0:
@@ -95,8 +99,7 @@ public class EmploymentScreen {
 			}
 		} while (option > 3 || option == 0);
 		employmentCtrl.addEmployment(name, gen);
-		System.out
-				.println("Congratulations, you just successfully registered a employment!");
+		System.out.println("Congratulations, you just successfully registered a employment!");
 		System.out.println("These are the employment data:");
 		System.out.println("Code: " + EmploymentCtrl.getCode() + 1);
 		System.out.println("Name: " + name);
@@ -180,7 +183,7 @@ public class EmploymentScreen {
 		} while (option != 0);
 	}
 
-	public void delEMployment() {
+	public void delEmployment() {
 		// mudar o que é printado(com vocês, Varella e Marcos)
 		boolean getOut = false;
 		int option = 0;

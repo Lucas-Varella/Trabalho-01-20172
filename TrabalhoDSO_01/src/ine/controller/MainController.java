@@ -45,5 +45,13 @@ public class MainController {
 	public void showFinancialSectorMenu() {
 		
 	}
+	
+	public void listEmployments() {
+		employmentCtrl.listEmployments();
+	}
+	
+	public Employment findEmploymentByIndex(int index) {
+		return employmentCtrl.getEmployment(index);
+	}
 
 }
