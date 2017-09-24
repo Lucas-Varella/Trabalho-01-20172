@@ -24,6 +24,32 @@ public class Contract {
 		this.employment = employment;
 	}
 	
+	/*public void listEmployees() {
+		int i = 1;
+		for(Employee e : employees) {
+			System.out.println(i+"º - " + e.getName());
+		}
+	}*/
+	
+	public void addEmployee(Employee employee) throws Exception {
+		for(Employee e : employees) {
+			if(e.equals(employee)) {
+				throw new Exception("The employee is already registered");
+			}else{
+				employees.add(employee);
+			}
+		}
+	}
+	
+	public void delEmployee(Employee employee) throws Exception {
+		for(Employee e : employees) {
+			if(e.equals(employee)) {
+				employees.remove(employee);
+			}else{
+				throw new Exception("The employee is not registered");
+			}
+		}
+	}
 	
 	
 

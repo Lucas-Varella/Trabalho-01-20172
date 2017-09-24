@@ -11,7 +11,7 @@ public class Employee {
 	private String dateBirth;
 	private int phone;
 	private int salary;
-	private Employment employment;
+	private Contract employment;
 	
 	public Employee(EmployeeCtrl employeeCtrl, int numRegistration, String name, String dateBirth, int phone, int salary) {
 		this.employeeCtrl = employeeCtrl;
@@ -21,9 +21,16 @@ public class Employee {
 		this.phone = phone;
 		this.salary = salary;
 	}
-	
+	/*
+	 * Criar verificação para o caso do contrato já existir;
+	 */
 	public void addContract(Contract contract) {
-		this.employment = contract.getEmployment();
+		this.employment = contract;
+	}
+	
+	public void delContract() throws Exception {
+		this.employment = null;
+//		employment.setEmployment(null);
 	}
 
 	public int getNumRegistration() {

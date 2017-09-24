@@ -42,6 +42,7 @@ public class EmployeeCtrl {
 	
 	public void addContract(Contract contract) {
 		employee.addContract(contract);
+		mainCtrl.addContract(contract);
 	}
 	
 	public void delEmployee(int index) {

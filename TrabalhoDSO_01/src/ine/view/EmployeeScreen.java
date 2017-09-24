@@ -166,10 +166,13 @@ public class EmployeeScreen {
 		}while (option != 0);
 	}
 	
-	public void delEmployee() {
+	public void delEmployee() throws Exception {
 		System.out.println("Select an employee to fire");
 		employeeCtrl.listEmployees();
 		int option = keyboard.nextInt() - 1;
+		Employee fired = employeeCtrl.getEmployee(option);
+		fired.delContract();
 		employeeCtrl.delEmployee(option);
+		
 	}
 }

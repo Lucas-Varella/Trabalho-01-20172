@@ -53,5 +53,8 @@ public class MainController {
 	public Employment findEmploymentByIndex(int index) {
 		return employmentCtrl.getEmployment(index);
 	}
-
+	
+	public void addContract(Contract contract) {
+		employmentCtrl.
+	}
 }

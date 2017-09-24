@@ -10,17 +10,16 @@ public class Employment {
 	private int code;
 	private String name;
 	private Privileges privilege;
-	private ArrayList<Employee> employees;
+	private Contract employees;
 	private EmploymentCtrl employmentCtrl;
 	
 	public Employment(int code, String name, Privileges privilege, EmploymentCtrl employmentCtrl) {
-		this.setCode(code);
-		this.setName(name);
-		this.setPrivilege(privilege);
+		this.code = code;
+		this.name = name; //setName(name);
+		this.privilege = privilege;//setPrivilege(privilege);
 		this.employmentCtrl = employmentCtrl;
-		employees = new ArrayList();
 	}
-
+    /*
 	public int getCode() {
 		return code;
 	}
@@ -28,7 +27,29 @@ public class Employment {
 	public void setCode(int code) {
 		this.code = code;
 	}
-
+   */
+	
+	public void addContract(Contract contract) throws Exception {
+			if(c.equals(contract)) {
+				throw new Exception("This list of employees is already registered in the employment");
+			}else{
+				employees.add(contract);
+			}
+		}
+	}
+	/*
+	 * IMplementar depois
+	 */
+	public void delContract() {
+		
+	}
+	
+	public void listEmployees() {
+		for(Contract c : employees) {
+			c.
+		}
+	}
+	
 	public String getName() {
 		return name;
 	}

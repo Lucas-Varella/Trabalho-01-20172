@@ -30,6 +30,7 @@ public class EmploymentScreen {
 				System.out.println("2 - Edit employment");
 				System.out.println("3 - Delete employment");
 				System.out.println("4 - List employments");
+				System.out.println("5 - List employees in a employment ");
 				System.out.println("0 - Get out");
 				String option = keyboard.nextLine();
 				numOption = Integer.parseInt(option);
@@ -208,5 +209,8 @@ public class EmploymentScreen {
 			}
 		}while(!getOut);
 	}
-
+	
+	public void findEmployeesByEmployment(Employment employment) {
+		
+	}
 }
