@@ -43,7 +43,7 @@ public class MainController {
 	}
 	
 	public void showFinancialSectorMenu() {
-		
+		financialSectorCtrl.menu();
 	}
 	
 	public void listEmployments() {
