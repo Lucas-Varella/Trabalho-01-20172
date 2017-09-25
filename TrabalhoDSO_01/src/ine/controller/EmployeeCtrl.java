@@ -40,11 +40,6 @@ public class EmployeeCtrl {
 		return new Contract(employment, employee);
 	}
 	
-	//public void addContract(Contract contract) {
-		//employee.addContract(contract);
-		//mainCtrl.addContract(contract);
-//	}
-	
 	public void delEmployee(int index) {
 		employees.remove(index);
 	}

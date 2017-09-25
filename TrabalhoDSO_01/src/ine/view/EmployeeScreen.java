@@ -85,9 +85,9 @@ public class EmployeeScreen {
 		int option = keyboard.nextInt() - 1;
 		Employment gen = employeeCtrl.findEmploymentByIndex(option);
 		Contract contract = employeeCtrl.addContract(gen, generic);
-		//employeeCtrl.addContract(contract);
 		System.out.println("Congratulations, you have created a new employee with the following characteristics: ");
 		System.out.println("Number of registration - " + generic.getNumRegistration());
+		System.out.println("Name - " + generic.getName());
 		System.out.println("Birthday - " + generic.getDateBirth());
 		System.out.println("Phone - " + generic.getPhone());
 		System.out.println("Salary - " + generic.getSalary());

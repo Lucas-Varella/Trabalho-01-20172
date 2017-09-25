@@ -51,6 +51,9 @@ public class EmploymentScreen {
 					employmentCtrl.listEmployments();
 					break;
 
+				case 5:
+					findEmployeesByEmployment();
+					break;
 				case 0:
 					System.out.println("Goodbye and have a good day");
 					break;
@@ -210,7 +213,11 @@ public class EmploymentScreen {
 		}while(!getOut);
 	}
 	
-	public void findEmployeesByEmployment(Employment employment) {
-		
+	public void findEmployeesByEmployment() {
+		System.out.println("Enter the number corresponding to your choice:");
+		employmentCtrl.listEmployments();
+		int choice = keyboard.nextInt() - 1;
+		Employment generic = employmentCtrl.getEmployment(choice);
+		generic.listEmployees();
 	}
 }
