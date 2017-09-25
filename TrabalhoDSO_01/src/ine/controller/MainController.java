@@ -54,4 +54,9 @@ public class MainController {
 		return employmentCtrl.getEmployment(index);
 	}
 	
+	public Employee validNumRegistration(int numRegistration) {
+		employeeCtrl.validNumRegistration(numRegistration);
+		return false;
+	}
+	
 }

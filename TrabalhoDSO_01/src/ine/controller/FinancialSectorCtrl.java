@@ -28,6 +28,12 @@ public class FinancialSectorCtrl {
 		return false;
 	}
 	
+	public Employee validNumRegistration(int numRegistration) {
+		return mainCtrl.validNumRegistration(numRegistration);
+	}
 	
+	public Privilege getPrivilege(int numRegistration) {
+		
+	}
 
 }

@@ -77,6 +77,15 @@ public class EmployeeCtrl {
 		
 	}
 	
+	public Employee validNumRegistration(int numRegistration) {
+		for(Employee e : employees) {
+			if(e.getNumRegistration() == numRegistration) {
+				return e;
+			}
+		}
+		return null;
+	}
+	
 	
 
 }
