@@ -218,6 +218,6 @@ public class EmploymentScreen {
 		employmentCtrl.listEmployments();
 		int choice = keyboard.nextInt() - 1;
 		Employment generic = employmentCtrl.getEmployment(choice);
-		generic.listEmployees();
+		employmentCtrl.listEmployees(generic);
 	}
 }

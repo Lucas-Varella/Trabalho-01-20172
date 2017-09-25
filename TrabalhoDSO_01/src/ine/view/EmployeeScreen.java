@@ -66,7 +66,7 @@ public class EmployeeScreen {
 		employeeCtrl.mainMenu();
 	}
 	
-	public void addEmployee() {
+	public void addEmployee() throws Exception {
 		System.out.println("Please enter the following information");
 		System.out.println("Name: ");
 		String name = keyboard.nextLine();

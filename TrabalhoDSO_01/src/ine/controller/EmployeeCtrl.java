@@ -19,7 +19,7 @@ public class EmployeeCtrl {
 	public EmployeeCtrl(MainController mainCtrl) {
 		this.mainCtrl = mainCtrl;
 		employeeScreen = new EmployeeScreen(this);
-		employees = new ArrayList();
+		employees = new ArrayList<Employee>();
 	}
 	
 	public void menu() {
@@ -36,7 +36,7 @@ public class EmployeeCtrl {
 		return generic;
 	}
 	
-	public Contract addContract(Employment employment, Employee employee) {
+	public Contract addContract(Employment employment, Employee employee) throws Exception {
 		return new Contract(employment, employee);
 	}
 	
@@ -45,8 +45,8 @@ public class EmployeeCtrl {
 	}
 	
 	public void listEmployees() {
+		int i = 1;
 		for(Employee e : employees) {
-			int i = 1;
 			System.out.println(i+"º - "+ e.getName());
 			i++;
 		}

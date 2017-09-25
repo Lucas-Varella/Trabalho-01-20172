@@ -8,9 +8,11 @@ public class Contract {
 	private Employment employment;
 	private Employee employee;
 	
-	public Contract(Employment employment, Employee employee) {
+	public Contract(Employment employment, Employee employee) throws Exception {
 		this.setEmployment(employment);
 		this.employee = employee;
+		employee.addContract(this);
+		employment.addContract(this);
 	}
 
 	public Employment getEmployment() {

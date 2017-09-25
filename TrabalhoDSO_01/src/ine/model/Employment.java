@@ -63,10 +63,11 @@ public class Employment {
 		}
 	}
 	
-	public void listEmployees() {
+	public void listEmployees(Employment employment) {
 		int i = 1;
 		for(Contract c : employees) {
-			System.out.println(i+ "º - " + c.getEmployee().getName());
+			String name = c.getEmployee().getName();
+			System.out.println(i+ "º - " + name);
 			i++;
 		}
 	}

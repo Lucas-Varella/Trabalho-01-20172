@@ -45,10 +45,16 @@ public class EmploymentCtrl {
 	}
 	
 	public void listEmployments() {
+		int i = 1;
 		for(Employment e : employments) {
-			int i = 1;
-			System.out.println(i + " - " + e.getName());
+			System.out.println(i+"º - " + e.getName());			
+			i++;
 		}
+	}
+	
+	public void listEmployees(Employment employment) {
+		employment.listEmployees(employment);
+		
 	}
 	
 	public Employment getEmployment(int num) {
