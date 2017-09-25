@@ -79,12 +79,17 @@ public class EmployeeScreen {
 		int phone = keyboard.nextInt();
 		System.out.println("Salary: ");
 		int salary = keyboard.nextInt();
-		Employee generic = employeeCtrl.addEmployee(name, birthDay, phone, salary);
 		System.out.println("Please, enter the number corresponding to the chosen employment: ");
 		employeeCtrl.listEmployments();
 		int option = keyboard.nextInt() - 1;
 		Employment gen = employeeCtrl.findEmploymentByIndex(option);
+		if(gen.getPrivilege().equals("Restricted")) {
+			EmployeeRestrictAccess generic = employeeCtrl.addEmployeeRestrict(name, birthDay, phone, salary);
+			Contract contract = employeeCtrl.addContract(gen, generic);
+		}
+		Employee generic = employeeCtrl.addEmployee(name, birthDay, phone, salary);
 		Contract contract = employeeCtrl.addContract(gen, generic);
+		
 		System.out.println("Congratulations, you have created a new employee with the following characteristics: ");
 		System.out.println("Number of registration - " + generic.getNumRegistration());
 		System.out.println("Name - " + generic.getName());
@@ -107,61 +112,80 @@ public class EmployeeScreen {
 
 			option = keyboard.nextInt() - 1;
 			Employee generic = employeeCtrl.getEmployee(option);
-
 			System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
-			/*
-			 * recomendo não dar ao usuário o poder de mudar o número de matrícula
-			 */
-			System.out.println("1 - Name");
-			System.out.println("Actually - " + generic.getName());
-			System.out.println("2 - Birthday");
-			System.out.println("Actually - " + generic.getDateBirth());
-			System.out.println("3 - Phone");
-			System.out.println("ACtually - " + generic.getPhone());
-			System.out.println("4 - Salary");
-			System.out.println("Actually - " + generic.getSalary());
-			System.out.println("5 - Employment");
-			System.out.println("Actually - " + generic.getEmployment().getEmployment().getName());
-			System.out.println("Or 0 to exit");			
-			option = keyboard.nextInt();
-			switch (option) {
-
-			/*
-			 * Não sei se o Jean não vai reclamar de a tela poder setar um atributo da classe;
-			 */
-			case 1:
-				System.out.println("Enter a new name: ");
-				String name = keyboard.nextLine();
-				generic.setName(name);
-				break;
-
-			case 2:
-				System.out.println("Enter a new birthday: ");
-				String dateBirth = keyboard.nextLine();
-				generic.setDateBirth(dateBirth);
-				break;
-			case 3:
-				System.out.println("Enter a new phone");
-				int phone = keyboard.nextInt();
-				generic.setPhone(phone);
-				break;
-			case 4:
-				System.out.println("Enter a new salary");
-				int salary = keyboard.nextInt();
-				generic.setSalary(salary);
-				break;
-			case 5:
-				System.out.println("Enter the number corresponding to the new employment");
-				employeeCtrl.listEmployments();
-				int employment = keyboard.nextInt();
-				Employment gen = employeeCtrl.findEmploymentByIndex(employment);
-				generic.setEmployment(gen);
-				break;
-			case 0:
-				System.out.println("Goodbye");
-				break;
-			default:
-				System.out.println("Please, enter a valid number");			
+			
+			if(generic.getEmployment().getEmployment().getPrivilege().equals("Restricted")) {
+				System.out.println("1 - Name");
+				System.out.println("Actually - " + generic.getName());
+				System.out.println("2 - Birthday");
+				System.out.println("Actually - " + generic.getDateBirth());
+				System.out.println("3 - Phone");
+				System.out.println("Actually - " + generic.getPhone());
+				System.out.println("4 - Salary");
+				System.out.println("Actually - " + generic.getSalary());
+				System.out.println("5 - Employment");
+				System.out.println("Actually - " + generic.getEmployment().getEmployment().getName());
+				System.out.println("Horary Access");
+				System.out.println("Actually - ");
+				System.out.println("");
+				System.out.println("");
+				System.out.println("");
+				System.out.println("Or 0 to exit");	
+			}else {
+				/*
+				 * recomendo não dar ao usuário o poder de mudar o número de matrícula
+				 */
+				System.out.println("1 - Name");
+				System.out.println("Actually - " + generic.getName());
+				System.out.println("2 - Birthday");
+				System.out.println("Actually - " + generic.getDateBirth());
+				System.out.println("3 - Phone");
+				System.out.println("Actually - " + generic.getPhone());
+				System.out.println("4 - Salary");
+				System.out.println("Actually - " + generic.getSalary());
+				System.out.println("5 - Employment");
+				System.out.println("Actually - " + generic.getEmployment().getEmployment().getName());
+				System.out.println("Or 0 to exit");	
+				option = keyboard.nextInt();
+				switch (option) {
+	
+				/*
+				 * Não sei se o Jean não vai reclamar de a tela poder setar um atributo da classe;
+				 */
+				case 1:
+					System.out.println("Enter a new name: ");
+					String name = keyboard.nextLine();
+					generic.setName(name);
+					break;
+	
+				case 2:
+					System.out.println("Enter a new birthday: ");
+					String dateBirth = keyboard.nextLine();
+					generic.setDateBirth(dateBirth);
+					break;
+				case 3:
+					System.out.println("Enter a new phone");
+					int phone = keyboard.nextInt();
+					generic.setPhone(phone);
+					break;
+				case 4:
+					System.out.println("Enter a new salary");
+					int salary = keyboard.nextInt();
+					generic.setSalary(salary);
+					break;
+				case 5:
+					System.out.println("Enter the number corresponding to the new employment");
+					employeeCtrl.listEmployments();
+					int employment = keyboard.nextInt();
+					Employment gen = employeeCtrl.findEmploymentByIndex(employment);
+					generic.setEmployment(gen);
+					break;
+				case 0:
+					System.out.println("Goodbye");
+					break;
+				default:
+					System.out.println("Please, enter a valid number");			
+				}
 			}
 		}while (option != 0);
 	}
@@ -175,4 +199,5 @@ public class EmployeeScreen {
 		employeeCtrl.delEmployee(option);
 		
 	}
+	
 }

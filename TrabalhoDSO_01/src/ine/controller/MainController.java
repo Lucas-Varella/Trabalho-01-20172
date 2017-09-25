@@ -46,6 +46,10 @@ public class MainController {
 		financialSectorCtrl.menu();
 	}
 	
+	public void showHoraryMenu() {
+		horaryCtrl.menu();
+	}
+	
 	public void listEmployments() {
 		employmentCtrl.listEmployments();
 	}
@@ -55,8 +59,8 @@ public class MainController {
 	}
 	
 	public Employee validNumRegistration(int numRegistration) {
-		employeeCtrl.validNumRegistration(numRegistration);
-		return false;
+		return employeeCtrl.validNumRegistration(numRegistration);
+
 	}
 	
 }

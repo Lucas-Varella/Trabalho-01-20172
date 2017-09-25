@@ -32,8 +32,5 @@ public class FinancialSectorCtrl {
 		return mainCtrl.validNumRegistration(numRegistration);
 	}
 	
-	public Privilege getPrivilege(int numRegistration) {
-		
-	}
 
 }

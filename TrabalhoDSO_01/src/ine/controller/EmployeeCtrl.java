@@ -36,6 +36,13 @@ public class EmployeeCtrl {
 		return generic;
 	}
 	
+	public EmployeeRestrictAccess addEmployeeRestrict(String name, String dateBirth, int phone, int salary) {
+		EmployeeRestrictAccess generic = new EmployeeRestrictAccess(this, getCode(), name, dateBirth, phone, salary);
+		employees.add(generic);
+		setCode(getCode() + 1);
+		return generic;
+	}
+	
 	public Contract addContract(Employment employment, Employee employee) throws Exception {
 		return new Contract(employment, employee);
 	}
