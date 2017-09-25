@@ -26,6 +26,6 @@ Logs::
 >>Sadi - 21/09 -> Upou no diretório UMLDiagrams uma modelagem atualizada;
 
 >>Sadi - 23/09 -> Push do projeto base no branch master, seguindo as orientações do Jean dadas na aula de 6ª-feira;
-
+>>Sadi - 25/09 -> Todas as classes presentes na modelagem foram acrescentadas ao fonte;
 >Reminders ::
 >>Enum can be used in the different privileges (Full access, Restricted, no access...)
