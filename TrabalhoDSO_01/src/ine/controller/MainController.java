@@ -47,7 +47,7 @@ public class MainController {
 	}
 	
 	public void showHoraryMenu() {
-		horaryCtrl.menu();
+		horaryCtrl.menuAdd();
 	}
 	
 	public void listEmployments() {
