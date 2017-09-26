@@ -5,13 +5,13 @@ import ine.model.*;
 import ine.view.*;
 
 public class Employee {
-	private EmployeeCtrl employeeCtrl;
-	private int numRegistration;
-	private String name;
-	private String dateBirth;
-	private int phone;
-	private int salary;
-	private Contract employment;
+	protected EmployeeCtrl employeeCtrl;
+	protected int numRegistration;
+	protected String name;
+	protected String dateBirth;
+	protected int phone;
+	protected int salary;
+	protected Contract employment;
 	
 	public Employee(EmployeeCtrl employeeCtrl, int numRegistration, String name, String dateBirth, int phone, int salary) {
 		this.employeeCtrl = employeeCtrl;
@@ -75,6 +75,10 @@ public class Employee {
 	
 	public void setEmployment(Employment employment) {
 		this.employment.setEmployment(employment);
+	}
+	
+	public Horary getHours(EmployeeRestrictAccess res) {
+		return res.getHours();
 	}
 
 	

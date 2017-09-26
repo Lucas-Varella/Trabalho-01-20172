@@ -1,6 +1,7 @@
 package ine.view;
 
 import ine.controller.HoraryCtrl;
+import ine.model.Horary;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -32,7 +33,8 @@ public class HoraryScreen {
 			System.out.println("1 to add anothe time");
 			option = keyboard.nextInt();
 		}while(option != 0);
-		horaryCtrl.addHorary(hourBegin, hourFinish);
+		Horary horary = new Horary(hourBegin, hourFinish);
+		horaryCtrl.setHorary(horary);
 	}
 	
 	public void editHorary() {

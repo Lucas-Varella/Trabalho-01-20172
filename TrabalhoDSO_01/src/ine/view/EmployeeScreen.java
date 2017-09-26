@@ -81,23 +81,29 @@ public class EmployeeScreen {
 		int salary = keyboard.nextInt();
 		System.out.println("Please, enter the number corresponding to the chosen employment: ");
 		employeeCtrl.listEmployments();
-		int option = keyboard.nextInt() - 1;
+		int option = (keyboard.nextInt() - 1);
 		Employment gen = employeeCtrl.findEmploymentByIndex(option);
+		
 		if(gen.getPrivilege().equals("Restricted")) {
 			EmployeeRestrictAccess generic = employeeCtrl.addEmployeeRestrict(name, birthDay, phone, salary);
 			Contract contract = employeeCtrl.addContract(gen, generic);
-		}
-		Employee generic = employeeCtrl.addEmployee(name, birthDay, phone, salary);
-		Contract contract = employeeCtrl.addContract(gen, generic);
+			employeeCtrl.addHorary();
+			
+			
+		}else {
+			Employee generic = employeeCtrl.addEmployee(name, birthDay, phone, salary);
+			Contract contract = employeeCtrl.addContract(gen, generic);
+			
+			System.out.println("Congratulations, you have created a new employee with the following characteristics: ");
+			System.out.println("Number of registration - " + generic.getNumRegistration());
+			System.out.println("Name - " + generic.getName());
+			System.out.println("Birthday - " + generic.getDateBirth());
+			System.out.println("Phone - " + generic.getPhone());
+			System.out.println("Salary - " + generic.getSalary());
+			System.out.println("Employment - " + generic.getEmployment().getEmployment().getName());
 		
-		System.out.println("Congratulations, you have created a new employee with the following characteristics: ");
-		System.out.println("Number of registration - " + generic.getNumRegistration());
-		System.out.println("Name - " + generic.getName());
-		System.out.println("Birthday - " + generic.getDateBirth());
-		System.out.println("Phone - " + generic.getPhone());
-		System.out.println("Salary - " + generic.getSalary());
-		System.out.println("Employment - " + generic.getEmployment().getEmployment().getName());
-	}
+		}
+	}	
 	
 	public void editEmployee() {
 		int option = 0;
@@ -115,22 +121,74 @@ public class EmployeeScreen {
 			System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
 			
 			if(generic.getEmployment().getEmployment().getPrivilege().equals("Restricted")) {
+				EmployeeRestrictAccess gen = (EmployeeRestrictAccess) generic;
 				System.out.println("1 - Name");
-				System.out.println("Actually - " + generic.getName());
+				System.out.println("Actually - " + gen.getName());
 				System.out.println("2 - Birthday");
-				System.out.println("Actually - " + generic.getDateBirth());
+				System.out.println("Actually - " + gen.getDateBirth());
 				System.out.println("3 - Phone");
-				System.out.println("Actually - " + generic.getPhone());
+				System.out.println("Actually - " + gen.getPhone());
 				System.out.println("4 - Salary");
-				System.out.println("Actually - " + generic.getSalary());
+				System.out.println("Actually - " + gen.getSalary());
 				System.out.println("5 - Employment");
-				System.out.println("Actually - " + generic.getEmployment().getEmployment().getName());
-				System.out.println("Horary Access");
-				System.out.println("Actually - ");
-				System.out.println("");
-				System.out.println("");
-				System.out.println("");
-				System.out.println("Or 0 to exit");	
+				System.out.println("Actually - " + gen.getEmployment().getEmployment().getName());
+				System.out.println("6 - Horary Access");
+				Horary hours = employeeCtrl.getHours(gen);
+				hours.listHorary();
+				System.out.println("Or 0 to exit");
+				option = keyboard.nextInt();
+				switch(option) {
+				
+				case 1:
+					System.out.println("Enter a new name");
+					String name = keyboard.nextLine();
+					gen.setName(name);
+					break;
+				case 2:
+					System.out.println("Enter a new birthday");
+					String birthday = keyboard.nextLine();
+					gen.setDateBirth(birthday);
+					break;
+				case 3:
+					System.out.println("Enter a new phone");
+					int phone = keyboard.nextInt();
+					gen.setPhone(phone);
+					break;
+				case 4:
+					System.out.println("Enter a new salary");
+					int salary = keyboard.nextInt();
+					gen.setSalary(salary);
+					break;
+				case 5:
+					System.out.println("Enter the number corresponding to the new employment");
+					employeeCtrl.listEmployments();
+					int employment = keyboard.nextInt();
+					Employment gener = employeeCtrl.findEmploymentByIndex(employment);
+					gen.setEmployment(gener);
+					break;
+				case 6:
+					System.out.println("Enter 1 to change start times");
+					System.out.println("Enter 2 to change end times");
+					int choice = keyboard.nextInt();
+					switch(choice) {
+					case 1:
+						System.out.println("Please enter the number for the time that you wish to change");
+						int array = keyboard.nextInt();
+						System.out.println("Please enter the new time");
+						String horary = keyboard.nextLine();
+						employeeCtrl.editHour(choice, array, horary);
+						break;
+					case 2:
+						System.out.println("Please enter the number for the time that you wish to change");
+						array = keyboard.nextInt();
+						System.out.println("Please enter the new time");
+						horary = keyboard.nextLine();
+						employeeCtrl.editHour(choice, array, horary);
+						break;
+					default:
+						System.out.println("The number you entered is not valid");
+					}
+				}
 			}else {
 				/*
 				 * recomendo não dar ao usuário o poder de mudar o número de matrícula

@@ -14,6 +14,13 @@ public class Contract {
 		employee.addContract(this);
 		employment.addContract(this);
 	}
+	
+	public Contract(Employment employment, EmployeeRestrictAccess employee) throws Exception {
+		this.setEmployment(employment);
+		this.employee = employee;
+		employee.addContract(this);
+		employment.addContract(this);
+	}
 
 	public Employment getEmployment() {
 		return employment;

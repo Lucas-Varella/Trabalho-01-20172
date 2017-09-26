@@ -12,6 +12,7 @@ import ine.view.EmployeeScreen;
 public class EmployeeCtrl {
 	private MainController mainCtrl;
 	private Employee employee;
+	private EmployeeRestrictAccess employeeRestrict;
 	private EmployeeScreen employeeScreen;
 	private ArrayList<Employee> employees;
 	private static int code = 17200000;
@@ -47,6 +48,10 @@ public class EmployeeCtrl {
 		return new Contract(employment, employee);
 	}
 	
+	public Contract addContract(Employment employment, EmployeeRestrictAccess employee) throws Exception {
+		return new Contract(employment, employee);
+	}
+	
 	public void delEmployee(int index) {
 		employees.remove(index);
 	}
@@ -62,6 +67,7 @@ public class EmployeeCtrl {
 	public Employee getEmployee(int index) {
 		return employees.get(index);
 	}
+	
 	
 	public void listEmployments() {
 		mainCtrl.listEmployments();
@@ -91,6 +97,22 @@ public class EmployeeCtrl {
 			}
 		}
 		return null;
+	}
+	
+	public Horary getHours(EmployeeRestrictAccess res) {
+		return employee.getHours(res);
+	}
+	
+	public void editHour(int array, int index, String newHorary) {
+		mainCtrl.editHours(array, index, newHorary);
+	}
+	
+	public void addHorary() {
+		mainCtrl.addHorary();
+	}
+	
+	public void setHorary(Horary horary) {
+		employeeRestrict.setHours(horary);
 	}
 	
 	

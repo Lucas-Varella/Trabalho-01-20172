@@ -63,4 +63,16 @@ public class MainController {
 
 	}
 	
+	public void editHours(int array, int index, String newHorary) {
+		horaryCtrl.editHorary(array, index, newHorary);
+	}
+	
+	public void addHorary() {
+		horaryCtrl.menuAdd();
+	}
+	
+	public void setHorary(Horary horary) {
+		employeeCtrl.setHorary(horary);
+	}
+	
 }

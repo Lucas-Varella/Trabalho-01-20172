@@ -25,9 +25,9 @@ public class HoraryCtrl {
 		mainCtrl.showMainScreen();
 	}
 	
-	public void addHorary(ArrayList<String> hourBegin, ArrayList<String> hourFinish) {
-		horary.addHourBegin(hourBegin);
-		horary.addHourFinish(hourFinish);
+	public Horary addHorary(ArrayList<String> hourBegin, ArrayList<String> hourFinish) {
+		Horary horary = new Horary(hourBegin, hourFinish);
+		return horary;
 	}
 	
 	public void listHorary() {
@@ -48,6 +48,10 @@ public class HoraryCtrl {
 	
 	public void delTotalHorary(Horary horary) {
 		horary = null;
+	}
+	
+	public void setHorary(Horary horary) {
+		mainCtrl.setHorary(horary);
 	}
 
 }
