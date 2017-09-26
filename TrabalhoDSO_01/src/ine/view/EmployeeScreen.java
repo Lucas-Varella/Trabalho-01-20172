@@ -84,7 +84,7 @@ public class EmployeeScreen {
 		int option = (keyboard.nextInt() - 1);
 		Employment gen = employeeCtrl.findEmploymentByIndex(option);
 		
-		if(gen.getPrivilege().equals("Restricted")) {
+		if(gen.getPrivilege().equals(Privileges.Restricted)) {
 			EmployeeRestrictAccess generic = employeeCtrl.addEmployeeRestrict(name, birthDay, phone, salary);
 			Contract contract = employeeCtrl.addContract(gen, generic);
 			employeeCtrl.addHorary();
@@ -257,5 +257,19 @@ public class EmployeeScreen {
 		employeeCtrl.delEmployee(option);
 		
 	}
+	/*
+	 * Ideia para tratat exceção caso o usuário digite uma letra no lugar 
+	 * de um número
+	 * 
+	 * System.out.println("Digite o numero do vôo: ");
+	 *try {
+     *	numVoo = Integer.parseInt(lerDados.nextLine());
+     *} catch (NumberFormatException e) {
+     *System.out.println("Por favor, digite apenas números!");
+     *}
+	 *if (numVoo < 0) {
+     *System.out.println("O número do vôo deve ser positivo!");
+	 *}
+	 */
 	
 }
