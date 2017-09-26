@@ -36,8 +36,14 @@ public class HoraryScreen {
 		Horary horary = new Horary(hourBegin, hourFinish);
 		horaryCtrl.setHorary(horary);
 	}
+	/**
+	 * @author sadi
+	 * @return
+	 */
 	
-	public void editHorary() {
+		
+	
+	    public void editHorary() {
 		System.out.println("Please enter the number corresponding to the times you wish to edit");
 		System.out.println("1 to horary begin");
 		System.out.println("2 to horar finish");

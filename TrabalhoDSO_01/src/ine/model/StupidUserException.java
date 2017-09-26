@@ -1,6 +1,9 @@
 package ine.model;
 
 public class StupidUserException extends NumberFormatException{
+	/**
+	 * 
+	 */
 	private String message;
 	
 	public StupidUserException() {
