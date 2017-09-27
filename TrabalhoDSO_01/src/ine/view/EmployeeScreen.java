@@ -361,7 +361,8 @@ public class EmployeeScreen implements Screen {
 			
 			int option = conversionStringToInt(keyboard.nextLine()) - 1;
 			employeeCtrl.delEmployee(option);
-		}catch(NullPointerException e) {
+		
+		} catch(NullPointerException e) {
 			System.out.println(e.getMessage());
 			delEmployee();
 		}

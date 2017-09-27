@@ -18,7 +18,7 @@ public class EmploymentScreen {
 
 	public void employmentMenu() {
 		try {
-			int numOption = 0;
+			int option = 0;
 			do {
 			/*
 			 * Verificar por que motivo o catch é executado sempre;
@@ -33,7 +33,7 @@ public class EmploymentScreen {
 				System.out.println("4 - List employments");
 				System.out.println("5 - List employees in a employment ");
 				System.out.println("0 - Get out");
-				int option = Integer.parseInt(keyboard.nextLine());
+				option = Integer.parseInt(keyboard.nextLine());
 				
 				switch (option) {
 				
@@ -65,12 +65,15 @@ public class EmploymentScreen {
 					System.out.println("The number you entered is not valid. Please try again.");
 				}
 			
-			} while(numOption != 0);
+			} while(option != 0);
 			employmentCtrl.mainMenu();
+		
 		} catch (NumberFormatException e) {
 			System.out.println("Please enter only numbers");
+			employmentMenu();
 		} catch(StupidUserException e) {
 			System.out.println(e.getMessage());
+			employmentMenu();
 		}
 		
 	}
