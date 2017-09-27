@@ -25,7 +25,7 @@ public class MainController {
 	
 	public MainController() {
 		/*
-		 * Isso é um teste para saber se o Marcos consegue visualizar novos commits
+		 * This is a test to see if my commits work
 		 * 
 		 */
 		mainScreenCtrl = new MainScreenCtrl(this);
