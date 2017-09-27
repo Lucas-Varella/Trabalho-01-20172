@@ -25,7 +25,7 @@ public class MainController {
 	
 	public MainController() {
 		/*
-		 * This is a test to see if my commits work
+		 * This is a test
 		 * 
 		 */
 		mainScreenCtrl = new MainScreenCtrl(this);
