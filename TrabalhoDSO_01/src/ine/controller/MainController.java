@@ -56,10 +56,10 @@ public class MainController {
 		return employmentCtrl.listEmployments();
 	}
 	
-	public Employment findEmploymentByIndex(int index) throws StupidUserException {
+	public Employment findEmploymentByIndex(int index) throws NullPointerException {
 		try {
 			return employmentCtrl.getEmployment(index);
-		} catch(StupidUserException e) {
+		} catch(NullPointerException e) {
 			throw e;
 		}
 			

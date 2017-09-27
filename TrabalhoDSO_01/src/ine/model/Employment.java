@@ -19,28 +19,19 @@ public class Employment {
 		this.privilege = privilege;
 		this.employmentCtrl = employmentCtrl;
 	}
-    /*
-	public int getCode() {
-		return code;
-	}
-
-	public void setCode(int code) {
-		this.code = code;
-	}
-   */
 	
 	public void addContract(Contract contract) throws StupidUserException {
 		Employee employee = contract.getEmployee();
-		if(findContractByEmployee(employee) == null); {
+		if(findContractByEmployee(employee) == null) {
 			employees.add(contract);
 			if(employee.getEmployment() != contract) {
 				employee.setEmployment(contract.getEmployment());
 			}
-		}
-		// tentei colocar um else na linha acima e deu erro.
-		// Verificar o porquê depois
-		throw new StupidUserException("Attempted duplication of contract. The employee " +employee.getName() + 
+		}else {
+			throw new StupidUserException("Attempted duplication of contract. The employee " +employee.getName() + 
 					" already has a contract with the employment " + contract.getEmployment().getName());
+		}
+		
 	}
 	
 	public Contract findContractByEmployee(Employee employee) {

@@ -53,11 +53,12 @@ public class EmploymentCtrl {
 		
 	}
 	
-	public Employment getEmployment(int num) throws StupidUserException {
-		if(employments.size() >= num && num > -1) {
+	public Employment getEmployment(int num) {
+		try {
 			return employments.get(num);
-		}
-		throw new StupidUserException("O número digitado não possue nenhum cargo associado ao mesmo.");
+		} catch(NullPointerException e) {
+			throw new NullPointerException("Please, enter a valid number!");
+		}		
 	}
 
 	public static int getCode() {

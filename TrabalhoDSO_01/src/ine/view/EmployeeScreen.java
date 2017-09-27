@@ -23,7 +23,9 @@ public class EmployeeScreen implements Screen {
 	
 	public void menu() {
 		int option = 0;
-		
+		/*
+		 * Mudar as mensagens das exceptions para que toda exceção não repita a mesma mensagem;
+		 */
 		try {
 			
 			do {
@@ -69,7 +71,13 @@ public class EmployeeScreen implements Screen {
 		} catch (StupidUserException e)  {
 			System.out.println(e.getMessage());
 			menu();
-		} 
+		} catch(NumberFormatException e) {
+			System.out.println(e.getMessage());
+			menu();
+		} catch(NullPointerException e) {
+			System.out.println(e.getMessage());
+			menu();
+		}
 
 		
 	}
@@ -93,13 +101,15 @@ public class EmployeeScreen implements Screen {
 		 * Formatar as datas aqui depois(contigo Varella)
 		 */
 		String birthDay = keyboard.nextLine();
-		keyboard.nextLine();
+		
+		
 		System.out.println("Phone: ");
 		int phone = conversionStringToInt(keyboard.nextLine()); 
 		
 		
 		System.out.println("Salary: ");
 		double salary = conversionStringToDouble(keyboard.nextLine());
+		
 		
 		System.out.println("Please, enter the number corresponding to the chosen employment: ");
 		
@@ -116,7 +126,7 @@ public class EmployeeScreen implements Screen {
 			System.out.println(i+"º - "+ e.getName());
 			i++;
 		}
-		int option = conversionStringToInt(keyboard.nextLine()) - 1;
+		int option = (conversionStringToInt(keyboard.nextLine())) - 1;
 		Employment gen = employeeCtrl.findEmploymentByIndex(option);
 		
 		/*
@@ -152,7 +162,10 @@ public class EmployeeScreen implements Screen {
 		
 		}
 	}	
-	
+	/**
+	 * Edita(seta) os atributos do Funcionário;
+	 * @throws StupidUserException
+	 */
 	public void editEmployee() throws StupidUserException {
 		int option = 0;
 		do {
@@ -334,20 +347,22 @@ public class EmployeeScreen implements Screen {
 		
 	}
 	
-	public int conversionStringToInt(String data) throws StupidUserException {
-		int num = Integer.parseInt(data);
-		if(num >= 0 && num <= 9) {
+	public int conversionStringToInt(String data) throws NumberFormatException {
+		try {
+			int num = Integer.parseInt(data);
 			return num;
+		} catch(NumberFormatException e) {
+			throw new NumberFormatException();
 		}
-		throw new StupidUserException();
 	}
 	
-	public double conversionStringToDouble(String data) throws StupidUserException {
-		double num = Double.parseDouble(data);
-		if(num >= 0.0 && num <= 9.9) {
+	public double conversionStringToDouble(String data) throws NumberFormatException {
+		try {
+			double num = Double.parseDouble(data);	
 			return num;
+		} catch(NumberFormatException e ) {
+			throw new NumberFormatException();
 		}
-		throw new StupidUserException();
 	}
 	
 	public Date formatStringToDate(String data) {

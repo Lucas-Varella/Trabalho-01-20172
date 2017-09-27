@@ -5,10 +5,10 @@ public class StupidUserException extends Exception {
 	
 	
 	public StupidUserException() {
-		this.message = "Sorry, an error has occurred. This is due to the fact" + 
-					   "that you have typed alphabetic characters, symbols, or" + 
-					   "nonprinting characters (such as spaces) in a field destined" + 
-					   "for integers. Please try again by typing correctly. Thank you for understanding";
+		this.message = "Sorry, an error has occurred. This is due to the fact \n" + 
+					   "that you have typed alphabetic characters, symbols, or \n" + 
+					   "nonprinting characters (such as spaces) in a field destined \n" + 
+					   "for integers.\nPlease try again by typing correctly.\nThank you for understanding";
 	}
 	
 	public StupidUserException(String message) {

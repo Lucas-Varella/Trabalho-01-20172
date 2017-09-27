@@ -73,10 +73,10 @@ public class EmployeeCtrl {
 		return mainCtrl.listEmployments();
 	}
 	
-	public Employment findEmploymentByIndex(int index) throws StupidUserException {
+	public Employment findEmploymentByIndex(int index) throws NullPointerException {
 		try {
 			return mainCtrl.findEmploymentByIndex(index);
-		} catch(StupidUserException e) {
+		} catch(NullPointerException e) {
 			throw e;
 		}
 	}

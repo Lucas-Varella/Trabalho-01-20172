@@ -16,14 +16,14 @@ public interface Screen {
 	 * @param data
 	 * @return
 	 */
-	public int conversionStringToInt(String data) throws StupidUserException;
+	public int conversionStringToInt(String data) throws NumberFormatException;
 	
 	/**
 	 * Converte os dados inseridos pelo usuário em doubles;
 	 * @param data
 	 * @return
 	 */
-	public double conversionStringToDouble(String data) throws StupidUserException;
+	public double conversionStringToDouble(String data) throws NumberFormatException;
 	
 	/**
 	 * Formata a String inserida pelo usuário para o formato de data escolhido 
