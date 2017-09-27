@@ -17,25 +17,26 @@ public class EmploymentScreen {
 	}
 
 	public void employmentMenu() {
-		int numOption = 0;
-		do {
+		try {
+			int numOption = 0;
+			do {
 			/*
 			 * Verificar por que motivo o catch é executado sempre;
 			 * Refazer esse try catch;
 			 */
-			try {
+			
 				System.out.println("Welcome!");
-				System.out
-						.println("Please enter the number corresponding to your choice: ");
+				System.out.println("Please enter the number corresponding to your choice: ");
 				System.out.println("1 - Register new employment");
 				System.out.println("2 - Edit employment");
 				System.out.println("3 - Delete employment");
 				System.out.println("4 - List employments");
 				System.out.println("5 - List employees in a employment ");
 				System.out.println("0 - Get out");
-				String option = keyboard.nextLine();
-				numOption = Integer.parseInt(option);
-				switch (numOption) {
+				int option = Integer.parseInt(keyboard.nextLine());
+				
+				switch (option) {
+				
 				case 1:
 					addEmployment();
 					break;
@@ -55,6 +56,7 @@ public class EmploymentScreen {
 				case 5:
 					findEmployeesByEmployment();
 					break;
+				
 				case 0:
 					System.out.println("Goodbye and have a good day");
 					break;
@@ -62,12 +64,15 @@ public class EmploymentScreen {
 				default:
 					System.out.println("The number you entered is not valid. Please try again.");
 				}
-
-			} catch (Exception e) {
-				System.out.println("Please enter only numbers");
-			}
-		}while (numOption != 0);
-		employmentCtrl.mainMenu();
+			
+			} while(numOption != 0);
+			employmentCtrl.mainMenu();
+		} catch (NumberFormatException e) {
+			System.out.println("Please enter only numbers");
+		} catch(StupidUserException e) {
+			System.out.println(e.getMessage());
+		}
+		
 	}
 
 	/*
