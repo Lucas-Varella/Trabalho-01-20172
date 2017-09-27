@@ -6,11 +6,12 @@ import ine.view.*;
 
 import ine.controller.EmployeeCtrl;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class EmployeeScreen {
+public class EmployeeScreen implements Screen {
 	private EmployeeCtrl employeeCtrl;
 	private Scanner keyboard;
 
@@ -19,10 +20,8 @@ public class EmployeeScreen {
 		keyboard = new Scanner(System.in);
 	}
 
-	/*
-	 * Refazer o menu depois(ou o completar); Tratar direito as exceções;
-	 */
-	public void showMenu() {
+	
+	public void menu() {
 		int option = 0;
 		
 		try {
@@ -69,7 +68,7 @@ public class EmployeeScreen {
 
 		} catch (StupidUserException e)  {
 			System.out.println(e.getMessage());
-			showMenu();
+			menu();
 		} 
 
 		
@@ -94,13 +93,13 @@ public class EmployeeScreen {
 		 * Formatar as datas aqui depois(contigo Varella)
 		 */
 		String birthDay = keyboard.nextLine();
-		
+		keyboard.nextLine();
 		System.out.println("Phone: ");
-		int phone = ConversionStringToInt(keyboard.nextLine()); 
+		int phone = conversionStringToInt(keyboard.nextLine()); 
 		
 		
 		System.out.println("Salary: ");
-		double salary = ConversionStringToDouble(keyboard.nextLine());
+		double salary = conversionStringToDouble(keyboard.nextLine());
 		
 		System.out.println("Please, enter the number corresponding to the chosen employment: ");
 		
@@ -117,7 +116,7 @@ public class EmployeeScreen {
 			System.out.println(i+"º - "+ e.getName());
 			i++;
 		}
-		int option = ConversionStringToInt(keyboard.nextLine()) - 1;
+		int option = conversionStringToInt(keyboard.nextLine()) - 1;
 		Employment gen = employeeCtrl.findEmploymentByIndex(option);
 		
 		/*
@@ -164,7 +163,7 @@ public class EmployeeScreen {
 				System.out.println(i + "º - " + e.getName());
 				i++;
 			}
-			option = ConversionStringToInt(keyboard.nextLine()) - 1;
+			option = conversionStringToInt(keyboard.nextLine()) - 1;
 			Employee generic = employeeCtrl.getEmployee(option);
 			
 			System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
@@ -189,7 +188,7 @@ public class EmployeeScreen {
 				employeeCtrl.getHours(gen).listHorary();
 				System.out.println("Or 0 to exit");
 				
-				option = ConversionStringToInt(keyboard.nextLine());
+				option = conversionStringToInt(keyboard.nextLine());
 				switch(option) {
 				
 				case 1:
@@ -206,13 +205,13 @@ public class EmployeeScreen {
 				
 				case 3:
 					System.out.println("Enter a new phone");
-					int phone = ConversionStringToInt(keyboard.nextLine());
+					int phone = conversionStringToInt(keyboard.nextLine());
 					employeeCtrl.setPhone(phone);
 					break;
 				
 				case 4:
 					System.out.println("Enter a new salary");
-					double salary = ConversionStringToDouble(keyboard.nextLine());
+					double salary = conversionStringToDouble(keyboard.nextLine());
 					employeeCtrl.setSalary(salary);
 					break;
 				
@@ -223,7 +222,7 @@ public class EmployeeScreen {
 						System.out.println(i + "º - " + e.getName());
 						i++;
 					}
-					int employment = ConversionStringToInt(keyboard.nextLine());
+					int employment = conversionStringToInt(keyboard.nextLine());
 					Employment e = employeeCtrl.findEmploymentByIndex(employment);
 					employeeCtrl.setEmployment(e);
 					break;
@@ -231,13 +230,13 @@ public class EmployeeScreen {
 				case 6:
 					System.out.println("Enter 1 to change start times");
 					System.out.println("Enter 2 to change end times");
-					int choice = ConversionStringToInt(keyboard.nextLine());
+					int choice = conversionStringToInt(keyboard.nextLine());
 				
 					switch(choice) {
 					
 					case 1:
 						System.out.println("Please enter the number for the time that you wish to change");
-						int array = ConversionStringToInt(keyboard.nextLine());
+						int array = conversionStringToInt(keyboard.nextLine());
 						System.out.println("Please enter the new time");
 						String horary = keyboard.nextLine();
 						employeeCtrl.editHour(choice, array, horary);
@@ -245,7 +244,7 @@ public class EmployeeScreen {
 					
 					case 2:
 						System.out.println("Please enter the number for the time that you wish to change");
-						array = ConversionStringToInt(keyboard.nextLine());
+						array = conversionStringToInt(keyboard.nextLine());
 						System.out.println("Please enter the new time");
 						horary = keyboard.nextLine();
 						employeeCtrl.editHour(choice, array, horary);
@@ -269,7 +268,7 @@ public class EmployeeScreen {
 				System.out.println("5 - Employment");
 				System.out.println("Actually - " + generic.getEmployment().getEmployment().getName());
 				System.out.println("Or 0 to exit");	
-				option = ConversionStringToInt(keyboard.nextLine());
+				option = conversionStringToInt(keyboard.nextLine());
 				
 				switch (option) {
 	
@@ -304,7 +303,7 @@ public class EmployeeScreen {
 						System.out.println(i + "º - " + e.getName());
 						i++;
 					}
-					int employment = ConversionStringToInt(keyboard.nextLine());
+					int employment = conversionStringToInt(keyboard.nextLine());
 					Employment gen = employeeCtrl.findEmploymentByIndex(employment);
 					employeeCtrl.setEmployment(gen);
 					break;
@@ -330,12 +329,12 @@ public class EmployeeScreen {
 			i++;
 		}
 		
-		int option = ConversionStringToInt(keyboard.nextLine()) - 1;
+		int option = conversionStringToInt(keyboard.nextLine()) - 1;
 		employeeCtrl.delEmployee(option);
 		
 	}
 	
-	public int ConversionStringToInt(String data) throws StupidUserException {
+	public int conversionStringToInt(String data) throws StupidUserException {
 		int num = Integer.parseInt(data);
 		if(num >= 0 && num <= 9) {
 			return num;
@@ -343,12 +342,17 @@ public class EmployeeScreen {
 		throw new StupidUserException();
 	}
 	
-	public double ConversionStringToDouble(String data) throws StupidUserException {
+	public double conversionStringToDouble(String data) throws StupidUserException {
 		double num = Double.parseDouble(data);
 		if(num >= 0.0 && num <= 9.9) {
 			return num;
 		}
 		throw new StupidUserException();
+	}
+	
+	public Date formatStringToDate(String data) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

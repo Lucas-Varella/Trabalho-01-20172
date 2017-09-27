@@ -24,7 +24,7 @@ public class EmployeeCtrl {
 	}
 	
 	public void menu() {
-		employeeScreen.showMenu();
+		employeeScreen.menu();
 	}
 	/*
 	 * Criar métodos que ligem a tela com a classe

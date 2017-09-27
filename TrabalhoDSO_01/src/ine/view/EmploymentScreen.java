@@ -3,6 +3,7 @@ package ine.view;
 import ine.controller.EmploymentCtrl;
 import ine.model.Employment;
 import ine.model.Privileges;
+import ine.model.StupidUserException;
 
 import java.util.Scanner;
 
@@ -110,7 +111,7 @@ public class EmploymentScreen {
 		System.out.println("Privilege: " + gen);
 	}
 
-	public void editEmployment() {
+	public void editEmployment() throws StupidUserException {
 		int option = 0;
 		do {
 			System.out.println("Please enter the number corresponding to your choice: ");
@@ -187,7 +188,7 @@ public class EmploymentScreen {
 		} while (option != 0);
 	}
 
-	public void delEmployment() {
+	public void delEmployment() throws StupidUserException {
 		// mudar o que é printado(com vocês, Varella e Marcos)
 		boolean getOut = false;
 		int option = 0;
@@ -213,7 +214,7 @@ public class EmploymentScreen {
 		}while(!getOut);
 	}
 	
-	public void findEmployeesByEmployment() {
+	public void findEmployeesByEmployment() throws StupidUserException {
 		System.out.println("Enter the number corresponding to your choice:");
 		employmentCtrl.listEmployments();
 		int choice = keyboard.nextInt() - 1;
