@@ -15,7 +15,7 @@ public class HoraryScreen {
 		this.keyboard = new Scanner(System.in);
 	}
 
-	public void menuAdd() {
+	public Horary menuAdd() {
 		ArrayList<String> hourBegin = new ArrayList();
 		ArrayList<String> hourFinish = new ArrayList();
 		System.out.println("Welcome!");
@@ -25,6 +25,8 @@ public class HoraryScreen {
 			System.out.println("Hour Begin: ");
 			/*
 			 * Formatar para Date depois;
+			 * Criar um try catch aqui para caso o usuário digite um horário
+			 * que não se encaixa no padrão Date formatado(hh:mm);
 			 */
 			hourBegin.add(keyboard.nextLine());
 			System.out.println("Hour Finish: ");
@@ -33,14 +35,8 @@ public class HoraryScreen {
 			System.out.println("1 to add anothe time");
 			option = keyboard.nextInt();
 		}while(option != 0);
-		Horary horary = new Horary(hourBegin, hourFinish);
-		horaryCtrl.setHorary(horary);
+		return horaryCtrl.addHorary(hourBegin, hourFinish);
 	}
-	/**
-	 * @author sadi
-	 * @return
-	 */
-	
 		
 	
 	    public void editHorary() {
@@ -54,14 +50,22 @@ public class HoraryScreen {
 			case 1:
 				System.out.println("This is the current list of the selected time (s): ");
 				horaryCtrl.listHorary(option);
-				
+				System.out.println("Please enter the number for the time you want to change");
+				int hour = keyboard.nextInt() - 1;
+				System.out.println("Enter the new time: ");
+				String newTime = keyboard.nextLine();
+				horaryCtrl.editHorary(1, hour, newTime);
+				System.out.println("The new time was successfully added");
 				break;
 			case 2:
 				System.out.println("This is the current list of the selected time (s): ");
 				horaryCtrl.listHorary(option);
-				System.out.println("");
-				System.out.println("");
-				System.out.println("");
+				System.out.println("Please enter the number for the time you want to change");
+				hour = keyboard.nextInt() - 1;
+				System.out.println("Enter the new time");
+				newTime = keyboard.nextLine();
+				horaryCtrl.editHorary(2, hour, newTime);
+				System.out.println("The new time was successfully added");
 				break;
 			case 0:
 				System.out.println("Goodbye");

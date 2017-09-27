@@ -1,10 +1,8 @@
 package ine.model;
 
 public class StupidUserException extends NumberFormatException{
-	/**
-	 * 
-	 */
 	private String message;
+	
 	
 	public StupidUserException() {
 		this.message = "Sorry, an error has occurred. This is due to the fact" + 
@@ -12,6 +10,12 @@ public class StupidUserException extends NumberFormatException{
 					   "nonprinting characters (such as spaces) in a field destined" + 
 					   "for integers. Please try again by typing correctly. Thank you for understanding";
 	}
-
-
+	
+	public StupidUserException(String message) {
+		this.message = message;
+	}
+	
+	public String getMessage() {
+		return message;
+	}
 }

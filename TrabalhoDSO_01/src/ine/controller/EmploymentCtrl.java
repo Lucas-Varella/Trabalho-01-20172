@@ -44,12 +44,8 @@ public class EmploymentCtrl {
 		
 	}
 	
-	public void listEmployments() {
-		int i = 1;
-		for(Employment e : employments) {
-			System.out.println(i+"º - " + e.getName());			
-			i++;
-		}
+	public ArrayList<Employment> listEmployments() {
+		return employments;
 	}
 	
 	public void listEmployees(Employment employment) {
@@ -57,8 +53,11 @@ public class EmploymentCtrl {
 		
 	}
 	
-	public Employment getEmployment(int num) {
-		return employments.get(num);
+	public Employment getEmployment(int num) throws StupidUserException {
+		if(employments.size() >= num && num > -1) {
+			return employments.get(num);
+		}
+		throw new StupidUserException("O número digitado não possue nenhum cargo associado ao mesmo.");
 	}
 
 	public static int getCode() {

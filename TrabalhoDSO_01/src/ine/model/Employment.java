@@ -29,7 +29,7 @@ public class Employment {
 	}
    */
 	
-	public void addContract(Contract contract) throws Exception {
+	public void addContract(Contract contract) throws StupidUserException {
 		Employee employee = contract.getEmployee();
 		if(findContractByEmployee(employee) == null); {
 			employees.add(contract);
@@ -39,7 +39,7 @@ public class Employment {
 		}
 		// tentei colocar um else na linha acima e deu erro.
 		// Verificar o porquê depois
-		throw new Exception("Attempted duplication of contract. The employee " +employee.getName() + 
+		throw new StupidUserException("Attempted duplication of contract. The employee " +employee.getName() + 
 					" already has a contract with the employment " + contract.getEmployment().getName());
 	}
 	

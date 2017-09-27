@@ -6,6 +6,7 @@ import ine.view.*;
 
 import ine.controller.EmployeeCtrl;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -22,9 +23,12 @@ public class EmployeeScreen {
 	 * Refazer o menu depois(ou o completar); Tratar direito as exceções;
 	 */
 	public void showMenu() {
-		int numOption = 0;
-		do {
-			try {
+		int option = 0;
+		
+		try {
+			
+			do {
+			
 				System.out.println("Welcome!");
 				System.out.println("Please enter the number corresponding to your choice: ");
 				System.out.println("1 - Add employee");
@@ -32,9 +36,9 @@ public class EmployeeScreen {
 				System.out.println("3 - Delete employee");
 				System.out.println("4 - List employees");
 				System.out.println("0 - Get out");
-				String option = keyboard.nextLine();
-				numOption = Integer.parseInt(option);
-				switch (numOption) {
+				option = Integer.parseInt(keyboard.nextLine());
+				
+				switch (option) {
 				
 				case 1:
 					addEmployee();
@@ -50,45 +54,90 @@ public class EmployeeScreen {
 					
 				case 4:
 					employeeCtrl.listEmployees();
+					break;
 				
 				case 0:
 					System.out.println("Goodbye and have a good day");
 					break;
+				
 				default:
 					System.out.println("The number you entered is not valid. Please try again.");
 				}
+				
+			} while (option != 0);
+			employeeCtrl.mainMenu();
 
-			} catch (Exception e) {
-				System.out.println("Enter only numbers!");
-			}
+		} catch (StupidUserException e)  {
+			System.out.println(e.getMessage());
+			showMenu();
+		} 
 
-		} while (numOption != 0);
-		employeeCtrl.mainMenu();
+		
 	}
-	
-	public void addEmployee() throws Exception {
+	/**
+	 * O método addEmployee() adiciona um novo funcionário
+	 * @throws Exception 
+	 */
+	public void addEmployee() throws StupidUserException {
+		
 		System.out.println("Please enter the following information");
+		
+		/*
+		 * Aqui se pega os dados fundamentais(dados que todos os funcionários,
+		 * tem em comum : nome, data de nascimento, telefone e salário); 
+		 */
 		System.out.println("Name: ");
 		String name = keyboard.nextLine();
+		
 		System.out.println("Date of birth: ");
 		/*
 		 * Formatar as datas aqui depois(contigo Varella)
 		 */
 		String birthDay = keyboard.nextLine();
+		
 		System.out.println("Phone: ");
-		int phone = keyboard.nextInt();
+		int phone = ConversionStringToInt(keyboard.nextLine()); 
+		
+		
 		System.out.println("Salary: ");
-		int salary = keyboard.nextInt();
+		double salary = ConversionStringToDouble(keyboard.nextLine());
+		
 		System.out.println("Please, enter the number corresponding to the chosen employment: ");
-		employeeCtrl.listEmployments();
-		int option = (keyboard.nextInt() - 1);
+		
+		/*
+		 * Listando todas os possíveis cargos que o funcionário pode ter;
+		 * E verificando se o usuário escolheu uma opção válida;
+		 * 
+		 * PS: Não sei se o View pode percorrer e listar ArrayList ou se essa função
+		 * pertence única e exclusivamente ao Model;
+		 * 
+		 */
+		int i = 1;
+		for(Employment e : employeeCtrl.listEmployments()) {
+			System.out.println(i+"º - "+ e.getName());
+			i++;
+		}
+		int option = ConversionStringToInt(keyboard.nextLine()) - 1;
 		Employment gen = employeeCtrl.findEmploymentByIndex(option);
 		
+		/*
+		 * Verifica qual é o privilégio do Cargo do Funcionário;
+		 * Se o privilegio for Restrict cai no if, senão cai no else;
+		 */
 		if(gen.getPrivilege().equals(Privileges.Restricted)) {
 			EmployeeRestrictAccess generic = employeeCtrl.addEmployeeRestrict(name, birthDay, phone, salary);
 			Contract contract = employeeCtrl.addContract(gen, generic);
-			employeeCtrl.addHorary();
-			
+			Horary horary = employeeCtrl.addHorary();
+			employeeCtrl.setHorary(horary);
+			System.out.println("Congratulations, you have created a new employee with the following characteristics: ");
+			System.out.println("Number of registration - " + generic.getNumRegistration());
+			System.out.println("Name - " + generic.getName());
+			System.out.println("Birthday - " + generic.getDateBirth());
+			System.out.println("Phone - " + generic.getPhone());
+			System.out.println("Salary - " + generic.getSalary());
+			System.out.println("Employment - " + generic.getEmployment().getEmployment().getName());
+			System.out.println("Horary - ");
+			employeeCtrl.getHours(generic).listHorary();
 			
 		}else {
 			Employee generic = employeeCtrl.addEmployee(name, birthDay, phone, salary);
@@ -105,22 +154,25 @@ public class EmployeeScreen {
 		}
 	}	
 	
-	public void editEmployee() {
+	public void editEmployee() throws StupidUserException {
 		int option = 0;
 		do {
 			System.out.println("Please enter the number corresponding to your choice: ");
-			employeeCtrl.listEmployees();
-
-			/*
-			 * Fazer um try catch aqui, caso o usuário seja filho da puta ao
-			 * ponto de digitar 0;
-			 */
-
-			option = keyboard.nextInt() - 1;
+			// Listando todos os Funcionários;
+			int i = 1;
+			for(Employee e : employeeCtrl.listEmployees()) {
+				System.out.println(i + "º - " + e.getName());
+				i++;
+			}
+			option = ConversionStringToInt(keyboard.nextLine()) - 1;
 			Employee generic = employeeCtrl.getEmployee(option);
-			System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
 			
-			if(generic.getEmployment().getEmployment().getPrivilege().equals("Restricted")) {
+			System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
+			/*
+			 * Verifica se o funcionário escolhido possue um cargo cujo
+			 * privilégio é Restrict;
+			 */
+			if(generic.getEmployment().getEmployment().getPrivilege().equals(Privileges.Restricted)) {
 				EmployeeRestrictAccess gen = (EmployeeRestrictAccess) generic;
 				System.out.println("1 - Name");
 				System.out.println("Actually - " + gen.getName());
@@ -133,66 +185,79 @@ public class EmployeeScreen {
 				System.out.println("5 - Employment");
 				System.out.println("Actually - " + gen.getEmployment().getEmployment().getName());
 				System.out.println("6 - Horary Access");
-				Horary hours = employeeCtrl.getHours(gen);
-				hours.listHorary();
+				System.out.println("Actually - ");
+				employeeCtrl.getHours(gen).listHorary();
 				System.out.println("Or 0 to exit");
-				option = keyboard.nextInt();
+				
+				option = ConversionStringToInt(keyboard.nextLine());
 				switch(option) {
 				
 				case 1:
 					System.out.println("Enter a new name");
 					String name = keyboard.nextLine();
-					gen.setName(name);
+					employeeCtrl.setName(name);
 					break;
+					
 				case 2:
 					System.out.println("Enter a new birthday");
 					String birthday = keyboard.nextLine();
-					gen.setDateBirth(birthday);
+					employeeCtrl.setDateBirth(birthday);
 					break;
+				
 				case 3:
 					System.out.println("Enter a new phone");
-					int phone = keyboard.nextInt();
-					gen.setPhone(phone);
+					int phone = ConversionStringToInt(keyboard.nextLine());
+					employeeCtrl.setPhone(phone);
 					break;
+				
 				case 4:
 					System.out.println("Enter a new salary");
-					int salary = keyboard.nextInt();
-					gen.setSalary(salary);
+					double salary = ConversionStringToDouble(keyboard.nextLine());
+					employeeCtrl.setSalary(salary);
 					break;
+				
 				case 5:
 					System.out.println("Enter the number corresponding to the new employment");
-					employeeCtrl.listEmployments();
-					int employment = keyboard.nextInt();
-					Employment gener = employeeCtrl.findEmploymentByIndex(employment);
-					gen.setEmployment(gener);
+					i = 1;
+					for(Employment e : employeeCtrl.listEmployments()) {
+						System.out.println(i + "º - " + e.getName());
+						i++;
+					}
+					int employment = ConversionStringToInt(keyboard.nextLine());
+					Employment e = employeeCtrl.findEmploymentByIndex(employment);
+					employeeCtrl.setEmployment(e);
 					break;
+				
 				case 6:
 					System.out.println("Enter 1 to change start times");
 					System.out.println("Enter 2 to change end times");
-					int choice = keyboard.nextInt();
+					int choice = ConversionStringToInt(keyboard.nextLine());
+				
 					switch(choice) {
+					
 					case 1:
 						System.out.println("Please enter the number for the time that you wish to change");
-						int array = keyboard.nextInt();
+						int array = ConversionStringToInt(keyboard.nextLine());
 						System.out.println("Please enter the new time");
 						String horary = keyboard.nextLine();
 						employeeCtrl.editHour(choice, array, horary);
 						break;
+					
 					case 2:
 						System.out.println("Please enter the number for the time that you wish to change");
-						array = keyboard.nextInt();
+						array = ConversionStringToInt(keyboard.nextLine());
 						System.out.println("Please enter the new time");
 						horary = keyboard.nextLine();
 						employeeCtrl.editHour(choice, array, horary);
 						break;
+					
 					default:
 						System.out.println("The number you entered is not valid");
 					}
+				
 				}
-			}else {
-				/*
-				 * recomendo não dar ao usuário o poder de mudar o número de matrícula
-				 */
+				
+			} else {
 				System.out.println("1 - Name");
 				System.out.println("Actually - " + generic.getName());
 				System.out.println("2 - Birthday");
@@ -204,72 +269,86 @@ public class EmployeeScreen {
 				System.out.println("5 - Employment");
 				System.out.println("Actually - " + generic.getEmployment().getEmployment().getName());
 				System.out.println("Or 0 to exit");	
-				option = keyboard.nextInt();
+				option = ConversionStringToInt(keyboard.nextLine());
+				
 				switch (option) {
 	
-				/*
-				 * Não sei se o Jean não vai reclamar de a tela poder setar um atributo da classe;
-				 */
 				case 1:
 					System.out.println("Enter a new name: ");
 					String name = keyboard.nextLine();
-					generic.setName(name);
+					employeeCtrl.setName(name);
 					break;
 	
 				case 2:
 					System.out.println("Enter a new birthday: ");
 					String dateBirth = keyboard.nextLine();
-					generic.setDateBirth(dateBirth);
+					employeeCtrl.setDateBirth(dateBirth);
 					break;
+					
 				case 3:
 					System.out.println("Enter a new phone");
 					int phone = keyboard.nextInt();
-					generic.setPhone(phone);
+					employeeCtrl.setPhone(phone);
 					break;
+				
 				case 4:
 					System.out.println("Enter a new salary");
 					int salary = keyboard.nextInt();
-					generic.setSalary(salary);
+					employeeCtrl.setSalary(salary);
 					break;
+				
 				case 5:
 					System.out.println("Enter the number corresponding to the new employment");
-					employeeCtrl.listEmployments();
-					int employment = keyboard.nextInt();
+					i = 1;
+					for(Employment e : employeeCtrl.listEmployments()) {
+						System.out.println(i + "º - " + e.getName());
+						i++;
+					}
+					int employment = ConversionStringToInt(keyboard.nextLine());
 					Employment gen = employeeCtrl.findEmploymentByIndex(employment);
-					generic.setEmployment(gen);
+					employeeCtrl.setEmployment(gen);
 					break;
+					
 				case 0:
 					System.out.println("Goodbye");
 					break;
+				
 				default:
 					System.out.println("Please, enter a valid number");			
 				}
 			}
-		}while (option != 0);
+			
+		} while (option != 0);
 	}
 	
-	public void delEmployee() throws Exception {
+	public void delEmployee() throws StupidUserException {
 		System.out.println("Select an employee to fire");
-		employeeCtrl.listEmployees();
-		int option = keyboard.nextInt() - 1;
-		Employee fired = employeeCtrl.getEmployee(option);
-		fired.delContract();
+
+		int i = 1;
+		for(Employee e : employeeCtrl.listEmployees()) {
+			System.out.println(i + "º - " + e.getName());
+			i++;
+		}
+		
+		int option = ConversionStringToInt(keyboard.nextLine()) - 1;
 		employeeCtrl.delEmployee(option);
 		
 	}
-	/*
-	 * Ideia para tratat exceção caso o usuário digite uma letra no lugar 
-	 * de um número
-	 * 
-	 * System.out.println("Digite o numero do vôo: ");
-	 *try {
-     *	numVoo = Integer.parseInt(lerDados.nextLine());
-     *} catch (NumberFormatException e) {
-     *System.out.println("Por favor, digite apenas números!");
-     *}
-	 *if (numVoo < 0) {
-     *System.out.println("O número do vôo deve ser positivo!");
-	 *}
-	 */
+	
+	public int ConversionStringToInt(String data) throws StupidUserException {
+		int num = Integer.parseInt(data);
+		if(num >= 0 && num <= 9) {
+			return num;
+		}
+		throw new StupidUserException();
+	}
+	
+	public double ConversionStringToDouble(String data) throws StupidUserException {
+		double num = Double.parseDouble(data);
+		if(num >= 0.0 && num <= 9.9) {
+			return num;
+		}
+		throw new StupidUserException();
+	}
 	
 }

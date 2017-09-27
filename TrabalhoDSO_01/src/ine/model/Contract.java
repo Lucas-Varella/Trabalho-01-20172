@@ -8,15 +8,15 @@ public class Contract {
 	private Employment employment;
 	private Employee employee;
 	
-	public Contract(Employment employment, Employee employee) throws Exception {
-		this.setEmployment(employment);
+	public Contract(Employment employment, Employee employee) throws StupidUserException {
+		this.employment = employment;
 		this.employee = employee;
 		employee.addContract(this);
 		employment.addContract(this);
 	}
 	
-	public Contract(Employment employment, EmployeeRestrictAccess employee) throws Exception {
-		this.setEmployment(employment);
+	public Contract(Employment employment, EmployeeRestrictAccess employee) throws StupidUserException {
+		this.employment = employment;
 		this.employee = employee;
 		employee.addContract(this);
 		employment.addContract(this);

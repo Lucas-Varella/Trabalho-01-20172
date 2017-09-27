@@ -15,8 +15,8 @@ public class HoraryCtrl {
 		this.horaryScreen = new HoraryScreen(this);
 	}
 	
-	public void menuAdd() {
-		horaryScreen.menuAdd();
+	public Horary menuAdd() {
+		return horaryScreen.menuAdd();
 	}
 	public void menuEdit() {
 		horaryScreen.editHorary();

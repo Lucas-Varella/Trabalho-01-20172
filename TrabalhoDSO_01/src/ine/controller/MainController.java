@@ -9,6 +9,8 @@ package ine.controller;
  * qual era);
  */
 
+import java.util.ArrayList;
+
 import ine.controller.*;
 import ine.model.*;
 import ine.view.*;
@@ -50,12 +52,17 @@ public class MainController {
 		horaryCtrl.menuAdd();
 	}
 	
-	public void listEmployments() {
-		employmentCtrl.listEmployments();
+	public ArrayList<Employment> listEmployments() {
+		return employmentCtrl.listEmployments();
 	}
 	
-	public Employment findEmploymentByIndex(int index) {
-		return employmentCtrl.getEmployment(index);
+	public Employment findEmploymentByIndex(int index) throws StupidUserException {
+		try {
+			return employmentCtrl.getEmployment(index);
+		} catch(StupidUserException e) {
+			throw e;
+		}
+			
 	}
 	
 	public Employee validNumRegistration(int numRegistration) {
@@ -67,8 +74,8 @@ public class MainController {
 		horaryCtrl.editHorary(array, index, newHorary);
 	}
 	
-	public void addHorary() {
-		horaryCtrl.menuAdd();
+	public Horary addHorary() {
+		return horaryCtrl.menuAdd();
 	}
 	
 	public void setHorary(Horary horary) {

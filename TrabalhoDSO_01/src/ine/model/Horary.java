@@ -44,12 +44,12 @@ public class Horary {
 	
 	public void listHorary(int option) {
 		int i = 1;
-		if(option ==1) {
+		if(option == 1) {
 			for(String hour : hourBegin) {
 				System.out.println(i+ "ª Hour(s) Begin: " + hour);
 				i++;
 			}
-		}else {
+		}else if(option == 2){
 			for(String hour : hourFinish) {
 				System.out.println(i + "ª Hour(s) Finish: " + hour);
 				i++;

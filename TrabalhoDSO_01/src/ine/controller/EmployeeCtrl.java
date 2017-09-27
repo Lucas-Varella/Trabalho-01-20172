@@ -30,25 +30,25 @@ public class EmployeeCtrl {
 	 * Criar métodos que ligem a tela com a classe
 	 */
 	
-	public Employee addEmployee(String name, String dateBirth, int phone, int salary) {
+	public Employee addEmployee(String name, String dateBirth, int phone, double salary) {
 		Employee generic = new Employee(this, getCode(), name, dateBirth, phone, salary);
 		employees.add(generic);
 		setCode(getCode() + 1);
 		return generic;
 	}
 	
-	public EmployeeRestrictAccess addEmployeeRestrict(String name, String dateBirth, int phone, int salary) {
+	public EmployeeRestrictAccess addEmployeeRestrict(String name, String dateBirth, int phone, double salary) {
 		EmployeeRestrictAccess generic = new EmployeeRestrictAccess(this, getCode(), name, dateBirth, phone, salary);
 		employees.add(generic);
 		setCode(getCode() + 1);
 		return generic;
 	}
 	
-	public Contract addContract(Employment employment, Employee employee) throws Exception {
+	public Contract addContract(Employment employment, Employee employee) throws StupidUserException {
 		return new Contract(employment, employee);
 	}
 	
-	public Contract addContract(Employment employment, EmployeeRestrictAccess employee) throws Exception {
+	public Contract addContract(Employment employment, EmployeeRestrictAccess employee) throws StupidUserException {
 		return new Contract(employment, employee);
 	}
 	
@@ -56,27 +56,31 @@ public class EmployeeCtrl {
 		employees.remove(index);
 	}
 	
-	public void listEmployees() {
-		int i = 1;
-		for(Employee e : employees) {
-			System.out.println(i+"º - "+ e.getName());
-			i++;
+	public ArrayList<Employee> listEmployees() {
+		return employees;
+	}
+	
+	public Employee getEmployee(int index) throws StupidUserException {
+		if(employees.size() >= index && index > -1) {
+			return employees.get(index);
+		}
+		throw new StupidUserException();
+			
+	}
+	
+	
+	public ArrayList<Employment> listEmployments() {
+		return mainCtrl.listEmployments();
+	}
+	
+	public Employment findEmploymentByIndex(int index) throws StupidUserException {
+		try {
+			return mainCtrl.findEmploymentByIndex(index);
+		} catch(StupidUserException e) {
+			throw e;
 		}
 	}
 	
-	public Employee getEmployee(int index) {
-		return employees.get(index);
-	}
-	
-	
-	public void listEmployments() {
-		mainCtrl.listEmployments();
-	}
-	
-	public Employment findEmploymentByIndex(int index) {
-		return mainCtrl.findEmploymentByIndex(index);
-	}
-
 	public static int getCode() {
 		return code;
 	}
@@ -107,12 +111,34 @@ public class EmployeeCtrl {
 		mainCtrl.editHours(array, index, newHorary);
 	}
 	
-	public void addHorary() {
-		mainCtrl.addHorary();
+	public Horary addHorary() {
+		return mainCtrl.addHorary();
 	}
 	
 	public void setHorary(Horary horary) {
 		employeeRestrict.setHours(horary);
+	}
+	
+	public void setName(String name) {
+		employee.setName(name);
+	}
+	
+	// Mudar para Date depois;
+	
+	public void setDateBirth(String dateBirth) {
+		employee.setDateBirth(dateBirth);
+	}
+	
+	public void setPhone(int phone) {
+		employee.setPhone(phone);
+	}
+	
+	public void setSalary(double salary) {
+		employee.setSalary(salary);
+	}
+	
+	public void setEmployment(Employment employment) {
+		employee.setEmployment(employment);
 	}
 	
 	

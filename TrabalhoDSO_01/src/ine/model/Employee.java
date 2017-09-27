@@ -10,10 +10,10 @@ public class Employee {
 	protected String name;
 	protected String dateBirth;
 	protected int phone;
-	protected int salary;
+	protected double salary;
 	protected Contract employment;
 	
-	public Employee(EmployeeCtrl employeeCtrl, int numRegistration, String name, String dateBirth, int phone, int salary) {
+	public Employee(EmployeeCtrl employeeCtrl, int numRegistration, String name, String dateBirth, int phone, double salary) {
 		this.employeeCtrl = employeeCtrl;
 		this.numRegistration = numRegistration;
 		this.name = name;
@@ -28,7 +28,7 @@ public class Employee {
 		this.employment = contract;
 	}
 	
-	public void delContract() throws Exception {
+	public void delContract() throws StupidUserException {
 		this.employment = null;
 //		employment.setEmployment(null);
 	}
@@ -61,11 +61,11 @@ public class Employee {
 		this.phone = phone;
 	}
 	
-	public int getSalary() {
+	public double getSalary() {
 		return salary;
 	}
 	
-	public void setSalary(int salary) {
+	public void setSalary(double salary) {
 		this.salary = salary;
 	}
 	

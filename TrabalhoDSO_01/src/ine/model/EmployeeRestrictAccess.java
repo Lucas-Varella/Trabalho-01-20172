@@ -4,11 +4,10 @@ import ine.controller.EmployeeCtrl;
 import ine.model.*;
 
 public class EmployeeRestrictAccess extends Employee {
-	private EmployeeCtrl employeeCtrl;
 	private Horary hours;
 	
 	public EmployeeRestrictAccess(EmployeeCtrl employeeCtrl, int numRegistration, 
-								  String name, String dateBirth, int phone, int salary) {
+								  String name, String dateBirth, int phone, double salary) {
 		super(employeeCtrl, numRegistration, name, dateBirth, phone, salary);
 		
 		
