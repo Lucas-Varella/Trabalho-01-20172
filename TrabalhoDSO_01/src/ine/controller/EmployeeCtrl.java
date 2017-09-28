@@ -1,5 +1,6 @@
 package ine.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import ine.controller.*;
@@ -30,25 +31,25 @@ public class EmployeeCtrl {
 	 * Criar métodos que ligem a tela com a classe
 	 */
 	
-	public Employee addEmployee(String name, String dateBirth, int phone, double salary) {
+	public Employee addEmployee(String name, Date dateBirth, int phone, double salary) {
 		Employee generic = new Employee(this, getCode(), name, dateBirth, phone, salary);
 		employees.add(generic);
 		setCode(getCode() + 1);
 		return generic;
 	}
 	
-	public EmployeeRestrictAccess addEmployeeRestrict(String name, String dateBirth, int phone, double salary) {
+	public EmployeeRestrictAccess addEmployeeRestrict(String name, Date dateBirth, int phone, double salary) {
 		EmployeeRestrictAccess generic = new EmployeeRestrictAccess(this, getCode(), name, dateBirth, phone, salary);
 		employees.add(generic);
 		setCode(getCode() + 1);
 		return generic;
 	}
 	
-	public Contract addContract(Employment employment, Employee employee) throws StupidUserException {
+	public Contract addContract(Employment employment, Employee employee) throws Exception {
 		return new Contract(employment, employee);
 	}
 	
-	public Contract addContract(Employment employment, EmployeeRestrictAccess employee) throws StupidUserException {
+	public Contract addContract(Employment employment, EmployeeRestrictAccess employee) throws Exception {
 		return new Contract(employment, employee);
 	}
 	
@@ -60,12 +61,11 @@ public class EmployeeCtrl {
 		return employees;
 	}
 	
-	public Employee getEmployee(int index) throws StupidUserException {
+	public Employee getEmployee(int index) {
 		if(employees.size() >= index && index > -1) {
 			return employees.get(index);
 		}
-		throw new StupidUserException();
-			
+		return null;
 	}
 	
 	
@@ -125,7 +125,7 @@ public class EmployeeCtrl {
 	
 	// Mudar para Date depois;
 	
-	public void setDateBirth(String dateBirth) {
+	public void setDateBirth(Date dateBirth) {
 		employee.setDateBirth(dateBirth);
 	}
 	

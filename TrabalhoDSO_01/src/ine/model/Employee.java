@@ -3,17 +3,18 @@ package ine.model;
 import ine.controller.*;
 import ine.model.*;
 import ine.view.*;
+import java.sql.Date;
 
 public class Employee {
 	protected EmployeeCtrl employeeCtrl;
 	protected int numRegistration;
 	protected String name;
-	protected String dateBirth;
+	protected Date dateBirth;
 	protected int phone;
 	protected double salary;
 	protected Contract employment;
 	
-	public Employee(EmployeeCtrl employeeCtrl, int numRegistration, String name, String dateBirth, int phone, double salary) {
+	public Employee(EmployeeCtrl employeeCtrl, int numRegistration, String name, Date dateBirth, int phone, double salary) {
 		this.employeeCtrl = employeeCtrl;
 		this.numRegistration = numRegistration;
 		this.name = name;
@@ -28,9 +29,8 @@ public class Employee {
 		this.employment = contract;
 	}
 	
-	public void delContract() throws StupidUserException {
+	public void delContract()  {
 		this.employment = null;
-//		employment.setEmployment(null);
 	}
 
 	public int getNumRegistration() {
@@ -45,11 +45,11 @@ public class Employee {
 		this.name = name;
 	}
 	
-	public String getDateBirth() {
+	public Date getDateBirth() {
 		return dateBirth;
 	}
 	
-	public void setDateBirth(String dateBirth) {
+	public void setDateBirth(Date dateBirth) {
 		this.dateBirth = dateBirth;
 	}
 	

@@ -20,7 +20,7 @@ public class Employment {
 		this.employmentCtrl = employmentCtrl;
 	}
 	
-	public void addContract(Contract contract) throws StupidUserException {
+	public void addContract(Contract contract) throws Exception {
 		Employee employee = contract.getEmployee();
 		if(findContractByEmployee(employee) == null) {
 			employees.add(contract);
@@ -28,7 +28,7 @@ public class Employment {
 				employee.setEmployment(contract.getEmployment());
 			}
 		}else {
-			throw new StupidUserException("Attempted duplication of contract. The employee " +employee.getName() + 
+			throw new Exception("Attempted duplication of contract. The employee " +employee.getName() + 
 					" already has a contract with the employment " + contract.getEmployment().getName());
 		}
 		

@@ -7,6 +7,9 @@ import ine.view.*;
 import ine.controller.EmployeeCtrl;
 
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -77,7 +80,6 @@ public class EmployeeScreen implements Screen {
 	}
 	/**
 	 * O método addEmployee() adiciona um novo funcionário
-	 * @throws Exception 
 	 */
 	public void addEmployee() {
 		try {
@@ -94,7 +96,7 @@ public class EmployeeScreen implements Screen {
 			/*
 			 * Formatar as datas aqui depois(contigo Varella)
 			 */
-			String birthDay = keyboard.nextLine();
+			Date birthDay = strToDate(keyboard.nextLine());
 			
 			
 			System.out.println("Phone: ");
@@ -116,11 +118,16 @@ public class EmployeeScreen implements Screen {
 			 * 
 			 */
 			int i = 1;
-			for(Employment e : employeeCtrl.listEmployments()) {
-				System.out.println(i+"º - "+ e.getName());
-				i++;
+			if(employeeCtrl.listEmployments().size() > 0) {
+
+				for(Employment e : employeeCtrl.listEmployments()) {
+					System.out.println(i+"º - "+ e.getName());
+					i++;
+				}
+			}else {
+				throw new IndexOutOfBoundsException();
 			}
-			int option = (conversionStringToInt(keyboard.nextLine())) - 1;
+			int option = conversionStringToInt(keyboard.nextLine()) - 1;
 			Employment gen = employeeCtrl.findEmploymentByIndex(option);
 			
 			/*
@@ -154,15 +161,27 @@ public class EmployeeScreen implements Screen {
 				System.out.println("Salary - " + generic.getSalary());
 				System.out.println("Employment - " + generic.getEmployment().getEmployment().getName());
 			} 
-		} catch(StupidUserException e) {
-			System.out.println(e.getMessage());
-			addEmployee();
+		
 		} catch(NullPointerException e) {
-			System.out.println(e.getMessage());
+			System.out.println("O erro tá no ponteiro que não aponta pra nada");
 			addEmployee();
 		} catch(NumberFormatException e) {
-			System.out.println(e.getMessage());
+			System.out.println("The number you entered is not valid");
 			addEmployee();
+		} catch(ArrayIndexOutOfBoundsException e) {
+			System.out.println("Please register first a position before registering an employee");
+			addEmployee();
+		} catch(IndexOutOfBoundsException e) {
+			System.out.println("Sorry, an error has occurred. This was due to the fact that an employee's \n" + 
+							   "registration was being made, without first registering a charge.\nPlease " + 
+							   "correct this error by registering a position before registering an employee");
+			addEmployee();
+		} catch(ParseException e) {
+			System.out.println("The date format entered by the user is not correct\n"+ 
+							   "Please try again based on this format:\n" + "dd/MM/yyyy");
+			addEmployee();
+		} catch (Exception e) {
+			
 		}
 	}	
 	/**
@@ -216,7 +235,7 @@ public class EmployeeScreen implements Screen {
 						
 					case 2:
 						System.out.println("Enter a new birthday");
-						String birthday = keyboard.nextLine();
+						Date birthday = strToDate(keyboard.nextLine());
 						employeeCtrl.setDateBirth(birthday);
 						break;
 					
@@ -297,7 +316,7 @@ public class EmployeeScreen implements Screen {
 		
 					case 2:
 						System.out.println("Enter a new birthday: ");
-						String dateBirth = keyboard.nextLine();
+						Date dateBirth = strToDate(keyboard.nextLine());
 						employeeCtrl.setDateBirth(dateBirth);
 						break;
 						
@@ -336,15 +355,15 @@ public class EmployeeScreen implements Screen {
 				
 			} while (option != 0);
 		
-		} catch(StupidUserException e) {
-			System.out.println(e.getMessage());
-			editEmployee();
+		
 		} catch(NullPointerException e) {
 			System.out.println(e.getMessage());
 			editEmployee();
 		} catch(NumberFormatException e) {
 			System.out.println(e.getMessage());
 			editEmployee();
+		} catch(ParseException e) {
+			
 		}
 		
 	}
@@ -386,10 +405,36 @@ public class EmployeeScreen implements Screen {
 			throw new NumberFormatException();
 		}
 	}
-	
-	public Date formatStringToDate(String data) {
-		// TODO Auto-generated method stub
-		return null;
+
+	public Date strToDate(String data) throws ParseException {
+		if (data == null) {
+            return null;
+        }
+        Date dataF = null;
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            long time = dateFormat.parse(data).getTime();
+            dataF = new Date(time);
+        } catch (ParseException e) {
+            throw new ParseException(data, 0);
+        }
+        return dataF;
+	}
+
+
+	public Date strToDateHour(String data) throws ParseException {
+		if (data == null) {
+            return null;
+        }
+        Date dataF = null;
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+            long time = dateFormat.parse(data).getTime();
+            dataF = new Date(time);
+        } catch (ParseException e) {
+        	throw new ParseException(data, 0);
+        }
+        return dataF;
 	}
 	
 }

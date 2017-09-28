@@ -31,12 +31,13 @@ public class EmploymentCtrl {
 	}
 	
 	public void menu() {
-		employmentScreen.employmentMenu();
+		employmentScreen.menu();
 	}
 	
 	
 	public void addEmployment(String name, Privileges option) {
-		employments.add(new Employment(getCode(), name, option, this));
+		Employment employment = new Employment(getCode(), name, option, this);
+		employments.add(employment);
 		setCode(getCode() + 1 );
 	}
 	
@@ -53,11 +54,11 @@ public class EmploymentCtrl {
 		
 	}
 	
-	public Employment getEmployment(int num) {
+	public Employment getEmployment(int num) throws NullPointerException {
 		try {
 			return employments.get(num);
 		} catch(NullPointerException e) {
-			throw new NullPointerException("Please, enter a valid number!");
+			throw new NullPointerException();
 		}		
 	}
 
