@@ -119,7 +119,9 @@ public class EmployeeScreen implements Screen {
 			 */
 			int i = 1;
 			if(employeeCtrl.listEmployments().size() > 0) {
-
+/*
+ * Listar os cargos na tela Cargo
+*/
 				for(Employment e : employeeCtrl.listEmployments()) {
 					System.out.println(i+"º - "+ e.getName());
 					i++;

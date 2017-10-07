@@ -151,7 +151,9 @@ public class EmploymentScreen implements Screen {
 					throw new IndexOutOfBoundsException();
 				}
 				
-				option = keyboard.nextInt() - 1;
+				//Converter essa merda do caralho
+				
+				option = conversionStringToInt(keyboard.nextLine()) - 1;
 				Employment generic = employmentCtrl.getEmployment(option);
 				System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
 				System.out.println("1 - Name");
@@ -176,8 +178,8 @@ public class EmploymentScreen implements Screen {
 						System.out.println("2 - " + Privileges.Restricted);
 						System.out.println("3 - " + Privileges.No);
 						keyboard.nextLine();
-						option = conversionStringToInt(keyboard.nextLine());
-						switch (option) {
+						int option2 = conversionStringToInt(keyboard.nextLine());
+						switch (option2) {
 						case 1:
 							generic.setPrivilege(Privileges.Full);
 							break;
@@ -191,7 +193,7 @@ public class EmploymentScreen implements Screen {
 							System.out.println("Choice a valid number!");
 						}
 	
-					} while (option != 1 && option != 2 && option != 3);
+					} while (option != 1 || option != 2 || option != 3);
 	
 				case 0:
 	
@@ -201,7 +203,7 @@ public class EmploymentScreen implements Screen {
 			}while (option != 0);
 		 
 		} catch(IndexOutOfBoundsException e) {
-			
+
 			editEmployment();
 		} catch(InputMismatchException e) {
 			

@@ -18,6 +18,7 @@ public class Employment {
 		this.name = name;
 		this.privilege = privilege;
 		this.employmentCtrl = employmentCtrl;
+		employees = new ArrayList<Contract>();
 	}
 	
 	public void addContract(Contract contract) throws Exception {
