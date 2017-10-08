@@ -81,6 +81,11 @@ public class FinancialSectorScreen {
 		}catch(ParseException e) {
 			
 			enterFinancialSector();
+		}catch(NullPointerException e) {
+			System.out.println("O erro aparentemente está no ponteiro, ou seja, " + 
+							   "\nprovavelmente eu deixei de instânciar algum "
+							   +"\nArrayList enfim, devo tratar essa merda depois.");
+			enterFinancialSector();
 		}
 		
 
