@@ -55,7 +55,7 @@ public class EmploymentScreen implements Screen {
 					break;
 					
 				case 4:
-					employmentCtrl.listEmployments();
+					listEmployments();
 					break;
 
 				case 5:
@@ -79,7 +79,10 @@ public class EmploymentScreen implements Screen {
 		} catch(ArrayIndexOutOfBoundsException e) {
 			System.out.println("The number entered is not valid");
 			menu();
-		} 
+		} catch(IndexOutOfBoundsException e) {
+			System.out.println("No charge registered. Please register a position before attempting this option");
+			menu();
+		}
 		
 	}
 
@@ -305,7 +308,9 @@ public class EmploymentScreen implements Screen {
 	}
 
 	public void delEmployment() {
-		// mudar o que é printado(com vocês, Varella e Marcos)
+		/*
+		 * Criar um método que verifica se o cargo não possuí funcionários associados a ele
+		 */
 		boolean getOut = false;
 		int option = 0;
 		do{
@@ -354,8 +359,8 @@ public class EmploymentScreen implements Screen {
 	
 	public void findEmployeesByEmployment() {
 		System.out.println("Enter the number corresponding to your choice:");
-		employmentCtrl.listEmployments();
-		int choice = keyboard.nextInt() - 1;
+		listEmployments();
+		int choice = conversionStringToInt(keyboard.nextLine()) - 1;
 		Employment generic = employmentCtrl.getEmployment(choice);
 		employmentCtrl.listEmployees(generic);
 	}

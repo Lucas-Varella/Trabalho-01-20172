@@ -96,8 +96,6 @@ public class EmployeeCtrl {
 		employee.setName(name);
 	}
 	
-	// Mudar para Date depois;
-	
 	public void setDateBirth(Date dateBirth) {
 		employee.setDateBirth(dateBirth);
 	}

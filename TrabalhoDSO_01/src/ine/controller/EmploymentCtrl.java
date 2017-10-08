@@ -20,7 +20,7 @@ public class EmploymentCtrl {
 	private Employment employment;
 	private EmploymentRestrictAccess employmentRestrictAccess;
 	private ArrayList<Employment> employments;
-	private static int code = 999;
+	private static int code = 1000;
 	
 	public EmploymentCtrl(MainController mainCtrl) {
 		this.mainCtrl = mainCtrl;

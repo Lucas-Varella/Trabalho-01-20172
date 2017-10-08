@@ -57,7 +57,7 @@ public class EmployeeScreen implements Screen {
 					break;
 					
 				case 4:
-					employeeCtrl.listEmployees();
+					listEmployees();
 					break;
 				
 				case 0:
@@ -203,28 +203,31 @@ public class EmployeeScreen implements Screen {
 				case 1:
 					System.out.println("Enter a new name: ");
 					String name = keyboard.nextLine();
-					employeeCtrl.setName(name);
+					generic.setName(name);
 					break;
 		
 				case 2:
 					System.out.println("Enter a new birthday: ");
 					Date dateBirth = strToDate(keyboard.nextLine());
-					employeeCtrl.setDateBirth(dateBirth);
+					generic.setDateBirth(dateBirth);
 					break;
 						
 				case 3:
 					System.out.println("Enter a new phone");
 					int phone = keyboard.nextInt();
-					employeeCtrl.setPhone(phone);
+					generic.setPhone(phone);
 					break;
 				
 				case 4:
 					System.out.println("Enter a new salary");
 					int salary = keyboard.nextInt();
-					employeeCtrl.setSalary(salary);
+					generic.setSalary(salary);
 					break;
 				
 				case 5:
+					/*
+					 * Listar os cargos apenas na tela Cargo e não na tela funcionário
+					 */
 					System.out.println("Enter the number corresponding to the new employment");
 					i = 1;
 					for(Employment e : employeeCtrl.listEmployments()) {
@@ -233,7 +236,7 @@ public class EmployeeScreen implements Screen {
 					}
 					int employment = conversionStringToInt(keyboard.nextLine());
 					Employment gen = employeeCtrl.findEmploymentByIndex(employment);
-					employeeCtrl.setEmployment(gen);
+					generic.setEmployment(gen);
 					break;
 					
 				case 0:
@@ -277,6 +280,14 @@ public class EmployeeScreen implements Screen {
 			delEmployee();
 		}
 		
+	}
+	
+	public void listEmployees() {
+		int i = 1;
+		for(Employee e: employeeCtrl.listEmployees()) {
+			System.out.println(i + "º - " + e.getName());
+			i++;
+		}
 	}
 	
 	public int conversionStringToInt(String data) throws NumberFormatException {
