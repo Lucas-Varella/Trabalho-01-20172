@@ -44,4 +44,17 @@ public class AccessCtrl {
 		}
 	}
 
+	public boolean isAccessBloqued(int numRegistration) {
+		int cont = 0;
+		for(Access a : deniedAccess) {
+			if(a.getNumRegistration() == numRegistration) {
+				cont++;
+			}
+		}
+		if(cont == 3) {
+			return true;
+		}
+		return false;
+	}
+
 }

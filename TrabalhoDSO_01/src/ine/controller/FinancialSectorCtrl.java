@@ -29,7 +29,7 @@ public class FinancialSectorCtrl {
 		financialSectorScreen.menuFinancialSector();
 	}
 	
-	public boolean validAccess(int numRegistration, Date hourAccess, String dateAccess) {
+	public boolean validAccess(int numRegistration, Date hourAccess, Date dateAccess) {
 		return financialSector.validAccess(numRegistration, hourAccess, dateAccess);
 	}
 	
@@ -59,6 +59,28 @@ public class FinancialSectorCtrl {
         	throw new ParseException(data, 0);
         }
         return dataF;
+	}
+	
+	public void addAccess(int numRegistration, Date date, Date hour, Reasons reason) {
+		mainCtrl.addAccess(numRegistration, date, hour, reason);
+	}
+
+	public boolean isAccessBloqued(int numRegistration) {
+		return mainCtrl.isAccessBloqued(numRegistration);
+	}
+
+	public void showAllDeniedAccess() {
+		mainCtrl.showAllDeniedAccess();
+		
+	}
+
+	public void showDeniedAccessByNumRegistration(int numRegistration) {
+		mainCtrl.showDeniedAccessByNumRegistration(numRegistration);
+		
+	}
+
+	public void showDeniedAccessByReason(Reasons reason) {
+		mainCtrl.showDeniedAccessByReason(reason);
 	}
 	
 }

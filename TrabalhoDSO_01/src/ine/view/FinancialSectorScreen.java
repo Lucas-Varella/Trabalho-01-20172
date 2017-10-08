@@ -63,9 +63,10 @@ public class FinancialSectorScreen {
 			
 			//aqui eu pego a hora atual do sistema, no caso o dia
 			
-			Date data = new Date();
 			SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-			String dateAccess = formatador.format( data );
+			String date = formatador.format(new Date());
+			long time = formatador.parse(date).getTime();
+			Date dateAccess = new Date(time);
 			
 			boolean valid = financialSectorCtrl.validAccess(num, hourAccess, dateAccess);
 			if(valid) {
@@ -86,9 +87,70 @@ public class FinancialSectorScreen {
 	}
 	
 	public void showDeniedAccess() {
-		/*
-		 * O sistema deve permitir listar os acessos negados através da matrícula 
-		 * e também pelo motivo de negação do acesso;
-		 */
+		try {
+			System.out.println("Please enter the number corresponding to your choice: ");
+			System.out.println("1 - List all denied access");
+			System.out.println("2 - List the denied accesses given a number of registration");
+			System.out.println("3 - List the access denied by the motive of denial");
+			System.out.println("0 - Exit");
+			
+			int option = financialSectorCtrl.conversionStringToInt(keyboard.nextLine());
+			switch(option) {
+			
+			case 1:
+				financialSectorCtrl.showAllDeniedAccess();
+				break;
+				
+			case 2: 
+				System.out.println("Please enter the registration number: ");
+				int numRegistration = financialSectorCtrl.conversionStringToInt(keyboard.nextLine());
+				financialSectorCtrl.showDeniedAccessByNumRegistration(numRegistration);
+				break;
+				
+			case 3:
+				System.out.println("Please enter the corresponding number for the denial of access: ");
+				System.out.println("1 - The number registration does not exist");
+				System.out.println("2 - You do not have access");
+				System.out.println("3 - The access time is not allowed");
+				System.out.println("4 - Access blocked");
+				int reason = financialSectorCtrl.conversionStringToInt(keyboard.nextLine());
+				
+				switch(reason) {
+				
+				case 1:
+					financialSectorCtrl.showDeniedAccessByReason(Reasons.NONUMREGS);
+					break;
+					
+				case 2:
+					financialSectorCtrl.showDeniedAccessByReason(Reasons.NOACCESS);
+					break;
+					
+				case 3:
+					financialSectorCtrl.showDeniedAccessByReason(Reasons.INCTIME);
+					break;
+					
+				case 4:
+					financialSectorCtrl.showDeniedAccessByReason(Reasons.BLOCK);
+					break;
+					
+				default:
+					System.out.println("The number you entered is not valid");
+				}
+				break;
+				
+			case 0:
+				financialSectorCtrl.mainMenu();
+				break;
+				
+			default:
+				System.out.println("The number you entered is not valid");
+
+			}
+			
+		} catch(NumberFormatException e) {
+			System.out.println("Please enter only a valid number");
+			showDeniedAccess();
+		}
+
 	}
 }

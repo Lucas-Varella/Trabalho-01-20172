@@ -10,6 +10,7 @@ package ine.controller;
  */
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import ine.controller.*;
 import ine.model.*;
@@ -86,6 +87,28 @@ public class MainController {
 	public void delEmployee(Employee employee) {
 		employeeCtrl.delEmployee(employee);
 		
+	}
+
+	public void addAccess(int numRegistration, Date date, Date hour, Reasons reason) {
+		accessCtrl.addAccess(numRegistration, date, hour, reason);
+	}
+
+	public boolean isAccessBloqued(int numRegistration) {
+		return accessCtrl.isAccessBloqued(numRegistration);
+		
+	}
+
+	public void showAllDeniedAccess() {
+		accessCtrl.listAllDeniedAccess();
+	}
+
+	public void showDeniedAccessByNumRegistration(int numRegistration) {
+		accessCtrl.listDeniedAccessByNumRegistration(numRegistration);
+		
+	}
+
+	public void showDeniedAccessByReason(Reasons reason) {
+		accessCtrl.listDeniedAccessByReason(reason);		
 	}
 	
 }
