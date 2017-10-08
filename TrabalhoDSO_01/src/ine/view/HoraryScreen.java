@@ -1,9 +1,10 @@
 package ine.view;
 
-import ine.controller.HoraryCtrl;
+import ine.controller.HoraryCtrl; 
 import ine.model.Horary;
 
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.sql.Date;
 import java.util.Scanner;
 
 public class HoraryScreen {
@@ -14,65 +15,74 @@ public class HoraryScreen {
 		this.horaryCtrl = horaryCtrl;
 		this.keyboard = new Scanner(System.in);
 	}
-
+	/**
+	 * Método que cria e retorna um objeto do tipo Horary, para uso posterior pela 
+	 * classe EmploymentRestrictAccess;
+	 * @return Objeto Horary
+	 */
 	public Horary menuAdd() {
-		ArrayList<String> hourBegin = new ArrayList();
-		ArrayList<String> hourFinish = new ArrayList();
-		System.out.println("Welcome!");
-		int option = 0;
-		do {
-			System.out.println("Please enter the hours of access to the financial sector allowed to the employee: ");
+		try {
+			
+			
+			System.out.println("Please enter the hours of access to the financial sector allowed to the employment: ");
 			System.out.println("Hour Begin: ");
 			/*
 			 * Formatar para Date depois;
 			 * Criar um try catch aqui para caso o usuário digite um horário
 			 * que não se encaixa no padrão Date formatado(hh:mm);
 			 */
-			hourBegin.add(keyboard.nextLine());
+			Date hourBegin = horaryCtrl.strToDateHour(keyboard.nextLine());
 			System.out.println("Hour Finish: ");
-			hourFinish.add(keyboard.nextLine());
-			System.out.println("0 to exit");
-			System.out.println("1 to add anothe time");
-			option = keyboard.nextInt();
-		}while(option != 0);
-		return horaryCtrl.addHorary(hourBegin, hourFinish);
-	}
+			Date hourFinish = horaryCtrl.strToDateHour(keyboard.nextLine());
+			return horaryCtrl.addHorary(hourBegin, hourFinish);
+				
+		}catch(ParseException e) {
+			System.out.println("The typed time does not follow the formatting pattern hh:mm");
+			menuAdd();
+		}catch(NullPointerException e) {
+			System.out.println("The typed time does not follow the formatting pattern hh:mm");
+			menuAdd();
+		}
+		return null;
 		
+	}
 	
-	    public void editHorary() {
-		System.out.println("Please enter the number corresponding to the times you wish to edit");
-		System.out.println("1 to horary begin");
-		System.out.println("2 to horar finish");
-		System.out.println("Or 0 to exit");
-		int option = keyboard.nextInt();
-		do {
-			switch(option) {
-			case 1:
-				System.out.println("This is the current list of the selected time (s): ");
-				horaryCtrl.listHorary(option);
-				System.out.println("Please enter the number for the time you want to change");
-				int hour = keyboard.nextInt() - 1;
-				System.out.println("Enter the new time: ");
-				String newTime = keyboard.nextLine();
-				horaryCtrl.editHorary(1, hour, newTime);
-				System.out.println("The new time was successfully added");
-				break;
-			case 2:
-				System.out.println("This is the current list of the selected time (s): ");
-				horaryCtrl.listHorary(option);
-				System.out.println("Please enter the number for the time you want to change");
-				hour = keyboard.nextInt() - 1;
-				System.out.println("Enter the new time");
-				newTime = keyboard.nextLine();
-				horaryCtrl.editHorary(2, hour, newTime);
-				System.out.println("The new time was successfully added");
-				break;
-			case 0:
-				System.out.println("Goodbye");
-			default:
-				System.out.println("The number you entered is not valid!");
-			}
-		}while(option != 0);
+	public Horary edit(Horary horary) {
+		try {
+			int option = 0;
+			do {
+				System.out.println("Please enter the number associated with the time that you wish to edit");
+				System.out.println("1 for " + horary.getHourBegin());
+				System.out.println("2 for " + horary.getHourFinish());
+				
+				option = horaryCtrl.conversionStringToInt(keyboard.nextLine());
+				switch(option) {
+				case 1:
+					System.out.println("Enter the new time");
+					Date newHorary = horaryCtrl.strToDateHour(keyboard.nextLine());
+					Date horaryConvert = horaryCtrl.strToDateHour(horary.getHourFinish());
+					return horaryCtrl.addHorary(newHorary, horaryConvert);
+					
+				case 2:
+					System.out.println("Enter the new time");
+					newHorary = horaryCtrl.strToDateHour(keyboard.nextLine());
+					horaryConvert = horaryCtrl.strToDateHour(horary.getHourBegin());
+					return horaryCtrl.addHorary(horaryConvert, newHorary);
+					
+				default:
+					System.out.println("Please enter a valid option");
+				}
+			} while(option != 1 || option != 2);
+			
+		}catch(NumberFormatException e) {
+			System.out.println("Please enter only numbers");
+			edit(horary);
+		}catch(ParseException e) {
+			System.out.println("The typed time does not follow the formatting pattern hh:mm");
+			edit(horary);
+		}
+		return null;
+		
 	}
 
 }

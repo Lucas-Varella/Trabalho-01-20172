@@ -2,6 +2,8 @@ package ine.view;
 
 import ine.controller.EmploymentCtrl; 
 import ine.model.Employment;
+import ine.model.EmploymentRestrictAccess;
+import ine.model.Horary;
 import ine.model.Privileges;
 import ine.model.Screen;
 
@@ -108,7 +110,28 @@ public class EmploymentScreen implements Screen {
 					break;
 				
 				case 2:
+					int choice = 0;
 					gen = Privileges.Restricted;
+					EmploymentRestrictAccess e = employmentCtrl.addEmploymentRestrictAccess(name, gen);
+					do{
+						Horary h = employmentCtrl.addHorary();
+						employmentCtrl.setHorary(e, h);
+						System.out.println("Do you want to add another access time?");
+						System.out.printf("Enter 1 for yes \nEnter 0 for no");
+						choice = conversionStringToInt(keyboard.nextLine());
+						if(choice < 0 || choice > 1) {
+							System.out.println("The number you entered is not valid");
+						}
+					}while(choice != 0);
+					System.out.println("Congratulations, you just successfully registered a employment!");
+					System.out.println("These are the employment data:");
+					System.out.println("Code: " + (EmploymentCtrl.getCode() - 1 ));
+					System.out.println("Name: " + name);
+					System.out.println("Privilege: " + gen);
+					System.out.println("Horary Access: " );
+					for(Horary h : employmentCtrl.getHorarys(e)) {
+						System.out.println(h.getHourBegin() + " - " + h.getHourFinish());
+					}
 					break;
 				
 				case 3:
@@ -119,14 +142,16 @@ public class EmploymentScreen implements Screen {
 					System.out.println("The number you entered is not valid. Please try again.");
 				}
 			
-			} while (option > 3 || option == 0);
+			} while (option > 3 || option <= 0);
 			
-			employmentCtrl.addEmployment(name, gen);
-			System.out.println("Congratulations, you just successfully registered a employment!");
-			System.out.println("These are the employment data:");
-			System.out.println("Code: " + EmploymentCtrl.getCode() + 1);
-			System.out.println("Name: " + name);
-			System.out.println("Privilege: " + gen);
+			if(option == 1 || option == 3) {
+				employmentCtrl.addEmployment(name, gen);
+				System.out.println("Congratulations, you just successfully registered a employment!");
+				System.out.println("These are the employment data:");
+				System.out.println("Code: " + (EmploymentCtrl.getCode() - 1 ));
+				System.out.println("Name: " + name);
+				System.out.println("Privilege: " + gen);
+			}
 		
 		} catch(NumberFormatException e) {
 			System.out.println("Please enter only integers");
@@ -140,68 +165,133 @@ public class EmploymentScreen implements Screen {
 			int option = 0;
 			do {
 				System.out.println("Please enter the number corresponding to your choice: ");
-				int i = 1;
 				
-				if(employmentCtrl.listEmployments().size() > 0) {
-					for(Employment e : employmentCtrl.listEmployments()) {
-						System.out.println(i+"º - "+ e.getName());
-						i++;
-					}
-				}else {
-					throw new IndexOutOfBoundsException();
-				}
-				
-				//Converter essa merda do caralho
-				
+				listEmployments();
 				option = conversionStringToInt(keyboard.nextLine()) - 1;
 				Employment generic = employmentCtrl.getEmployment(option);
-				System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
-				System.out.println("1 - Name");
-				System.out.println("Actually - " + generic.getName());
-				System.out.println("2 - Privilege");
-				System.out.println("Actually - " + generic.getPrivilege());
-				System.out.println("Or 0 to exit");
-				option = conversionStringToInt(keyboard.nextLine());
-				
-				switch (option) {
-	
-				case 1:
-					System.out.println("Enter a new name: ");
-					String name = keyboard.nextLine();
-					generic.setName(name);
-					break;
-	
-				case 2:
-					System.out.println("Enter the number of a new privilege: ");
-					do {
-						System.out.println("1 - " + Privileges.Full);
-						System.out.println("2 - " + Privileges.Restricted);
-						System.out.println("3 - " + Privileges.No);
-						keyboard.nextLine();
-						int option2 = conversionStringToInt(keyboard.nextLine());
-						switch (option2) {
+				if(generic.getPrivilege().equals(Privileges.Restricted)) {
+					EmploymentRestrictAccess gen = (EmploymentRestrictAccess) generic;
+					System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
+					System.out.println("1 - Name");
+					System.out.println("Actually - " + gen.getName());
+					System.out.println("2 - Privilege");
+					System.out.println("Actually - " + gen.getPrivilege());
+					System.out.println("3 - Horary Access");
+					System.out.println("Actually - ");
+					listHorary(gen);
+					System.out.println("Or 0 to exit");
+					option = conversionStringToInt(keyboard.nextLine());
+					
+					switch (option) {
+		
+					case 1:
+						System.out.println("Enter a new name: ");
+						String name = keyboard.nextLine();
+						generic.setName(name);
+						break;
+		
+					case 2:
+						System.out.println("Enter the number of a new privilege: ");
+						do {
+							System.out.println("1 - " + Privileges.Full);
+							System.out.println("2 - " + Privileges.Restricted);
+							System.out.println("3 - " + Privileges.No);
+							keyboard.nextLine();
+							int option2 = conversionStringToInt(keyboard.nextLine());
+							switch (option2) {
+							case 1:
+								generic.setPrivilege(Privileges.Full);
+								break;
+							case 2:
+								generic.setPrivilege(Privileges.Restricted);
+								break;
+							case 3:
+								generic.setPrivilege(Privileges.No);
+								break;
+							default:
+								System.out.println("Choice a valid number!");
+							}
+		
+						} while (option != 1 || option != 2 || option != 3);
+						
+					case 3:
+						System.out.println("Enter 1 to edit a time");
+						System.out.println("Enter 2 to delete a time");
+						
+						int choice = conversionStringToInt(keyboard.nextLine());
+						switch(choice) {
+						
 						case 1:
-							generic.setPrivilege(Privileges.Full);
-							break;
+							System.out.println("Please enter the number associated with the time interval you wish to edit");
+							listHorary(gen);
+							choice = conversionStringToInt(keyboard.nextLine()) - 1;
+							Horary newHorary = employmentCtrl.editHorary(gen.getHorary(choice));
+							gen.addHoraryByIndex(newHorary, choice);
+							
 						case 2:
-							generic.setPrivilege(Privileges.Restricted);
+							System.out.println("Please enter the number associated with the time interval you wish to edit");
+							listHorary(gen);
+							choice = conversionStringToInt(keyboard.nextLine()) - 1;
+							gen.delHorary(choice);
 							break;
-						case 3:
-							generic.setPrivilege(Privileges.No);
-							break;
+						
 						default:
-							System.out.println("Choice a valid number!");
+							System.out.println("Please enter a valid option ");	
 						}
-	
-					} while (option != 1 || option != 2 || option != 3);
-	
-				case 0:
-	
-					System.out.println("Goodbye");
-	
-				}
+		
+					case 0:
+		
+						System.out.println("Goodbye");
+		
+					}
+
+
+					}else {
+						option = conversionStringToInt(keyboard.nextLine());
+						
+						switch (option) {
+			
+						case 1:
+							System.out.println("Enter a new name: ");
+							String name = keyboard.nextLine();
+							generic.setName(name);
+							break;
+			
+						case 2:
+							System.out.println("Enter the number of a new privilege: ");
+							do {
+								System.out.println("1 - " + Privileges.Full);
+								System.out.println("2 - " + Privileges.Restricted);
+								System.out.println("3 - " + Privileges.No);
+								keyboard.nextLine();
+								int option2 = conversionStringToInt(keyboard.nextLine());
+								switch (option2) {
+								case 1:
+									generic.setPrivilege(Privileges.Full);
+									break;
+								case 2:
+									generic.setPrivilege(Privileges.Restricted);
+									break;
+								case 3:
+									generic.setPrivilege(Privileges.No);
+									break;
+								default:
+									System.out.println("Choice a valid number!");
+								}
+			
+							} while (option != 1 || option != 2 || option != 3);
+			
+						case 0:
+			
+							System.out.println("Goodbye");
+			
+						}
+					}
+		
+			
 			}while (option != 0);
-		 
+				
+			
 		} catch(IndexOutOfBoundsException e) {
 
 			editEmployment();
@@ -209,7 +299,7 @@ public class EmploymentScreen implements Screen {
 			
 			editEmployment();
 		} catch(NumberFormatException e) {
-			
+			System.out.println("Please enter only valid numbers");
 			editEmployment();
 		}
 	}
@@ -238,6 +328,28 @@ public class EmploymentScreen implements Screen {
 				System.out.println("Choice a valid number!");
 			}
 		}while(!getOut);
+	}
+	
+	public void listEmployments() throws IndexOutOfBoundsException {
+		int i = 1;
+		
+		if(employmentCtrl.listEmployments().size() >= 0) {
+			for(Employment e : employmentCtrl.listEmployments()) {
+				System.out.println(i+"º - "+ e.getName());
+				i++;
+			}
+		}else {
+			throw new IndexOutOfBoundsException();
+		}
+	}
+	
+	
+	public void listHorary(EmploymentRestrictAccess gen) {
+		int i = 1;
+		for(Horary h : gen.getHorarys()) {
+			System.out.println(i + "º - " + h.getHourBegin() +" - " + h.getHourFinish() );
+			i++;
+		}
 	}
 	
 	public void findEmployeesByEmployment() {

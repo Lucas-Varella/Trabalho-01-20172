@@ -7,11 +7,11 @@ import ine.model.*;
 import ine.view.*;
 
 public class Employment {
-	private int code;
-	private String name;
-	private Privileges privilege;
-	private ArrayList<Contract> employees;
-	private EmploymentCtrl employmentCtrl;
+	protected int code;
+	protected String name;
+	protected Privileges privilege;
+	protected ArrayList<Contract> employees;
+	protected EmploymentCtrl employmentCtrl;
 	
 	public Employment(int code, String name, Privileges privilege, EmploymentCtrl employmentCtrl) {
 		this.code = code;

@@ -13,7 +13,6 @@ import ine.view.EmployeeScreen;
 public class EmployeeCtrl {
 	private MainController mainCtrl;
 	private Employee employee;
-	private EmployeeRestrictAccess employeeRestrict;
 	private EmployeeScreen employeeScreen;
 	private ArrayList<Employee> employees;
 	private static int code = 17200000;
@@ -38,18 +37,8 @@ public class EmployeeCtrl {
 		return generic;
 	}
 	
-	public EmployeeRestrictAccess addEmployeeRestrict(String name, Date dateBirth, int phone, double salary) {
-		EmployeeRestrictAccess generic = new EmployeeRestrictAccess(this, getCode(), name, dateBirth, phone, salary);
-		employees.add(generic);
-		setCode(getCode() + 1);
-		return generic;
-	}
 	
 	public Contract addContract(Employment employment, Employee employee) throws Exception {
-		return new Contract(employment, employee);
-	}
-	
-	public Contract addContract(Employment employment, EmployeeRestrictAccess employee) throws Exception {
 		return new Contract(employment, employee);
 	}
 	
@@ -101,22 +90,6 @@ public class EmployeeCtrl {
 			}
 		}
 		return null;
-	}
-	
-	public Horary getHours(EmployeeRestrictAccess res) {
-		return employee.getHours(res);
-	}
-	
-	public void editHour(int array, int index, String newHorary) {
-		mainCtrl.editHours(array, index, newHorary);
-	}
-	
-	public Horary addHorary() {
-		return mainCtrl.addHorary();
-	}
-	
-	public void setHorary(Horary horary) {
-		employeeRestrict.setHours(horary);
 	}
 	
 	public void setName(String name) {

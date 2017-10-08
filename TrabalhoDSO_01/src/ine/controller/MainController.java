@@ -74,16 +74,13 @@ public class MainController {
 
 	}
 	
-	public void editHours(int array, int index, String newHorary) {
-		horaryCtrl.editHorary(array, index, newHorary);
-	}
-	
 	public Horary addHorary() {
 		return horaryCtrl.menuAdd();
 	}
-	
-	public void setHorary(Horary horary) {
-		employeeCtrl.setHorary(horary);
+
+	public Horary editHorary(Horary horary) {
+		return horaryCtrl.editHorary(horary);
+		
 	}
 	
 }

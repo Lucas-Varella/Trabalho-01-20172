@@ -76,10 +76,6 @@ public class Employee {
 	public void setEmployment(Employment employment) {
 		this.employment.setEmployment(employment);
 	}
-	
-	public Horary getHours(EmployeeRestrictAccess res) {
-		return res.getHours();
-	}
 
 	
 }
