@@ -29,8 +29,8 @@ public class FinancialSectorCtrl {
 		financialSectorScreen.menuFinancialSector();
 	}
 	
-	public boolean validAccess(int numRegistration, Date hourAccess) {
-		return financialSector.validAccess(numRegistration, hourAccess);
+	public boolean validAccess(int numRegistration, Date hourAccess, String dateAccess) {
+		return financialSector.validAccess(numRegistration, hourAccess, dateAccess);
 	}
 	
 	public Employee validNumRegistration(int numRegistration) {

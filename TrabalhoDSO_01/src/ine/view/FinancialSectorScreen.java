@@ -1,6 +1,7 @@
 package ine.view;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -59,7 +60,14 @@ public class FinancialSectorScreen {
 			int num = financialSectorCtrl.conversionStringToInt(keyboard.nextLine());
 			System.out.println("Time of access: ");
 			Date hourAccess = financialSectorCtrl.strToDateHour(keyboard.nextLine());
-			boolean valid = financialSectorCtrl.validAccess(num, hourAccess);
+			
+			//aqui eu pego a hora atual do sistema, no caso o dia
+			
+			Date data = new Date();
+			SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+			String dateAccess = formatador.format( data );
+			
+			boolean valid = financialSectorCtrl.validAccess(num, hourAccess, dateAccess);
 			if(valid) {
 				System.out.println("You are worthy to enter this sacred place");
 			}else {
@@ -78,5 +86,9 @@ public class FinancialSectorScreen {
 	}
 	
 	public void showDeniedAccess() {
+		/*
+		 * O sistema deve permitir listar os acessos negados através da matrícula 
+		 * e também pelo motivo de negação do acesso;
+		 */
 	}
 }

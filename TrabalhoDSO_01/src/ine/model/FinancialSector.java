@@ -12,7 +12,7 @@ public class FinancialSector {
 		this.financialSectorCtrl = financialSectorCtrl;
 	}
 	
-	public boolean validAccess(int numRegistration, Date hour) {
+	public boolean validAccess(int numRegistration, Date hour, String dateAccess) {
 		Employee generic = financialSectorCtrl.validNumRegistration(numRegistration);
 		if(generic != null) {
 			Privileges p = generic.getEmployment().getEmployment().getPrivilege();
