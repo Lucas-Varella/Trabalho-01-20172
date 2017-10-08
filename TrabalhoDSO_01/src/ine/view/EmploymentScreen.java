@@ -311,34 +311,38 @@ public class EmploymentScreen implements Screen {
 		/*
 		 * Criar um método que verifica se o cargo não possuí funcionários associados a ele
 		 */
-		boolean getOut = false;
-		int option = 0;
-		do{
-			System.out.println("Please enter the number corresponding to your choice: ");
-			employmentCtrl.listEmployments();
-			option = keyboard.nextInt() - 1;
-			employmentCtrl.delEmployment(employmentCtrl.getEmployment(option));
-			System.out.println("Do you want to fire another employee?");
-			System.out.println("Enter 1 if the answer is yes");
-			System.out.println("Enter 0 if the answer is no");
-			option = keyboard.nextInt();
-			switch(option) {
-			case 0:
-				getOut = true;
-				break;
-			case 1:
-				getOut = false;
-				break;
-			default:
-				System.out.println("Choice a valid number!");
+		try {
+			
+			
+			System.out.println("Please, enter the number corresponding to your choice");
+			listEmployments();
+			int option = conversionStringToInt(keyboard.nextLine()) - 1;
+			Employment e = employmentCtrl.getEmployment(option);
+			if(e.getEmployees().size() > 0) {
+				System.out.printf("The selected position has employees associated with it. \nIf you continue with this action, all of these employees will be deleted.");
+				System.out.printf("\nEnter 1 to continue \nEnter 2 to abort action");
+				option = conversionStringToInt(keyboard.nextLine());
+				
+				switch(option) {
+					
+				case 1: 
+					employmentCtrl.delEmployment(e);
+				}
 			}
-		}while(!getOut);
+			
+		}catch(NumberFormatException e) {
+			System.out.println("Please enter only valid numbers");
+			delEmployment();
+		}catch(IndexOutOfBoundsException e) {
+			System.out.println("No charge registered. Please register a position before attempting this option");
+			delEmployment();
+		}
 	}
 	
 	public void listEmployments() throws IndexOutOfBoundsException {
 		int i = 1;
 		
-		if(employmentCtrl.listEmployments().size() >= 0) {
+		if(employmentCtrl.listEmployments().size() > 0) {
 			for(Employment e : employmentCtrl.listEmployments()) {
 				System.out.println(i+"º - "+ e.getName());
 				i++;

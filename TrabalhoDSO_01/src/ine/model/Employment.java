@@ -64,6 +64,10 @@ public class Employment {
 		}
 	}
 	
+	public ArrayList<Contract> getEmployees() {
+		return employees;
+	}
+	
 	public String getName() {
 		return name;
 	}

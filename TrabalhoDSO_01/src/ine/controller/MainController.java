@@ -82,5 +82,10 @@ public class MainController {
 		return horaryCtrl.editHorary(horary);
 		
 	}
+
+	public void delEmployee(Employee employee) {
+		employeeCtrl.delEmployee(employee);
+		
+	}
 	
 }

@@ -1,8 +1,7 @@
 package ine.controller;
-
-import ine.controller.*;
+ 
 import ine.model.*;
-import ine.view.*;
+
 
 import ine.model.Employment;
 import ine.model.Horary;
@@ -51,7 +50,11 @@ public class EmploymentCtrl {
 	}
 	
 	public void delEmployment(Employment employment) {
-		
+		for(Contract c : employment.getEmployees()) {
+			c.getEmployee().delContract();
+			mainCtrl.delEmployee(c.getEmployee());
+		}
+		employments.remove(employment);
 	}
 	
 	public ArrayList<Employment> listEmployments() {

@@ -74,12 +74,16 @@ public class EmployeeScreen implements Screen {
 		} catch(NumberFormatException e) {
 			System.out.println(e.getMessage());
 			menu();
+		} catch(IndexOutOfBoundsException e) {
+			System.out.println("No employee registered. Please register a employee before attempting this option");
+			menu();
 		}
 
 		
 	}
 	/**
 	 * O método addEmployee() adiciona um novo funcionário
+	 * @throws Exception 
 	 */
 	public void addEmployee() {
 		try {
@@ -153,16 +157,15 @@ public class EmployeeScreen implements Screen {
 			System.out.println("Please register first a position before registering an employee");
 			addEmployee();
 		} catch(IndexOutOfBoundsException e) {
-			System.out.println("Sorry, an error has occurred. This was due to the fact that an employee's \n" + 
-							   "registration was being made, without first registering a charge.\nPlease " + 
-							   "correct this error by registering a position before registering an employee");
-			addEmployee();
+			System.out.println("No charge registered. Please register a position before attempting this option");
+			menu();
 		} catch(ParseException e) {
 			System.out.println("The date format entered by the user is not correct\n"+ 
 							   "Please try again based on this format:\n" + "dd/MM/yyyy");
 			addEmployee();
-		} catch (Exception e) {
-			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+			addEmployee();
 		}
 	}	
 	/**
@@ -175,11 +178,7 @@ public class EmployeeScreen implements Screen {
 			do {
 				System.out.println("Please enter the number corresponding to your choice: ");
 				// Listando todos os Funcionários;
-				int i = 1;
-				for(Employee e : employeeCtrl.listEmployees()) {
-					System.out.println(i + "º - " + e.getName());
-					i++;
-				}
+				listEmployees();
 				option = conversionStringToInt(keyboard.nextLine()) - 1;
 				Employee generic = employeeCtrl.getEmployee(option);
 				
@@ -229,7 +228,7 @@ public class EmployeeScreen implements Screen {
 					 * Listar os cargos apenas na tela Cargo e não na tela funcionário
 					 */
 					System.out.println("Enter the number corresponding to the new employment");
-					i = 1;
+					int i = 1;
 					for(Employment e : employeeCtrl.listEmployments()) {
 						System.out.println(i + "º - " + e.getName());
 						i++;
@@ -266,11 +265,7 @@ public class EmployeeScreen implements Screen {
 		try {
 			System.out.println("Select an employee to fire");
 	
-			int i = 1;
-			for(Employee e : employeeCtrl.listEmployees()) {
-				System.out.println(i + "º - " + e.getName());
-				i++;
-			}
+			listEmployees();
 			
 			int option = conversionStringToInt(keyboard.nextLine()) - 1;
 			employeeCtrl.delEmployee(option);
@@ -278,15 +273,22 @@ public class EmployeeScreen implements Screen {
 		} catch(NullPointerException e) {
 			System.out.println(e.getMessage());
 			delEmployee();
+		} catch(NumberFormatException e) {
+			System.out.println("");
 		}
 		
 	}
 	
 	public void listEmployees() {
 		int i = 1;
-		for(Employee e: employeeCtrl.listEmployees()) {
-			System.out.println(i + "º - " + e.getName());
-			i++;
+		if(employeeCtrl.listEmployees().size() > 0) {
+			for(Employee e: employeeCtrl.listEmployees()) {
+				System.out.println(i + "º - " + e.getName());
+				i++;
+			}
+
+		}else {
+			throw new IndexOutOfBoundsException();
 		}
 	}
 	

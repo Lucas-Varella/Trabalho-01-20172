@@ -39,11 +39,19 @@ public class EmployeeCtrl {
 	
 	
 	public Contract addContract(Employment employment, Employee employee) throws Exception {
-		return new Contract(employment, employee);
+		try {
+			return new Contract(employment, employee);
+		} catch (Exception e) {
+			throw e;
+		}
 	}
 	
 	public void delEmployee(int index) {
 		employees.remove(index);
+	}
+	
+	public void delEmployee(Employee e) {
+		employees.remove(e);
 	}
 	
 	public ArrayList<Employee> listEmployees() {

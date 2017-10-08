@@ -29,5 +29,13 @@ public class MainScreenCtrl {
 	public void financialSectorMenu() {
 		mainCtrl.showFinancialSectorMenu();
 	}
-
+	
+	public int conversionStringToInt(String data) throws NumberFormatException {
+		try {
+			int num = Integer.parseInt(data);	
+			return num;
+		} catch(NumberFormatException e ) {
+			throw new NumberFormatException();
+		}
+	}
 }
