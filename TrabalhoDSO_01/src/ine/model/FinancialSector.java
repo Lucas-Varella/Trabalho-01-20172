@@ -13,8 +13,7 @@ public class FinancialSector {
 	}
 	
 	public boolean validAccess(int numRegistration, Date hour, Date dateAccess) {
-		boolean isExist = financialSectorCtrl.validNumRegistration(numRegistration);
-		if(isExist) {
+		if(financialSectorCtrl.validNumRegistration(numRegistration)) {
 			if(financialSectorCtrl.isAccessBloqued(numRegistration)) {
 				financialSectorCtrl.addAccess(numRegistration, dateAccess, hour, Reasons.BLOCK);
 				return false;

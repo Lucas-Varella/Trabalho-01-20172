@@ -152,7 +152,11 @@ public class FinancialSectorScreen {
 		} catch(NumberFormatException e) {
 			System.out.println("Please enter only a valid number");
 			showDeniedAccess();
+		} catch(IndexOutOfBoundsException e) {
+			
+			showDeniedAccess();
 		}
+		
 
 	}
 }

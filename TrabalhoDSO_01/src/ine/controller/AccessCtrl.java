@@ -23,24 +23,36 @@ public class AccessCtrl {
 		deniedAccess.add(new Access(numRegistration, date, hour, reason ));
 	}
 	
-	public void listAllDeniedAccess() {
-		accessScreen.listAllDeniedAccess(deniedAccess);
+	public void listAllDeniedAccess() throws IndexOutOfBoundsException {
+		if(deniedAccess.size() > 0) {
+			accessScreen.listAllDeniedAccess(deniedAccess);
+		}else {
+			throw new IndexOutOfBoundsException();
+		}
 	}
 	
-	public void listDeniedAccessByNumRegistration(int numRegistration) {
-		for(Access a: deniedAccess) {
-			if(a.getNumRegistration() == numRegistration) {
-				accessScreen.listDeniedAccessByNumRegistration(a);
+	public void listDeniedAccessByNumRegistration(int numRegistration) throws IndexOutOfBoundsException {
+		if(deniedAccess.size() > 0) {
+			for(Access a: deniedAccess) {
+				if(a.getNumRegistration() == numRegistration) {
+					accessScreen.listDeniedAccessByNumRegistration(a);
+				}
 			}
+		}else {
+			throw new IndexOutOfBoundsException();
 		}
 
 	}
 	
-	public void listDeniedAccessByReason(Reasons reason) {
-		for(Access a : deniedAccess) {
-			if(a.getReason().equals(reason)) {
-				accessScreen.listDeniedAccessByReason(a);
+	public void listDeniedAccessByReason(Reasons reason) throws IndexOutOfBoundsException {
+		if(deniedAccess.size() > 0) {
+			for(Access a : deniedAccess) {
+				if(a.getReason().equals(reason)) {
+					accessScreen.listDeniedAccessByReason(a);
+				}
 			}
+		}else {
+			throw new IndexOutOfBoundsException();
 		}
 	}
 
