@@ -1,6 +1,7 @@
 package ine.view;
 
 import ine.controller.EmploymentCtrl; 
+import ine.model.Contract;
 import ine.model.Employment;
 import ine.model.EmploymentRestrictAccess;
 import ine.model.Horary;
@@ -9,6 +10,7 @@ import ine.model.Screen;
 
 import java.sql.Date;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -195,17 +197,29 @@ public class EmploymentScreen implements Screen {
 		
 					case 2:
 						System.out.println("Enter the number of a new privilege: ");
+						int option2 = 0;
 						do {
 							System.out.println("1 - " + Privileges.Full);
 							System.out.println("2 - " + Privileges.Restricted);
 							System.out.println("3 - " + Privileges.No);
-							int option2 = conversionStringToInt(keyboard.nextLine());
+							option2 = conversionStringToInt(keyboard.nextLine());
 							switch (option2) {
 							
 							case 1:
-								Employment e = (Employment) gen;
+								int code = gen.getCode();
+								name = gen.getName();
+								ArrayList<Contract> c = gen.getEmployees();
 								employmentCtrl.delEmployment(gen);
-								e.setPrivilege(Privileges.Full);
+								Employment newEmployment = null;
+								newEmployment = employmentCtrl.addEmployment(code, name, Privileges.Full);
+								for(Contract ct : c) {
+								try {
+									newEmployment.addContract(ct);
+								} catch (Exception e) {								
+									System.out.println(e.getMessage());
+								}
+							}
+								
 								break;
 							
 							case 2:
@@ -213,16 +227,17 @@ public class EmploymentScreen implements Screen {
 								break;
 						
 							case 3:
-								e = (Employment) gen;
+								code = gen.getCode();
+								name = gen.getName();
 								employmentCtrl.delEmployment(gen);
-								generic.setPrivilege(Privileges.No);
+								employmentCtrl.addEmployment(code, name, Privileges.No);
 								break;
 							
 							default:
 								System.out.println("Choice a valid number!");
 							}
 		
-						} while (option != 1 || option != 2 || option != 3);
+						} while (option2 > 3 && option2 < 1);
 						
 					case 3:
 						System.out.println("Enter 1 to edit a time");
@@ -256,7 +271,7 @@ public class EmploymentScreen implements Screen {
 					}
 
 
-					}else {
+				}else {
 						
 						System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
 						System.out.println("1 - Name");
@@ -275,14 +290,14 @@ public class EmploymentScreen implements Screen {
 			
 						case 2:
 							System.out.println("Enter the number of a new privilege: ");
-							
+							int option2 = 0;
 							do {
 							
 								System.out.println("1 - " + Privileges.Full);
 								System.out.println("2 - " + Privileges.Restricted);
 								System.out.println("3 - " + Privileges.No);
 								
-								int option2 = conversionStringToInt(keyboard.nextLine());
+								option2 = conversionStringToInt(keyboard.nextLine());
 								
 								switch (option2) {
 								case 1:
@@ -290,7 +305,10 @@ public class EmploymentScreen implements Screen {
 									break;
 								
 								case 2:
-									EmploymentRestrictAccess e = (EmploymentRestrictAccess) generic;
+									int code = generic.getCode();
+									name = generic.getName();
+									employmentCtrl.delEmployment(generic);
+									EmploymentRestrictAccess e = employmentCtrl.addEmploymentRestrictAccess(code, name, Privileges.Restricted);
 									int choice = 0;
 									do{
 										Horary h = employmentCtrl.addHorary();
@@ -302,7 +320,6 @@ public class EmploymentScreen implements Screen {
 											System.out.println("The number you entered is not valid");
 										}
 									}while(choice != 0);
-									generic.setPrivilege(Privileges.Restricted);
 									break;
 								
 								case 3:
@@ -313,7 +330,7 @@ public class EmploymentScreen implements Screen {
 									System.out.println("Choice a valid number!");
 								}
 			
-							} while (option == 1 || option == 2 || option == 3);
+							} while (option2 > 3 && option2 < 1);
 			
 						case 0:
 			
@@ -396,8 +413,7 @@ public class EmploymentScreen implements Screen {
 		System.out.println("Enter the number corresponding to your choice:");
 		listEmployments();
 		int choice = conversionStringToInt(keyboard.nextLine()) - 1;
-		Employment generic = employmentCtrl.getEmployment(choice);
-		employmentCtrl.listEmployees(generic);
+		employmentCtrl.listEmployees(employmentCtrl.getEmployment(choice));
 	}
 
 	public int conversionStringToInt(String data) throws NumberFormatException {

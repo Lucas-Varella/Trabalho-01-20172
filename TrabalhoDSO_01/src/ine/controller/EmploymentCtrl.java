@@ -4,6 +4,7 @@ import ine.model.*;
 
 
 import ine.model.Employment;
+import ine.model.EmploymentRestrictAccess;
 import ine.model.Horary;
 import ine.model.Privileges;
 import ine.view.EmploymentScreen;
@@ -50,10 +51,10 @@ public class EmploymentCtrl {
 	}
 	
 	public void delEmployment(Employment employment) {
-		for(Contract c : employment.getEmployees()) {
-			c.getEmployee().delContract();
-			mainCtrl.delEmployee(c.getEmployee());
-		}
+//		for(Contract c : employment.getEmployees()) {
+//			c.getEmployee().delContract();
+//			mainCtrl.delEmployee(c.getEmployee());
+//		}
 		employments.remove(employment);
 	}
 	
@@ -97,6 +98,19 @@ public class EmploymentCtrl {
 	public Horary editHorary(Horary horary) {
 		return mainCtrl.editHorary(horary);
 		
-	} 
+	}
+
+	public Employment addEmployment(int code2, String name, Privileges privilege) {
+		Employment e = new Employment(code2, name, privilege, this);
+		employments.add(e);
+		return e;
+	}
+
+	public EmploymentRestrictAccess addEmploymentRestrictAccess(int code2,
+			String name, Privileges privilege) {
+		EmploymentRestrictAccess e = new EmploymentRestrictAccess(code, name, privilege, this);
+		employments.add(e);
+		return e;
+	}
 
 }
