@@ -70,7 +70,7 @@ public class MainController {
 			
 	}
 	
-	public Employee validNumRegistration(int numRegistration) {
+	public boolean validNumRegistration(int numRegistration) {
 		return employeeCtrl.validNumRegistration(numRegistration);
 
 	}
@@ -109,6 +109,18 @@ public class MainController {
 
 	public void showDeniedAccessByReason(Reasons reason) {
 		accessCtrl.listDeniedAccessByReason(reason);		
+	}
+
+	public Employment getEmploymentByNumRegistration(int numRegistration) {
+		return employmentCtrl.getEmploymentByNumRegistration(numRegistration);
+	}
+
+	public Privileges getPrivilegeByNumRegistration(int numRegistration) {
+		return employeeCtrl.getPrivilegeByNumRegistration(numRegistration);
+	}
+
+	public ArrayList<Horary> getHoraryAccess(int numRegistration) {
+		return employeeCtrl.getHoraryAccess(numRegistration);
 	}
 	
 }

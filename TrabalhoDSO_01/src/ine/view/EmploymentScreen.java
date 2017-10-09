@@ -2,6 +2,7 @@ package ine.view;
 
 import ine.controller.EmploymentCtrl; 
 import ine.model.Contract;
+import ine.model.Employee;
 import ine.model.Employment;
 import ine.model.EmploymentRestrictAccess;
 import ine.model.Horary;
@@ -209,17 +210,17 @@ public class EmploymentScreen implements Screen {
 								int code = gen.getCode();
 								name = gen.getName();
 								ArrayList<Contract> c = gen.getEmployees();
-								employmentCtrl.delEmployment(gen);
 								Employment newEmployment = null;
 								newEmployment = employmentCtrl.addEmployment(code, name, Privileges.Full);
 								for(Contract ct : c) {
-								try {
-									newEmployment.addContract(ct);
-								} catch (Exception e) {								
-									System.out.println(e.getMessage());
+									try {
+										Employee e = ct.getEmployee();
+										Contract newC = new Contract(newEmployment, e);
+									} catch (Exception e) {								
+										System.out.println(e.getMessage());
+									}
 								}
-							}
-								
+								employmentCtrl.delEmployment(gen);
 								break;
 							
 							case 2:
@@ -227,12 +228,23 @@ public class EmploymentScreen implements Screen {
 								break;
 						
 							case 3:
+								
 								code = gen.getCode();
 								name = gen.getName();
+								c = gen.getEmployees();
+								newEmployment = null;
+								newEmployment = employmentCtrl.addEmployment(code, name, Privileges.Full);
+								for(Contract ct : c) {
+									try {
+										Employee e = ct.getEmployee();
+										Contract newC = new Contract(newEmployment, e);
+									} catch (Exception e) {								
+										System.out.println(e.getMessage());
+									}
+								}
 								employmentCtrl.delEmployment(gen);
-								employmentCtrl.addEmployment(code, name, Privileges.No);
 								break;
-							
+								
 							default:
 								System.out.println("Choice a valid number!");
 							}
@@ -307,12 +319,22 @@ public class EmploymentScreen implements Screen {
 								case 2:
 									int code = generic.getCode();
 									name = generic.getName();
+									ArrayList<Contract> c = generic.getEmployees();
+									EmploymentRestrictAccess newEmployment = null;
+									newEmployment = employmentCtrl.addEmploymentRestrictAccess(code, name, Privileges.Restricted);
+									for(Contract ct : c) {
+										try {
+											Employee e = ct.getEmployee();
+											Contract newC = new Contract(newEmployment, e);
+										} catch (Exception e) {								
+											System.out.println(e.getMessage());
+										}
+									}
 									employmentCtrl.delEmployment(generic);
-									EmploymentRestrictAccess e = employmentCtrl.addEmploymentRestrictAccess(code, name, Privileges.Restricted);
 									int choice = 0;
 									do{
 										Horary h = employmentCtrl.addHorary();
-										employmentCtrl.setHorary(e, h);
+										employmentCtrl.setHorary(newEmployment, h);
 										System.out.println("Do you want to add another access time?");
 										System.out.printf("Enter 1 for yes \nEnter 0 for no");
 										choice = conversionStringToInt(keyboard.nextLine());
@@ -320,6 +342,7 @@ public class EmploymentScreen implements Screen {
 											System.out.println("The number you entered is not valid");
 										}
 									}while(choice != 0);
+									
 									break;
 								
 								case 3:

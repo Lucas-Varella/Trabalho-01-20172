@@ -13,18 +13,20 @@ public class FinancialSector {
 	}
 	
 	public boolean validAccess(int numRegistration, Date hour, Date dateAccess) {
-		Employee generic = financialSectorCtrl.validNumRegistration(numRegistration);
-		if(generic != null) {
+		boolean isExist = financialSectorCtrl.validNumRegistration(numRegistration);
+		if(isExist) {
 			if(financialSectorCtrl.isAccessBloqued(numRegistration)) {
 				financialSectorCtrl.addAccess(numRegistration, dateAccess, hour, Reasons.BLOCK);
 				return false;
 			}
-			Privileges p = generic.getEmployment().getEmployment().getPrivilege();
+			Privileges p = financialSectorCtrl.getPrivilegeByNumRegistration(numRegistration);
+		
 			if(p.equals(Privileges.Full)) {
 				return true;
+				
 			}else if(p.equals(Privileges.Restricted)) {
-				EmploymentRestrictAccess e = (EmploymentRestrictAccess) generic.getEmployment().getEmployment();
-				if(validHour(e.getHorarys(), hour)) {
+				ArrayList<Horary> horaryAccess = financialSectorCtrl.getHoraryAccess(numRegistration);
+				if(validHour(horaryAccess, hour)) {
 					return true;
 				}else {
 					financialSectorCtrl.addAccess(numRegistration, dateAccess, hour, Reasons.INCTIME);

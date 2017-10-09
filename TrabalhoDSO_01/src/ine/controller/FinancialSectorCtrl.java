@@ -1,5 +1,6 @@
 package ine.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.text.DateFormat;
@@ -34,7 +35,7 @@ public class FinancialSectorCtrl {
 		return financialSector.validAccess(numRegistration, hourAccess, dateAccess);
 	}
 	
-	public Employee validNumRegistration(int numRegistration) {
+	public boolean validNumRegistration(int numRegistration) {
 		return mainCtrl.validNumRegistration(numRegistration);
 	}
 	
@@ -89,6 +90,18 @@ public class FinancialSectorCtrl {
 		Calendar c = Calendar.getInstance();
 		String dateFormat = df.format(c.getTime());
 		return df.parse(dateFormat);
+	}
+
+	public Employment getEmploymentByNumRegistration(int numRegistration) {
+		return mainCtrl.getEmploymentByNumRegistration(numRegistration);
+	}
+
+	public Privileges getPrivilegeByNumRegistration(int numRegistration) {
+		return mainCtrl.getPrivilegeByNumRegistration(numRegistration);
+	}
+
+	public ArrayList<Horary> getHoraryAccess(int numRegistration) {
+		return mainCtrl.getHoraryAccess(numRegistration);
 	}
 	
 }

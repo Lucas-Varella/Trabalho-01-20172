@@ -113,4 +113,18 @@ public class EmploymentCtrl {
 		return e;
 	}
 
+	public Employment getEmploymentByNumRegistration(int numRegistration) {
+		Employment e = null;
+		for(Employment en : employments) {
+			for(Contract c : en.getEmployees()) {
+				if(c.getEmployee().getNumRegistration() == numRegistration) {
+					e = en;
+					return e;
+				}
+			}
+				
+		}
+		return null;
+	}
+
 }

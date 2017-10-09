@@ -91,15 +91,13 @@ public class EmployeeCtrl {
 		
 	}
 	
-	public Employee validNumRegistration(int numRegistration) {
-		Employee returned = null;
+	public boolean validNumRegistration(int numRegistration) {
 		for(Employee e : employees) {
 			if(numRegistration == e.getNumRegistration()) {
-				returned = e;
-				return returned;
+				return true;
 			}
 		}
-		return returned;
+		return false;
 	}
 	
 	public void setName(String name) {
@@ -120,6 +118,25 @@ public class EmployeeCtrl {
 	
 	public void setEmployment(Employment employment) {
 		employee.setEmployment(employment);
+	}
+
+	public Privileges getPrivilegeByNumRegistration(int numRegistration) {
+		for(Employee e : employees) {
+			if(e.getNumRegistration() == numRegistration) {
+				return e.getEmployment().getEmployment().getPrivilege();
+			}
+		}
+		return null;
+	}
+
+	public ArrayList<Horary> getHoraryAccess(int numRegistration) {
+		for(Employee e: employees) {
+			if(e.getNumRegistration() == numRegistration) {
+				EmploymentRestrictAccess er= (EmploymentRestrictAccess) e.getEmployment().getEmployment();
+				return er.getHorarys();
+			}
+		}
+		return null;
 	}
 	
 	
