@@ -48,8 +48,8 @@ public class FinancialSectorCtrl {
 		}
 	}
 	
-	public Date strToDateHour(String data) {
-		try {
+	public Date strToDateHour(String data) throws ParseException {
+//		try {
 			if (data == null) {
 	            return null;
 	        }
@@ -62,11 +62,11 @@ public class FinancialSectorCtrl {
 	        	throw new ParseException(data, 0);
 	        }
 	        return dataF;
-
-		}catch(ParseException e) {
-			
-		}
-		return null;
+//
+//		}catch(ParseException e) {
+//			
+//		}
+//		return null;
 	}
 	
 	public void addAccess(int numRegistration, Date date, Date hour, Reasons reason) {
