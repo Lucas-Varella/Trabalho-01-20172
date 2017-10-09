@@ -55,7 +55,7 @@ public class FinancialSectorScreen {
 		try {
 			System.out.println("Welcome to the entrance of the Financial Sector, noble adventurer");
 			System.out.println("To continue your quest for capital, please enter your registration number and," + 
-								"if you are worthy, you may enter this sacred place");
+								"\nif you are worthy, you may enter this sacred place");
 			System.out.println("Number of registration: ");
 			int num = financialSectorCtrl.conversionStringToInt(keyboard.nextLine());
 			System.out.println("Time of access: ");
@@ -63,10 +63,7 @@ public class FinancialSectorScreen {
 			
 			//aqui eu pego a hora atual do sistema, no caso o dia
 			
-			SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-			String date = formatador.format(new Date());
-			long time = formatador.parse(date).getTime();
-			Date dateAccess = new Date(time);
+			Date dateAccess = financialSectorCtrl.getCurrenteDate();
 			
 			boolean valid = financialSectorCtrl.validAccess(num, hourAccess, dateAccess);
 			if(valid) {

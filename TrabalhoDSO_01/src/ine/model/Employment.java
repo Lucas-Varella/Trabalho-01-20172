@@ -84,5 +84,9 @@ public class Employment {
 		this.privilege = privilege;
 	}
 	
+	public int getCode() {
+		return code;
+	}
+	
 	
 }

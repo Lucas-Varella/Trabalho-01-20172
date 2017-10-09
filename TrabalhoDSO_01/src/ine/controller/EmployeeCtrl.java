@@ -92,12 +92,14 @@ public class EmployeeCtrl {
 	}
 	
 	public Employee validNumRegistration(int numRegistration) {
+		Employee returned = null;
 		for(Employee e : employees) {
-			if(e.getNumRegistration() == numRegistration) {
-				return e;
+			if(numRegistration == e.getNumRegistration()) {
+				returned = e;
+				return returned;
 			}
 		}
-		return null;
+		return returned;
 	}
 	
 	public void setName(String name) {

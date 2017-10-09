@@ -168,10 +168,10 @@ public class EmploymentScreen implements Screen {
 			int option = 0;
 			do {
 				System.out.println("Please enter the number corresponding to your choice: ");
-				
 				listEmployments();
 				option = conversionStringToInt(keyboard.nextLine()) - 1;
 				Employment generic = employmentCtrl.getEmployment(option);
+				
 				if(generic.getPrivilege().equals(Privileges.Restricted)) {
 					EmploymentRestrictAccess gen = (EmploymentRestrictAccess) generic;
 					System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
@@ -199,18 +199,25 @@ public class EmploymentScreen implements Screen {
 							System.out.println("1 - " + Privileges.Full);
 							System.out.println("2 - " + Privileges.Restricted);
 							System.out.println("3 - " + Privileges.No);
-							keyboard.nextLine();
 							int option2 = conversionStringToInt(keyboard.nextLine());
 							switch (option2) {
+							
 							case 1:
-								generic.setPrivilege(Privileges.Full);
+								Employment e = (Employment) gen;
+								employmentCtrl.delEmployment(gen);
+								e.setPrivilege(Privileges.Full);
 								break;
+							
 							case 2:
 								generic.setPrivilege(Privileges.Restricted);
 								break;
+						
 							case 3:
+								e = (Employment) gen;
+								employmentCtrl.delEmployment(gen);
 								generic.setPrivilege(Privileges.No);
 								break;
+							
 							default:
 								System.out.println("Choice a valid number!");
 							}
@@ -250,8 +257,14 @@ public class EmploymentScreen implements Screen {
 
 
 					}else {
-						option = conversionStringToInt(keyboard.nextLine());
 						
+						System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
+						System.out.println("1 - Name");
+						System.out.println("Actually - " + generic.getName());
+						System.out.println("2 - Privilege");
+						System.out.println("Actually - " + generic.getPrivilege());
+						System.out.println("Or 0 to exit");
+						option = conversionStringToInt(keyboard.nextLine());
 						switch (option) {
 			
 						case 1:
@@ -262,27 +275,45 @@ public class EmploymentScreen implements Screen {
 			
 						case 2:
 							System.out.println("Enter the number of a new privilege: ");
+							
 							do {
+							
 								System.out.println("1 - " + Privileges.Full);
 								System.out.println("2 - " + Privileges.Restricted);
 								System.out.println("3 - " + Privileges.No);
-								keyboard.nextLine();
+								
 								int option2 = conversionStringToInt(keyboard.nextLine());
+								
 								switch (option2) {
 								case 1:
 									generic.setPrivilege(Privileges.Full);
 									break;
+								
 								case 2:
+									EmploymentRestrictAccess e = (EmploymentRestrictAccess) generic;
+									int choice = 0;
+									do{
+										Horary h = employmentCtrl.addHorary();
+										employmentCtrl.setHorary(e, h);
+										System.out.println("Do you want to add another access time?");
+										System.out.printf("Enter 1 for yes \nEnter 0 for no");
+										choice = conversionStringToInt(keyboard.nextLine());
+										if(choice < 0 || choice > 1) {
+											System.out.println("The number you entered is not valid");
+										}
+									}while(choice != 0);
 									generic.setPrivilege(Privileges.Restricted);
 									break;
+								
 								case 3:
 									generic.setPrivilege(Privileges.No);
 									break;
+								
 								default:
 									System.out.println("Choice a valid number!");
 								}
 			
-							} while (option != 1 || option != 2 || option != 3);
+							} while (option == 1 || option == 2 || option == 3);
 			
 						case 0:
 			

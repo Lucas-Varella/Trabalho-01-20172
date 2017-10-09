@@ -50,7 +50,6 @@ public class FinancialSector {
 				return true;
 			}
 		}
-		//criar outro access aqui
 		return false;
 	}
 	

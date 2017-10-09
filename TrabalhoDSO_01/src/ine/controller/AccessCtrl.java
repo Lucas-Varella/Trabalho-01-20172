@@ -16,7 +16,7 @@ public class AccessCtrl {
 	
 	public AccessCtrl(MainController mainController) {
 		this.mainCtrl = mainController;
-		deniedAccess = new ArrayList();
+		deniedAccess = new ArrayList<Access>();
 	}
 	
 	public void addAccess(int numRegistration, Date date, Date hour, Reasons reason) {

@@ -1,5 +1,6 @@
 package ine.controller;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -81,6 +82,13 @@ public class FinancialSectorCtrl {
 
 	public void showDeniedAccessByReason(Reasons reason) {
 		mainCtrl.showDeniedAccessByReason(reason);
+	}
+	
+	public Date getCurrenteDate() throws ParseException {
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		Calendar c = Calendar.getInstance();
+		String dateFormat = df.format(c.getTime());
+		return df.parse(dateFormat);
 	}
 	
 }
