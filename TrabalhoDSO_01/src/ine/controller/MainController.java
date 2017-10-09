@@ -1,7 +1,7 @@
 package ine.controller;
 
 /*
- * Refazer os imports em todas as classes do projeto, detalhando os
+ * Refazer os imports em todas as classes do projeto, detalhando os 
  * que são usados e excluindo os não utilizados;
  * 
  * Lembre-me de mudar o nome do package pai(ine) para algo melhor(o padrão
@@ -25,10 +25,6 @@ public class MainController {
 	private HoraryCtrl horaryCtrl;
 	
 	public MainController() {
-		/*
-		 * This is a test
-		 * 
-		 */
 		mainScreenCtrl = new MainScreenCtrl(this);
 		employeeCtrl = new EmployeeCtrl(this);
 		employmentCtrl = new EmploymentCtrl(this);
@@ -121,6 +117,11 @@ public class MainController {
 
 	public ArrayList<Horary> getHoraryAccess(int numRegistration) {
 		return employeeCtrl.getHoraryAccess(numRegistration);
+	}
+
+	public Reasons getReasonBy(int num, Date hourAccess, Date dateAccess) {
+		return accessCtrl.getReasonsBy(num, hourAccess, dateAccess);
+		
 	}
 	
 }

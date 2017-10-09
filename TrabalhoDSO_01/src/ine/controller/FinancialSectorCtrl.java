@@ -103,5 +103,9 @@ public class FinancialSectorCtrl {
 	public ArrayList<Horary> getHoraryAccess(int numRegistration) {
 		return mainCtrl.getHoraryAccess(numRegistration);
 	}
+
+	public Reasons getReasonBy(int num, Date hourAccess, Date dateAccess) {
+		return mainCtrl.getReasonBy(num, hourAccess, dateAccess);		
+	}
 	
 }

@@ -57,4 +57,13 @@ public class AccessCtrl {
 		return false;
 	}
 
+	public Reasons getReasonsBy(int num, Date hourAccess, Date dateAccess) {
+		for(Access a : deniedAccess) {
+			if(a.getNumRegistration() == num && a.getHour().equals(hourAccess) && a.getDate().equals(dateAccess)) {
+				return a.getReason();
+			}
+		}
+		return null;
+	}
+
 }

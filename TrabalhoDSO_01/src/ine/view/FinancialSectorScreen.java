@@ -70,7 +70,7 @@ public class FinancialSectorScreen {
 				System.out.println("You are worthy to enter this sacred place");
 			}else {
 				System.out.println("You are not worthy to enter this place, adventurer, for:");
-				
+				System.out.println(financialSectorCtrl.getReasonBy(num, hourAccess, dateAccess));
 			}
 		}catch(NumberFormatException e) {
 			System.out.println("Please enter only valid numbers");
