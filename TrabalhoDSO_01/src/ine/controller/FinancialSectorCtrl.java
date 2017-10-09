@@ -18,7 +18,7 @@ public class FinancialSectorCtrl {
 	
 
 	public FinancialSectorCtrl(MainController mainController) {
-		this.mainCtrl = mainCtrl;
+		this.mainCtrl = mainController;
 		this.financialSectorScreen = new FinancialSectorScreen(this);
 		this.financialSector = new FinancialSector(this);
 	}
@@ -48,19 +48,25 @@ public class FinancialSectorCtrl {
 		}
 	}
 	
-	public Date strToDateHour(String data) throws ParseException {
-		if (data == null) {
-            return null;
-        }
-        Date dataF = null;
-        try {
-            DateFormat dateFormat = new SimpleDateFormat("HH:mm");
-            long time = dateFormat.parse(data).getTime();
-            dataF = new Date(time);
-        } catch (ParseException e) {
-        	throw new ParseException(data, 0);
-        }
-        return dataF;
+	public Date strToDateHour(String data) {
+		try {
+			if (data == null) {
+	            return null;
+	        }
+	        Date dataF = null;
+	        try {
+	            DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+	            long time = dateFormat.parse(data).getTime();
+	            dataF = new Date(time);
+	        } catch (ParseException e) {
+	        	throw new ParseException(data, 0);
+	        }
+	        return dataF;
+
+		}catch(ParseException e) {
+			
+		}
+		return null;
 	}
 	
 	public void addAccess(int numRegistration, Date date, Date hour, Reasons reason) {

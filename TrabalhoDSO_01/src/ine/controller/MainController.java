@@ -9,12 +9,9 @@ package ine.controller;
  * qual era);
  */
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.Date;
-
-import ine.controller.*;
 import ine.model.*;
-import ine.view.*;
 
 public class MainController {
 	private MainScreenCtrl mainScreenCtrl;

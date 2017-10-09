@@ -20,7 +20,8 @@ public class AccessCtrl {
 	}
 	
 	public void addAccess(int numRegistration, Date date, Date hour, Reasons reason) {
-		deniedAccess.add(new Access(numRegistration, date, hour, reason ));
+		Access a = new Access(numRegistration, date, hour, reason );
+		deniedAccess.add(a);
 	}
 	
 	public void listAllDeniedAccess() throws IndexOutOfBoundsException {
@@ -57,6 +58,9 @@ public class AccessCtrl {
 	}
 
 	public boolean isAccessBloqued(int numRegistration) {
+		if(deniedAccess.size() == 0) {
+			return false;
+		}
 		int cont = 0;
 		for(Access a : deniedAccess) {
 			if(a.getNumRegistration() == numRegistration) {
@@ -67,6 +71,7 @@ public class AccessCtrl {
 			return true;
 		}
 		return false;
+		
 	}
 
 	public Reasons getReasonsBy(int num, Date hourAccess, Date dateAccess) {
