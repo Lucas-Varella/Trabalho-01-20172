@@ -30,6 +30,8 @@ public class Employee {
 	}
 	
 	public void delContract()  {
+		this.employment.setEmployee(null);
+		this.employment.setEmployment(null);
 		this.employment = null;
 	}
 

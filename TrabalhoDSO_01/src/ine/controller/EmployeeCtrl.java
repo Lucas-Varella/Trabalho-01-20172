@@ -52,6 +52,7 @@ public class EmployeeCtrl {
 	
 	public void delEmployee(Employee e) {
 		employees.remove(e);
+		
 	}
 	
 	public ArrayList<Employee> listEmployees() {
