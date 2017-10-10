@@ -16,14 +16,6 @@ public class Main {
 	 */
 	public static void main(String[] args) throws ParseException {
 		MainController mainCtrl = new MainController();
-		FinancialSectorCtrl f = new FinancialSectorCtrl(mainCtrl);
-		Access a = new Access(012, f.getCurrenteDate() ,f.strToDateHour("08:00"), Reasons.BLOCK);
-		ArrayList<Access> deniedAccess = new ArrayList();
-		deniedAccess.add(a);
-		
-		
-		//Access s = new Access(012, f.getCurrenteDate() ,f.strToDateHour("08:00"), Reasons.BLOCK);
-		//f.addAccess(012, f.getCurrenteDate(), f.strToDateHour("08:00"), Reasons.BLOCK);
 		mainCtrl.showMainScreen();
 
 	}

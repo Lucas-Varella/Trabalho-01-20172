@@ -16,7 +16,6 @@ public class FinancialSectorScreen {
 		this.financialSectorCtrl = financialSectorCtrl;
 		keyboard = new Scanner(System.in);
 	}
-	
 	public void menuFinancialSector() {
 		try {
 			int option = 0;
