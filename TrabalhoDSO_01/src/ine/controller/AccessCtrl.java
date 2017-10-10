@@ -33,7 +33,7 @@ public class AccessCtrl {
 	}
 	
 	public void listDeniedAccessByNumRegistration(int numRegistration) throws IndexOutOfBoundsException {
-		if(deniedAccess.size() > 0) {
+		if(deniedAccess != null) {
 			for(Access a: deniedAccess) {
 				if(a.getNumRegistration() == numRegistration) {
 					accessScreen.listDeniedAccessByNumRegistration(a);
@@ -46,7 +46,7 @@ public class AccessCtrl {
 	}
 	
 	public void listDeniedAccessByReason(Reasons reason) throws IndexOutOfBoundsException {
-		if(deniedAccess.size() > 0) {
+		if(deniedAccess != null) {
 			for(Access a : deniedAccess) {
 				if(a.getReason().equals(reason)) {
 					accessScreen.listDeniedAccessByReason(a);
