@@ -63,6 +63,7 @@ public class FinancialSectorScreen {
 			//aqui eu pego a hora atual do sistema, no caso o dia
 			
 			Date dateAccess = financialSectorCtrl.getCurrenteDate();
+			dateAccess = financialSectorCtrl.strToDate(dateAccess.toString());
 			
 			boolean valid = financialSectorCtrl.validAccess(num, hourAccess, dateAccess);
 			if(valid) {

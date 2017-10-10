@@ -69,6 +69,21 @@ public class FinancialSectorCtrl {
 //		return null;
 	}
 	
+	public Date strToDate(String data) throws ParseException {
+		if (data == null) {
+            return null;
+        }
+        Date dataF = null;
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            long time = dateFormat.parse(data).getTime();
+            dataF = new Date(time);
+        } catch (ParseException e) {
+            throw new ParseException(data, 0);
+        }
+        return dataF;
+	}
+	
 	public void addAccess(int numRegistration, Date date, Date hour, Reasons reason) {
 		mainCtrl.addAccess(numRegistration, date, hour, reason);
 	}

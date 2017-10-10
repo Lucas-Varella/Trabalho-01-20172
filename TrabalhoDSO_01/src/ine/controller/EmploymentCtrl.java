@@ -51,10 +51,10 @@ public class EmploymentCtrl {
 	}
 	
 	public void delEmployment(Employment employment) {
-//		for(Contract c : employment.getEmployees()) {
-//			c.getEmployee().delContract();
-//			mainCtrl.delEmployee(c.getEmployee());
-//		}
+		for(Contract c : employment.getEmployees()) {
+			c.getEmployee().delContract();
+			mainCtrl.delEmployee(c.getEmployee());
+		}
 		employments.remove(employment);
 	}
 	
