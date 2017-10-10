@@ -21,6 +21,12 @@ public class FinancialSector {
 				financialSectorCtrl.addAccess(numRegistration, dateAccess, hour, Reasons.BLOCK);
 				return false;
 			}
+			
+			if(!financialSectorCtrl.validNumRegistration(numRegistration)) {
+				financialSectorCtrl.addAccess(numRegistration, dateAccess, hour, Reasons.NONUMREGS);
+				return false;
+			}
+			
 			Privileges p = financialSectorCtrl.getPrivilegeByNumRegistration(numRegistration);
 		
 			if(p.equals(Privileges.Full)) {
@@ -37,8 +43,8 @@ public class FinancialSector {
 				financialSectorCtrl.addAccess(numRegistration, dateAccess, hour, Reasons.NOACCESS);
 				return false;
 			}
-			financialSectorCtrl.addAccess(numRegistration, dateAccess, hour, Reasons.NONUMREGS);
-			return false;
+			
+			
 		} catch(ParseException e) {
 			System.out.println("Se eu chegar a ler isso, significa que deu merda na conversão das datas");
 		}
@@ -49,7 +55,7 @@ public class FinancialSector {
 		for(Horary h : horarys) {
 			Date hourBegin = financialSectorCtrl.strToDateHour(h.getHourBegin());
 			Date hourFinish = financialSectorCtrl.strToDateHour(h.getHourFinish());
-			if(access.before(hourBegin) && access.after(hourFinish)) {
+			if(access.after(hourBegin) && access.before(hourFinish)) {
 				return true;
 			}
 		}

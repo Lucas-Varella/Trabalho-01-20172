@@ -25,7 +25,7 @@ public class AccessCtrl {
 	}
 	
 	public void listAllDeniedAccess() throws IndexOutOfBoundsException {
-		if(deniedAccess.size() > 0) {
+		if(deniedAccess != null) {
 			accessScreen.listAllDeniedAccess(deniedAccess);
 		}else {
 			throw new IndexOutOfBoundsException();
@@ -58,18 +58,20 @@ public class AccessCtrl {
 	}
 
 	public boolean isAccessBloqued(int numRegistration) {
-		if(deniedAccess.size() == 0) {
-			return false;
-		}
-		int cont = 0;
-		for(Access a : deniedAccess) {
-			if(a.getNumRegistration() == numRegistration) {
-				cont++;
+		if(deniedAccess != null ) {
+			int cont = 0;
+			for(Access a : deniedAccess) {
+				if(a.getNumRegistration() == numRegistration) {
+					cont++;
+				}
 			}
+			if(cont == 3) {
+				return true;
+			}
+			return false;
+			
 		}
-		if(cont == 3) {
-			return true;
-		}
+
 		return false;
 		
 	}

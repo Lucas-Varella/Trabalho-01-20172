@@ -93,7 +93,7 @@ public class EmployeeCtrl {
 	
 	public boolean validNumRegistration(int numRegistration) {
 		for(Employee e : employees) {
-			if(numRegistration == e.getNumRegistration()) {
+			if(e.getNumRegistration() == numRegistration) {
 				return true;
 			}
 		}

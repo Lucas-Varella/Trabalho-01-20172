@@ -63,7 +63,7 @@ public class FinancialSectorScreen {
 			//aqui eu pego a hora atual do sistema, no caso o dia
 			
 			Date dateAccess = financialSectorCtrl.getCurrenteDate();
-			dateAccess = financialSectorCtrl.strToDate(dateAccess.toString());
+		//	dateAccess = financialSectorCtrl.strToDate(dateAccess.toString());
 			
 			boolean valid = financialSectorCtrl.validAccess(num, hourAccess, dateAccess);
 			if(valid) {
@@ -76,7 +76,7 @@ public class FinancialSectorScreen {
 			System.out.println("Please enter only valid numbers");
 			enterFinancialSector();
 		}catch(ParseException e) {
-			
+			System.out.println("Está ocorrendo erro na conversão das datas");
 			enterFinancialSector();
 		}catch(NullPointerException e) {
 			System.out.println("O erro aparentemente está no ponteiro, ou seja, " + 
