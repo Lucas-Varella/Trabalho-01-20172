@@ -155,6 +155,9 @@ public class FinancialSectorScreen {
 		} catch(IndexOutOfBoundsException e) {
 			
 			showDeniedAccess();
+		} catch(NullPointerException e) {
+			
+			showDeniedAccess();
 		}
 		
 
