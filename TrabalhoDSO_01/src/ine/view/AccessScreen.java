@@ -34,6 +34,7 @@ public class AccessScreen {
 
 	public void listDeniedAccessByNumRegistration(Access a) {
 		try {
+			System.out.println("______________________________________________________");
 			System.out.println("Number of Registration - " + a.getNumRegistration());
 			System.out.println("Date of Access - " + accessCtrl.dateToStringDate(a.getDate()));
 			System.out.println("Hour of Access - " + accessCtrl.dateToStringHour(a.getHour()));
@@ -46,6 +47,7 @@ public class AccessScreen {
 
 	public void listDeniedAccessByReason(Access a) {
 		try {
+			System.out.println("______________________________________________________");
 			System.out.println("Number of Registration - " + a.getNumRegistration());
 			System.out.println("Date of Access - " + accessCtrl.dateToStringDate(a.getDate()));
 			System.out.println("Hour of Access - " + accessCtrl.dateToStringHour(a.getHour()));
