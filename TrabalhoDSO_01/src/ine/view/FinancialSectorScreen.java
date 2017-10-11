@@ -1,12 +1,11 @@
 package ine.view;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.text.ParseException; 
 import java.util.Date;
 import java.util.Scanner;
 
 import ine.controller.*;
-import ine.model.*;
+import ine.model.Reasons;
 
 public class FinancialSectorScreen {
 	private FinancialSectorCtrl financialSectorCtrl;
@@ -156,7 +155,7 @@ public class FinancialSectorScreen {
 			
 			showDeniedAccess();
 		} catch(NullPointerException e) {
-			
+
 			showDeniedAccess();
 		}
 		

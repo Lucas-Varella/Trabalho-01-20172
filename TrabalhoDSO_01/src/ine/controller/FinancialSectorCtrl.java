@@ -1,13 +1,11 @@
 package ine.controller;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.Calendar;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import ine.controller.*;
 import ine.model.*;
 import ine.view.*;
 
@@ -49,7 +47,6 @@ public class FinancialSectorCtrl {
 	}
 	
 	public Date strToDateHour(String data) throws ParseException {
-//		try {
 			if (data == null) {
 	            return null;
 	        }
@@ -62,11 +59,6 @@ public class FinancialSectorCtrl {
 	        	throw new ParseException(data, 0);
 	        }
 	        return dataF;
-//
-//		}catch(ParseException e) {
-//			
-//		}
-//		return null;
 	}
 	
 	public Date strToDate(String data) throws ParseException {

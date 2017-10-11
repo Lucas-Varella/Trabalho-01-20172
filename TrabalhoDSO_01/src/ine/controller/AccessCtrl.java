@@ -1,5 +1,8 @@
 package ine.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import ine.controller.MainController;
@@ -16,6 +19,7 @@ public class AccessCtrl {
 	
 	public AccessCtrl(MainController mainController) {
 		this.mainCtrl = mainController;
+		this.accessScreen = new AccessScreen(this);
 		deniedAccess = new ArrayList<Access>();
 	}
 	
@@ -26,6 +30,8 @@ public class AccessCtrl {
 	
 	public void listAllDeniedAccess() throws IndexOutOfBoundsException {
 		if(deniedAccess != null) {
+			// o erro tá na linha de baixo, mas em que parte da lógica 
+			// eu não sei;
 			accessScreen.listAllDeniedAccess(deniedAccess);
 		}else {
 			throw new IndexOutOfBoundsException();
@@ -83,6 +89,26 @@ public class AccessCtrl {
 			}
 		}
 		return null;
+	}
+	
+	public String dateToStringHour(Date data) throws ParseException {
+		if (data == null) {
+            return null;
+        }
+        String dataF = "";
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+         dataF = dateFormat.format(data);
+        return dataF;
+	}
+
+	public String dateToStringDate(Date data) throws ParseException {
+		if (data == null) {
+	        return null;
+	    }
+	    String dataF = "";
+	    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		dataF = dateFormat.format(data);
+	    return dataF;
 	}
 
 }
