@@ -367,14 +367,17 @@ public class EmploymentScreen implements Screen {
 				
 			
 		} catch(IndexOutOfBoundsException e) {
-
-			editEmployment();
+			System.out.println("No charge registered. Please register a position before attempting this option");
+			menu();
 		} catch(InputMismatchException e) {
 			
 			editEmployment();
 		} catch(NumberFormatException e) {
 			System.out.println("Please enter only valid numbers");
 			editEmployment();
+		} catch(StackOverflowError e) {
+			System.out.println("No charge registered. Please register a position before attempting this option");
+			menu();
 		}
 	}
 
