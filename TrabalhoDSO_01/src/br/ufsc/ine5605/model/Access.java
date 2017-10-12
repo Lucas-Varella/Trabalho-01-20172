@@ -1,4 +1,4 @@
-package ine.model;
+package br.ufsc.ine5605.model;
 
 import java.util.Date;
 

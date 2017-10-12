@@ -1,13 +1,18 @@
-package ine.controller;
+package br.ufsc.ine5605.controller;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;  
 import java.util.Calendar;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import ine.model.*;
-import ine.view.*;
+
+import br.ufsc.ine5605.model.Employment;
+import br.ufsc.ine5605.model.FinancialSector;
+import br.ufsc.ine5605.model.Horary;
+import br.ufsc.ine5605.model.Privileges;
+import br.ufsc.ine5605.model.Reasons;
+import br.ufsc.ine5605.view.FinancialSectorScreen;
 
 public class FinancialSectorCtrl {
 	private MainController mainCtrl;

@@ -1,13 +1,14 @@
-package ine.controller;
+package br.ufsc.ine5605.controller;
 
-import ine.model.Horary; 
-import ine.model.Screen;
-import ine.view.HoraryScreen;
 
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import br.ufsc.ine5605.model.Horary;
+import br.ufsc.ine5605.model.Screen;
+import br.ufsc.ine5605.view.HoraryScreen;
 
 public class HoraryCtrl implements Screen {
 	private MainController mainCtrl;

@@ -1,16 +1,17 @@
-package ine.controller;
+package br.ufsc.ine5605.controller;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import ine.controller.MainController;
-import ine.model.Reasons;
-import ine.model.Access;
-import ine.view.AccessScreen;
 
 import java.util.Date;
+
+import br.ufsc.ine5605.controller.MainController;
+import br.ufsc.ine5605.model.Access;
+import br.ufsc.ine5605.model.Reasons;
+import br.ufsc.ine5605.view.AccessScreen;
 
 public class AccessCtrl {
 	private MainController mainCtrl;

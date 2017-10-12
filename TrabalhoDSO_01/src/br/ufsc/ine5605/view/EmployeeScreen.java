@@ -1,10 +1,6 @@
-package ine.view;
+package br.ufsc.ine5605.view;
 
-import ine.controller.*;
-import ine.model.*;
-import ine.view.*;
 
-import ine.controller.EmployeeCtrl;
 
 import java.sql.Date;
 import java.text.DateFormat;
@@ -12,6 +8,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import br.ufsc.ine5605.controller.*;
+import br.ufsc.ine5605.model.*;
+import br.ufsc.ine5605.view.*;
 
 
 public class EmployeeScreen implements Screen {

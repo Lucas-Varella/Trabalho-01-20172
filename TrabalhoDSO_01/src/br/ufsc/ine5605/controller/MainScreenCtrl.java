@@ -1,9 +1,9 @@
-package ine.controller;
+package br.ufsc.ine5605.controller;
 
 
-import ine.controller.*;
-import ine.model.*;
-import ine.view.*;
+import br.ufsc.ine5605.controller.*;
+import br.ufsc.ine5605.model.*;
+import br.ufsc.ine5605.view.*;
 
 public class MainScreenCtrl {
 	private MainController mainCtrl;

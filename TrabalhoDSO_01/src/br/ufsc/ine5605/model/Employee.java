@@ -1,9 +1,10 @@
-package ine.model;
+package br.ufsc.ine5605.model;
 
-import ine.controller.*;
-import ine.model.*;
-import ine.view.*;
 import java.sql.Date;
+
+import br.ufsc.ine5605.controller.*;
+import br.ufsc.ine5605.model.*;
+import br.ufsc.ine5605.view.*;
 
 public class Employee {
 	protected EmployeeCtrl employeeCtrl;

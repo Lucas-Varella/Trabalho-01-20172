@@ -1,10 +1,11 @@
-package ine.model;
+package br.ufsc.ine5605.model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import ine.controller.*;
+import br.ufsc.ine5605.controller.*;
+
 
 public class Horary {
 	private HoraryCtrl horaryCtrl;

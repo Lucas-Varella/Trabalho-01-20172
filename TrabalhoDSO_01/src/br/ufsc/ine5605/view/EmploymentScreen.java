@@ -1,19 +1,20 @@
-package ine.view;
+package br.ufsc.ine5605.view;
 
-import ine.controller.EmploymentCtrl; 
-import ine.model.Contract;
-import ine.model.Employee;
-import ine.model.Employment;
-import ine.model.EmploymentRestrictAccess;
-import ine.model.Horary;
-import ine.model.Privileges;
-import ine.model.Screen;
 
 import java.sql.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import br.ufsc.ine5605.controller.EmploymentCtrl;
+import br.ufsc.ine5605.model.Contract;
+import br.ufsc.ine5605.model.Employee;
+import br.ufsc.ine5605.model.Employment;
+import br.ufsc.ine5605.model.EmploymentRestrictAccess;
+import br.ufsc.ine5605.model.Horary;
+import br.ufsc.ine5605.model.Privileges;
+import br.ufsc.ine5605.model.Screen;
 
 public class EmploymentScreen implements Screen {
 	private EmploymentCtrl employmentCtrl;

@@ -1,17 +1,13 @@
-package ine.controller;
+package br.ufsc.ine5605.controller;
 
-/*
- * Refazer os imports em todas as classes do projeto, detalhando os 
- * que são usados e excluindo os não utilizados;
- * 
- * Lembre-me de mudar o nome do package pai(ine) para algo melhor(o padrão
- * que o Jean explicou mas como eu não prestei atenção, não me lembro 
- * qual era);
- */
-
-import java.util.ArrayList; 
+import java.util.ArrayList;  
 import java.util.Date;
-import ine.model.*;
+
+import br.ufsc.ine5605.model.Reasons;
+import br.ufsc.ine5605.model.Privileges;
+import br.ufsc.ine5605.model.Horary;
+import br.ufsc.ine5605.model.Employment;
+import br.ufsc.ine5605.model.Employee;
 
 public class MainController {
 	private MainScreenCtrl mainScreenCtrl;

@@ -1,14 +1,13 @@
-package ine.controller;
+package br.ufsc.ine5605.controller;
 
 import java.sql.Date;
 import java.util.ArrayList;
 
-import ine.controller.*;
-import ine.model.*;
-import ine.view.*;
+import br.ufsc.ine5605.controller.*;
+import br.ufsc.ine5605.model.*;
+import br.ufsc.ine5605.view.*;
 
-import ine.model.Employee;
-import ine.view.EmployeeScreen;
+
 
 public class EmployeeCtrl {
 	private MainController mainCtrl;

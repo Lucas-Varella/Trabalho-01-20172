@@ -1,10 +1,11 @@
-package ine.view;
+package br.ufsc.ine5605.view;
 
-import ine.controller.AccessCtrl;
-import ine.model.Access;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+
+import br.ufsc.ine5605.controller.AccessCtrl;
+import br.ufsc.ine5605.model.Access;
 
 public class AccessScreen {
 	private AccessCtrl accessCtrl;

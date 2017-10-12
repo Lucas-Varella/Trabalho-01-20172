@@ -1,11 +1,12 @@
-package ine.view;
+package br.ufsc.ine5605.view;
 
-import java.text.ParseException; 
+import java.text.ParseException;  
 import java.util.Date;
 import java.util.Scanner;
 
-import ine.controller.*;
-import ine.model.Reasons;
+import br.ufsc.ine5605.controller.FinancialSectorCtrl;
+import br.ufsc.ine5605.model.Reasons;
+
 
 public class FinancialSectorScreen {
 	private FinancialSectorCtrl financialSectorCtrl;
@@ -63,7 +64,6 @@ public class FinancialSectorScreen {
 			//aqui eu pego a hora atual do sistema, no caso o dia
 			
 			Date dateAccess = financialSectorCtrl.getCurrenteDate();
-		//	dateAccess = financialSectorCtrl.strToDate(dateAccess.toString());
 			
 			boolean valid = financialSectorCtrl.validAccess(num, hourAccess, dateAccess);
 			if(valid) {
@@ -153,10 +153,10 @@ public class FinancialSectorScreen {
 			System.out.println("Please enter only a valid number");
 			showDeniedAccess();
 		} catch(IndexOutOfBoundsException e) {
-			
+			System.out.println("There is no denied access to the system");
 			showDeniedAccess();
 		} catch(NullPointerException e) {
-
+			System.out.println("There is no denied access to the system");
 			showDeniedAccess();
 		}
 		

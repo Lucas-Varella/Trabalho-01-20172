@@ -1,15 +1,12 @@
-package ine.controller;
+package br.ufsc.ine5605.controller;
  
-import ine.model.*;
 
 
-import ine.model.Employment;
-import ine.model.EmploymentRestrictAccess;
-import ine.model.Horary;
-import ine.model.Privileges;
-import ine.view.EmploymentScreen;
 
 import java.util.ArrayList;
+
+import br.ufsc.ine5605.model.*;
+import br.ufsc.ine5605.view.EmploymentScreen;
 
 
 

@@ -1,10 +1,11 @@
-package ine.model;
+package br.ufsc.ine5605.model;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import ine.controller.FinancialSectorCtrl;
+import br.ufsc.ine5605.controller.FinancialSectorCtrl;
+
 
 public class FinancialSector {
 	private FinancialSectorCtrl financialSectorCtrl;

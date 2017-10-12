@@ -1,8 +1,9 @@
-package ine.model;
+package br.ufsc.ine5605.model;
 
 import java.util.ArrayList;
 
-import ine.controller.EmploymentCtrl;
+import br.ufsc.ine5605.controller.EmploymentCtrl;
+
 
 public class EmploymentRestrictAccess extends Employment {
 	private ArrayList<Horary> horarys;
