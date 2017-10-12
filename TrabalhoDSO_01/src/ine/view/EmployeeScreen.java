@@ -33,13 +33,15 @@ public class EmployeeScreen implements Screen {
 			
 			do {
 			
-				System.out.println("Welcome!");
+				System.out.println("-------------------------------------------------------------------------");
+				System.out.println("Welcome to the Employee Area!");
 				System.out.println("Please enter the number corresponding to your choice: ");
 				System.out.println("1 - Add employee");
 				System.out.println("2 - Edit employee");
 				System.out.println("3 - Delete employee");
 				System.out.println("4 - List employees");
-				System.out.println("0 - Get out");
+				System.out.println("0 - Back to Main Area");
+				System.out.println("-------------------------------------------------------------------------");
 				option = Integer.parseInt(keyboard.nextLine());
 				
 				switch (option) {
@@ -61,7 +63,7 @@ public class EmployeeScreen implements Screen {
 					break;
 				
 				case 0:
-					System.out.println("Goodbye and have a good day");
+					System.out.println("-------------------------------------------------------------------------");
 					break;
 				
 				default:
@@ -139,6 +141,7 @@ public class EmployeeScreen implements Screen {
 			Employee generic = employeeCtrl.addEmployee(name, birthDay, phone, salary);
 			Contract contract = employeeCtrl.addContract(gen, generic);
 			
+			System.out.println("-------------------------------------------------------------------------");
 			System.out.println("Congratulations, you have created a new employee with the following characteristics: ");
 			System.out.println("Number of registration - " + generic.getNumRegistration());
 			System.out.println("Name - " + generic.getName());
@@ -149,12 +152,15 @@ public class EmployeeScreen implements Screen {
 		
 		} catch(NullPointerException e) {
 			System.out.println("O erro tá no ponteiro que não aponta pra nada");
+			System.out.println("-------------------------------------------------------------------------");
 			addEmployee();
 		} catch(NumberFormatException e) {
 			System.out.println("The number you entered is not valid");
+			System.out.println("-------------------------------------------------------------------------");
 			addEmployee();
 		} catch(ArrayIndexOutOfBoundsException e) {
 			System.out.println("Please register first a position before registering an employee");
+			System.out.println("-------------------------------------------------------------------------");
 			addEmployee();
 		} catch(IndexOutOfBoundsException e) {
 			System.out.println("No charge registered. Please register a position before attempting this option");
@@ -162,9 +168,11 @@ public class EmployeeScreen implements Screen {
 		} catch(ParseException e) {
 			System.out.println("The date format entered by the user is not correct\n"+ 
 							   "Please try again based on this format:\n" + "dd/MM/yyyy");
+			System.out.println("-------------------------------------------------------------------------");
 			addEmployee();
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
+			System.out.println("-------------------------------------------------------------------------");
 			addEmployee();
 		}
 	}	
@@ -176,12 +184,14 @@ public class EmployeeScreen implements Screen {
 		try {
 			int option = 0;
 			do {
+				System.out.println("--------------------------------------------------------------------------------");
 				System.out.println("Please enter the number corresponding to your choice: ");
-				// Listando todos os Funcionários;
+				// Listando todos os Funcionarios;
 				listEmployees();
 				option = conversionStringToInt(keyboard.nextLine()) - 1;
 				Employee generic = employeeCtrl.getEmployee(option);
 				
+				System.out.println("--------------------------------------------------------------------------------");
 				System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
 		
 				System.out.println("1 - Name");
@@ -194,30 +204,36 @@ public class EmployeeScreen implements Screen {
 				System.out.println("Actually - " + generic.getSalary());
 				System.out.println("5 - Employment");
 				System.out.println("Actually - " + generic.getEmployment().getEmployment().getName());
-				System.out.println("Or 0 to exit");	
+				System.out.println("Or 0 to exit");
+				System.out.println("--------------------------------------------------------------------------------");
+
 				option = conversionStringToInt(keyboard.nextLine());
 					
 				switch (option) {
 		
 				case 1:
+					System.out.println("--------------------------------------------------------------------------------");
 					System.out.println("Enter a new name: ");
 					String name = keyboard.nextLine();
 					generic.setName(name);
 					break;
 		
 				case 2:
+					System.out.println("--------------------------------------------------------------------------------");
 					System.out.println("Enter a new birthday: ");
 					Date dateBirth = strToDate(keyboard.nextLine());
 					generic.setDateBirth(dateBirth);
 					break;
 						
 				case 3:
+					System.out.println("--------------------------------------------------------------------------------");
 					System.out.println("Enter a new phone");
 					int phone = keyboard.nextInt();
 					generic.setPhone(phone);
 					break;
 				
 				case 4:
+					System.out.println("--------------------------------------------------------------------------------");
 					System.out.println("Enter a new salary");
 					int salary = keyboard.nextInt();
 					generic.setSalary(salary);
@@ -227,12 +243,14 @@ public class EmployeeScreen implements Screen {
 					/*
 					 * Listar os cargos apenas na tela Cargo e não na tela funcionário
 					 */
+					System.out.println("--------------------------------------------------------------------------------");
 					System.out.println("Enter the number corresponding to the new employment");
 					int i = 1;
 					for(Employment e : employeeCtrl.listEmployments()) {
 						System.out.println(i + "º - " + e.getName());
 						i++;
 					}
+					System.out.println("--------------------------------------------------------------------------------");
 					int employment = conversionStringToInt(keyboard.nextLine());
 					Employment gen = employeeCtrl.findEmploymentByIndex(employment);
 					generic.setEmployment(gen);
@@ -263,6 +281,7 @@ public class EmployeeScreen implements Screen {
 	
 	public void delEmployee() {
 		try {
+			System.out.println("--------------------------------------------------------------------------------");
 			System.out.println("Select an employee to fire");
 	
 			listEmployees();
@@ -281,12 +300,12 @@ public class EmployeeScreen implements Screen {
 	
 	public void listEmployees() {
 		int i = 1;
+		System.out.println("--------------------------------------------------------------------------------");
 		if(employeeCtrl.listEmployees().size() > 0) {
 			for(Employee e: employeeCtrl.listEmployees()) {
 				System.out.println(i + "º - " + e.getName());
 				i++;
 			}
-
 		}else {
 			throw new IndexOutOfBoundsException();
 		}

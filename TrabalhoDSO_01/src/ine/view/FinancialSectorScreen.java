@@ -23,6 +23,7 @@ public class FinancialSectorScreen {
 				System.out.println("1 - Entering the Financial Sector");
 				System.out.println("2 - Denied Access Report");
 				System.out.println("Or 0 to exit");
+				System.out.println("-------------------------------------------------------------------------");
 				option = financialSectorCtrl.conversionStringToInt(keyboard.nextLine());
 				switch(option) {
 				case 1:

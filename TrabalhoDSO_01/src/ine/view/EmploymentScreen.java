@@ -32,7 +32,8 @@ public class EmploymentScreen implements Screen {
 			 * Verificar por que motivo o catch é executado sempre;
 			 * Refazer esse try catch;
 			 */
-			
+				
+				System.out.println("-------------------------------------------------------------------------");
 				System.out.println("Welcome!");
 				System.out.println("Please enter the number corresponding to your choice: ");
 				System.out.println("1 - Register new employment");
@@ -40,7 +41,8 @@ public class EmploymentScreen implements Screen {
 				System.out.println("3 - Delete employment");
 				System.out.println("4 - List employments");
 				System.out.println("5 - List employees in a employment ");
-				System.out.println("0 - Get out");
+				System.out.println("0 - Back to main Screen");
+				System.out.println("-------------------------------------------------------------------------");
 				option = Integer.parseInt(keyboard.nextLine());
 				
 				switch (option) {
@@ -66,7 +68,7 @@ public class EmploymentScreen implements Screen {
 					break;
 				
 				case 0:
-					System.out.println("Goodbye and have a good day");
+					System.out.println("-------------------------------------------------------------------------");
 					break;
 
 				default:
@@ -97,13 +99,14 @@ public class EmploymentScreen implements Screen {
 	public void addEmployment() {
 		try {
 			
+			System.out.println("-------------------------------------------------------------------------");
 			System.out.println("Please enter the name of employment:");
 			String name = keyboard.nextLine();
 			int option = 0;
 			Privileges gen = null;
 			
 			do {
-				System.out.println("Choice your privilege: ");
+				System.out.println("Choose your privilege: ");
 				System.out.println("1 - " + Privileges.Full);
 				System.out.println("2 - " + Privileges.Restricted);
 				System.out.println("3 - " + Privileges.No);
@@ -127,14 +130,17 @@ public class EmploymentScreen implements Screen {
 						choice = conversionStringToInt(keyboard.nextLine());
 						if(choice < 0 || choice > 1) {
 							System.out.println("The number you entered is not valid");
+							System.out.println("-------------------------------------------------------------------------");
 						}
 					}while(choice != 0);
 					System.out.println("Congratulations, you just successfully registered a employment!");
+					System.out.println("-------------------------------------------------------------------------");
 					System.out.println("These are the employment data:");
 					System.out.println("Code: " + (EmploymentCtrl.getCode() - 1 ));
 					System.out.println("Name: " + name);
 					System.out.println("Privilege: " + gen);
 					System.out.println("Horary Access: " );
+					
 					for(Horary h : employmentCtrl.getHorarys(e)) {
 						System.out.println(h.getHourBegin() + " - " + h.getHourFinish());
 					}
@@ -152,6 +158,7 @@ public class EmploymentScreen implements Screen {
 			
 			if(option == 1 || option == 3) {
 				employmentCtrl.addEmployment(name, gen);
+				System.out.println("-------------------------------------------------------------------------");
 				System.out.println("Congratulations, you just successfully registered a employment!");
 				System.out.println("These are the employment data:");
 				System.out.println("Code: " + (EmploymentCtrl.getCode() - 1 ));
@@ -170,6 +177,7 @@ public class EmploymentScreen implements Screen {
 	
 			int option = 0;
 			do {
+				
 				System.out.println("Please enter the number corresponding to your choice: ");
 				listEmployments();
 				option = conversionStringToInt(keyboard.nextLine()) - 1;
@@ -177,6 +185,7 @@ public class EmploymentScreen implements Screen {
 				
 				if(generic.getPrivilege().equals(Privileges.Restricted)) {
 					EmploymentRestrictAccess gen = (EmploymentRestrictAccess) generic;
+					System.out.println("--------------------------------------------------------------------------------");
 					System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
 					System.out.println("1 - Name");
 					System.out.println("Actually - " + gen.getName());
@@ -186,6 +195,7 @@ public class EmploymentScreen implements Screen {
 					System.out.println("Actually - ");
 					listHorary(gen);
 					System.out.println("Or 0 to exit");
+					System.out.println("--------------------------------------------------------------------------------");
 					option = conversionStringToInt(keyboard.nextLine());
 					
 					switch (option) {
@@ -246,7 +256,7 @@ public class EmploymentScreen implements Screen {
 								break;
 								
 							default:
-								System.out.println("Choice a valid number!");
+								System.out.println("Choose a valid number!");
 							}
 		
 						} while (option2 > 3 && option2 < 1);
@@ -273,7 +283,7 @@ public class EmploymentScreen implements Screen {
 							break;
 						
 						default:
-							System.out.println("Please enter a valid option ");	
+							System.out.println("Please enter a valid option");	
 						}
 		
 					case 0:
@@ -350,7 +360,7 @@ public class EmploymentScreen implements Screen {
 									break;
 								
 								default:
-									System.out.println("Choice a valid number!");
+									System.out.println("Choose a valid number!");
 								}
 			
 							} while (option2 > 3 && option2 < 1);
@@ -358,6 +368,7 @@ public class EmploymentScreen implements Screen {
 						case 0:
 			
 							System.out.println("Goodbye");
+							System.out.println("-------------------------------------------------------------------------");
 			
 						}
 					}

@@ -26,6 +26,7 @@ public class MainScreen {
 				System.out.println("2 - Employment;");
 				System.out.println("3 - Financial sector;");
 				System.out.println("0 - Get out.");
+				System.out.println("-------------------------------------------------------------------------");
 				option = mainScreenCtrl.conversionStringToInt(keyboard.nextLine());
 				switch(option) {
 
