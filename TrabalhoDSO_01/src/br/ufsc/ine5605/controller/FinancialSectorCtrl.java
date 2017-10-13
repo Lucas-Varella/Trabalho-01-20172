@@ -39,6 +39,7 @@ public class FinancialSectorCtrl {
 		this.financialSectorScreen = new FinancialSectorScreen(this);
 		this.financialSector = new FinancialSector(this);
 	}
+	
 	/**
 	 * Redireciona o usuário para o menu principal do programa;
 	 */
@@ -53,6 +54,7 @@ public class FinancialSectorCtrl {
 		financialSectorScreen.menuFinancialSector();
 	}
 	
+	
 	public boolean validAccess(int numRegistration, Date hourAccess, Date dateAccess) {
 		return financialSector.validAccess(numRegistration, hourAccess, dateAccess);
 	}
@@ -61,6 +63,16 @@ public class FinancialSectorCtrl {
 		return mainCtrl.validNumRegistration(numRegistration);
 	}
 	
+	/**
+	 * Converte uma String em um int;
+	 * 
+	 * @param data, String de entrada;
+	 * @return int;
+	 * 
+	 * @throws NumberFormatException, ocorre quando o usuário digita um caracter não numérico;
+	 * 
+	 * @author Sadi Júnior Domingos Jacinto;
+	 */
 	public int conversionStringToInt(String data) throws NumberFormatException {
 		try {
 			int num = Integer.parseInt(data);	
