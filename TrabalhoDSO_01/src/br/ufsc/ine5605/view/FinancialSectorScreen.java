@@ -1,32 +1,59 @@
 package br.ufsc.ine5605.view;
 
-import java.text.ParseException;  
+import java.text.ParseException;   
 import java.util.Date;
 import java.util.Scanner;
 
 import br.ufsc.ine5605.controller.FinancialSectorCtrl;
 import br.ufsc.ine5605.model.Reasons;
 
-
+/**
+ * Classe responsável por realizar o input e output de dados referentes as Setor Financeiro;
+ * 
+ * @author Sadi Júnior Domingos Jacinto;
+ */
 public class FinancialSectorScreen {
 	private FinancialSectorCtrl financialSectorCtrl;
 	private Scanner keyboard;
 
+	/**
+	 * Construtor padrão da classe FinancialSectorScrenn;
+	 * 
+	 * @param financialSectorCtrl, recebe uma instância do FinancialSectorCtrl, para que possa 
+	 * transferir o input para que o programa os trate;
+	 * 
+	 * @author Sadi Júnior Domingos Jacinto;
+	 */
 	public FinancialSectorScreen(FinancialSectorCtrl financialSectorCtrl) {
 		this.financialSectorCtrl = financialSectorCtrl;
 		keyboard = new Scanner(System.in);
 	}
-	public void menuFinancialSector() {
+	
+	/**
+	 * Menu principal do Setor Financeiro;
+	 * Redireciona o usuário para outros métodos baseado no input do mesmo;
+	 * 
+	 * @throws NumberFormatException, sendo que tal exceção ocorre quando o usuário digita um 
+	 * caracter alfabético ou não-imprimível num campo destinado à números inteiros;
+	 * 
+	 * @author Sadi Júnior Domingos Jacinto;
+	 */
+	public void menuFinancialSector() {//Método já revisado;
+		
 		try {
+		
 			int option = 0;
 			do {
+			
 				System.out.println("Please, enter the number corresponding to your choice: ");
 				System.out.println("1 - Entering the Financial Sector");
 				System.out.println("2 - Denied Access Report");
 				System.out.println("Or 0 to exit");
 				System.out.println("-------------------------------------------------------------------------");
 				option = financialSectorCtrl.conversionStringToInt(keyboard.nextLine());
+				
 				switch(option) {
+				
 				case 1:
 					enterFinancialSector();
 					break;
@@ -42,6 +69,7 @@ public class FinancialSectorScreen {
 				default:
 					System.out.println("The number you entered is not valid");	
 				}
+				
 			}while(option != 0);
 			financialSectorCtrl.mainMenu();
 			
@@ -51,7 +79,24 @@ public class FinancialSectorScreen {
 		}
 	}
 	
-	public void enterFinancialSector() {
+	/**
+	 * Menu de entrada do Setor Financeiro;
+	 * Durante a excecução do método, são requeridos dois dados:
+	 * 1º - Número de registro, sendo válido ou não e 
+	 * 2º - Hora de acesso;
+	 * 
+	 * @throws NumberFormatException, sendo que tal exceção ocorre quando o usuário digita um 
+	 * caracter alfabético ou não-imprimível num campo destinado à números inteiros;
+	 * 
+	 * @throws ParseException, ocorre caso o usuário digite um horário fora do padrão HH:mm 
+	 * no momento onde é requerido ao mesmo a hora de acesso;
+	 * 
+	 * @throws NullPointerException, caso esse erro ocorra, por favor, contate urgentemente o suporte;
+	 * 
+	 * @author Sadi Júnior Domingos Jacinto;
+	 */
+	public void enterFinancialSector() {//Método revisado, OK;
+		
 		try {
 			System.out.println("Welcome to the entrance of the Financial Sector, noble adventurer");
 			System.out.println("To continue your quest for capital, please enter your registration number and," + 
@@ -66,29 +111,45 @@ public class FinancialSectorScreen {
 			Date dateAccess = financialSectorCtrl.getCurrenteDate();
 			
 			boolean valid = financialSectorCtrl.validAccess(num, hourAccess, dateAccess);
+			
 			if(valid) {
 				System.out.println("You are worthy to enter this sacred place");
 			}else {
 				System.out.println("You are not worthy to enter this place, adventurer, for:");
 				System.out.println(financialSectorCtrl.getReasonBy(num, hourAccess, dateAccess));
 			}
+		
 		}catch(NumberFormatException e) {
 			System.out.println("Please enter only valid numbers");
 			enterFinancialSector();
+		
 		}catch(ParseException e) {
-			System.out.println("Está ocorrendo erro na conversão das datas");
+			System.out.println("A conversion error has occurred, make sure you have entered the required data correctly");
 			enterFinancialSector();
+		
 		}catch(NullPointerException e) {
-			System.out.println("O erro aparentemente está no ponteiro, ou seja, " + 
-							   "\nprovavelmente eu deixei de instânciar algum "
-							   +"\nArrayList enfim, devo tratar essa merda depois.");
+			System.out.println("If you are reading this message, \nit means that an unexpected error has occurred. \nPlease contact support for help");
 			enterFinancialSector();
 		}
 		
 
 	}
 	
-	public void showDeniedAccess() {
+	/**
+	 * Menu que exibe um relatório de acessos negados, sendo que tais acessos podem ser filtrados de 
+	 * acordo com a vontade do usuário;
+	 * 
+	 * @throws NumberFormatException, ocorrendo quando o usuário digita um caracter 
+	 * alfabético ou não-imprimível num campo destinado à números inteiros;
+	 * 
+	 * @throws IndexOutOfBoundsException, ocorre quando o usuário tenta listar os acessos negados
+	 * quando não existe nenhum acesso negado cadastrado no sistema;
+	 * 
+	 * @throws NullPointerException, caso esse erro ocorra, por favor, contate urgentemente o suporte;
+	 * 
+	 * @author Sadi Júnior Domingos Jacinto;
+	 */
+	public void showDeniedAccess() {//Método revisado, Ok;
 		try {
 			System.out.println("Please enter the number corresponding to your choice: ");
 			System.out.println("1 - List all denied access");
@@ -152,9 +213,11 @@ public class FinancialSectorScreen {
 		} catch(NumberFormatException e) {
 			System.out.println("Please enter only a valid number");
 			showDeniedAccess();
+		
 		} catch(IndexOutOfBoundsException e) {
 			System.out.println("There is no denied access to the system");
 			showDeniedAccess();
+		
 		} catch(NullPointerException e) {
 			System.out.println("There is no denied access to the system");
 			showDeniedAccess();

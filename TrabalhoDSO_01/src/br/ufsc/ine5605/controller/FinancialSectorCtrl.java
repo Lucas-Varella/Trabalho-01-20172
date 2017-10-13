@@ -14,22 +14,41 @@ import br.ufsc.ine5605.model.Privileges;
 import br.ufsc.ine5605.model.Reasons;
 import br.ufsc.ine5605.view.FinancialSectorScreen;
 
+/**
+ * Classe responsável por transmitir o input do usuário para a classe FinancialSector, onde
+ * os mesmos serão devidamente tratados. Também é responsável pela comunicação entre as classes 
+ * FinancialSector e FinancialSectorScreen entre si e com as outras classes, quando necessário;
+ *  
+ * @author Sadi Júnior Domingos Jacinto;
+ *
+ */
 public class FinancialSectorCtrl {
 	private MainController mainCtrl;
 	private FinancialSectorScreen financialSectorScreen;
 	private FinancialSector financialSector;
 	
-
+	/**
+	 * Construtor padrão da classe;
+	 * @param mainController, recebe uma instância do MainController, possibilitando a comunicação do mesmo
+	 * com as outras classes, através do MainController;
+	 * 
+	 * @author Sadi Júnior Domingos Jacinto;
+	 */
 	public FinancialSectorCtrl(MainController mainController) {
 		this.mainCtrl = mainController;
 		this.financialSectorScreen = new FinancialSectorScreen(this);
 		this.financialSector = new FinancialSector(this);
 	}
-	
+	/**
+	 * Redireciona o usuário para o menu principal do programa;
+	 */
 	public void mainMenu() {
 		mainCtrl.showMainScreen();
 	}
 	
+	/**
+	 * Redireciona o usuário para menu principal da classe FinancialSectorScreen;
+	 */
 	public void menu() {
 		financialSectorScreen.menuFinancialSector();
 	}
@@ -109,7 +128,11 @@ public class FinancialSectorCtrl {
 		String dateFormat = df.format(c.getTime());
 		return df.parse(dateFormat);
 	}
-
+	/**
+	 * @deprecated, método criado, mas nunca usado;
+	 * @param numRegistration
+	 * @return
+	 */
 	public Employment getEmploymentByNumRegistration(int numRegistration) {
 		return mainCtrl.getEmploymentByNumRegistration(numRegistration);
 	}

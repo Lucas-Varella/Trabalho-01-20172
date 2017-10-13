@@ -31,8 +31,6 @@ public class AccessCtrl {
 	
 	public void listAllDeniedAccess() throws IndexOutOfBoundsException {
 		if(deniedAccess != null) {
-			// o erro tá na linha de baixo, mas em que parte da lógica 
-			// eu não sei;
 			accessScreen.listAllDeniedAccess(deniedAccess);
 		}else {
 			throw new IndexOutOfBoundsException();
