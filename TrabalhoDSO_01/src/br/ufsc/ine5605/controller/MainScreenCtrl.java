@@ -3,6 +3,11 @@ package br.ufsc.ine5605.controller;
 
 import br.ufsc.ine5605.view.MainScreen;
 
+/**
+ * 
+ * @author sadi
+ *
+ */
 public class MainScreenCtrl {
 	private MainController mainCtrl;
 	private MainScreen mainScreen;

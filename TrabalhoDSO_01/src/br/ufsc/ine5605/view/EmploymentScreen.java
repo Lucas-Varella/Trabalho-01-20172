@@ -1,7 +1,5 @@
 package br.ufsc.ine5605.view;
 
-
-import java.sql.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -14,9 +12,8 @@ import br.ufsc.ine5605.model.Employment;
 import br.ufsc.ine5605.model.EmploymentRestrictAccess;
 import br.ufsc.ine5605.model.Horary;
 import br.ufsc.ine5605.model.Privileges;
-import br.ufsc.ine5605.model.Screen;
 
-public class EmploymentScreen implements Screen {
+public class EmploymentScreen {
 	private EmploymentCtrl employmentCtrl;
 	private Scanner keyboard;
 
@@ -44,7 +41,7 @@ public class EmploymentScreen implements Screen {
 				System.out.println("5 - List employees in a employment ");
 				System.out.println("0 - Back to main Screen");
 				System.out.println("-------------------------------------------------------------------------");
-				option = Integer.parseInt(keyboard.nextLine());
+				option = employmentCtrl.conversionStringToInt(keyboard.nextLine());
 				
 				switch (option) {
 				
@@ -115,7 +112,7 @@ public class EmploymentScreen implements Screen {
 				System.out.println("1 - " + Privileges.Full);
 				System.out.println("2 - " + Privileges.Restricted);
 				System.out.println("3 - " + Privileges.No);
-				option = conversionStringToInt(keyboard.nextLine());
+				option = employmentCtrl.conversionStringToInt(keyboard.nextLine());
 	
 				switch (option) {
 				
@@ -133,7 +130,7 @@ public class EmploymentScreen implements Screen {
 						System.out.println("-------------------------------------------------------------------------");
 						System.out.println("Do you want to add another access time?");
 						System.out.printf("Enter 1 for yes \nEnter 0 for no");
-						choice = conversionStringToInt(keyboard.nextLine());
+						choice = employmentCtrl.conversionStringToInt(keyboard.nextLine());
 						if(choice < 0 || choice > 1) {
 							System.out.println("The number you entered is not valid");
 							System.out.println("-------------------------------------------------------------------------");
@@ -188,7 +185,7 @@ public class EmploymentScreen implements Screen {
 				System.out.println("-------------------------------------------------------------------------");
 				System.out.println("Please enter the number corresponding to your choice: ");
 				listEmployments();
-				option = conversionStringToInt(keyboard.nextLine()) - 1;
+				option = employmentCtrl.conversionStringToInt(keyboard.nextLine()) - 1;
 				Employment generic = employmentCtrl.getEmployment(option);
 				
 				if(generic.getPrivilege().equals(Privileges.Restricted)) {
@@ -204,7 +201,7 @@ public class EmploymentScreen implements Screen {
 					listHorary(gen);
 					System.out.println("Or 0 to exit");
 					System.out.println("--------------------------------------------------------------------------------");
-					option = conversionStringToInt(keyboard.nextLine());
+					option = employmentCtrl.conversionStringToInt(keyboard.nextLine());
 					
 					switch (option) {
 		
@@ -223,7 +220,7 @@ public class EmploymentScreen implements Screen {
 							System.out.println("1 - " + Privileges.Full);
 							System.out.println("2 - " + Privileges.Restricted);
 							System.out.println("3 - " + Privileges.No);
-							option2 = conversionStringToInt(keyboard.nextLine());
+							option2 = employmentCtrl.conversionStringToInt(keyboard.nextLine());
 							switch (option2) {
 							
 							case 1:
@@ -278,14 +275,14 @@ public class EmploymentScreen implements Screen {
 						System.out.println("Enter 1 to edit a time");
 						System.out.println("Enter 2 to delete a time");
 						
-						int choice = conversionStringToInt(keyboard.nextLine());
+						int choice = employmentCtrl.conversionStringToInt(keyboard.nextLine());
 						switch(choice) {
 						
 						case 1:
 							System.out.println("---------------------------------------------------------------------------");
 							System.out.println("Please enter the number associated with the time interval you wish to edit");
 							listHorary(gen);
-							choice = conversionStringToInt(keyboard.nextLine()) - 1;
+							choice = employmentCtrl.conversionStringToInt(keyboard.nextLine()) - 1;
 							Horary newHorary = employmentCtrl.editHorary(gen.getHorary(choice));
 							gen.addHoraryByIndex(newHorary, choice);
 							
@@ -293,7 +290,7 @@ public class EmploymentScreen implements Screen {
 							System.out.println("---------------------------------------------------------------------------");
 							System.out.println("Please enter the number associated with the time interval you wish to edit");
 							listHorary(gen);
-							choice = conversionStringToInt(keyboard.nextLine()) - 1;
+							choice = employmentCtrl.conversionStringToInt(keyboard.nextLine()) - 1;
 							gen.delHorary(choice);
 							break;
 						
@@ -319,7 +316,7 @@ public class EmploymentScreen implements Screen {
 						System.out.println("Actually - " + generic.getPrivilege());
 						System.out.println("Or 0 to exit");
 						System.out.println("------------------------------------------------------------------------------");
-						option = conversionStringToInt(keyboard.nextLine());
+						option = employmentCtrl.conversionStringToInt(keyboard.nextLine());
 						switch (option) {
 			
 						case 1:
@@ -339,7 +336,7 @@ public class EmploymentScreen implements Screen {
 								System.out.println("2 - " + Privileges.Restricted);
 								System.out.println("3 - " + Privileges.No);
 								
-								option2 = conversionStringToInt(keyboard.nextLine());
+								option2 = employmentCtrl.conversionStringToInt(keyboard.nextLine());
 								
 								switch (option2) {
 								case 1:
@@ -367,7 +364,7 @@ public class EmploymentScreen implements Screen {
 										employmentCtrl.setHorary(newEmployment, h);
 										System.out.println("Do you want to add another access time?");
 										System.out.printf("Enter 1 for yes \nEnter 0 for no");
-										choice = conversionStringToInt(keyboard.nextLine());
+										choice = employmentCtrl.conversionStringToInt(keyboard.nextLine());
 										if(choice < 0 || choice > 1) {
 											System.out.println("The number you entered is not valid");
 										}
@@ -419,12 +416,12 @@ public class EmploymentScreen implements Screen {
 			System.out.println("------------------------------------------------------------------------------");
 			System.out.println("Please, enter the number corresponding to your choice");
 			listEmployments();
-			int option = conversionStringToInt(keyboard.nextLine()) - 1;
+			int option = employmentCtrl.conversionStringToInt(keyboard.nextLine()) - 1;
 			Employment e = employmentCtrl.getEmployment(option);
 			if(e.getEmployees().size() > 0) {
 				System.out.printf("The selected position has employees associated with it. \nIf you continue with this action, all of these employees will be deleted.");
 				System.out.printf("\nEnter 1 to continue \nEnter 2 to abort action");
-				option = conversionStringToInt(keyboard.nextLine());
+				option = employmentCtrl.conversionStringToInt(keyboard.nextLine());
 				
 				switch(option) {
 					
@@ -441,14 +438,14 @@ public class EmploymentScreen implements Screen {
 		}catch(IndexOutOfBoundsException e) {
 			System.out.println("------------------------------------------------------------------------------");
 			System.out.println("No charge registered. Please register a position before attempting this option");
-			delEmployment();
+			menu();
 		}
 	}
 	
 	public void listEmployments() throws IndexOutOfBoundsException {
 		int i = 1;
 		
-		if(employmentCtrl.listEmployments().size() > 0) {
+		if(employmentCtrl.listEmployments() != null) {
 			for(Employment e : employmentCtrl.listEmployments()) {
 				System.out.println(i+"º - "+ e.getName());
 				i++;
@@ -467,45 +464,27 @@ public class EmploymentScreen implements Screen {
 		}
 	}
 	
-	public void findEmployeesByEmployment() {
-		System.out.println("---------------------------------------------------------------------------");
-		System.out.println("Enter the number corresponding to your choice:");
-		listEmployments();
-		int choice = conversionStringToInt(keyboard.nextLine()) - 1;
-		employmentCtrl.listEmployees(employmentCtrl.getEmployment(choice));
+	
+	public void findEmployeesByEmployment() throws IndexOutOfBoundsException {
+			System.out.println("---------------------------------------------------------------------------");
+			System.out.println("Enter the number corresponding to your choice:");
+			listEmployments();
+			int choice = employmentCtrl.conversionStringToInt(keyboard.nextLine()) - 1;
+			Employment employment = employmentCtrl.getEmployment(choice);
+			if(employment.getEmployees().size() > 0) {
+				int i = 1;
+				for(Contract c : employment.getEmployees()) {
+					String name = c.getEmployee().getName();
+					System.out.println(i+ "º - " + name);
+					i++;
+				}
+				
+			}else {
+				
+				throw new IndexOutOfBoundsException();
+			}
+		
 	}
 
-	public int conversionStringToInt(String data) throws NumberFormatException {
-		try {
-			int num = Integer.parseInt(data);	
-			return num;
-		} catch(NumberFormatException e ) {
-			throw new NumberFormatException();
-		}
-	}
-
-	public double conversionStringToDouble(String data)
-			throws NumberFormatException {
-		try {
-			double num = Double.parseDouble(data);	
-			return num;
-		} catch(NumberFormatException e ) {
-			throw new NumberFormatException();
-		}
-	}
-
-	public Date formatStringToDate(String data) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Date strToDate(String data) throws ParseException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Date strToDateHour(String data) throws ParseException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }

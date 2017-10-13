@@ -3,6 +3,8 @@ package br.ufsc.ine5605.controller;
 
 
 
+import java.sql.Date;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import br.ufsc.ine5605.model.*;
@@ -59,14 +61,15 @@ public class EmploymentCtrl {
 		return employments;
 	}
 	
+	public void listAllEmployments() {
+		employmentScreen.listEmployments();
+	}
+	
 	public Horary addHorary() {
 		return mainCtrl.addHorary();
 	}
 	
-	public void listEmployees(Employment employment) {
-		employment.listEmployees(employment);
-		
-	}
+	
 	
 	public Employment getEmployment(int num) throws NullPointerException {
 		try {
@@ -123,5 +126,38 @@ public class EmploymentCtrl {
 		}
 		return null;
 	}
+	
+	public int conversionStringToInt(String data) throws NumberFormatException {
+		try {
+			int num = Integer.parseInt(data);	
+			return num;
+		} catch(NumberFormatException e ) {
+			throw new NumberFormatException();
+		}
+	}
 
+	public double conversionStringToDouble(String data)
+			throws NumberFormatException {
+		try {
+			double num = Double.parseDouble(data);	
+			return num;
+		} catch(NumberFormatException e ) {
+			throw new NumberFormatException();
+		}
+	}
+
+	public Date formatStringToDate(String data) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Date strToDate(String data) throws ParseException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Date strToDateHour(String data) throws ParseException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -17,7 +17,7 @@ public class FinancialSector {
 	
 	/**
 	 * Contrutor padrão da classe;
-	 * @param financialSectorCtrl, recebe uma instância do FinancialSectorCtrl, que permite à classe
+	 * @param financialSectorCtrl - recebe uma instância do FinancialSectorCtrl, que permite à classe
 	 * se comunicar com seu controlador, para obtenção de dados de outras classes;
 	 * 
 	 * @author Sadi Júnior Domingos Jacinto;
@@ -30,13 +30,12 @@ public class FinancialSector {
 	 * Método responsável por verificar se determinado número de registro, em determinado
 	 * horário, possuí ou não acesso ao Setor Financeiro;
 	 * 
-	 * @param numRegistration, número de registro, sendo válido ou não, do funcionário;
-	 * @param hourAccess, hora da tentativa de acesso do usuário ao Setor Financeiro;
-	 * @param dateAccess, data da tentativa de acesso do usuário ao Setor Financeiro;
+	 * @param numRegistration -número de registro, sendo válido ou não, do funcionário;
+	 * @param hour - hora da tentativa de acesso do usuário ao Setor Financeiro;
+	 * @param dateAccess - data da tentativa de acesso do usuário ao Setor Financeiro;
+	 * @return boolean - permitindo ou negando a entrada do usuário ao Setor Financeiro;
 	 * 
-	 * @return boolean, permitindo ou negando a entrada do usuário ao Setor Financeiro;
-	 * 
-	 * @throws ParseException, se tal exceção ocorrer, contate o suporte;
+	 * @throws ParseException se tal exceção ocorrer, contate o suporte;
 	 *
 	 * @author Sadi Júnior Domingos Jacinto;
 	 */
@@ -87,12 +86,12 @@ public class FinancialSector {
 	 * Método que válida se o horário de tentativa de entrada no Setor Financeiro é correspondente ao
 	 * intervalo de tempo cadastrado no Cargo;
 	 * 
-	 * @param horarys, os horários de acesso do Cargo;
-	 * @param access, o horário da tentativa de acesso;
+	 * @param horarys - os horários de acesso do Cargo;
+	 * @param access - o horário da tentativa de acesso;
 	 * 
-	 * @return boolean, true se o horário de acesso for o correto, false se for incorreto
+	 * @return boolean - true se o horário de acesso for o correto, false se for incorreto
 	 * 
-	 * @throws ParseException, pode ocorrer um erro na conversão dos horários;
+	 * @throws ParseException pode ocorrer um erro na conversão dos horários;
 	 * 
 	 * @author Sadi Júnior Domingos Jacinto;
 	 */

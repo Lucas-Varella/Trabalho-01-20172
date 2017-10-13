@@ -19,7 +19,7 @@ public class FinancialSectorScreen {
 	/**
 	 * Construtor padrão da classe FinancialSectorScrenn;
 	 * 
-	 * @param financialSectorCtrl, recebe uma instância do FinancialSectorCtrl, para que possa 
+	 * @param financialSectorCtrl - recebe uma instância do FinancialSectorCtrl, para que possa 
 	 * transferir o input para que o programa os trate;
 	 * 
 	 * @author Sadi Júnior Domingos Jacinto;
@@ -33,7 +33,7 @@ public class FinancialSectorScreen {
 	 * Menu principal do Setor Financeiro;
 	 * Redireciona o usuário para outros métodos baseado no input do mesmo;
 	 * 
-	 * @throws NumberFormatException, sendo que tal exceção ocorre quando o usuário digita um 
+	 * @throws NumberFormatException sendo que tal exceção ocorre quando o usuário digita um 
 	 * caracter alfabético ou não-imprimível num campo destinado à números inteiros;
 	 * 
 	 * @author Sadi Júnior Domingos Jacinto;
@@ -85,13 +85,13 @@ public class FinancialSectorScreen {
 	 * 1º - Número de registro, sendo válido ou não e 
 	 * 2º - Hora de acesso;
 	 * 
-	 * @throws NumberFormatException, sendo que tal exceção ocorre quando o usuário digita um 
+	 * @throws NumberFormatException sendo que tal exceção ocorre quando o usuário digita um 
 	 * caracter alfabético ou não-imprimível num campo destinado à números inteiros;
 	 * 
-	 * @throws ParseException, ocorre caso o usuário digite um horário fora do padrão HH:mm 
+	 * @throws ParseException ocorre caso o usuário digite um horário fora do padrão HH:mm 
 	 * no momento onde é requerido ao mesmo a hora de acesso;
 	 * 
-	 * @throws NullPointerException, caso esse erro ocorra, por favor, contate urgentemente o suporte;
+	 * @throws NullPointerException caso esse erro ocorra, por favor, contate urgentemente o suporte;
 	 * 
 	 * @author Sadi Júnior Domingos Jacinto;
 	 */
@@ -139,13 +139,13 @@ public class FinancialSectorScreen {
 	 * Menu que exibe um relatório de acessos negados, sendo que tais acessos podem ser filtrados de 
 	 * acordo com a vontade do usuário;
 	 * 
-	 * @throws NumberFormatException, ocorrendo quando o usuário digita um caracter 
+	 * @throws NumberFormatException ocorrendo quando o usuário digita um caracter 
 	 * alfabético ou não-imprimível num campo destinado à números inteiros;
 	 * 
-	 * @throws IndexOutOfBoundsException, ocorre quando o usuário tenta listar os acessos negados
+	 * @throws IndexOutOfBoundsException ocorre quando o usuário tenta listar os acessos negados
 	 * quando não existe nenhum acesso negado cadastrado no sistema;
 	 * 
-	 * @throws NullPointerException, caso esse erro ocorra, por favor, contate urgentemente o suporte;
+	 * @throws NullPointerException caso esse erro ocorra, por favor, contate urgentemente o suporte;
 	 * 
 	 * @author Sadi Júnior Domingos Jacinto;
 	 */

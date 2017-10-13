@@ -91,17 +91,11 @@ public class EmployeeScreen implements Screen {
 		try {
 			System.out.println("Please enter the following information");
 			
-			/*
-			 * Aqui se pega os dados fundamentais(dados que todos os funcionários,
-			 * tem em comum : nome, data de nascimento, telefone e salário); 
-			 */
 			System.out.println("Name: ");
 			String name = keyboard.nextLine();
 			
 			System.out.println("Date of birth: ");
-			/*
-			 * Formatar as datas aqui depois(contigo Varella)
-			 */
+		
 			Date birthDay = strToDate(keyboard.nextLine());
 			
 			
@@ -115,26 +109,8 @@ public class EmployeeScreen implements Screen {
 			
 			System.out.println("Please, enter the number corresponding to the chosen employment: ");
 			
-			/*
-			 * Listando todas os possíveis cargos que o funcionário pode ter;
-			 * E verificando se o usuário escolheu uma opção válida;
-			 * 
-			 * PS: Não sei se o View pode percorrer e listar ArrayList ou se essa função
-			 * pertence única e exclusivamente ao Model;
-			 * 
-			 */
-			int i = 1;
-			if(employeeCtrl.listEmployments().size() > 0) {
-/*
- * Listar os cargos na tela Cargo
-*/
-				for(Employment e : employeeCtrl.listEmployments()) {
-					System.out.println(i+"º - "+ e.getName());
-					i++;
-				}
-			}else {
-				throw new IndexOutOfBoundsException();
-			}
+			employeeCtrl.listEmployments();
+			
 			int option = conversionStringToInt(keyboard.nextLine()) - 1;
 			Employment gen = employeeCtrl.findEmploymentByIndex(option);
 		
@@ -158,18 +134,22 @@ public class EmployeeScreen implements Screen {
 			System.out.println("The number you entered is not valid");
 			System.out.println("-------------------------------------------------------------------------");
 			addEmployee();
+		
 		} catch(ArrayIndexOutOfBoundsException e) {
 			System.out.println("Please register first a position before registering an employee");
 			System.out.println("-------------------------------------------------------------------------");
 			addEmployee();
+		
 		} catch(IndexOutOfBoundsException e) {
 			System.out.println("No charge registered. Please register a position before attempting this option");
 			menu();
+		
 		} catch(ParseException e) {
 			System.out.println("The date format entered by the user is not correct\n"+ 
 							   "Please try again based on this format:\n" + "dd/MM/yyyy");
 			System.out.println("-------------------------------------------------------------------------");
 			addEmployee();
+			//Retirar o catch abaixo depois;
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println("-------------------------------------------------------------------------");
@@ -245,13 +225,9 @@ public class EmployeeScreen implements Screen {
 					 */
 					System.out.println("--------------------------------------------------------------------------------");
 					System.out.println("Enter the number corresponding to the new employment");
-					int i = 1;
-					for(Employment e : employeeCtrl.listEmployments()) {
-						System.out.println(i + "º - " + e.getName());
-						i++;
-					}
+					employeeCtrl.listEmployments();
 					System.out.println("--------------------------------------------------------------------------------");
-					int employment = conversionStringToInt(keyboard.nextLine());
+					int employment = conversionStringToInt(keyboard.nextLine()) - 1;
 					Employment gen = employeeCtrl.findEmploymentByIndex(employment);
 					generic.setEmployment(gen);
 					break;
@@ -274,6 +250,8 @@ public class EmployeeScreen implements Screen {
 			System.out.println(e.getMessage());
 			editEmployee();
 		} catch(ParseException e) {
+			
+		} catch(IndexOutOfBoundsException e) {
 			
 		}
 		
@@ -301,7 +279,7 @@ public class EmployeeScreen implements Screen {
 	public void listEmployees() {
 		int i = 1;
 		System.out.println("--------------------------------------------------------------------------------");
-		if(employeeCtrl.listEmployees().size() > 0) {
+		if(employeeCtrl.listEmployees() != null) {
 			for(Employee e: employeeCtrl.listEmployees()) {
 				System.out.println(i + "º - " + e.getName());
 				i++;

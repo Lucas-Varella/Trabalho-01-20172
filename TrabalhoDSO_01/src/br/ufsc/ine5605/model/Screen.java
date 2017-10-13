@@ -8,41 +8,50 @@ public interface Screen {
  * Interface que as telas irão implementar;
  */
 	/**
-	 * Método para acessar o menu da tela;
+	 * Método para acessar o menu principal da classe;
 	 */
 	public void menu();
 	
 	/**
-	 * Converte os dados inseridos pelo usuário em inteiros
-	 * @param data
-	 * @return
+	 * Converte uma String em um int;
+	 * 
+	 * @param data - String de entrada;
+	 * @return int;
+	 * 
+	 * @throws NumberFormatException ocorre quando o usuário digita um caracter não numérico;
+	 * 
+	 * @author Sadi Júnior Domingos Jacinto;
 	 */
 	public int conversionStringToInt(String data) throws NumberFormatException;
 	
 	/**
-	 * Converte os dados inseridos pelo usuário em doubles;
-	 * @param data
-	 * @return
+	 * Converte uma String em um double;
+	 * 
+	 * @param data - String de entrada;
+	 * @return double;
+	 * 
+	 * @throws NumberFormatException ocorre quando o usuário digita um caracter não numérico;
+	 * 
+	 * @author Sadi Júnior Domingos Jacinto;
 	 */
 	public double conversionStringToDouble(String data) throws NumberFormatException;
 	
 	/**
-	 * Formata a String inserida pelo usuário para o formato de data escolhido
-	 * neste caso dd/MM/yyyy 
-	 * @param data
-	 * @return Date
-	 * @throws ParseException
+	 * Converte uma String em um Date no formato HH:mm;
+	 * @param data - String de entrada
+	 * @return Date;
+	 * @throws ParseException ocorre quando o input do usuário não corresponde ao formato esperado;
 	 */
 	public Date strToDate(String data) throws ParseException;
 	
 	/**
-	 * Formata a String inserida pelo usuário para o formato de data escolhido
-	 * neste caso HH:mm
-	 * @param data
-	 * @return Date
-	 * @throws ParseException
+	 * Converte uma String em um Date no formato HH:mm;
+	 * @param data - String de entrada
+	 * @return Date;
+	 * @throws ParseException ocorre quando o input do usuário não corresponde ao formato esperado;
 	 */
 	public Date strToDateHour(String data) throws ParseException;
+	
 	/*
 	 * Vou deixar pro Varella fazer essa porra;
 	 */

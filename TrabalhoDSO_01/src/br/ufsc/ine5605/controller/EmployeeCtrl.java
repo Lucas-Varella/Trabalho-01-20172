@@ -66,8 +66,8 @@ public class EmployeeCtrl {
 	}
 	
 	
-	public ArrayList<Employment> listEmployments() {
-		return mainCtrl.listEmployments();
+	public void listEmployments() {
+		mainCtrl.listEmployments();
 	}
 	
 	public Employment findEmploymentByIndex(int index) throws NullPointerException {

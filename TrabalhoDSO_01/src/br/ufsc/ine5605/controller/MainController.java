@@ -9,6 +9,11 @@ import br.ufsc.ine5605.model.Horary;
 import br.ufsc.ine5605.model.Employment;
 import br.ufsc.ine5605.model.Employee;
 
+/**
+ * Classe responsável por gerenciar a comunicação entre os demais controladores; 
+ * @author Sadi Júnior Domingos Jacinto;
+ *
+ */
 public class MainController {
 	private MainScreenCtrl mainScreenCtrl;
 	private EmployeeCtrl employeeCtrl;
@@ -17,6 +22,10 @@ public class MainController {
 	private AccessCtrl accessCtrl;
 	private HoraryCtrl horaryCtrl;
 	
+	/**
+	 * Construtor padrão da classe, no qual todos os outros controladores do sistema são instânciados,
+	 * passando uma instância desta classe como parâmetro; 
+	 */
 	public MainController() {
 		mainScreenCtrl = new MainScreenCtrl(this);
 		employeeCtrl = new EmployeeCtrl(this);
@@ -46,8 +55,8 @@ public class MainController {
 		horaryCtrl.menuAdd();
 	}
 	
-	public ArrayList<Employment> listEmployments() {
-		return employmentCtrl.listEmployments();
+	public void listEmployments() {
+		employmentCtrl.listAllEmployments();
 	}
 	
 	public Employment findEmploymentByIndex(int index) throws NullPointerException {
@@ -99,7 +108,12 @@ public class MainController {
 	public void showDeniedAccessByReason(Reasons reason) {
 		accessCtrl.listDeniedAccessByReason(reason);		
 	}
-
+	
+	/**
+	 * @deprecated - excluir esse método depois de alguns testes;
+	 * @param numRegistration
+	 * @return
+	 */
 	public Employment getEmploymentByNumRegistration(int numRegistration) {
 		return employmentCtrl.getEmploymentByNumRegistration(numRegistration);
 	}

@@ -29,7 +29,7 @@ public class FinancialSectorCtrl {
 	
 	/**
 	 * Construtor padrão da classe;
-	 * @param mainController, recebe uma instância do MainController, possibilitando a comunicação do mesmo
+	 * @param mainController - recebe uma instância do MainController, possibilitando a comunicação do mesmo
 	 * com as outras classes, através do MainController;
 	 * 
 	 * @author Sadi Júnior Domingos Jacinto;
@@ -40,16 +40,12 @@ public class FinancialSectorCtrl {
 		this.financialSector = new FinancialSector(this);
 	}
 	
-	/**
-	 * Redireciona o usuário para o menu principal do programa;
-	 */
+	
 	public void mainMenu() {
 		mainCtrl.showMainScreen();
 	}
 	
-	/**
-	 * Redireciona o usuário para menu principal da classe FinancialSectorScreen;
-	 */
+	
 	public void menu() {
 		financialSectorScreen.menuFinancialSector();
 	}
@@ -66,10 +62,10 @@ public class FinancialSectorCtrl {
 	/**
 	 * Converte uma String em um int;
 	 * 
-	 * @param data, String de entrada;
+	 * @param data - String de entrada;
 	 * @return int;
 	 * 
-	 * @throws NumberFormatException, ocorre quando o usuário digita um caracter não numérico;
+	 * @throws NumberFormatException ocorre quando o usuário digita um caracter não numérico;
 	 * 
 	 * @author Sadi Júnior Domingos Jacinto;
 	 */
@@ -82,6 +78,12 @@ public class FinancialSectorCtrl {
 		}
 	}
 	
+	/**
+	 * Converte uma String em um Date no formato HH:mm;
+	 * @param data - String de entrada
+	 * @return Date;
+	 * @throws ParseException ocorre quando o input do usuário não corresponde ao formato esperado;
+	 */
 	public Date strToDateHour(String data) throws ParseException {
 			if (data == null) {
 	            return null;
@@ -97,6 +99,12 @@ public class FinancialSectorCtrl {
 	        return dataF;
 	}
 	
+	/**
+	 * Converte uma String em um Date no formato HH:mm;
+	 * @param data - String de entrada
+	 * @return Date;
+	 * @throws ParseException ocorre quando o input do usuário não corresponde ao formato esperado;
+	 */
 	public Date strToDate(String data) throws ParseException {
 		if (data == null) {
             return null;
@@ -133,17 +141,26 @@ public class FinancialSectorCtrl {
 	public void showDeniedAccessByReason(Reasons reason) {
 		mainCtrl.showDeniedAccessByReason(reason);
 	}
-	
+	/**
+	 * Método que, quando invocado, registra e retorna a data atual do sistema no qual 
+	 * o mesmo está sendo rodado;
+	 * @return Date;
+	 * @throws ParseException se ocorrer tal erro, contate o suporte;
+	 *
+	 *@author Sadi Júnior Domingos Jacinto;
+	 */
 	public Date getCurrenteDate() throws ParseException {
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		Calendar c = Calendar.getInstance();
 		String dateFormat = df.format(c.getTime());
 		return df.parse(dateFormat);
 	}
+	
 	/**
-	 * @deprecated, método criado, mas nunca usado;
-	 * @param numRegistration
-	 * @return
+	 * Método que busca um Employment baseado no número de Registro de um funcionário;
+	 * @deprecated - método criado, mas nunca usado;
+	 * @param numRegistration - usado para returnar um Employment que possuí um funcionário com tal número;
+	 * @return Employment
 	 */
 	public Employment getEmploymentByNumRegistration(int numRegistration) {
 		return mainCtrl.getEmploymentByNumRegistration(numRegistration);
