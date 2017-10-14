@@ -1,6 +1,5 @@
 package br.ufsc.ine5605.view;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -13,23 +12,35 @@ import br.ufsc.ine5605.model.EmploymentRestrictAccess;
 import br.ufsc.ine5605.model.Horary;
 import br.ufsc.ine5605.model.Privileges;
 
+/**
+ * Classe responsável pela interação entre o usuário com o sistema de cadastro, 
+ * edição, listagem e remoção de cargos;
+ * 
+ * @author Sadi Júnior Domingos Jacinto;
+ */
 public class EmploymentScreen {
 	private EmploymentCtrl employmentCtrl;
 	private Scanner keyboard;
-
+	
+	/**
+	 * Construtor padrão da classe;
+	 * @param employmentCtrl - Recebe uma instância do EmploymentCtrl, o que permite
+	 * a comunicação desta classe com as demais;
+	 */
 	public EmploymentScreen(EmploymentCtrl employmentCtrl) {
 		this.employmentCtrl = employmentCtrl;
 		keyboard = new Scanner(System.in);
 	}
-
+	/**
+	 * Menu principal da classe EmploymentScreen. Redireciona o usuário para telas
+	 * secundárias de acordo com o input do usuário
+	 */
 	public void menu() {
+		
 		try {
+			
 			int option = 0;
 			do {
-			/*
-			 * Verificar por que motivo o catch é executado sempre;
-			 * Refazer esse try catch;
-			 */
 				
 				System.out.println("-------------------------------------------------------------------------");
 				System.out.println("Welcome!");
@@ -92,12 +103,12 @@ public class EmploymentScreen {
 		
 	}
 
-	/*
-	 * Resolvi não dar ao usuário a alternativa de ele escolher o código do
-	 * cargo. Ao invés disso, criei(+/-) um método dentro do controlador que
-	 * gera o código automaticamente;
+	/**
+	 * Obtém do usuário os dados necessários para a criação de um Cargo e
+	 * os envia para a classe EmploymentCtrl;
 	 */
 	public void addEmployment() {
+	 
 		try {
 			
 			System.out.println("-------------------------------------------------------------------------");
@@ -175,7 +186,10 @@ public class EmploymentScreen {
 			addEmployment();
 		}
 	}
-
+	
+	/**
+	 * Tela responsável pela interação do usuário com os métodos de edição dos atributos de um Employment;
+	 */
 	public void editEmployment() {
 		try {
 	
@@ -300,11 +314,8 @@ public class EmploymentScreen {
 						}
 		
 					case 0:
-		
-						
-		
+						System.out.println("Goodbye");
 					}
-
 
 				}else {
 						
@@ -383,7 +394,6 @@ public class EmploymentScreen {
 							} while (option2 > 3 && option2 < 1);
 			
 						case 0:
-			
 							System.out.println("Goodbye");			
 						}
 					}
@@ -395,8 +405,9 @@ public class EmploymentScreen {
 		} catch(IndexOutOfBoundsException e) {
 			System.out.println("No charge registered. Please register a position before attempting this option");
 			menu();
+		
 		} catch(InputMismatchException e) {
-			
+			System.out.println("An internal error occurred. Please contact support");
 			editEmployment();
 		} catch(NumberFormatException e) {
 			System.out.println("Please enter only valid numbers");
@@ -408,9 +419,7 @@ public class EmploymentScreen {
 	}
 
 	public void delEmployment() {
-		/*
-		 * Criar um método que verifica se o cargo não possuí funcionários associados a ele
-		 */
+
 		try {
 			
 			System.out.println("------------------------------------------------------------------------------");
