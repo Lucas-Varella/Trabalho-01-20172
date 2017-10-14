@@ -6,7 +6,8 @@ import br.ufsc.ine5605.view.MainScreen;
 /**
  * 
  * @author sadi
- *
+ *@author marcos
+ *@author lucas
  */
 public class MainScreenCtrl {
 	private MainController mainCtrl;

@@ -1,16 +1,12 @@
 package br.ufsc.ine5605.controller;
  
 
-
-
 import java.sql.Date;
 import java.text.ParseException;
 import java.util.ArrayList;
 
 import br.ufsc.ine5605.model.*;
 import br.ufsc.ine5605.view.EmploymentScreen;
-
-
 
 
 public class EmploymentCtrl {
@@ -35,6 +31,11 @@ public class EmploymentCtrl {
 		employmentScreen.menu();
 	}
 	
+	/**
+	 * Adciona um emprego a lista de empregos
+	 * @param name
+	 * @param option
+	 */
 	
 	public void addEmployment(String name, Privileges option) {
 		Employment employment = new Employment(getCode(), name, option, this);
@@ -42,6 +43,12 @@ public class EmploymentCtrl {
 		setCode(getCode() + 1 );
 	}
 	
+	/**
+	 * Adciona um acesso restrito a lista
+	 * @param name
+	 * @param option
+	 * @return o acesso registrado
+	 */
 	public EmploymentRestrictAccess addEmploymentRestrictAccess(String name, Privileges option) {
 		EmploymentRestrictAccess em = new EmploymentRestrictAccess(getCode(), name, option, this);
 		employments.add(em);

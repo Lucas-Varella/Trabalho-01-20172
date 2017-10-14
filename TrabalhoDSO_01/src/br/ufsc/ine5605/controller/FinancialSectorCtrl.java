@@ -20,7 +20,8 @@ import br.ufsc.ine5605.view.FinancialSectorScreen;
  * FinancialSector e FinancialSectorScreen entre si e com as outras classes, quando necessário;
  *  
  * @author Sadi Júnior Domingos Jacinto;
- *
+ * @author Marcos Laydner;
+ * @author Lucas Varella
  */
 public class FinancialSectorCtrl {
 	private MainController mainCtrl;

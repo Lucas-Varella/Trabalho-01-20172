@@ -91,6 +91,11 @@ public class EmployeeCtrl {
 		
 	}
 	
+	/**
+	 * Verifica se o número de registro existe
+	 * @param numRegistration
+	 * @return
+	 */
 	public boolean validNumRegistration(int numRegistration) {
 		for(Employee e : employees) {
 			if(e.getNumRegistration() == numRegistration) {

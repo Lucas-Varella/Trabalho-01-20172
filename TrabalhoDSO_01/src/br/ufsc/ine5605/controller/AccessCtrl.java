@@ -59,6 +59,8 @@ public class AccessCtrl {
 		}
 	}
 
+
+	
 	public boolean isAccessBloqued(int numRegistration) {
 		if(deniedAccess != null ) {
 			int cont = 0;
