@@ -1,14 +1,23 @@
 package br.ufsc.ine5605.controller;
  
 
-import java.sql.Date;
+import java.sql.Date; 
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import br.ufsc.ine5605.model.*;
+import br.ufsc.ine5605.model.Employment;
+import br.ufsc.ine5605.model.EmploymentRestrictAccess;
+import br.ufsc.ine5605.model.Privileges;
+import br.ufsc.ine5605.model.Contract;
+import br.ufsc.ine5605.model.Horary;
 import br.ufsc.ine5605.view.EmploymentScreen;
 
-
+/**
+ * Classe responsável pela comunicação entre as classes Employment, EmploymentRestrictAccess e EmploymentScreen entre si e
+ * com outras classes do sistema;
+ * @author Sadi Júnior Domingos Jacinto;
+ *
+ */
 public class EmploymentCtrl {
 	private MainController mainCtrl;
 	private EmploymentScreen employmentScreen;
@@ -17,6 +26,10 @@ public class EmploymentCtrl {
 	private ArrayList<Employment> employments;
 	private static int code = 1000;
 	
+	/**
+	 * Construtor padrão da classe;
+	 * @param mainCtrl - recebe uma instância do MainController, o que permite a comunicação com o mesmo;
+	 */
 	public EmploymentCtrl(MainController mainCtrl) {
 		this.mainCtrl = mainCtrl;
 		this.employmentScreen = new EmploymentScreen(this);
@@ -32,9 +45,9 @@ public class EmploymentCtrl {
 	}
 	
 	/**
-	 * Adciona um emprego a lista de empregos
-	 * @param name
-	 * @param option
+	 * Cria um novo Employment e o adiciona a um ArrayList<Employment>; 
+	 * @param name - String contendo o nome do Employment;
+	 * @param option - Privilégio que o Employment terá;
 	 */
 	
 	public void addEmployment(String name, Privileges option) {
@@ -44,10 +57,10 @@ public class EmploymentCtrl {
 	}
 	
 	/**
-	 * Adciona um acesso restrito a lista
-	 * @param name
-	 * @param option
-	 * @return o acesso registrado
+	 * Cria um novo EmploymentRestrictAccess e o adciona ao ArrayList<Employment>;
+	 * @param name - String contendo o nome do cargo;
+	 * @param option - Privilégio que o Employment terá, por default será Privileges.Restrict;
+	 * @return EmploymentRestrictAccess - o novo EmploymentRestrictAccess criado; 
 	 */
 	public EmploymentRestrictAccess addEmploymentRestrictAccess(String name, Privileges option) {
 		EmploymentRestrictAccess em = new EmploymentRestrictAccess(getCode(), name, option, this);
@@ -56,15 +69,18 @@ public class EmploymentCtrl {
 		return em;
 	}
 	
+	/**
+	 * Deleta do sistema um Employment;
+	 * @param employment - a instância do Employment que será deletada;
+	 */
 	public void delEmployment(Employment employment) {
 		for(Contract c : employment.getEmployees()) {
-			c.getEmployee().delContract();
 			mainCtrl.delEmployee(c.getEmployee());
 		}
 		employments.remove(employment);
 	}
 	
-	public ArrayList<Employment> listEmployments() {
+	public ArrayList<Employment> getEmployments() {
 		return employments;
 	}
 	
@@ -76,13 +92,17 @@ public class EmploymentCtrl {
 		return mainCtrl.addHorary();
 	}
 	
-	
-	
+	/**
+	 * Busca um Employment no ArrayList<Employment> baseado no index;
+	 * @param num - int contendo o index do objeto no ArrayList;
+	 * @return Employment - Retorna a instância encontrada no index do ArrayList
+	 * @throws NullPointerException Ocorre quando o usuário tenta acessar um indíce inexistente;
+	 */
 	public Employment getEmployment(int num) throws NullPointerException {
 		try {
 			return employments.get(num);
 		} catch(NullPointerException e) {
-			throw new NullPointerException();
+			throw e;
 		}		
 	}
 
@@ -106,20 +126,38 @@ public class EmploymentCtrl {
 		return mainCtrl.editHorary(horary);
 		
 	}
-
+	/**
+	 * Cria e adiciona um novo Employment. A única diferença com o outro método é a adição de um novo parâmetro de entrada;
+	 * @param code2 - int do código do Employment;
+	 * @param name - String do nome do Employment;
+	 * @param privilege - Privilégio do Employment;
+	 * @return Employment - A instância criada;
+	 */
 	public Employment addEmployment(int code2, String name, Privileges privilege) {
 		Employment e = new Employment(code2, name, privilege, this);
 		employments.add(e);
 		return e;
 	}
-
+	
+	/**
+	 * Cria e adiciona um novo EmploymentRestrictAccess. A única diferença com o outro método é a adição de um novo parâmetro de entrada;
+	 * @param code2 - int do código do EmploymentRestrictAccess;
+	 * @param name - String do nome do EmploymentRestrictAccess;
+	 * @param privilege - Privilégio do EmploymentRestrictAccess;
+	 * @return EmploymentRestrictAccess - A instância criada;
+	 */
 	public EmploymentRestrictAccess addEmploymentRestrictAccess(int code2,
 			String name, Privileges privilege) {
 		EmploymentRestrictAccess e = new EmploymentRestrictAccess(code, name, privilege, this);
 		employments.add(e);
 		return e;
 	}
-
+	/**
+	 * Busca um Employment que possui um Employee associado a ele com determinado número de registro;
+	 * @deprecated - Método criado, mas não usado
+	 * @param numRegistration - int do número de registro do funcionário;
+	 * @return Employment - Retorna o Employment encontrado, retorna null se não encontrar;
+	 */
 	public Employment getEmploymentByNumRegistration(int numRegistration) {
 		Employment e = null;
 		for(Employment en : employments) {
@@ -153,18 +191,4 @@ public class EmploymentCtrl {
 		}
 	}
 
-	public Date formatStringToDate(String data) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Date strToDate(String data) throws ParseException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Date strToDateHour(String data) throws ParseException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

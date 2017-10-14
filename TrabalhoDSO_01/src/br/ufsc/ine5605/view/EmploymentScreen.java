@@ -97,7 +97,7 @@ public class EmploymentScreen {
 			menu();
 		} catch(IndexOutOfBoundsException e) {
 			System.out.println("-------------------------------------------------------------------------");
-			System.out.println("No charge registered. Please register a position before attempting this option");
+			System.out.println("No charge registered. Please, register a position before choosing this option"); 
 			menu();
 		}
 		
@@ -154,10 +154,7 @@ public class EmploymentScreen {
 					System.out.println("Name: " + name);
 					System.out.println("Privilege: " + gen);
 					System.out.println("Horary Access: " );
-					
-					for(Horary h : employmentCtrl.getHorarys(e)) {
-						System.out.println(h.getHourBegin() + " - " + h.getHourFinish());
-					}
+					listHorary(e);
 					break;
 				
 				case 3:
@@ -417,7 +414,12 @@ public class EmploymentScreen {
 			menu();
 		}
 	}
-
+	
+	/**
+	 * Tela responsável pela interação do usuário com o método de remoção de Employments do sistema;
+	 * 
+	 * @author Sadi Júnior Domingos Jacinto;
+	 */
 	public void delEmployment() {
 
 		try {
@@ -428,7 +430,8 @@ public class EmploymentScreen {
 			int option = employmentCtrl.conversionStringToInt(keyboard.nextLine()) - 1;
 			Employment e = employmentCtrl.getEmployment(option);
 			if(e.getEmployees().size() > 0) {
-				System.out.printf("The selected position has employees associated with it. \nIf you continue with this action, all of these employees will be deleted.");
+				System.out.printf("The selected position has employees associated with it. \nIf you continue with this option," +" " +
+								  "employees will be disassociated from the job and deleted from the system.");
 				System.out.printf("\nEnter 1 to continue \nEnter 2 to abort action");
 				option = employmentCtrl.conversionStringToInt(keyboard.nextLine());
 				
@@ -437,7 +440,16 @@ public class EmploymentScreen {
 				case 1: 
 					employmentCtrl.delEmployment(e);
 					System.out.println("Employment deleted successfully");
+				case 2:
+					System.out.println("Operation canceled");
+					menu();
+				default:
+					System.out.println("The option you entered is not valid");
+					delEmployment();
 				}
+			}else {
+				employmentCtrl.delEmployment(e);
+				System.out.println("Employment deleted successfully");
 			}
 			
 		}catch(NumberFormatException e) {
@@ -451,11 +463,16 @@ public class EmploymentScreen {
 		}
 	}
 	
+	/**
+	 * Método responsável por listar os nomes de todos os cargos cadastrados no sistema;
+	 * 
+	 * @throws IndexOutOfBoundsException ocorrendo quando não existe nenhum cargo cadastrado no sistema;
+	 */
 	public void listEmployments() throws IndexOutOfBoundsException {
 		int i = 1;
 		
-		if(employmentCtrl.listEmployments() != null) {
-			for(Employment e : employmentCtrl.listEmployments()) {
+		if(employmentCtrl.getEmployments().size() > 0) {
+			for(Employment e : employmentCtrl.getEmployments()) {
 				System.out.println(i+"º - "+ e.getName());
 				i++;
 			}
@@ -464,34 +481,44 @@ public class EmploymentScreen {
 		}
 	}
 	
-	
+	/**
+	 * Método que lista os horários de acesso ao Setor Financeiro que um Cargo com privilégio Restrict tem;
+	 * @param gen - Recebe um instância de um EmploymentRestrictAccess
+	 */
 	public void listHorary(EmploymentRestrictAccess gen) {
-		int i = 1;
 		for(Horary h : gen.getHorarys()) {
-			System.out.println(i + "º - " + h.getHourBegin() +" - " + h.getHourFinish() );
-			i++;
+			System.out.println(h.getHourBegin() +" - " + h.getHourFinish() );
+			
 		}
 	}
 	
-	
-	public void findEmployeesByEmployment() throws IndexOutOfBoundsException {
+	/**
+	 * Método que lista os funcionários associados a um Cargo;
+	 * @throws IndexOutOfBoundsException ocorre quando o cargo não possui nenhum funcionário associado a ele;
+	 */
+	public void findEmployeesByEmployment() {
+		try {
 			System.out.println("---------------------------------------------------------------------------");
 			System.out.println("Enter the number corresponding to your choice:");
 			listEmployments();
 			int choice = employmentCtrl.conversionStringToInt(keyboard.nextLine()) - 1;
 			Employment employment = employmentCtrl.getEmployment(choice);
-			if(employment.getEmployees().size() > 0) {
+			if(employment.getEmployees().size() > 0 ){
 				int i = 1;
 				for(Contract c : employment.getEmployees()) {
 					String name = c.getEmployee().getName();
 					System.out.println(i+ "º - " + name);
 					i++;
 				}
-				
 			}else {
-				
 				throw new IndexOutOfBoundsException();
 			}
+			
+		} catch(IndexOutOfBoundsException e) {
+			System.out.println("No employee associated with this position. Please register an \nemployee who holds this position before selecting this option");
+			menu();
+		}
+		
 		
 	}
 

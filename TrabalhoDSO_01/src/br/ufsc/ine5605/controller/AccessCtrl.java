@@ -10,17 +10,34 @@ import br.ufsc.ine5605.model.Access;
 import br.ufsc.ine5605.model.Reasons;
 import br.ufsc.ine5605.view.AccessScreen;
 
+/**
+ * Classe responsável pela comunicação das classes Access e AccessScreen entre si e com as outras classes;
+ * @author Sadi Júnior Domingos Jacinto;
+ *
+ */
 public class AccessCtrl {
 	private MainController mainCtrl;
 	private AccessScreen accessScreen;
 	private ArrayList<Access> deniedAccess;
 	
+	/**
+	 * Construtor padrão da classe;
+	 * @param mainController - Recebe uma instância do MainController, o que permite a comuncicação 
+	 * desta classe com todas as outras através do MainController;
+	 */
 	public AccessCtrl(MainController mainController) {
 		this.mainCtrl = mainController;
 		this.accessScreen = new AccessScreen(this);
 		deniedAccess = new ArrayList<Access>();
 	}
 	
+	/**
+	 * Cria e adiciona uma nova instância de Access no ArrayList<Access>
+	 * @param numRegistration - int do número de registro usado para tentar acessar o Setor Financeiro;
+	 * @param date - Date da tentativa de acesso;
+	 * @param hour - Hora da tentativa de acesso;
+	 * @param reason - Motivo da negação do acesso;
+	 */
 	public void addAccess(int numRegistration, Date date, Date hour, Reasons reason) {
 		Access a = new Access(numRegistration, date, hour, reason );
 		deniedAccess.add(a);

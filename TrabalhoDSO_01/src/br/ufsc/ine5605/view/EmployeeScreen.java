@@ -1,36 +1,37 @@
 package br.ufsc.ine5605.view;
 
-
-
-import java.sql.Date;
-import java.text.DateFormat;
+import java.sql.Date; 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import br.ufsc.ine5605.controller.*;
-import br.ufsc.ine5605.model.*;
-import br.ufsc.ine5605.view.*;
+import br.ufsc.ine5605.controller.EmployeeCtrl;
+import br.ufsc.ine5605.model.Employment;
+import br.ufsc.ine5605.model.Employee;
+import br.ufsc.ine5605.model.Contract;
 
-
-public class EmployeeScreen implements Screen {
+/**
+ * Tela responsável pela interação do usuário com as funcionalidades relacionadas aos Employees;
+ * @author Sadi Júnior Domingos Jacinto;
+ */
+public class EmployeeScreen {
 	private EmployeeCtrl employeeCtrl;
 	private Scanner keyboard;
-
+	
+	/**
+	 * Construtor padrão da classe
+	 * @param employeeCtrl - Recebe uma instância do EmployeeCtrl, o que permite a comunicação com outras classes;
+	 */
 	public EmployeeScreen(EmployeeCtrl employeeCtrl) {
 		this.employeeCtrl = employeeCtrl;
 		keyboard = new Scanner(System.in);
 	}
 
-	
+	/**
+	 * Tela principal da classe;
+	 */
 	public void menu() {
-		int option = 0;
-		/*
-		 * Mudar as mensagens das exceptions para que toda exceção não repita a mesma mensagem;
-		 */
 		try {
-			
+			int option = 0;
 			do {
 			
 				System.out.println("-------------------------------------------------------------------------");
@@ -42,7 +43,7 @@ public class EmployeeScreen implements Screen {
 				System.out.println("4 - List employees");
 				System.out.println("0 - Back to Main Area");
 				System.out.println("-------------------------------------------------------------------------");
-				option = Integer.parseInt(keyboard.nextLine());
+				option = employeeCtrl.conversionStringToInt(keyboard.nextLine());
 				
 				switch (option) {
 				
@@ -74,7 +75,7 @@ public class EmployeeScreen implements Screen {
 			employeeCtrl.mainMenu();
 
 		} catch(NumberFormatException e) {
-			System.out.println(e.getMessage());
+			System.out.println("Please enter only integers");
 			menu();
 		} catch(IndexOutOfBoundsException e) {
 			System.out.println("No employee registered. Please register a employee before attempting this option");
@@ -84,8 +85,7 @@ public class EmployeeScreen implements Screen {
 		
 	}
 	/**
-	 * O método addEmployee() adiciona um novo funcionário
-	 * @throws Exception 
+	 * Armazena e envia ao EmployeeCtrl os dados necessários para a criação de um novo funcionário;
 	 */
 	public void addEmployee() {
 		try {
@@ -96,26 +96,26 @@ public class EmployeeScreen implements Screen {
 			
 			System.out.println("Date of birth: ");
 		
-			Date birthDay = strToDate(keyboard.nextLine());
+			Date birthDay = employeeCtrl.strToDate(keyboard.nextLine());
 			
 			
 			System.out.println("Phone: ");
-			int phone = conversionStringToInt(keyboard.nextLine()); 
+			int phone = employeeCtrl.conversionStringToInt(keyboard.nextLine()); 
 			
 			
 			System.out.println("Salary: ");
-			double salary = conversionStringToDouble(keyboard.nextLine());
+			double salary = employeeCtrl.conversionStringToDouble(keyboard.nextLine());
 			
 			
 			System.out.println("Please, enter the number corresponding to the chosen employment: ");
 			
 			employeeCtrl.listEmployments();
 			
-			int option = conversionStringToInt(keyboard.nextLine()) - 1;
+			int option = employeeCtrl.conversionStringToInt(keyboard.nextLine()) - 1;
 			Employment gen = employeeCtrl.findEmploymentByIndex(option);
 		
 			Employee generic = employeeCtrl.addEmployee(name, birthDay, phone, salary);
-			Contract contract = employeeCtrl.addContract(gen, generic);
+			employeeCtrl.addContract(gen, generic);
 			
 			System.out.println("-------------------------------------------------------------------------");
 			System.out.println("Congratulations, you have created a new employee with the following characteristics: ");
@@ -127,9 +127,10 @@ public class EmployeeScreen implements Screen {
 			System.out.println("Employment - " + generic.getEmployment().getEmployment().getName());
 		
 		} catch(NullPointerException e) {
-			System.out.println("O erro tá no ponteiro que não aponta pra nada");
+			System.out.println("An internal error occurred. Contact support urgently");
 			System.out.println("-------------------------------------------------------------------------");
 			addEmployee();
+		
 		} catch(NumberFormatException e) {
 			System.out.println("The number you entered is not valid");
 			System.out.println("-------------------------------------------------------------------------");
@@ -157,8 +158,7 @@ public class EmployeeScreen implements Screen {
 		}
 	}	
 	/**
-	 * Edita(seta) os atributos do Funcionário;
-	 * @throws StupidUserException
+	 * Tela responsável pela interação do usuário com os métodos de edição dos atributos do Funcionário;
 	 */
 	public void editEmployee() {
 		try {
@@ -166,9 +166,8 @@ public class EmployeeScreen implements Screen {
 			do {
 				System.out.println("--------------------------------------------------------------------------------");
 				System.out.println("Please enter the number corresponding to your choice: ");
-				// Listando todos os Funcionarios;
 				listEmployees();
-				option = conversionStringToInt(keyboard.nextLine()) - 1;
+				option = employeeCtrl.conversionStringToInt(keyboard.nextLine()) - 1;
 				Employee generic = employeeCtrl.getEmployee(option);
 				
 				System.out.println("--------------------------------------------------------------------------------");
@@ -187,7 +186,7 @@ public class EmployeeScreen implements Screen {
 				System.out.println("Or 0 to exit");
 				System.out.println("--------------------------------------------------------------------------------");
 
-				option = conversionStringToInt(keyboard.nextLine());
+				option = employeeCtrl.conversionStringToInt(keyboard.nextLine());
 					
 				switch (option) {
 		
@@ -201,7 +200,7 @@ public class EmployeeScreen implements Screen {
 				case 2:
 					System.out.println("--------------------------------------------------------------------------------");
 					System.out.println("Enter a new birthday: ");
-					Date dateBirth = strToDate(keyboard.nextLine());
+					Date dateBirth = employeeCtrl.strToDate(keyboard.nextLine());
 					generic.setDateBirth(dateBirth);
 					break;
 						
@@ -220,14 +219,11 @@ public class EmployeeScreen implements Screen {
 					break;
 				
 				case 5:
-					/*
-					 * Listar os cargos apenas na tela Cargo e não na tela funcionário
-					 */
 					System.out.println("--------------------------------------------------------------------------------");
 					System.out.println("Enter the number corresponding to the new employment");
 					employeeCtrl.listEmployments();
 					System.out.println("--------------------------------------------------------------------------------");
-					int employment = conversionStringToInt(keyboard.nextLine()) - 1;
+					int employment = employeeCtrl.conversionStringToInt(keyboard.nextLine()) - 1;
 					Employment gen = employeeCtrl.findEmploymentByIndex(employment);
 					generic.setEmployment(gen);
 					break;
@@ -244,42 +240,58 @@ public class EmployeeScreen implements Screen {
 		
 		
 		} catch(NullPointerException e) {
-			System.out.println(e.getMessage());
+			System.out.println("An internal error occurred. Contact support urgently");
 			editEmployee();
+			
 		} catch(NumberFormatException e) {
-			System.out.println(e.getMessage());
+			System.out.println("The number you entered is not valid");
 			editEmployee();
+		
 		} catch(ParseException e) {
+			System.out.println("The date format entered by the user is not correct\n"+ 
+							   "Please try again based on this format:\n" + "dd/MM/yyyy");
+			editEmployee();
 			
 		} catch(IndexOutOfBoundsException e) {
-			
+			System.out.println("No registered employees. Please register an employee first before choosing this option");
+			menu();
 		}
 		
 	}
 	
+	/**
+	 * Tela responsável pela interação do usuário com o método de remoção de Employees;
+	 */
 	public void delEmployee() {
 		try {
 			System.out.println("--------------------------------------------------------------------------------");
 			System.out.println("Select an employee to fire");
-	
 			listEmployees();
-			
-			int option = conversionStringToInt(keyboard.nextLine()) - 1;
+			int option = employeeCtrl.conversionStringToInt(keyboard.nextLine()) - 1;
 			employeeCtrl.delEmployee(option);
 		
 		} catch(NullPointerException e) {
-			System.out.println(e.getMessage());
-			delEmployee();
+			System.out.println("An internal error occurred. Contact support urgently");
+			menu();
+			
 		} catch(NumberFormatException e) {
-			System.out.println("");
+			System.out.println("The number you entered is not valid");
+			delEmployee();
+		} catch(IndexOutOfBoundsException e) {
+			System.out.println("No registered employees. Please register an employee first before choosing this option");
+			menu();
 		}
 		
 	}
 	
-	public void listEmployees() {
+	/**
+	 * Método responsável por listar todos os Employees registrados;
+	 * @throws IndexOutOfBoundsException Ocorre quando não existe nenhum Employee cadastrado no sistema;
+	 */
+	public void listEmployees() throws IndexOutOfBoundsException {
 		int i = 1;
 		System.out.println("--------------------------------------------------------------------------------");
-		if(employeeCtrl.listEmployees() != null) {
+		if(employeeCtrl.listEmployees().size() > 0) {
 			for(Employee e: employeeCtrl.listEmployees()) {
 				System.out.println(i + "º - " + e.getName());
 				i++;
@@ -289,53 +301,6 @@ public class EmployeeScreen implements Screen {
 		}
 	}
 	
-	public int conversionStringToInt(String data) throws NumberFormatException {
-		try {
-			int num = Integer.parseInt(data);
-			return num;
-		} catch(NumberFormatException e) {
-			throw new NumberFormatException();
-		}
-	}
 	
-	public double conversionStringToDouble(String data) throws NumberFormatException {
-		try {
-			double num = Double.parseDouble(data);	
-			return num;
-		} catch(NumberFormatException e ) {
-			throw new NumberFormatException();
-		}
-	}
-
-	public Date strToDate(String data) throws ParseException {
-		if (data == null) {
-            return null;
-        }
-        Date dataF = null;
-        try {
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            long time = dateFormat.parse(data).getTime();
-            dataF = new Date(time);
-        } catch (ParseException e) {
-            throw new ParseException(data, 0);
-        }
-        return dataF;
-	}
-
-
-	public Date strToDateHour(String data) throws ParseException {
-		if (data == null) {
-            return null;
-        }
-        Date dataF = null;
-        try {
-            DateFormat dateFormat = new SimpleDateFormat("HH:mm");
-            long time = dateFormat.parse(data).getTime();
-            dataF = new Date(time);
-        } catch (ParseException e) {
-        	throw new ParseException(data, 0);
-        }
-        return dataF;
-	}
 	
 }

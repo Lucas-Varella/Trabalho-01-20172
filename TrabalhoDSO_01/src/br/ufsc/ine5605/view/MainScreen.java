@@ -1,22 +1,30 @@
 package br.ufsc.ine5605.view;
 
+import java.util.Scanner; 
 
-import java.util.Scanner;
+import br.ufsc.ine5605.controller.MainScreenCtrl;
 
-import br.ufsc.ine5605.controller.*;
-import br.ufsc.ine5605.model.*;
-import br.ufsc.ine5605.view.*;
-
-
+/**
+ * Tela principal do sistema;
+ * @author Sadi Júnior Domingos Jacinto;
+ *
+ */
 public class MainScreen {
 	private MainScreenCtrl mainScreenCtrl;
 	private Scanner keyboard;
 	
+	/**
+	 * Construtor padrão da classe;
+	 * @param mainScreenCtrl - Recebe uma instância do MainScreenCtrl;
+	 */
 	public MainScreen(MainScreenCtrl mainScreenCtrl) {
 		this.mainScreenCtrl = mainScreenCtrl;
 		keyboard = new Scanner(System.in);
 	}
 	
+	/**
+	 * Exibe o menu principal da classe;
+	 */
 	public void showMenu() {
 		try {
 			int option = 0;

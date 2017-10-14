@@ -1,14 +1,25 @@
 package br.ufsc.ine5605.controller;
 
-import java.sql.Date;
+import java.sql.Date; 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import br.ufsc.ine5605.controller.*;
-import br.ufsc.ine5605.model.*;
-import br.ufsc.ine5605.view.*;
+import br.ufsc.ine5605.model.Employee;
+import br.ufsc.ine5605.model.Employment;
+import br.ufsc.ine5605.model.Contract;
+import br.ufsc.ine5605.model.Horary;
+import br.ufsc.ine5605.model.EmploymentRestrictAccess;
+import br.ufsc.ine5605.model.Privileges;
+import br.ufsc.ine5605.view.EmployeeScreen;
 
 
-
+/**
+ * 
+ * @author Sadi Júnior Domingos Jacinto
+ *
+ */
 public class EmployeeCtrl {
 	private MainController mainCtrl;
 	private Employee employee;
@@ -25,9 +36,6 @@ public class EmployeeCtrl {
 	public void menu() {
 		employeeScreen.menu();
 	}
-	/*
-	 * Criar métodos que ligem a tela com a classe
-	 */
 	
 	public Employee addEmployee(String name, Date dateBirth, int phone, double salary) {
 		Employee generic = new Employee(this, getCode(), name, dateBirth, phone, salary);
@@ -92,7 +100,7 @@ public class EmployeeCtrl {
 	}
 	
 	/**
-	 * Verifica se o n�mero de registro existe
+	 * Verifica se o n�mero de registro existe
 	 * @param numRegistration
 	 * @return
 	 */
@@ -144,6 +152,54 @@ public class EmployeeCtrl {
 		return null;
 	}
 	
+	public int conversionStringToInt(String data) throws NumberFormatException {
+		try {
+			int num = Integer.parseInt(data);
+			return num;
+		} catch(NumberFormatException e) {
+			throw new NumberFormatException();
+		}
+	}
+	
+	public double conversionStringToDouble(String data) throws NumberFormatException {
+		try {
+			double num = Double.parseDouble(data);	
+			return num;
+		} catch(NumberFormatException e ) {
+			throw new NumberFormatException();
+		}
+	}
+
+	public Date strToDate(String data) throws ParseException {
+		if (data == null) {
+            return null;
+        }
+        Date dataF = null;
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            long time = dateFormat.parse(data).getTime();
+            dataF = new Date(time);
+        } catch (ParseException e) {
+            throw new ParseException(data, 0);
+        }
+        return dataF;
+	}
+
+
+	public Date strToDateHour(String data) throws ParseException {
+		if (data == null) {
+            return null;
+        }
+        Date dataF = null;
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+            long time = dateFormat.parse(data).getTime();
+            dataF = new Date(time);
+        } catch (ParseException e) {
+        	throw new ParseException(data, 0);
+        }
+        return dataF;
+	}
 	
 
 }

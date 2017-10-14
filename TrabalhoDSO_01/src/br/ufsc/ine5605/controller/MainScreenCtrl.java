@@ -4,15 +4,22 @@ package br.ufsc.ine5605.controller;
 import br.ufsc.ine5605.view.MainScreen;
 
 /**
+ * Classe responsável pela comunicação entre a classe MainScreen com as demais classes;
  * 
- * @author sadi
- *@author marcos
- *@author lucas
+ * @author Sadi Júnior Domingos Jacinto;
+ * @author marcos
+ * @author lucas
  */
 public class MainScreenCtrl {
 	private MainController mainCtrl;
 	private MainScreen mainScreen;
 	
+	/**
+	 * Construtor padrão da classe;
+	 * Instância a MainScreen;
+	 * @param mainCtrl - Recebe uma instância do MainController;
+	 * 
+	 */
 	public MainScreenCtrl(MainController mainCtrl) {
 		this.mainCtrl = mainCtrl;
 		mainScreen = new MainScreen(this);
