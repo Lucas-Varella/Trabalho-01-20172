@@ -1,12 +1,11 @@
 package br.ufsc.ine5605.controller;
 
-import java.sql.Date; 
+import java.util.Date; 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import br.ufsc.ine5605.model.Horary;
-import br.ufsc.ine5605.model.Screen;
 import br.ufsc.ine5605.view.HoraryScreen;
 
 /**
@@ -15,7 +14,7 @@ import br.ufsc.ine5605.view.HoraryScreen;
  * @author Sadi Júnior Domingos Jacinto;
  *
  */
-public class HoraryCtrl implements Screen {
+public class HoraryCtrl {
 	private MainController mainCtrl;
 	private HoraryScreen horaryScreen;
 	private Horary horary;
@@ -47,11 +46,6 @@ public class HoraryCtrl implements Screen {
 		return (new Horary(hourBegin, hourFinish));
 	}
 
-	public void menu() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public int conversionStringToInt(String data) throws NumberFormatException {
 		try {
 			int num = Integer.parseInt(data);	
@@ -59,17 +53,6 @@ public class HoraryCtrl implements Screen {
 		} catch(NumberFormatException e ) {
 			throw new NumberFormatException();
 		}
-	}
-
-	public double conversionStringToDouble(String data)
-			throws NumberFormatException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public Date strToDate(String data) throws ParseException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	public Date strToDateHour(String data) throws ParseException {

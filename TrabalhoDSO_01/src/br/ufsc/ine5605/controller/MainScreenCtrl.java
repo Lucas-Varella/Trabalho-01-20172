@@ -2,6 +2,7 @@ package br.ufsc.ine5605.controller;
 
 
 import br.ufsc.ine5605.view.MainScreen;
+import br.ufsc.ine5605.model.Screen2;
 
 /**
  * Classe responsável pela comunicação entre a classe MainScreen com as demais classes;
@@ -10,7 +11,7 @@ import br.ufsc.ine5605.view.MainScreen;
  * @author marcos
  * @author lucas
  */
-public class MainScreenCtrl {
+public class MainScreenCtrl implements Screen2 {
 	private MainController mainCtrl;
 	private MainScreen mainScreen;
 	

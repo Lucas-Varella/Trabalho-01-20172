@@ -12,7 +12,6 @@ import br.ufsc.ine5605.controller.HoraryCtrl;
  *
  */
 public class Horary {
-	private HoraryCtrl horaryCtrl;
 	private Date hourBegin;
 	private Date hourFinish;
 	

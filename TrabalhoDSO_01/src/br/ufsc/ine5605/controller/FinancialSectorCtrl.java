@@ -13,6 +13,7 @@ import br.ufsc.ine5605.model.Horary;
 import br.ufsc.ine5605.model.Privileges;
 import br.ufsc.ine5605.model.Reasons;
 import br.ufsc.ine5605.view.FinancialSectorScreen;
+import br.ufsc.ine5605.model.ConversionDates;
 
 /**
  * Classe responsável por transmitir o input do usuário para a classe FinancialSector, onde
@@ -23,7 +24,7 @@ import br.ufsc.ine5605.view.FinancialSectorScreen;
  * @author Marcos Laydner;
  * @author Lucas Varella
  */
-public class FinancialSectorCtrl {
+public class FinancialSectorCtrl implements ConversionDates {
 	private MainController mainCtrl;
 	private FinancialSectorScreen financialSectorScreen;
 	private FinancialSector financialSector;
@@ -60,16 +61,6 @@ public class FinancialSectorCtrl {
 		return mainCtrl.validNumRegistration(numRegistration);
 	}
 	
-	/**
-	 * Converte uma String em um int;
-	 * 
-	 * @param data - String de entrada;
-	 * @return int;
-	 * 
-	 * @throws NumberFormatException ocorre quando o usuário digita um caracter não numérico;
-	 * 
-	 * @author Sadi Júnior Domingos Jacinto;
-	 */
 	public int conversionStringToInt(String data) throws NumberFormatException {
 		try {
 			int num = Integer.parseInt(data);	

@@ -1,6 +1,6 @@
 package br.ufsc.ine5605.controller;
 
-import java.sql.Date; 
+import java.sql.Date;  
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,14 +13,15 @@ import br.ufsc.ine5605.model.Horary;
 import br.ufsc.ine5605.model.EmploymentRestrictAccess;
 import br.ufsc.ine5605.model.Privileges;
 import br.ufsc.ine5605.view.EmployeeScreen;
-
+import br.ufsc.ine5605.model.Screen2;
+import br.ufsc.ine5605.model.ConversionDates;
 
 /**
  * Classe responsável pela comunicação entre as classes Employee e EmployeeScreen entre si e com outras classes;
  * @author Sadi Júnior Domingos Jacinto
  *
  */
-public class EmployeeCtrl {
+public class EmployeeCtrl implements Screen2, ConversionDates{
 	private MainController mainCtrl;
 	private Employee employee;
 	private EmployeeScreen employeeScreen;

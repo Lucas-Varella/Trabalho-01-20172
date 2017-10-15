@@ -243,7 +243,9 @@ public class EmploymentScreen {
 								for(Contract ct : c) {
 									try {
 										Employee e = ct.getEmployee();
+										e.delContract();
 										Contract newC = new Contract(newEmployment, e);
+										e.addContract(newC);
 									} catch (Exception e) {								
 										System.out.println(e.getMessage());
 									}
@@ -265,7 +267,9 @@ public class EmploymentScreen {
 								for(Contract ct : c) {
 									try {
 										Employee e = ct.getEmployee();
+										e.delContract();
 										Contract newC = new Contract(newEmployment, e);
+										e.addContract(newC);
 									} catch (Exception e) {								
 										System.out.println("-------------------------------------------------------------------------");
 										System.out.println(e.getMessage());
@@ -360,7 +364,9 @@ public class EmploymentScreen {
 									for(Contract ct : c) {
 										try {
 											Employee e = ct.getEmployee();
+											e.delContract();
 											Contract newC = new Contract(newEmployment, e);
+											e.addContract(newC);
 										} catch (Exception e) {								
 											System.out.println(e.getMessage());
 										}
@@ -486,9 +492,10 @@ public class EmploymentScreen {
 	 * @param gen - Recebe um instância de um EmploymentRestrictAccess
 	 */
 	public void listHorary(EmploymentRestrictAccess gen) {
+		int i = 1;
 		for(Horary h : gen.getHorarys()) {
-			System.out.println(h.getHourBegin() +" - " + h.getHourFinish() );
-			
+			System.out.println(i + "º - " + h.getHourBegin() +" - " + h.getHourFinish() );
+			i++;
 		}
 	}
 	

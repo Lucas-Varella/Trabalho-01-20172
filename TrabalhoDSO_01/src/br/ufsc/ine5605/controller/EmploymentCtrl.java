@@ -1,8 +1,5 @@
 package br.ufsc.ine5605.controller;
  
-
-import java.sql.Date; 
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import br.ufsc.ine5605.model.Employment;
@@ -11,6 +8,7 @@ import br.ufsc.ine5605.model.Privileges;
 import br.ufsc.ine5605.model.Contract;
 import br.ufsc.ine5605.model.Horary;
 import br.ufsc.ine5605.view.EmploymentScreen;
+import br.ufsc.ine5605.model.Screen2;
 
 /**
  * Classe responsável pela comunicação entre as classes Employment, EmploymentRestrictAccess e EmploymentScreen entre si e
@@ -18,7 +16,7 @@ import br.ufsc.ine5605.view.EmploymentScreen;
  * @author Sadi Júnior Domingos Jacinto;
  *
  */
-public class EmploymentCtrl {
+public class EmploymentCtrl implements Screen2{
 	private MainController mainCtrl;
 	private EmploymentScreen employmentScreen;
 	private Employment employment;
@@ -181,14 +179,14 @@ public class EmploymentCtrl {
 		}
 	}
 
-	public double conversionStringToDouble(String data)
-			throws NumberFormatException {
-		try {
-			double num = Double.parseDouble(data);	
-			return num;
-		} catch(NumberFormatException e ) {
-			throw new NumberFormatException();
-		}
-	}
+//	public double conversionStringToDouble(String data)
+//			throws NumberFormatException {
+//		try {
+//			double num = Double.parseDouble(data);	
+//			return num;
+//		} catch(NumberFormatException e ) {
+//			throw new NumberFormatException();
+//		}
+//	}
 
 }
