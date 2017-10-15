@@ -1,19 +1,25 @@
 package br.ufsc.ine5605.model;
 
-import java.text.DateFormat;
+import java.text.DateFormat; 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import br.ufsc.ine5605.controller.*;
+import br.ufsc.ine5605.controller.HoraryCtrl;
 
-
+/**
+ * Classe que contém os atributos e métodos responsáveis pela criação de um objeto Horary;
+ * @author Sadi Júnior Domingos Jacinto;
+ *
+ */
 public class Horary {
 	private HoraryCtrl horaryCtrl;
 	private Date hourBegin;
 	private Date hourFinish;
-	/*
-	 * Mudar os tipos do ArrayList para Date;
-	 * Formatar as datas(como não sei fazer isso, vou deixar para alguém que saiba);
+	
+	/**
+	 * Construtor padrão da classe;
+	 * @param hourBegin - Date contendo a hora de início
+	 * @param hourFinish - Date contendo a hora de fim;
 	 */
 	public Horary(Date hourBegin, Date hourFinish) {
 		this.hourBegin = hourBegin;

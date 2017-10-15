@@ -20,7 +20,6 @@ public interface Screen {
 	 * 
 	 * @throws NumberFormatException ocorre quando o usuário digita um caracter não numérico;
 	 * 
-	 * @author Sadi Júnior Domingos Jacinto;
 	 */
 	public int conversionStringToInt(String data) throws NumberFormatException;
 	
@@ -31,8 +30,6 @@ public interface Screen {
 	 * @return double;
 	 * 
 	 * @throws NumberFormatException ocorre quando o usuário digita um caracter não numérico;
-	 * 
-	 * @author Sadi Júnior Domingos Jacinto;
 	 */
 	public double conversionStringToDouble(String data) throws NumberFormatException;
 	
