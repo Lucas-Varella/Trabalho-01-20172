@@ -16,7 +16,7 @@ import br.ufsc.ine5605.view.EmployeeScreen;
 
 
 /**
- * 
+ * Classe responsável pela comunicação entre as classes Employee e EmployeeScreen entre si e com outras classes;
  * @author Sadi Júnior Domingos Jacinto
  *
  */
@@ -27,6 +27,10 @@ public class EmployeeCtrl {
 	private ArrayList<Employee> employees;
 	private static int code = 17200000;
 	
+	/**
+	 * Construtor padrão da classe;
+	 * @param mainCtrl - Recebe uma instância do MainController, o que permite a comunicação com as outras classes, através do MainController;
+	 */
 	public EmployeeCtrl(MainController mainCtrl) {
 		this.mainCtrl = mainCtrl;
 		employeeScreen = new EmployeeScreen(this);
@@ -37,6 +41,14 @@ public class EmployeeCtrl {
 		employeeScreen.menu();
 	}
 	
+	/**
+	 * Cria uma nova instância de Employee e a adicona ao ArrayList<Employee>;
+	 * @param name - String contendo o nome do novo Employee;
+	 * @param dateBirth - Date contendo o nascimento do Employee no formato dd/MM/yyyy;
+	 * @param phone - int contendo o número de telefone do Employee;
+	 * @param salary - double contendo o salário do Employee;
+	 * @return Employee - Retorna a instância do objeto criado;
+	 */
 	public Employee addEmployee(String name, Date dateBirth, int phone, double salary) {
 		Employee generic = new Employee(this, getCode(), name, dateBirth, phone, salary);
 		employees.add(generic);
@@ -44,28 +56,47 @@ public class EmployeeCtrl {
 		return generic;
 	}
 	
-	
-	public Contract addContract(Employment employment, Employee employee) throws Exception {
+	/**
+	 * Cria uma nova instância de Contract;
+	 * @param employment - Recebe uma instância da classe Employment;
+	 * @param employee - Recebe uma instância da classe Employee;
+	 * @throws Exception Ocorre quando há uma tentativa de duplicação de contrato;
+	 */
+	public void addContract(Employment employment, Employee employee) throws Exception {
 		try {
-			return new Contract(employment, employee);
+			new Contract(employment, employee);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 	
+	/**
+	 * Remove um Employee do ArrayList baseado no index do mesmo dentro do ArrayList;
+	 * @param index - int do index do objeto a ser removido;
+	 */
 	public void delEmployee(int index) {
 		employees.remove(index);
 	}
 	
+	/**
+	 * Remove um Employee do ArrayList;
+	 * @param e - Instância do objeto a ser removido;
+	 */
 	public void delEmployee(Employee e) {
 		employees.remove(e);
 		
 	}
 	
-	public ArrayList<Employee> listEmployees() {
+	public ArrayList<Employee> getEmployees() {
 		return employees;
 	}
 	
+	/**
+	 * Busca um Employee no ArrayList baseado no index do mesmo;
+	 * @param index - int do index do objeto no ArrayList;
+	 * @return Employee - Retorna o objeto encontrado. Retorna null se o index usado no parâmetro de entrada
+	 * for incorreto(tentar acessar um indíce inexistente);
+	 */
 	public Employee getEmployee(int index) {
 		if(employees.size() >= index && index > -1) {
 			return employees.get(index);
@@ -100,9 +131,9 @@ public class EmployeeCtrl {
 	}
 	
 	/**
-	 * Verifica se o n�mero de registro existe
-	 * @param numRegistration
-	 * @return
+	 * Verifica se o número de registro existe
+	 * @param numRegistration - int contendo o número de registro que deseja ser verificado;
+	 * @return boolean - Retorna true se existe algum Employee com o mesmo número de registro, false se não existe;
 	 */
 	public boolean validNumRegistration(int numRegistration) {
 		for(Employee e : employees) {
@@ -132,7 +163,12 @@ public class EmployeeCtrl {
 	public void setEmployment(Employment employment) {
 		employee.setEmployment(employment);
 	}
-
+	
+	/**
+	 * @deprecated - Método criado, mas nunca utilizado. Não possuí utilidade algum, deletar depois;
+	 * @param numRegistration
+	 * @return
+	 */
 	public Privileges getPrivilegeByNumRegistration(int numRegistration) {
 		for(Employee e : employees) {
 			if(e.getNumRegistration() == numRegistration) {
@@ -141,7 +177,12 @@ public class EmployeeCtrl {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * @deprecated - Método criado, mas nunca utilizado. Não possuí utilidade algum, deletar depois;
+	 * @param numRegistration
+	 * @return
+	 */
 	public ArrayList<Horary> getHoraryAccess(int numRegistration) {
 		for(Employee e: employees) {
 			if(e.getNumRegistration() == numRegistration) {

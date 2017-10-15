@@ -1,7 +1,7 @@
 package br.ufsc.ine5605.model;
 
 
-import br.ufsc.ine5605.model.Employment;
+import br.ufsc.ine5605.model.Employment; 
 import br.ufsc.ine5605.model.Employee;
 
 /**

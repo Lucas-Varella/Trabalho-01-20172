@@ -291,8 +291,8 @@ public class EmployeeScreen {
 	public void listEmployees() throws IndexOutOfBoundsException {
 		int i = 1;
 		System.out.println("--------------------------------------------------------------------------------");
-		if(employeeCtrl.listEmployees().size() > 0) {
-			for(Employee e: employeeCtrl.listEmployees()) {
+		if(employeeCtrl.getEmployees().size() > 0) {
+			for(Employee e: employeeCtrl.getEmployees()) {
 				System.out.println(i + "º - " + e.getName());
 				i++;
 			}
