@@ -1,29 +1,37 @@
 package br.ufsc.ine5605.view;
 
 
-import java.text.ParseException;
+import java.text.ParseException; 
 import java.sql.Date;
 import java.util.Scanner;
 
 import br.ufsc.ine5605.controller.HoraryCtrl;
 import br.ufsc.ine5605.model.Horary;
 
+/**
+ * Classe responsável pela interação do usuário com os métodos de criação, edição e remoção de horários de 
+ * acesso ao Setor Financeiro;
+ * @author Sadi Júnior Domingos Jacinto;
+ *
+ */
 public class HoraryScreen {
 	private HoraryCtrl horaryCtrl;
 	private Scanner keyboard;
 	
+	/**
+	 * Construtor padrão da classe;
+	 * @param horaryCtrl - Recebe uma instância do HoraryCtrl, permitindo a comunicação entre classes;
+	 */
 	public HoraryScreen(HoraryCtrl horaryCtrl) {
 		this.horaryCtrl = horaryCtrl;
 		this.keyboard = new Scanner(System.in);
 	}
 	/**
-	 * Método que cria e retorna um objeto do tipo Horary, para uso posterior pela 
-	 * classe EmploymentRestrictAccess;
-	 * @return Objeto Horary
+	 * Tela responsável pela interação do usuário com a criação de um objeto do tipo Horary;
+	 * @return Horary - Retorna a instância do objeto criada;
 	 */
 	public Horary menuAdd() {
 		try {
-			
 			
 			System.out.println("Please enter the hours of access to the financial sector allowed to the employment: ");
 			System.out.println("Hour Begin: ");
@@ -48,6 +56,11 @@ public class HoraryScreen {
 		
 	}
 	
+	/**
+	 * Tela responsável pela interação do usuário com a edição de um objeto Horary;
+	 * @param horary - Instância de Horary que será modificada;
+	 * @return Horary - Retorna a instância modificada;
+	 */
 	public Horary edit(Horary horary) {
 		try {
 			int option = 0;

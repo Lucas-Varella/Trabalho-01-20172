@@ -44,7 +44,7 @@ public class AccessCtrl {
 	}
 	
 	public void listAllDeniedAccess() throws IndexOutOfBoundsException {
-		if(deniedAccess != null) {
+		if(deniedAccess.size() > 0) {
 			accessScreen.listAllDeniedAccess(deniedAccess);
 		}else {
 			throw new IndexOutOfBoundsException();
@@ -52,12 +52,13 @@ public class AccessCtrl {
 	}
 	
 	public void listDeniedAccessByNumRegistration(int numRegistration) throws IndexOutOfBoundsException {
-		if(deniedAccess != null) {
+		if(deniedAccess.size() > 0) {
 			for(Access a: deniedAccess) {
 				if(a.getNumRegistration() == numRegistration) {
 					accessScreen.listDeniedAccessByNumRegistration(a);
 				}
 			}
+			System.out.println("There is no denied access that has this registration number");
 		}else {
 			throw new IndexOutOfBoundsException();
 		}
@@ -65,19 +66,24 @@ public class AccessCtrl {
 	}
 	
 	public void listDeniedAccessByReason(Reasons reason) throws IndexOutOfBoundsException {
-		if(deniedAccess != null) {
+		if(deniedAccess.size() > 0) {
 			for(Access a : deniedAccess) {
 				if(a.getReason().equals(reason)) {
 					accessScreen.listDeniedAccessByReason(a);
 				}
 			}
+			System.out.println("There is no denied access registered with this denial motive");
 		}else {
 			throw new IndexOutOfBoundsException();
 		}
 	}
 
 
-	
+	/**
+	 * Verifica se determinado número de registro não possuí o acesso bloqueado ao Setor Financeiro;
+	 * @param numRegistration - int contendo o número de acesso que se deseja saber se está bloqueado; 
+	 * @return boolean - Retorna true se o acesso está bloqueado, false caso contrário;
+	 */
 	public boolean isAccessBloqued(int numRegistration) {
 		if(deniedAccess != null ) {
 			int cont = 0;
@@ -96,7 +102,14 @@ public class AccessCtrl {
 		return false;
 		
 	}
-
+	
+	/**
+	 * Busca o motivo de negação de acesso baseado nos parâmetros de entrada
+	 * @param num - int contendo o número de registro do funcionário;
+	 * @param hourAccess - Date contendo a hora da tentativa de acesso;
+	 * @param dateAccess - Date contendo a data da tentativa de acesso;
+	 * @return Reasons - Retorna o motivo da negação de acesso;
+	 */
 	public Reasons getReasonsBy(int num, Date hourAccess, Date dateAccess) {
 		for(Access a : deniedAccess) {
 			if(a.getNumRegistration() == num && a.getHour().equals(hourAccess) && a.getDate().equals(dateAccess)) {
