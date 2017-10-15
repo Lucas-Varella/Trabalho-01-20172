@@ -14,6 +14,7 @@ import br.ufsc.ine5605.model.EmploymentRestrictAccess;
 import br.ufsc.ine5605.model.Privileges;
 import br.ufsc.ine5605.view.EmployeeScreen;
 import br.ufsc.ine5605.model.Screen2;
+import br.ufsc.ine5605.model.Screen;
 import br.ufsc.ine5605.model.ConversionDates;
 
 /**
@@ -21,7 +22,7 @@ import br.ufsc.ine5605.model.ConversionDates;
  * @author Sadi Júnior Domingos Jacinto
  *
  */
-public class EmployeeCtrl implements Screen2, ConversionDates{
+public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	private MainController mainCtrl;
 	private Employee employee;
 	private EmployeeScreen employeeScreen;
