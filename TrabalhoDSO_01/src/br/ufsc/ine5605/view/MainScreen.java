@@ -6,7 +6,7 @@ import br.ufsc.ine5605.controller.MainScreenCtrl;
 
 /**
  * Tela principal do sistema;
- * @author Sadi Júnior Domingos Jacinto;
+ * @author Sadi Junior Domingos Jacinto;
  *
  */
 public class MainScreen {
@@ -14,8 +14,8 @@ public class MainScreen {
 	private Scanner keyboard;
 	
 	/**
-	 * Construtor padrão da classe;
-	 * @param mainScreenCtrl - Recebe uma instância do MainScreenCtrl;
+	 * Construtor padrao da classe;
+	 * @param mainScreenCtrl - Recebe uma instancia do MainScreenCtrl;
 	 */
 	public MainScreen(MainScreenCtrl mainScreenCtrl) {
 		this.mainScreenCtrl = mainScreenCtrl;
@@ -34,7 +34,7 @@ public class MainScreen {
 				System.out.println("1 - Employee;");
 				System.out.println("2 - Employment;");
 				System.out.println("3 - Financial sector;");
-				System.out.println("0 - Get out.");
+				System.out.println("0 - Exit.");
 				System.out.println("-------------------------------------------------------------------------");
 				option = mainScreenCtrl.conversionStringToInt(keyboard.nextLine());
 				switch(option) {
@@ -52,7 +52,7 @@ public class MainScreen {
 					break;
 					
 				case 0:
-					System.out.println("Goodbye and have a good day");
+					System.out.println("Goodbye, and have a good day");
 					break;
 					
 				default:

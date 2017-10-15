@@ -3,14 +3,14 @@ package br.ufsc.ine5605.model;
 import br.ufsc.ine5605.controller.MainController;
 
 /**
- * Classe que contem o método public static void main(String[] args);
- * @author Sadi Júnior Domingos Jacinto;
+ * Classe que contem o metodo public static void main(String[] args);
+ * @author Sadi Junior Domingos Jacinto;
  *
  */
 public class Main {
 
 	/**
-	 * Método responsável por iniciar o programa;
+	 * Method responsible for starting the program.;
 	 * @param args
 	 */
 	public static void main(String[] args) {

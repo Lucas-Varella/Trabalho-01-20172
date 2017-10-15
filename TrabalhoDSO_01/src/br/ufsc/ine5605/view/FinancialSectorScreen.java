@@ -8,21 +8,21 @@ import br.ufsc.ine5605.controller.FinancialSectorCtrl;
 import br.ufsc.ine5605.model.Reasons;
 
 /**
- * Classe responsável por realizar o input e output de dados referentes as Setor Financeiro;
+ * Classe responsavel por realizar o input e output de dados referentes as Setor Financeiro;
  * 
- * @author Sadi Júnior Domingos Jacinto;
+ * @author Sadi Junior Domingos Jacinto;
  */
 public class FinancialSectorScreen {
 	private FinancialSectorCtrl financialSectorCtrl;
 	private Scanner keyboard;
 
 	/**
-	 * Construtor padrão da classe FinancialSectorScrenn;
+	 * Construtor padrao da classe FinancialSectorScrenn;
 	 * 
-	 * @param financialSectorCtrl - recebe uma instância do FinancialSectorCtrl, para que possa 
+	 * @param financialSectorCtrl - recebe uma insta�ncia do FinancialSectorCtrl, para que possa 
 	 * transferir o input para que o programa os trate;
 	 * 
-	 * @author Sadi Júnior Domingos Jacinto;
+	 * @author Sadi Junior Domingos Jacinto;
 	 */
 	public FinancialSectorScreen(FinancialSectorCtrl financialSectorCtrl) {
 		this.financialSectorCtrl = financialSectorCtrl;
@@ -31,24 +31,24 @@ public class FinancialSectorScreen {
 	
 	/**
 	 * Menu principal do Setor Financeiro;
-	 * Redireciona o usuário para outros métodos baseado no input do mesmo;
+	 * Redireciona o usuario para outros metodos baseado no input do mesmo;
 	 * 
-	 * @throws NumberFormatException sendo que tal exceção ocorre quando o usuário digita um 
-	 * caracter alfabético ou não-imprimível num campo destinado à números inteiros;
+	 * @throws NumberFormatException sendo que tal excecao ocorre quando o usuario digita um 
+	 * caracter alfabetico ou nao-imprima�vel num campo destinado a� numeros inteiros;
 	 * 
-	 * @author Sadi Júnior Domingos Jacinto;
+	 * @author Sadi Junior Domingos Jacinto;
 	 */
-	public void menuFinancialSector() {//Método já revisado;
+	public void menuFinancialSector() {//Metodo ja revisado;
 		
 		try {
 		
 			int option = 0;
 			do {
 			
-				System.out.println("Please, enter the number corresponding to your choice: ");
-				System.out.println("1 - Entering the Financial Sector");
-				System.out.println("2 - Denied Access Report");
-				System.out.println("Or 0 to exit");
+				System.out.println("Please, select your option: ");
+				System.out.println("1 - Enter Financial Sector");
+				System.out.println("2 - Denied Accesses Report");
+				System.out.println("0 - Exit");
 				System.out.println("-------------------------------------------------------------------------");
 				option = financialSectorCtrl.conversionStringToInt(keyboard.nextLine());
 				
@@ -81,21 +81,21 @@ public class FinancialSectorScreen {
 	
 	/**
 	 * Menu de entrada do Setor Financeiro;
-	 * Durante a excecução do método, são requeridos dois dados:
-	 * 1º - Número de registro, sendo válido ou não e 
-	 * 2º - Hora de acesso;
+	 * Durante a excecucao do metodo, sao requeridos dois dados:
+	 * 1 - Numero de registro, sendo valido ou nao e 
+	 * 2 - Hora de acesso;
 	 * 
-	 * @throws NumberFormatException sendo que tal exceção ocorre quando o usuário digita um 
-	 * caracter alfabético ou não-imprimível num campo destinado à números inteiros;
+	 * @throws NumberFormatException sendo que tal excecao ocorre quando o usuario digita um 
+	 * caracter alfabetico ou nao-imprima�vel num campo destinado a� numeros inteiros;
 	 * 
-	 * @throws ParseException ocorre caso o usuário digite um horário fora do padrão HH:mm 
-	 * no momento onde é requerido ao mesmo a hora de acesso;
+	 * @throws ParseException ocorre caso o usuario digite um horario fora do padrao HH:mm 
+	 * no momento onde e requerido ao mesmo a hora de acesso;
 	 * 
 	 * @throws NullPointerException caso esse erro ocorra, por favor, contate urgentemente o suporte;
 	 * 
-	 * @author Sadi Júnior Domingos Jacinto;
+	 * @author Sadi Junior Domingos Jacinto;
 	 */
-	public void enterFinancialSector() {//Método revisado, OK;
+	public void enterFinancialSector() {//Metodo revisado, OK;
 		
 		try {
 			System.out.println("Welcome to the entrance of the Financial Sector, noble adventurer");
@@ -113,9 +113,9 @@ public class FinancialSectorScreen {
 			boolean valid = financialSectorCtrl.validAccess(num, hourAccess, dateAccess);
 			
 			if(valid) {
-				System.out.println("You are worthy to enter this sacred place");
+				System.out.println("You are worthy of entering this sacred place");
 			}else {
-				System.out.println("You are not worthy to enter this place, adventurer, for:");
+				System.out.println("You are not worthy of entrance, adventurer, for:");
 				System.out.println(financialSectorCtrl.getReasonBy(num, hourAccess, dateAccess));
 			}
 		
@@ -136,25 +136,25 @@ public class FinancialSectorScreen {
 	}
 	
 	/**
-	 * Menu que exibe um relatório de acessos negados, sendo que tais acessos podem ser filtrados de 
-	 * acordo com a vontade do usuário;
+	 * Menu que exibe um relatorio de acessos negados, sendo que tais acessos podem ser filtrados de 
+	 * acordo com a vontade do usuario;
 	 * 
-	 * @throws NumberFormatException ocorrendo quando o usuário digita um caracter 
-	 * alfabético ou não-imprimível num campo destinado à números inteiros;
+	 * @throws NumberFormatException ocorrendo quando o usuario digita um caracter 
+	 * alfabetico ou nao-imprima�vel num campo destinado a� numeros inteiros;
 	 * 
-	 * @throws IndexOutOfBoundsException ocorre quando o usuário tenta listar os acessos negados
-	 * quando não existe nenhum acesso negado cadastrado no sistema;
+	 * @throws IndexOutOfBoundsException ocorre quando o usuario tenta listar os acessos negados
+	 * quando nao existe nenhum acesso negado cadastrado no sistema;
 	 * 
 	 * @throws NullPointerException caso esse erro ocorra, por favor, contate urgentemente o suporte;
 	 * 
-	 * @author Sadi Júnior Domingos Jacinto;
+	 * @author Sadi Junior Domingos Jacinto;
 	 */
-	public void showDeniedAccess() {//Método revisado, Ok;
+	public void showDeniedAccess() {//Metodo revisado, Ok;
 		try {
-			System.out.println("Please enter the number corresponding to your choice: ");
-			System.out.println("1 - List all denied access");
-			System.out.println("2 - List the denied accesses given a number of registration");
-			System.out.println("3 - List the access denied by the motive of denial");
+			System.out.println("Please select your option: ");
+			System.out.println("1 - Denied Accesses");
+			System.out.println("2 - Denied Accesses by Registration number");
+			System.out.println("3 - Denied Accesses by denial reason");
 			System.out.println("0 - Exit");
 			
 			int option = financialSectorCtrl.conversionStringToInt(keyboard.nextLine());
@@ -171,10 +171,10 @@ public class FinancialSectorScreen {
 				break;
 				
 			case 3:
-				System.out.println("Please enter the corresponding number for the denial of access: ");
+				System.out.println("Please select your reason of denial: ");
 				System.out.println("1 - The number registration does not exist");
 				System.out.println("2 - You do not have access");
-				System.out.println("3 - The access time is not allowed");
+				System.out.println("3 - Restricted time of access");
 				System.out.println("4 - Access blocked");
 				int reason = financialSectorCtrl.conversionStringToInt(keyboard.nextLine());
 				

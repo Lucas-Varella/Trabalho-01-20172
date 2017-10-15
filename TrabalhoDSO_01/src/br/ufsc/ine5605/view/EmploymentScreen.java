@@ -13,27 +13,27 @@ import br.ufsc.ine5605.model.Horary;
 import br.ufsc.ine5605.model.Privileges;
 
 /**
- * Classe responsável pela interação entre o usuário com o sistema de cadastro, 
- * edição, listagem e remoção de cargos;
+ * Classe responsavel pela interacao entre o usuario com o sistema de cadastro, 
+ * edicao, listagem e remocao de cargos;
  * 
- * @author Sadi Júnior Domingos Jacinto;
+ * @author Sadi Junior Domingos Jacinto;
  */
 public class EmploymentScreen {
 	private EmploymentCtrl employmentCtrl;
 	private Scanner keyboard;
 	
 	/**
-	 * Construtor padrão da classe;
-	 * @param employmentCtrl - Recebe uma instância do EmploymentCtrl, o que permite
-	 * a comunicação desta classe com as demais;
+	 * Construtor padrao da classe;
+	 * @param employmentCtrl - Recebe uma instancia do EmploymentCtrl, o que permite
+	 * a comunicacao desta classe com as demais;
 	 */
 	public EmploymentScreen(EmploymentCtrl employmentCtrl) {
 		this.employmentCtrl = employmentCtrl;
 		keyboard = new Scanner(System.in);
 	}
 	/**
-	 * Menu principal da classe EmploymentScreen. Redireciona o usuário para telas
-	 * secundárias de acordo com o input do usuário
+	 * Menu principal da classe EmploymentScreen. Redireciona o usuario para telas
+	 * secundarias de acordo com o input do usuario
 	 */
 	public void menu() {
 		
@@ -44,12 +44,12 @@ public class EmploymentScreen {
 				
 				System.out.println("-------------------------------------------------------------------------");
 				System.out.println("Welcome!");
-				System.out.println("Please enter the number corresponding to your choice: ");
+				System.out.println("Please select your option: ");
 				System.out.println("1 - Register new employment");
 				System.out.println("2 - Edit employment");
 				System.out.println("3 - Delete employment");
 				System.out.println("4 - List employments");
-				System.out.println("5 - List employees in a employment ");
+				System.out.println("5 - List employees in an employment ");
 				System.out.println("0 - Back to main Screen");
 				System.out.println("-------------------------------------------------------------------------");
 				option = employmentCtrl.conversionStringToInt(keyboard.nextLine());
@@ -104,7 +104,7 @@ public class EmploymentScreen {
 	}
 
 	/**
-	 * Obtém do usuário os dados necessários para a criação de um Cargo e
+	 * Obtem do usuario os dados necessarios para a criacao de um Cargo e
 	 * os envia para a classe EmploymentCtrl;
 	 */
 	public void addEmployment() {
@@ -139,7 +139,7 @@ public class EmploymentScreen {
 						Horary h = employmentCtrl.addHorary();
 						employmentCtrl.setHorary(e, h);
 						System.out.println("-------------------------------------------------------------------------");
-						System.out.println("Do you want to add another access time?");
+						System.out.println("Do you want to add anothe time of access?");
 						System.out.printf("Enter 1 for yes \nEnter 0 for no");
 						choice = employmentCtrl.conversionStringToInt(keyboard.nextLine());
 						if(choice < 0 || choice > 1) {
@@ -148,12 +148,12 @@ public class EmploymentScreen {
 						}
 					}while(choice != 0);
 					System.out.println("-------------------------------------------------------------------------");
-					System.out.println("Congratulations, you just successfully registered a employment!");
-					System.out.println("These are the employment data:");
+					System.out.println("Congratulations, you just successfully registered an employment!");
+					System.out.println("This is the employment's data:");
 					System.out.println("Code: " + (EmploymentCtrl.getCode() - 1 ));
 					System.out.println("Name: " + name);
 					System.out.println("Privilege: " + gen);
-					System.out.println("Horary Access: " );
+					System.out.println("Access times: " );
 					listHorary(e);
 					break;
 				
@@ -170,8 +170,8 @@ public class EmploymentScreen {
 			if(option == 1 || option == 3) {
 				employmentCtrl.addEmployment(name, gen);
 				System.out.println("-------------------------------------------------------------------------");
-				System.out.println("Congratulations, you just successfully registered a employment!");
-				System.out.println("These are the employment data:");
+				System.out.println("Congratulations, you just successfully registered an employment!");
+				System.out.println("This is the employment's data:");
 				System.out.println("Code: " + (EmploymentCtrl.getCode() - 1 ));
 				System.out.println("Name: " + name);
 				System.out.println("Privilege: " + gen);
@@ -185,7 +185,7 @@ public class EmploymentScreen {
 	}
 	
 	/**
-	 * Tela responsável pela interação do usuário com os métodos de edição dos atributos de um Employment;
+	 * Tela responsavel pela interacao do usuario com os metodos de edicao dos atributos de um Employment;
 	 */
 	public void editEmployment() {
 		try {
@@ -207,7 +207,7 @@ public class EmploymentScreen {
 					System.out.println("Actually - " + gen.getName());
 					System.out.println("2 - Privilege");
 					System.out.println("Actually - " + gen.getPrivilege());
-					System.out.println("3 - Horary Access");
+					System.out.println("3 - Time of Acess");
 					System.out.println("Actually - ");
 					listHorary(gen);
 					System.out.println("Or 0 to exit");
@@ -422,9 +422,9 @@ public class EmploymentScreen {
 	}
 	
 	/**
-	 * Tela responsável pela interação do usuário com o método de remoção de Employments do sistema;
+	 * Tela responsavel pela interacao do usuario com o metodo de remocao de Employments do sistema;
 	 * 
-	 * @author Sadi Júnior Domingos Jacinto;
+	 * @author Sadi Junior Domingos Jacinto;
 	 */
 	public void delEmployment() {
 
@@ -470,9 +470,9 @@ public class EmploymentScreen {
 	}
 	
 	/**
-	 * Método responsável por listar os nomes de todos os cargos cadastrados no sistema;
+	 * Metodo responsavel por listar os nomes de todos os cargos cadastrados no sistema;
 	 * 
-	 * @throws IndexOutOfBoundsException ocorrendo quando não existe nenhum cargo cadastrado no sistema;
+	 * @throws IndexOutOfBoundsException ocorrendo quando nao existe nenhum cargo cadastrado no sistema;
 	 */
 	public void listEmployments() throws IndexOutOfBoundsException {
 		int i = 1;
@@ -488,8 +488,8 @@ public class EmploymentScreen {
 	}
 	
 	/**
-	 * Método que lista os horários de acesso ao Setor Financeiro que um Cargo com privilégio Restrict tem;
-	 * @param gen - Recebe um instância de um EmploymentRestrictAccess
+	 * Metodo que lista os horarios de acesso ao Setor Financeiro que um Cargo com privilegio Restrict tem;
+	 * @param gen - Recebe um instancia de um EmploymentRestrictAccess
 	 */
 	public void listHorary(EmploymentRestrictAccess gen) {
 		int i = 1;
@@ -500,8 +500,8 @@ public class EmploymentScreen {
 	}
 	
 	/**
-	 * Método que lista os funcionários associados a um Cargo;
-	 * @throws IndexOutOfBoundsException ocorre quando o cargo não possui nenhum funcionário associado a ele;
+	 * Metodo que lista os funcionarios associados a um Cargo;
+	 * @throws IndexOutOfBoundsException ocorre quando o cargo nao possui nenhum funcionario associado a ele;
 	 */
 	public void findEmployeesByEmployment() {
 		try {
