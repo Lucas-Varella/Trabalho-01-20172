@@ -95,15 +95,20 @@ public class FinancialSector {
 	 * 
 	 * @author Sadi Júnior Domingos Jacinto;
 	 */
-	public boolean validHour(ArrayList<Horary> horarys, Date access) throws ParseException {//Método Revisado, modificado, OK;
+	public boolean validHour(ArrayList<Horary> horarys, Date access) throws ParseException {
+		boolean valid = false;
+		
 		for(Horary h : horarys) {
 			Date hourBegin = financialSectorCtrl.strToDateHour(h.getHourBegin());
 			Date hourFinish = financialSectorCtrl.strToDateHour(h.getHourFinish());
-			if(access.after(hourFinish) && access.before(hourBegin)) {
-				return false;
+			
+			if(access.compareTo(hourBegin) >= 0 && access.compareTo(hourFinish) <= 0) {
+				valid = true; 
 			}
+			
 		}
-		return true;
+		
+		return valid;
 	}
 	
 	

@@ -19,7 +19,7 @@ public class FinancialSectorScreen {
 	/**
 	 * Construtor padrao da classe FinancialSectorScrenn;
 	 * 
-	 * @param financialSectorCtrl - recebe uma insta¢ncia do FinancialSectorCtrl, para que possa 
+	 * @param financialSectorCtrl - recebe uma instaï¿½ncia do FinancialSectorCtrl, para que possa 
 	 * transferir o input para que o programa os trate;
 	 * 
 	 * @author Sadi Junior Domingos Jacinto;
@@ -34,7 +34,7 @@ public class FinancialSectorScreen {
 	 * Redireciona o usuario para outros metodos baseado no input do mesmo;
 	 * 
 	 * @throws NumberFormatException sendo que tal excecao ocorre quando o usuario digita um 
-	 * caracter alfabetico ou nao-imprima­vel num campo destinado a  numeros inteiros;
+	 * caracter alfabetico ou nao-imprimaï¿½vel num campo destinado aï¿½ numeros inteiros;
 	 * 
 	 * @author Sadi Junior Domingos Jacinto;
 	 */
@@ -86,7 +86,7 @@ public class FinancialSectorScreen {
 	 * 2 - Hora de acesso;
 	 * 
 	 * @throws NumberFormatException sendo que tal excecao ocorre quando o usuario digita um 
-	 * caracter alfabetico ou nao-imprima­vel num campo destinado a  numeros inteiros;
+	 * caracter alfabetico ou nao-imprimaï¿½vel num campo destinado aï¿½ numeros inteiros;
 	 * 
 	 * @throws ParseException ocorre caso o usuario digite um horario fora do padrao HH:mm 
 	 * no momento onde e requerido ao mesmo a hora de acesso;
@@ -116,7 +116,7 @@ public class FinancialSectorScreen {
 				System.out.println("You are worthy of entering this sacred place");
 			}else {
 				System.out.println("You are not worthy of entrance, adventurer, for:");
-				System.out.println(financialSectorCtrl.getReasonBy(num, hourAccess, dateAccess));
+				System.out.println(financialSectorCtrl.getReasonBy());
 			}
 		
 		}catch(NumberFormatException e) {
@@ -140,7 +140,7 @@ public class FinancialSectorScreen {
 	 * acordo com a vontade do usuario;
 	 * 
 	 * @throws NumberFormatException ocorrendo quando o usuario digita um caracter 
-	 * alfabetico ou nao-imprima­vel num campo destinado a  numeros inteiros;
+	 * alfabetico ou nao-imprimaï¿½vel num campo destinado aï¿½ numeros inteiros;
 	 * 
 	 * @throws IndexOutOfBoundsException ocorre quando o usuario tenta listar os acessos negados
 	 * quando nao existe nenhum acesso negado cadastrado no sistema;

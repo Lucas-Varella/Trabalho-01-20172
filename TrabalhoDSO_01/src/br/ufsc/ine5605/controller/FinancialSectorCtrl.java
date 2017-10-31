@@ -166,8 +166,8 @@ public class FinancialSectorCtrl implements ConversionDates {
 		return mainCtrl.getHoraryAccess(numRegistration);
 	}
 
-	public Reasons getReasonBy(int num, Date hourAccess, Date dateAccess) {
-		return mainCtrl.getReasonBy(num, hourAccess, dateAccess);		
+	public Reasons getReasonBy() {
+		return mainCtrl.getReasonBy();		
 	}
 	
 }

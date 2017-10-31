@@ -126,8 +126,8 @@ public class MainController {
 		return employeeCtrl.getHoraryAccess(numRegistration);
 	}
 
-	public Reasons getReasonBy(int num, Date hourAccess, Date dateAccess) {
-		return accessCtrl.getReasonsBy(num, hourAccess, dateAccess);
+	public Reasons getReasonBy() {
+		return accessCtrl.getReasonsBy();
 		
 	}
 	
