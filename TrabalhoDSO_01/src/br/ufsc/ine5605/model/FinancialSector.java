@@ -101,7 +101,9 @@ public class FinancialSector {
 		for(Horary h : horarys) {
 			Date hourBegin = financialSectorCtrl.strToDateHour(h.getHourBegin());
 			Date hourFinish = financialSectorCtrl.strToDateHour(h.getHourFinish());
-			
+			if(hourFinish.equals(financialSectorCtrl.strToDateHour("00:00"))) {
+				hourFinish = financialSectorCtrl.strToDateHour("24:00");
+			}
 			if(access.compareTo(hourBegin) >= 0 && access.compareTo(hourFinish) <= 0) {
 				valid = true; 
 			}
