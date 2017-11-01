@@ -23,7 +23,28 @@ public class MainScreenI extends JFrame{
 	
 	private void config() {
 		Container container = getContentPane();
-		container.setLayout(new GridBagLayout());
 		GridBagConstraints cons = new GridBagConstraints();
+		container.setLayout(new GridBagLayout());
+		
+		
+		cons.fill = GridBagConstraints.BOTH; 
+		cons.gridx = 0;  
+        cons.gridy = 0;
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(400, 150);
+		
+		
+		
+		btEmployee = new JButton();
+		btEmployee.setText("Employee Sector");
+		container.add(btEmployee, cons);
+		cons.gridx = 0;  
+        cons.gridy = 1;
+        
+        btEmployment = new JButton();
+		btEmployment.setText("Employment Sector");
+		container.add(btEmployment, cons);
+		cons.gridx = 0;  
+        cons.gridy = 2;
 	}
 }
