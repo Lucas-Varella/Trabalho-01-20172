@@ -4,6 +4,9 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.Scanner;
 
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
 import br.ufsc.ine5605.controller.FinancialSectorCtrl;
 import br.ufsc.ine5605.model.Reasons;
 
@@ -12,6 +15,22 @@ import br.ufsc.ine5605.model.Reasons;
  * 
  * @author Sadi Junior Domingos Jacinto;
  */
+
+public class FinancialSectorScreen extends JFrame {
+	private FinancialSectorCtrl financialSectorCtrl;
+	private JButton btFinancialSector;
+	private JButton btDeniedAccess;
+	
+	public FinancialSectorScreen(FinancialSectorCtrl financialSectorCtrl) {
+		this.financialSectorCtrl = financialSectorCtrl;
+		config();
+	}
+	
+	public void config() {
+		
+	}
+}
+/*
 public class FinancialSectorScreen {
 	private FinancialSectorCtrl financialSectorCtrl;
 	private Scanner keyboard;
@@ -24,7 +43,7 @@ public class FinancialSectorScreen {
 	 * 
 	 * @author Sadi Junior Domingos Jacinto;
 	 */
-	public FinancialSectorScreen(FinancialSectorCtrl financialSectorCtrl) {
+	/*public FinancialSectorScreen(FinancialSectorCtrl financialSectorCtrl) {
 		this.financialSectorCtrl = financialSectorCtrl;
 		keyboard = new Scanner(System.in);
 	}
@@ -38,7 +57,7 @@ public class FinancialSectorScreen {
 	 * 
 	 * @author Sadi Junior Domingos Jacinto;
 	 */
-	public void menuFinancialSector() {//Metodo ja revisado;
+	/*public void menuFinancialSector() {//Metodo ja revisado;
 		
 		try {
 		
@@ -95,7 +114,7 @@ public class FinancialSectorScreen {
 	 * 
 	 * @author Sadi Junior Domingos Jacinto;
 	 */
-	public void enterFinancialSector() {//Metodo revisado, OK;
+	/*public void enterFinancialSector() {//Metodo revisado, OK;
 		
 		try {
 			System.out.println("Welcome to the entrance of the Financial Sector, noble adventurer");
@@ -149,7 +168,7 @@ public class FinancialSectorScreen {
 	 * 
 	 * @author Sadi Junior Domingos Jacinto;
 	 */
-	public void showDeniedAccess() {//Metodo revisado, Ok;
+	/*public void showDeniedAccess() {//Metodo revisado, Ok;
 		try {
 			System.out.println("Please select your option: ");
 			System.out.println("1 - Denied Accesses");
@@ -226,3 +245,4 @@ public class FinancialSectorScreen {
 
 	}
 }
+*/
