@@ -1,11 +1,22 @@
 package br.ufsc.ine5605.view;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;   
 import java.util.Date;
 import java.util.Scanner;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import br.ufsc.ine5605.controller.FinancialSectorCtrl;
 import br.ufsc.ine5605.model.Reasons;
@@ -16,19 +27,98 @@ import br.ufsc.ine5605.model.Reasons;
  * @author Sadi Junior Domingos Jacinto;
  */
 
-public class FinancialSectorScreen extends JFrame {
+public class FinancialSectorScreen extends JFrame implements ActionListener {
 	private FinancialSectorCtrl financialSectorCtrl;
 	private JButton btFinancialSector;
 	private JButton btDeniedAccess;
+	private JButton btAllDeniedAccess;
+	private JButton btDeniedAccessByNumber;
+	private JButton btDeniedAccessByReason;
 	
 	public FinancialSectorScreen(FinancialSectorCtrl financialSectorCtrl) {
+		super("Menu Financial Sector");
 		this.financialSectorCtrl = financialSectorCtrl;
 		config();
 	}
 	
 	public void config() {
 		
+		Container container = getContentPane();
+//		GridBagConstraints cons = new GridBagConstraints();
+		container.setLayout(new GridBagLayout());
+		
+//		cons.fill = GridBagConstraints.BOTH; 
+//		cons.gridx = 0;  
+//        cons.gridy = 0;
+		
+        setSize(300, 200);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		
+		
+		//Config. botão de acesso ao Setor Financeiro;
+		btFinancialSector = new JButton("Financial Sector");
+		container.add(btFinancialSector);
+        
+        //Config. botão de acesso aos Acessos Negados;
+        btDeniedAccess = new JButton("Denied Access");
+        container.add(btDeniedAccess);
+        
+        btFinancialSector.addActionListener(this);
+        btDeniedAccess.addActionListener(this);
+        
+        setVisible(true);
 	}
+	
+	public void listDeniedAccess() {
+		Container container = getContentPane();
+		container.setLayout(new FlowLayout());
+		
+        setSize(300, 200);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		JLabel lbChoice = new JLabel("Please, select your option to list");
+		
+		btAllDeniedAccess = new JButton("All denied access");
+		btDeniedAccessByNumber = new JButton("Denied access by number of registration");
+		btDeniedAccessByReason = new JButton("Denied access by reason of negation");
+
+		container.add(lbChoice);
+		setLocationRelativeTo(lbChoice);
+		
+		container.add(btAllDeniedAccess);
+		container.add(btDeniedAccessByNumber);
+		container.add(btDeniedAccessByReason);
+		
+		btAllDeniedAccess.addActionListener(this);
+		btDeniedAccessByNumber.addActionListener(this);
+		btDeniedAccessByReason.addActionListener(this);
+		
+        setVisible(true);
+	
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource().equals(btFinancialSector)) {
+			
+		
+		}else if(e.getSource().equals(btDeniedAccess)){
+			listDeniedAccess();
+		
+		}else if(e.getSource().equals(btAllDeniedAccess)) {
+			
+			
+		}else if(e.getSource().equals(btDeniedAccessByNumber)) {
+			
+			
+		}else if(e.getSource().equals(btDeniedAccessByReason)) {
+			
+			
+		}
+		
+	}
+
 }
 /*
 public class FinancialSectorScreen {
