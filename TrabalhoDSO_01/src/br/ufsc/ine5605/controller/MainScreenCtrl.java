@@ -1,6 +1,7 @@
 package br.ufsc.ine5605.controller;
 
 
+
 import br.ufsc.ine5605.view.MainScreen;
 import br.ufsc.ine5605.model.Screen2;
 
@@ -27,7 +28,7 @@ public class MainScreenCtrl implements Screen2 {
 	}
 	
 	public void menu() {
-		mainScreen.showMenu();
+		mainScreen .setVisible(true);
 	}
 	
 	public void employeeMenu() {

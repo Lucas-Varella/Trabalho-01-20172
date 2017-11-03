@@ -1,70 +1,97 @@
 package br.ufsc.ine5605.view;
 
-import java.util.Scanner; 
+import java.awt.Container;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import br.ufsc.ine5605.controller.MainScreenCtrl;
 
-/**
- * Tela principal do sistema;
- * @author Sadi Junior Domingos Jacinto;
- *
- */
-public class MainScreen {
-	private MainScreenCtrl mainScreenCtrl;
-	private Scanner keyboard;
+// Classe responsavel por realizar o input e output de dados referentes a Tela Principal
+
+
+public class MainScreen extends JFrame{
 	
-	/**
-	 * Construtor padrao da classe;
-	 * @param mainScreenCtrl - Recebe uma instancia do MainScreenCtrl;
-	 */
-	public MainScreen(MainScreenCtrl mainScreenCtrl) {
-		this.mainScreenCtrl = mainScreenCtrl;
-		keyboard = new Scanner(System.in);
+	private MainScreenCtrl screenCtrl; 
+	private JLabel lbGuide;
+	private JButton btEmployee;
+	private JButton btEmployment;
+	private JButton btFSector;
+	
+	
+	
+	public MainScreen(MainScreenCtrl screenCtrl) {
+		super("Welcome!");
+		this.screenCtrl = screenCtrl;
+		config();
 	}
 	
-	/**
-	 * Exibe o menu principal da classe;
-	 */
-	public void showMenu() {
-		try {
-			int option = 0;
-			do {
-				System.out.println("Welcome!");
-				System.out.println("Please enter the number corresponding to your choice: ");
-				System.out.println("1 - Employee;");
-				System.out.println("2 - Employment;");
-				System.out.println("3 - Financial sector;");
-				System.out.println("0 - Exit.");
-				System.out.println("-------------------------------------------------------------------------");
-				option = mainScreenCtrl.conversionStringToInt(keyboard.nextLine());
-				switch(option) {
-
-				case 1:
-					mainScreenCtrl.employeeMenu();
-					break;
-				
-				case 2:
-					mainScreenCtrl.employmentMenu();
-					break;
-					
-				case 3:
-					mainScreenCtrl.financialSectorMenu();
-					break;
-					
-				case 0:
-					System.out.println("Goodbye, and have a good day");
-					break;
-					
-				default:
-					System.out.println("The number you entered is not valid. Please try again.");
-				}
-
-			}while(option > 3 || option < 0);
-			
-		} catch(NumberFormatException e) {
-			System.out.println("The number you entered is not valid");
-			showMenu();
-		}
+	private void config() {
+		Container container = getContentPane();
+		GridBagConstraints cons = new GridBagConstraints();
+		container.setLayout(new GridBagLayout());
 		
+		
+		cons.fill = GridBagConstraints.BOTH; 
+		cons.gridx = 0;  
+        cons.gridy = 0;
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setSize(400, 150);
+		
+		//Guide Label 
+		lbGuide = new JLabel();
+		lbGuide.setText("Select the Sector you want to go to:");
+		container.add(lbGuide, cons);
+		cons.gridx = 0;  
+        cons.gridy = 1;
+		
+		
+		// Employee button 
+		btEmployee = new JButton();
+		btEmployee.setText("Employee Sector");
+		container.add(btEmployee, cons);
+		cons.gridx = 0;  
+        cons.gridy = 2;
+        
+        //Employment button
+        btEmployment = new JButton();
+		btEmployment.setText("Employment Sector");
+		container.add(btEmployment, cons);
+		cons.gridx = 0;  
+        cons.gridy = 3;
+      
+        //Financial Sector button
+        btFSector = new JButton();
+        btFSector.setText("Financial Sector");
+		container.add(btFSector, cons);
+		cons.gridx = 0;  
+        cons.gridy = 4;
+	}
+	
+	
+	
+	public class ButtonManager implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			if(e.getSource().equals(btEmployee)) {
+				
+				screenCtrl.employeeMenu();
+			
+			} else if(e.getSource().equals(btEmployment)) {
+				
+				screenCtrl.employmentMenu();
+			
+			} else if(e.getSource().equals(btEmployment)) {
+				screenCtrl.financialSectorMenu();
+			}
+		}
 	}
 }
+

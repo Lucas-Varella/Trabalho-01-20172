@@ -1,6 +1,6 @@
 package br.ufsc.ine5605.model;
 
-import br.ufsc.ine5605.view.MainScreenI;
+import br.ufsc.ine5605.view.MainScreen;
 import br.ufsc.ine5605.controller.MainController;
 
 /**
