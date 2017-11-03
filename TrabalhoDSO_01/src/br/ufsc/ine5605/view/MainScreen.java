@@ -22,12 +22,14 @@ public class MainScreen extends JFrame{
 	private JButton btEmployee;
 	private JButton btEmployment;
 	private JButton btFSector;
+	private ButtonManager btManager;
 	
 	
 	
 	public MainScreen(MainScreenCtrl screenCtrl) {
 		super("Welcome!");
 		this.screenCtrl = screenCtrl;
+		btManager = new ButtonManager();
 		config();
 	}
 	
@@ -55,6 +57,7 @@ public class MainScreen extends JFrame{
 		btEmployee = new JButton();
 		btEmployee.setText("Employee Sector");
 		container.add(btEmployee, cons);
+		btEmployee.addActionListener(btManager);
 		cons.gridx = 0;  
         cons.gridy = 2;
         
@@ -62,6 +65,7 @@ public class MainScreen extends JFrame{
         btEmployment = new JButton();
 		btEmployment.setText("Employment Sector");
 		container.add(btEmployment, cons);
+		btEmployment.addActionListener(btManager);
 		cons.gridx = 0;  
         cons.gridy = 3;
       
@@ -69,13 +73,14 @@ public class MainScreen extends JFrame{
         btFSector = new JButton();
         btFSector.setText("Financial Sector");
 		container.add(btFSector, cons);
+		btFSector.addActionListener(btManager);
 		cons.gridx = 0;  
         cons.gridy = 4;
 	}
 	
 	
 	
-	public class ButtonManager implements ActionListener {
+	private class ButtonManager implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
