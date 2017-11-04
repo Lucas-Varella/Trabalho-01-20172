@@ -44,6 +44,7 @@ public class MainScreen extends JFrame{
         cons.gridy = 0;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(400, 150);
+		setLocationRelativeTo(null);
 		
 		//Guide Label 
 		lbGuide = new JLabel();
