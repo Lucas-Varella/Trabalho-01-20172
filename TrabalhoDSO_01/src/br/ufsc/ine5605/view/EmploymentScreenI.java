@@ -36,20 +36,20 @@ public class EmploymentScreenI extends JFrame {
 		Container container = getContentPane();
 		GridBagConstraints cons = new GridBagConstraints();
 		container.setLayout(new GridBagLayout());
-		cons.fill = GridBagConstraints.BOTH; 
+		cons.fill = GridBagConstraints.CENTER; 
 		
 		//Guide Label 
 		lbGuide = new JLabel();
 		lbGuide.setText("What do you want to do?");
 		container.add(lbGuide, cons);
-		cons.gridx = 0;  
-		cons.gridy = 1;
+		cons.gridx = 5;  
+		cons.gridy = 5;
 		
 		// JTable de Employments
 		tbEmployments = new JTable();
 		tbEmployments.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		tbEmployments.setFillsViewportHeight(true);
-		cons.fill = GridBagConstraints.REMAINDER; 
+		cons.fill = GridBagConstraints.CENTER; 
 		cons.gridx = 0;  
 		cons.gridy = 2;
 		cons.gridwidth = 3;
@@ -60,13 +60,14 @@ public class EmploymentScreenI extends JFrame {
 		// Register Button
 		btRegister = new JButton();
 		btRegister.setText("Register");
-		container.add(btRegister, cons);
-		btRegister.addActionListener(btManager);
 		cons.gridx = 0;  
         cons.gridy = 4;
+		container.add(btRegister, cons);
+		btRegister.addActionListener(btManager);
 		
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setSize(600, 600);
 		setLocationRelativeTo(null);
 		
