@@ -8,6 +8,7 @@ import br.ufsc.ine5605.model.Privileges;
 import br.ufsc.ine5605.model.Contract;
 import br.ufsc.ine5605.model.Horary;
 import br.ufsc.ine5605.view.EmploymentScreen;
+import br.ufsc.ine5605.view.EmploymentScreenI;
 import br.ufsc.ine5605.model.Screen2;
 
 /**
@@ -18,7 +19,7 @@ import br.ufsc.ine5605.model.Screen2;
  */
 public class EmploymentCtrl implements Screen2{
 	private MainController mainCtrl;
-	private EmploymentScreen employmentScreen;
+	private EmploymentScreenI employmentScreen;
 	private Employment employment;
 	private EmploymentRestrictAccess employmentRestrictAccess;
 	private ArrayList<Employment> employments;
@@ -30,7 +31,7 @@ public class EmploymentCtrl implements Screen2{
 	 */
 	public EmploymentCtrl(MainController mainCtrl) {
 		this.mainCtrl = mainCtrl;
-		this.employmentScreen = new EmploymentScreen(this);
+		this.employmentScreen = new EmploymentScreenI(this);
 		this.employments = new ArrayList();
 		}
 
@@ -39,7 +40,7 @@ public class EmploymentCtrl implements Screen2{
 	}
 	
 	public void menu() {
-		employmentScreen.menu();
+		employmentScreen.setVisible(true);
 	}
 	
 	/**
@@ -83,7 +84,7 @@ public class EmploymentCtrl implements Screen2{
 	}
 	
 	public void listAllEmployments() {
-		employmentScreen.listEmployments();
+		
 	}
 	
 	public Horary addHorary() {

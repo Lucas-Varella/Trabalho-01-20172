@@ -28,7 +28,7 @@ public class MainScreenCtrl implements Screen2 {
 	}
 	
 	public void menu() {
-		mainScreen .setVisible(true);
+		mainScreen.setVisible(true); 
 	}
 	
 	public void employeeMenu() {
