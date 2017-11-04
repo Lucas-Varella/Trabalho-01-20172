@@ -93,7 +93,7 @@ public class MainScreen extends JFrame{
 				
 				screenCtrl.employmentMenu();
 			
-			} else if(e.getSource().equals(btEmployment)) {
+			} else if(e.getSource().equals(btFSector)) {
 				screenCtrl.financialSectorMenu();
 			}
 		}
