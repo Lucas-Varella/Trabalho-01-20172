@@ -40,6 +40,7 @@ public class FinancialSectorCtrl implements ConversionDates {
 		this.mainCtrl = mainController;
 		//this.financialSectorScreen = new FinancialSectorScreen(this);
 		this.financialSector = new FinancialSector(this);
+		this.financialSectorScreen = new FinancialSectorScreen(this);
 	}
 	
 	
@@ -49,7 +50,7 @@ public class FinancialSectorCtrl implements ConversionDates {
 	
 	
 	public void menu() {
-		this.financialSectorScreen = new FinancialSectorScreen(this);
+		financialSectorScreen.setVisible(true);
 	}
 	
 	
