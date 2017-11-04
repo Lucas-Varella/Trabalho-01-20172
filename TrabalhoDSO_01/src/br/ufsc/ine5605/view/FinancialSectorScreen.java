@@ -54,6 +54,7 @@ public class FinancialSectorScreen extends JFrame implements ActionListener {
         setSize(300, 200);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+	
 		
 		
 		//Config. botão de acesso ao Setor Financeiro;
@@ -68,6 +69,7 @@ public class FinancialSectorScreen extends JFrame implements ActionListener {
         btDeniedAccess.addActionListener(this);
         
         setVisible(true);
+        
 	}
 	
 	public void listDeniedAccess() {
@@ -95,7 +97,13 @@ public class FinancialSectorScreen extends JFrame implements ActionListener {
 		btDeniedAccessByReason.addActionListener(this);
 		
         setVisible(true);
+        
+       
 	
+	}
+	
+	public void enterFinancialSector() {
+		
 	}
 	
 	public void actionPerformed(ActionEvent e) {
