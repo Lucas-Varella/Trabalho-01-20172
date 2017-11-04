@@ -56,7 +56,7 @@ public class FinancialSectorScreen extends JFrame {
 		cons.gridx = 0;  
         cons.gridy = 0;
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setSize(600, 600);
+		setSize(400, 150);
 		setLocationRelativeTo(null);
 		
 		//Financial Sector Button 
@@ -68,8 +68,8 @@ public class FinancialSectorScreen extends JFrame {
 		
 		//Denied Access Button
 		btDeniedAccess = new JButton("Denied Access");
-		cons.gridx = 7;  
-		cons.gridy = 7;
+		cons.gridx = 6;  
+		cons.gridy = 5;
 		container.add(btDeniedAccess, cons);		
 		btDeniedAccess.addActionListener(btManager);
 	}

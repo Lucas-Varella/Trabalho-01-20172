@@ -90,7 +90,6 @@ public class EmploymentScreenI extends JFrame {
 	
 	private class ButtonManager implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			
 		}
