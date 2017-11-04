@@ -82,7 +82,6 @@ public class MainScreen extends JFrame{
 	
 	private class ButtonManager implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
 			
 			if(e.getSource().equals(btEmployee)) {
