@@ -1,5 +1,6 @@
 package br.ufsc.ine5605.view;
 
+import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -10,6 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -26,6 +28,9 @@ public class EmploymentScreenI extends JFrame {
 	private JTable tbEmployments;
 	private JScrollPane spLista;
 	private JTextField tfNome;
+	private JPanel pSetup;
+	private JPanel pMain;
+	private JPanel pRegister;
 	
 	public EmploymentScreenI(EmploymentCtrl ctrl) {
 		super("Employment Sector");
@@ -39,6 +44,10 @@ public class EmploymentScreenI extends JFrame {
 		GridBagConstraints cons = new GridBagConstraints();
 		container.setLayout(new GridBagLayout());
 		
+		// Panel geral
+		pSetup = new JPanel(new CardLayout());
+		
+		pMain = new JPanel(new GridBagLayout());
 		
 		//Guide Label 
 		lbGuide = new JLabel();
@@ -46,7 +55,7 @@ public class EmploymentScreenI extends JFrame {
 		cons.fill = GridBagConstraints.CENTER; 
 		cons.gridx = 2;  
 		cons.gridy = 0;
-		container.add(lbGuide, cons);
+		pMain.add(lbGuide, cons);
 		
 		
 		// JTable de Employments
@@ -59,7 +68,7 @@ public class EmploymentScreenI extends JFrame {
 		cons.gridwidth = 3;
 		cons.gridheight = 2;
 		spLista = new JScrollPane(tbEmployments);
-		container.add(spLista, cons);
+		pMain.add(spLista, cons);
 		
 		// Register Button
 		btRegister = new JButton();
@@ -67,10 +76,10 @@ public class EmploymentScreenI extends JFrame {
 		cons.fill = GridBagConstraints.BOTH; 
 		cons.gridx = 1;  
         cons.gridy = 5;
-		container.add(btRegister, cons);
+        pMain.add(btRegister, cons);
 		btRegister.addActionListener(btManager);
 		
-		
+		pSetup.add(pMain, "pMain");
 		
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setSize(600, 600);
