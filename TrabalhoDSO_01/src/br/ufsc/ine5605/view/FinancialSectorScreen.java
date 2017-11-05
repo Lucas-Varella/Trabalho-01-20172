@@ -9,6 +9,7 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -27,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import br.ufsc.ine5605.controller.FinancialSectorCtrl;
 import br.ufsc.ine5605.model.Reasons;
@@ -45,12 +47,16 @@ public class FinancialSectorScreen extends JFrame {
 	private JButton btDeniedAccessByNumber;
 	private JButton btDeniedAccessByReason;
 	private JButton retur;
+	private JButton enter;
 	private ButtonManager btManager;
 	private CardLayout cardLayout;
 	private JPanel cards;
 	private JPanel panel1;
+	private JLabel text;
 	private JPanel panel2;
 	private JPanel panel3;
+	private JPanel panel4;
+	private JPanel panel5;
 	
 	public FinancialSectorScreen(FinancialSectorCtrl financialSectorCtrl) {
 		super("Menu Financial Sector");
@@ -60,42 +66,44 @@ public class FinancialSectorScreen extends JFrame {
 	}
 	
 	private void initComponents() {
+		
+		//Config container;
 		Container container = getContentPane();
 		GridBagConstraints cons = new GridBagConstraints();
 		//O erro tava no fato de eu tentar settar o layout para todos os panels ao invés de settar individualmente;
 		//container.setLayout(new GridBagLayout());
-                
-        cons.fill = GridBagConstraints.BOTH;
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(500, 500);
+        setSize(400, 250);
         setLocationRelativeTo(null);
-        //setTitle("Menu Financial Sector"); //Put Title on top of JFrame
-        
         setResizable(true);
-
+        
+        // Instantiating JButtons;
         btFinancialSector = new JButton("Enter Financial Sector");
         btDeniedAccess = new JButton("Denied Access");
-        
         btAllDeniedAccess = new JButton("All Denied Access");
         btDeniedAccessByNumber = new JButton("Denied Access By Number Registration");
         btDeniedAccessByReason = new JButton("Denied Access By Reason");
-        
+        enter = new JButton("Enter");
         retur = new JButton("Return");
         
+        //Add action listeners;
         btFinancialSector.addActionListener(btManager);
         btDeniedAccess.addActionListener(btManager);
-
         btAllDeniedAccess.addActionListener(btManager);
         btDeniedAccessByNumber.addActionListener(btManager);
         btDeniedAccessByReason.addActionListener(btManager);
-        
+        enter.addActionListener(btManager);
         retur.addActionListener(btManager);
         
+        // Instantiating JLabel;
+        text = new JLabel("Please enter the required information:");
+        
+        // Instantiating JPanel with CardLayout;
         cards = new JPanel(new CardLayout());
-       
         
         //Create the cards
         
+        //Main panel
         panel1 = new JPanel(new GridBagLayout());
         cons.gridx = 0;  
         cons.gridy = 0;
@@ -104,25 +112,65 @@ public class FinancialSectorScreen extends JFrame {
         cons.gridy = 2;
         panel1.add(btDeniedAccess, cons);
         cards.add(panel1, "panel1");
-
         
+        //Financial Sector Panel
         panel2 = new JPanel(new GridBagLayout());
         cons.gridx = 0;
         cons.gridy = 0;
-        panel2.add(btAllDeniedAccess, cons);
+        panel2.add(text, cons);
         cons.gridx = 0;
         cons.gridy = 1;
-        panel2.add(btDeniedAccessByNumber, cons);
+        panel2.add(new JTextField("Number of Registration", 15), cons);
         cons.gridx = 0;
         cons.gridy = 2;
-        panel2.add(btDeniedAccessByReason, cons);
+        panel2.add(new JTextField("Time of access", 10), cons);
         cons.gridx = 0;
-        cons.gridy = 3;  
-        panel2.add(retur);
+        cons.gridy = 4;
+        panel2.add(enter, cons);
         cons.gridx = 0;
-        cons.gridy = 4;  
+        cons.gridy = 5;
+        panel2.add(retur, cons);
         cards.add(panel2, "panel2");
         
+        
+        // Denied Access Panel
+        panel3 = new JPanel(new GridBagLayout());
+        cons.gridx = 0;
+        cons.gridy = 1;
+        panel3.add(btAllDeniedAccess, cons);
+        cons.gridx = 0;
+        cons.gridy = 2;
+        panel3.add(btDeniedAccessByNumber, cons);
+        cons.gridx = 0;
+        cons.gridy = 3;
+        panel3.add(btDeniedAccessByReason, cons);
+        cons.gridx = 0;
+        cons.gridy = 4;
+        panel3.add(retur, cons);
+        cards.add(panel3, "panel3");       
+        
+        // Denied Access By Number Registration;
+        panel4 = new JPanel(new GridBagLayout());
+        cons.gridx = 0;
+        cons.gridy = 0;
+        panel4.add(text, cons);
+        cons.gridx = 0;
+        cons.gridy = 1;
+        panel4.add(new JTextField("Number of Registration", 15), cons);
+        cons.gridx = 0;
+        cons.gridy = 2;  
+        panel4.add(retur, cons);
+        cards.add(panel4, "panel4");
+        
+        // Denied Access By Reason;
+        panel5 = new JPanel(new GridBagLayout());
+        cons.gridx = 0;
+        cons.gridy = 0;
+        panel5.add(text, cons);
+        cons.gridx = 0;
+        cons.gridy = 1;
+        panel5.add(retur, cons);
+        cards.add(panel5, "panel5");
         
         container.add(cards);
         cardLayout = (CardLayout) cards.getLayout();
@@ -133,18 +181,25 @@ public class FinancialSectorScreen extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			
 			if(e.getSource().equals(btFinancialSector)) {
-				
-			}else if(e.getSource().equals(btDeniedAccess)){
 				cardLayout.show(cards, "panel2");
-				
-			}else if(e.getSource().equals(btAllDeniedAccess)) {
-				
-			}else if(e.getSource().equals(btDeniedAccessByNumber)) {
-				
-			}else if(e.getSource().equals(btDeniedAccessByReason)) {
+			
+			}else if(e.getSource().equals(btDeniedAccess)){
+				cardLayout.show(cards, "panel3");
 				
 			}else if(e.getSource().equals(retur)) {
-				cardLayout.previous(cards);
+				cardLayout.show(cards, "panel1");
+			
+			}else if(e.getSource().equals(btAllDeniedAccess)) {
+				getContentPane().setVisible(false);
+				financialSectorCtrl.showAllDeniedAccess();
+			}else if(e.getSource().equals(btDeniedAccessByNumber)) {
+				cardLayout.show(cards, "panel4");
+				//getContentPane().setVisible(false);
+				//financialSectorCtrl.showDeniedAccessByNumRegistration(numRegistration);
+			}else if(e.getSource().equals(btDeniedAccessByReason)) {
+				cardLayout.show(cards, "panel5");
+				//getContentPane().setVisible(false);
+				//financialSectorCtrl.showDeniedAccessByReason(reason);
 			}
 			
 			

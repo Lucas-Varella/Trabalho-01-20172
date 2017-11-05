@@ -31,6 +31,7 @@ public class EmploymentScreenI extends JFrame {
 	private JPanel pSetup;
 	private JPanel pMain;
 	private JPanel pRegister;
+	private CardLayout cardLayout;
 	
 	public EmploymentScreenI(EmploymentCtrl ctrl) {
 		super("Employment Sector");
@@ -64,7 +65,7 @@ public class EmploymentScreenI extends JFrame {
 		tbEmployments.setFillsViewportHeight(true);
 		cons.fill = GridBagConstraints.CENTER; 
 		cons.gridx = 0;  
-		cons.gridy = 2;
+		cons.gridy = 5;
 		cons.gridwidth = 3;
 		cons.gridheight = 2;
 		spLista = new JScrollPane(tbEmployments);
@@ -81,9 +82,14 @@ public class EmploymentScreenI extends JFrame {
 		
 		pSetup.add(pMain, "pMain");
 		
+		
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setSize(600, 600);
 		setLocationRelativeTo(null);
+		
+		container.add(pSetup);
+		
+		cardLayout = (CardLayout) pSetup.getLayout();
 		
 	}
 	
