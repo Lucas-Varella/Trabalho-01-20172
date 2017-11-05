@@ -85,7 +85,7 @@ public class FinancialSectorScreen extends JFrame {
         basePanel.add (panel1, "Financial Sector");
         
         panel2 = new JPanel();
-        panel2.add(arg0)
+        //panel2.add(arg0);
         Container container1 = getContentPane();
 		GridBagConstraints cons = new GridBagConstraints();
 		container.setLayout(new GridBagLayout());

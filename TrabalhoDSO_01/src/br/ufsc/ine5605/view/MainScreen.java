@@ -40,8 +40,6 @@ public class MainScreen extends JFrame{
 		
 		
 		cons.fill = GridBagConstraints.BOTH; 
-		cons.gridx = 0;  
-        cons.gridy = 0;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(400, 150);
 		setLocationRelativeTo(null);
@@ -49,34 +47,38 @@ public class MainScreen extends JFrame{
 		//Guide Label 
 		lbGuide = new JLabel();
 		lbGuide.setText("Select the Sector you want to go to:");
-		container.add(lbGuide, cons);
 		cons.gridx = 0;  
         cons.gridy = 1;
+		container.add(lbGuide, cons);
+		
 		
 		
 		// Employee button 
 		btEmployee = new JButton();
 		btEmployee.setText("Employee Sector");
-		container.add(btEmployee, cons);
-		btEmployee.addActionListener(btManager);
 		cons.gridx = 0;  
         cons.gridy = 2;
+		container.add(btEmployee, cons);
+		btEmployee.addActionListener(btManager);
+		
         
         //Employment button
         btEmployment = new JButton();
 		btEmployment.setText("Employment Sector");
-		container.add(btEmployment, cons);
-		btEmployment.addActionListener(btManager);
 		cons.gridx = 0;  
         cons.gridy = 3;
+		container.add(btEmployment, cons);
+		btEmployment.addActionListener(btManager);
+		
       
         //Financial Sector button
         btFSector = new JButton();
         btFSector.setText("Financial Sector");
-		container.add(btFSector, cons);
-		btFSector.addActionListener(btManager);
-		cons.gridx = 0;  
+        cons.gridx = 0;  
         cons.gridy = 4;
+        container.add(btFSector, cons);
+		btFSector.addActionListener(btManager);
+		
 	}
 	
 	

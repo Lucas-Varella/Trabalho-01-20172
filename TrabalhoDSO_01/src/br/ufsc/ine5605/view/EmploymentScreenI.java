@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import br.ufsc.ine5605.controller.EmploymentCtrl;
@@ -24,6 +25,7 @@ public class EmploymentScreenI extends JFrame {
 	private ButtonManager btManager;
 	private JTable tbEmployments;
 	private JScrollPane spLista;
+	private JTextField tfNome;
 	
 	public EmploymentScreenI(EmploymentCtrl ctrl) {
 		super("Employment Sector");
@@ -36,14 +38,16 @@ public class EmploymentScreenI extends JFrame {
 		Container container = getContentPane();
 		GridBagConstraints cons = new GridBagConstraints();
 		container.setLayout(new GridBagLayout());
-		cons.fill = GridBagConstraints.CENTER; 
+		
 		
 		//Guide Label 
 		lbGuide = new JLabel();
 		lbGuide.setText("What do you want to do?");
+		cons.fill = GridBagConstraints.CENTER; 
+		cons.gridx = 2;  
+		cons.gridy = 0;
 		container.add(lbGuide, cons);
-		cons.gridx = 5;  
-		cons.gridy = 5;
+		
 		
 		// JTable de Employments
 		tbEmployments = new JTable();
@@ -59,9 +63,10 @@ public class EmploymentScreenI extends JFrame {
 		
 		// Register Button
 		btRegister = new JButton();
-		btRegister.setText("Register");
-		cons.gridx = 0;  
-        cons.gridy = 4;
+		btRegister.setText("Register new Employment");
+		cons.fill = GridBagConstraints.BOTH; 
+		cons.gridx = 1;  
+        cons.gridy = 5;
 		container.add(btRegister, cons);
 		btRegister.addActionListener(btManager);
 		
@@ -84,14 +89,36 @@ public class EmploymentScreenI extends JFrame {
 	
 	}
 	
+	private void registerConfig() {
+		Container container = getContentPane();
+		GridBagConstraints cons = new GridBagConstraints();
+		container.setLayout(new GridBagLayout());
+		
+		
+		//Text field para o nome do cargo
+		tfNome = new JTextField();
+		tfNome.setText("Nome do Cargo");
+		cons.fill = GridBagConstraints.BOTH; 
+		cons.gridx = 1;  
+		cons.gridy = 0;
+		container.add(tfNome, cons);
+		
+
+		
+		
+	}
+	
 	//puta vida bixo
 	
 	
 	
 	private class ButtonManager implements ActionListener {
 
-		public void actionPerformed(ActionEvent arg0) {
+		public void actionPerformed(ActionEvent e) {
 			
+			if(e.getSource().equals(btRegister)) {
+				registerConfig();
+			}
 		}
 		
 	}
