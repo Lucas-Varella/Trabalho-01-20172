@@ -10,6 +10,8 @@ import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.text.ParseException;   
 import java.util.Date;
 import java.util.Scanner;
@@ -18,6 +20,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -38,13 +41,171 @@ public class FinancialSectorScreen extends JFrame {
 	private JButton btDeniedAccessByNumber;
 	private JButton btDeniedAccessByReason;
 	private ButtonManager btManager;
+	private CardLayout cardLayout;
+	private JPanel basePanel;
+	private JPanel panel1;
+	private JPanel panel2;
+	private JPanel panel3;
+	private JPanel panel4;
+	private JPanel panel5;
+	
+	/*
+	 * JPanel jpProjeto = new JPanel();
+   JPanel jpModulo = new JPanel();
+   JPanel jpProgramador = new JPanel();
+   JTabbedPane jtpTabs = new JTabbePane();
+//adiciona os panels como tabs
+   jtpTabs.addTab("Projetos", jpProjeto);
+   jtpTabs.addTab("Modulos", jpModulo);
+   jtpTabs.addTab("Programadores", jpProgramador);
+//adiciona a tab no getContentPane
+  getContentPane().add(jtpTabs, BorderLayout.CENTER);
+//depois eh vc adicionar os componentes em cada JPanel separado
+	 */
 	
 	public FinancialSectorScreen(FinancialSectorCtrl financialSectorCtrl) {
-		super("Menu Financial Sector");
+		super("Financial Sector");
 		this.financialSectorCtrl = financialSectorCtrl;
 		btManager = new ButtonManager();
-		mainConfig();
+		initComponents();	
 	}
+	
+	public void initComponents() {
+		//Config container
+		Container container = getContentPane();
+		container.setLayout(new BoxLayout (container, BoxLayout.Y_AXIS));
+        
+		//Config basePanel;
+        basePanel = new JPanel();
+        cardLayout = new CardLayout();
+        basePanel.setLayout (cardLayout);
+        
+        //Add cards in basePanel
+        panel1 = new JPanel();
+        basePanel.add (panel1, "Financial Sector");
+        
+        panel2 = new JPanel();
+        panel2.add(arg0)
+        Container container1 = getContentPane();
+		GridBagConstraints cons = new GridBagConstraints();
+		container.setLayout(new GridBagLayout());
+		cons.fill = GridBagConstraints.BOTH;
+		cons.gridx = 0;  
+        cons.gridy = 0;
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(500, 500);
+		setLocationRelativeTo(null);
+		
+		//All Denied Access Button 
+		btAllDeniedAccess = new JButton("All denied access");
+		cons.gridx = 5;  
+		cons.gridy = 5;
+		container.add(btAllDeniedAccess, cons);
+		btAllDeniedAccess.addActionListener(btManager);
+		
+		//Denied Access By Number Button
+		btDeniedAccessByNumber = new JButton("Denied Access By Number of Registration");
+		cons.gridx = 5;  
+		cons.gridy = 6;
+		container.add(btDeniedAccessByNumber, cons);		
+		btDeniedAccessByNumber.addActionListener(btManager);
+		
+		//Denied Access By Reason
+		btDeniedAccessByReason = new JButton("Denied Access By Reason");
+		cons.gridx = 5;  
+		cons.gridy = 7;
+		container.add(btDeniedAccessByReason, cons);		
+		btDeniedAccessByReason.addActionListener(btManager);
+		basePanel.add (panel2, "Denied Access");
+		
+		
+        panel3 = new JPanel();
+        basePanel.add(panel3, "All Denied Access");
+        
+        panel4 = new JPanel();
+        basePanel.add(panel4, "Denied Access by Number");
+        
+        panel5 = new JPanel();
+        basePanel.add(panel5, "Denied Access By Reason");
+        
+        //Config Buttons
+        btFinancialSector = new JButton("Financial Sector");
+        btDeniedAccess = new JButton("Denied Access");
+        
+        
+        //Add Action
+        btFinancialSector.addActionListener(btManager);
+        btDeniedAccess.addActionListener(btManager);
+        
+        //JUntando tudo
+        container.add(basePanel);
+        container.add(btFinancialSector);
+        container.add(btDeniedAccess);
+        
+        setSize(400, 150);
+	}
+	/*
+	 * Ideia para seguir:
+	 * 
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+class TesteCardLayout extends JFrame {
+    private JPanel painelBase;
+    private JPanel painel1;
+    private JPanel painel2;
+    private CardLayout cardLayout;
+    private JButton botao1;
+    private JButton botao2;
+    private void initComponents() {
+        Container contentPane = getContentPane();
+        contentPane.setLayout(new BoxLayout (contentPane, BoxLayout.Y_AXIS));
+        // Vamos adicionar um JPanel que vai conter 2 cards, 
+        // e 2 botões que escolherão cada um o JPanel adequado
+        painelBase = new JPanel();
+        cardLayout = new CardLayout();
+        painelBase.setLayout (cardLayout);
+        // Adicionando os cards
+            painel1 = new JPanel();
+            painel1.setBackground (Color.RED);
+            painelBase.add (painel1, "Painel 1");
+            painel2 = new JPanel();
+            painel2.setBackground (Color.BLUE); 
+            painelBase.add (painel2, "Painel 2");
+        // Criando os botões
+        botao1 = new JButton ("Escolha o painel 1");
+        botao2 = new JButton ("Escolha o painel 2");
+        botao1.addActionListener (new ActionListener() {
+            public void actionPerformed (ActionEvent e) {
+                cardLayout.show (painelBase, "Painel 1");
+            }
+        });
+        botao2.addActionListener (new ActionListener() {
+            public void actionPerformed (ActionEvent e) {
+                cardLayout.show (painelBase, "Painel 2");
+            }
+        });
+        // Juntando tudo
+        contentPane.add (painelBase);
+        contentPane.add (botao1);
+        contentPane.add (botao2);
+        // Só pra não ficar muito pequeno...
+        setPreferredSize (new Dimension (200, 300));
+    }
+    public TesteCardLayout () {
+        super ("Teste de Card Layout");
+        initComponents();
+    }    
+    public static void main(String[] args) {
+        TesteCardLayout teste = new TesteCardLayout();
+        teste.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
+        teste.pack();
+        teste.setVisible (true);
+    }
+}
+	 * 
+	 * 
+	 */
 	
 	public void mainConfig() {
 		
@@ -74,14 +235,52 @@ public class FinancialSectorScreen extends JFrame {
 		btDeniedAccess.addActionListener(btManager);
 	}
 	
+	public void deniedAccess() {
+		Container container = getContentPane();
+		GridBagConstraints cons = new GridBagConstraints();
+		container.setLayout(new GridBagLayout());
+		cons.fill = GridBagConstraints.BOTH;
+		cons.gridx = 0;  
+        cons.gridy = 0;
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(500, 500);
+		setLocationRelativeTo(null);
+		
+		//All Denied Access Button 
+		btAllDeniedAccess = new JButton("All denied access");
+		cons.gridx = 5;  
+		cons.gridy = 5;
+		container.add(btAllDeniedAccess, cons);
+		btAllDeniedAccess.addActionListener(btManager);
+		
+		//Denied Access By Number Button
+		btDeniedAccessByNumber = new JButton("Denied Access By Number of Registration");
+		cons.gridx = 5;  
+		cons.gridy = 6;
+		container.add(btDeniedAccessByNumber, cons);		
+		btDeniedAccessByNumber.addActionListener(btManager);
+		
+		//Denied Access By Reason
+		btDeniedAccessByReason = new JButton("Denied Access By Reason");
+		cons.gridx = 5;  
+		cons.gridy = 7;
+		container.add(btDeniedAccessByReason, cons);		
+		btDeniedAccessByReason.addActionListener(btManager);
+	}
+	
+	public void allDeniedAccess() {
+		
+	}
+	
 	private class ButtonManager implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			
 			if(e.getSource().equals(btFinancialSector)) {
 				
-			}else if(e.getSource().equals(btDeniedAccess)){
 				
+			}else if(e.getSource().equals(btDeniedAccess)){
+				cardLayout.show(basePanel, "Denied Access");
 				
 			}else if(e.getSource().equals(btAllDeniedAccess)) {
 				
@@ -91,8 +290,9 @@ public class FinancialSectorScreen extends JFrame {
 				
 			}else if(e.getSource().equals(btDeniedAccessByReason)) {
 				
-				
+			
 			}
+			
 			
 		}
 		
