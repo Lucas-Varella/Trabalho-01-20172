@@ -31,6 +31,7 @@ public class EmploymentScreenI extends JFrame {
 	private JPanel pSetup;
 	private JPanel pMain;
 	private JPanel pRegister;
+	private CardLayout cardLayout;
 	
 	public EmploymentScreenI(EmploymentCtrl ctrl) {
 		super("Employment Sector");
@@ -44,9 +45,15 @@ public class EmploymentScreenI extends JFrame {
 		GridBagConstraints cons = new GridBagConstraints();
 		container.setLayout(new GridBagLayout());
 		
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setSize(600, 600);
+		setLocationRelativeTo(null);
+		
+		
 		// Panel geral
 		pSetup = new JPanel(new CardLayout());
 		
+		// começo painel Principal
 		pMain = new JPanel(new GridBagLayout());
 		
 		//Guide Label 
@@ -80,10 +87,27 @@ public class EmploymentScreenI extends JFrame {
 		btRegister.addActionListener(btManager);
 		
 		pSetup.add(pMain, "pMain");
+		// Fim do Painel Principal
 		
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setSize(600, 600);
-		setLocationRelativeTo(null);
+		// Começo Painel de registro
+		pRegister = new JPanel(new GridBagLayout());
+		
+		//Text field para o nome do cargo
+		tfNome = new JTextField();
+		tfNome.setText("Nome do Cargo");
+		cons.fill = GridBagConstraints.BOTH; 
+		cons.gridx = 1;  
+		cons.gridy = 0;
+		pRegister.add(tfNome, cons);
+		
+		
+		
+		
+		
+		container.add(pSetup, cons);
+		cardLayout = (CardLayout) pSetup.getLayout();
+		
+		
 		
 	}
 	
@@ -104,13 +128,7 @@ public class EmploymentScreenI extends JFrame {
 		container.setLayout(new GridBagLayout());
 		
 		
-		//Text field para o nome do cargo
-		tfNome = new JTextField();
-		tfNome.setText("Nome do Cargo");
-		cons.fill = GridBagConstraints.BOTH; 
-		cons.gridx = 1;  
-		cons.gridy = 0;
-		container.add(tfNome, cons);
+		
 		
 
 		
@@ -126,7 +144,7 @@ public class EmploymentScreenI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			
 			if(e.getSource().equals(btRegister)) {
-				registerConfig();
+				
 			}
 		}
 		
