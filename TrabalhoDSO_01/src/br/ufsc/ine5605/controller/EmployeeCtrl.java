@@ -13,6 +13,7 @@ import br.ufsc.ine5605.model.Horary;
 import br.ufsc.ine5605.model.EmploymentRestrictAccess;
 import br.ufsc.ine5605.model.Privileges;
 import br.ufsc.ine5605.view.EmployeeScreen;
+import br.ufsc.ine5605.view.EmployeeScreenI;
 import br.ufsc.ine5605.model.Screen2;
 import br.ufsc.ine5605.model.Screen;
 import br.ufsc.ine5605.model.ConversionDates;
@@ -25,7 +26,7 @@ import br.ufsc.ine5605.model.ConversionDates;
 public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	private MainController mainCtrl;
 	private Employee employee;
-	private EmployeeScreen employeeScreen;
+	private EmployeeScreenI employeeScreen;
 	private ArrayList<Employee> employees;
 	private static int code = 17200000;
 	
@@ -35,12 +36,12 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	 */
 	public EmployeeCtrl(MainController mainCtrl) {
 		this.mainCtrl = mainCtrl;
-		employeeScreen = new EmployeeScreen(this);
+		employeeScreen = new EmployeeScreenI(this);
 		employees = new ArrayList<Employee>();
 	}
 	
 	public void menu() {
-		employeeScreen.menu();
+		employeeScreen.setVisible(true);
 	}
 	
 	/**

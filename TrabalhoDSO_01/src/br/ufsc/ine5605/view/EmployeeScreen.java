@@ -10,16 +10,16 @@ import br.ufsc.ine5605.model.Employee;
 import br.ufsc.ine5605.model.Contract;
 
 /**
- * Tela responsÃ¡vel pela interaÃ§Ã£o do usuÃ¡rio com as funcionalidades relacionadas aos Employees;
- * @author Sadi JÃºnior Domingos Jacinto;
+ * Tela responsável pela interação do usuário com as funcionalidades relacionadas aos Employees;
+ * @author Sadi Júnior Domingos Jacinto;
  */
 public class EmployeeScreen {
 	private EmployeeCtrl employeeCtrl;
 	private Scanner keyboard;
 	
 	/**
-	 * Construtor padrÃ£o da classe
-	 * @param employeeCtrl - Recebe uma instÃ¢ncia do EmployeeCtrl, o que permite a comunicaÃ§Ã£o com outras classes;
+	 * Construtor padrão da classe
+	 * @param employeeCtrl - Recebe uma instância do EmployeeCtrl, o que permite a comunicação com outras classes;
 	 */
 	public EmployeeScreen(EmployeeCtrl employeeCtrl) {
 		this.employeeCtrl = employeeCtrl;
@@ -85,7 +85,7 @@ public class EmployeeScreen {
 		
 	}
 	/**
-	 * Armazena e envia ao EmployeeCtrl os dados necessÃ¡rios para a criaÃ§Ã£o de um novo funcionÃ¡rio;
+	 * Armazena e envia ao EmployeeCtrl os dados necessários para a criação de um novo funcionário;
 	 */
 	public void addEmployee() {
 		try {
@@ -158,7 +158,7 @@ public class EmployeeScreen {
 		}
 	}	
 	/**
-	 * Tela responsÃ¡vel pela interaÃ§Ã£o do usuÃ¡rio com os mÃ©todos de ediÃ§Ã£o dos atributos do FuncionÃ¡rio;
+	 * Tela responsável pela interação do usuário com os métodos de edição dos atributos do Funcionário;
 	 */
 	public void editEmployee() {
 		try {
@@ -260,7 +260,7 @@ public class EmployeeScreen {
 	}
 	
 	/**
-	 * Tela responsÃ¡vel pela interaÃ§Ã£o do usuÃ¡rio com o mÃ©todo de remoÃ§Ã£o de Employees;
+	 * Tela responsável pela interação do usuário com o método de remoção de Employees;
 	 */
 	public void delEmployee() {
 		try {
@@ -285,15 +285,15 @@ public class EmployeeScreen {
 	}
 	
 	/**
-	 * MÃ©todo responsÃ¡vel por listar todos os Employees registrados;
-	 * @throws IndexOutOfBoundsException Ocorre quando nÃ£o existe nenhum Employee cadastrado no sistema;
+	 * Método responsável por listar todos os Employees registrados;
+	 * @throws IndexOutOfBoundsException Ocorre quando não existe nenhum Employee cadastrado no sistema;
 	 */
 	public void listEmployees() throws IndexOutOfBoundsException {
 		int i = 1;
 		System.out.println("--------------------------------------------------------------------------------");
 		if(employeeCtrl.getEmployees().size() > 0) {
 			for(Employee e: employeeCtrl.getEmployees()) {
-				System.out.println(i + "Âº - " + e.getName());
+				System.out.println(i + "º - " + e.getName());
 				i++;
 			}
 		}else {

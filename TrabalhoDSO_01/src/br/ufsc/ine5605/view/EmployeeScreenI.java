@@ -17,7 +17,7 @@ import br.ufsc.ine5605.model.*;
  * Tela responsÃ¡vel pela interaÃ§Ã£o do usuÃ¡rio com as funcionalidades relacionadas aos Employees;
  * @author Sadi JÃºnior Domingos Jacinto;
  */
-public class EmployeeScreen extends JFrame{
+public class EmployeeScreenI extends JFrame{
 	
 	private EmployeeCtrl employeeCtrl;
 	private JLabel lbEmpScrn;
@@ -35,7 +35,7 @@ public class EmployeeScreen extends JFrame{
 	 * Construtor padrÃ£o da classe
 	 * @param employeeCtrl - Recebe uma instÃ¢ncia do EmployeeCtrl, o que permite a comunicaÃ§Ã£o com outras classes;
 	 */
-	public EmployeeScreen(EmployeeCtrl employeeCtrl) {
+	public EmployeeScreenI(EmployeeCtrl employeeCtrl) {
 		super("Employee Management and Data");
 		this.employeeCtrl = employeeCtrl;
 		btManager = new ButtonManager();
