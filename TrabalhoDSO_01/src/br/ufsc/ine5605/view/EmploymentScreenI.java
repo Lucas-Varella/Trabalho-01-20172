@@ -5,10 +5,12 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,6 +34,7 @@ public class EmploymentScreenI extends JFrame {
 	private JPanel pMain;
 	private JPanel pRegister;
 	private CardLayout cardLayout;
+	private JComboBox cbPrivileges;
 	
 	public EmploymentScreenI(EmploymentCtrl ctrl) {
 		super("Employment Sector");
@@ -53,6 +56,7 @@ public class EmploymentScreenI extends JFrame {
 		// Panel geral
 		pSetup = new JPanel(new CardLayout());
 		
+		//
 		// começo painel Principal
 		pMain = new JPanel(new GridBagLayout());
 		
@@ -83,25 +87,41 @@ public class EmploymentScreenI extends JFrame {
 		cons.fill = GridBagConstraints.BOTH; 
 		cons.gridx = 1;  
         cons.gridy = 5;
+        btRegister.addActionListener(btManager);
         pMain.add(btRegister, cons);
-		btRegister.addActionListener(btManager);
+		
 		
 		pSetup.add(pMain, "pMain");
 		// Fim do Painel Principal
+		//
 		
+		//
 		// Começo Painel de registro
 		pRegister = new JPanel(new GridBagLayout());
 		
 		//Text field para o nome do cargo
 		tfNome = new JTextField();
 		tfNome.setText("Nome do Cargo");
-		cons.fill = GridBagConstraints.BOTH; 
-		cons.gridx = 1;  
+		cons.fill = GridBagConstraints.CENTER; 
+		cons.gridx = 0;  
 		cons.gridy = 0;
+		cons.gridwidth = 2;
+		cons.insets = new Insets(10,10,10,10);
 		pRegister.add(tfNome, cons);
 		
+		// Combo Box de Privilegios
+		String[] privileges = { "Full", "Restricted", "No"};
+		cbPrivileges = new JComboBox(privileges);
+		cons.fill = GridBagConstraints.CENTER; 
+		cons.gridx = 3;  
+		cons.gridy = 0;
+		cons.insets = new Insets(10,10,10,10);
+		cbPrivileges.addActionListener(btManager);
+		pRegister.add(cbPrivileges, cons);
 		
 		
+		pSetup.add(pRegister, "pRegister");
+		// Fim do Painer de registro
 		
 		
 		container.add(pSetup, cons);
@@ -111,40 +131,23 @@ public class EmploymentScreenI extends JFrame {
 		
 	}
 	
-	private void updateData() {
-		
-		DefaultTableModel modelTbEmployments = new DefaultTableModel();
-		modelTbEmployments.addColumn("Position");
-		modelTbEmployments.addColumn("Employee");
-	
-		tbEmployments.setModel(modelTbEmployments);
-		this.repaint();
-	
-	}
-	
-	private void registerConfig() {
-		Container container = getContentPane();
-		GridBagConstraints cons = new GridBagConstraints();
-		container.setLayout(new GridBagLayout());
-		
-		
-		
-		
-
-		
-		
-	}
-	
-	//puta vida bixo
-	
-	
+//	private void updateData() {
+//		
+//		DefaultTableModel modelTbEmployments = new DefaultTableModel();
+//		modelTbEmployments.addColumn("Position");
+//		modelTbEmployments.addColumn("Employee");
+//	
+//		tbEmployments.setModel(modelTbEmployments);
+//		this.repaint();
+//	
+//	}
 	
 	private class ButtonManager implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			
 			if(e.getSource().equals(btRegister)) {
-				
+				cardLayout.show(pSetup, "pRegister");
 			}
 		}
 		
