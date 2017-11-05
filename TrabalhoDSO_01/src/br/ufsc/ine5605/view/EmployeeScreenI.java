@@ -17,7 +17,7 @@ import br.ufsc.ine5605.model.*;
  * Tela responsÃ¡vel pela interaÃ§Ã£o do usuÃ¡rio com as funcionalidades relacionadas aos Employees;
  * @author Sadi JÃºnior Domingos Jacinto;
  */
-public class EmployeeScreenI extends JFrame{
+public class EmployeeScreen extends JFrame{
 	
 	private EmployeeCtrl employeeCtrl;
 	private JLabel lbEmpScrn;
@@ -25,8 +25,11 @@ public class EmployeeScreenI extends JFrame{
 	private JButton btEdit;
 	private JButton btFSector;
 	private ButtonManager btManager;
-//	private JTable tbEmployees;
+	private CardLayout cardLayout;
 	private JList lsEmployees;
+	private JPanel screen;
+	private JPanel pnAdd;
+	private JButton btSave;
 	
 	/**
 	 * Construtor padrÃ£o da classe
@@ -47,9 +50,10 @@ public class EmployeeScreenI extends JFrame{
 		cons.fill = GridBagConstraints.BOTH;
 
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(800, 300);
 		setLocationRelativeTo(null);
+		setResizable(true);
 		
 		//Screen label
 		lbEmpScrn = new JLabel("Please Select desired Employee to manage, or add a new one.");
@@ -58,7 +62,6 @@ public class EmployeeScreenI extends JFrame{
 		container.add(lbEmpScrn, cons);
 		
 		//List of emps, now selectable(?)
-		
 		lsEmployees = new JList();
 		lsEmployees.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		lsEmployees.setLayoutOrientation(JList.VERTICAL);
@@ -68,21 +71,8 @@ public class EmployeeScreenI extends JFrame{
 		cons.gridx = 0;
 		cons.gridy = 1;
 		JScrollPane spListEmp = new JScrollPane(lsEmployees);
-		container.add(lsEmployees, cons);
+		container.add(spListEmp, cons);
 		
-		
-//		
-//		//Employees table
-//		tbEmployees = new JTable();
-//		tbEmployees.setPreferredScrollableViewportSize(new Dimension(300, 90));
-//		tbEmployees.setFillsViewportHeight(true);
-//		cons.gridwidth = 2;
-//		cons.gridheight = 4;
-//		cons.gridx = 0;
-//		cons.gridy = 1;
-//		JScrollPane spScrollEmp = new JScrollPane(tbEmployees);
-//		container.add(spScrollEmp, cons);
-//		
 		//addEmployee button
 		btAdd = new JButton("Add new Employee");
 		cons.gridx = 0;
@@ -97,11 +87,118 @@ public class EmployeeScreenI extends JFrame{
 		container.add(btAdd, cons);
 		btEdit.addActionListener(btManager);
 		
+		//Doin a lil' panel thingy
+		screen = new JPanel(new CardLayout());
+		
+		//Add employee panel
+		pnAdd = new JPanel(new GridBagLayout());
+			//Text Fields
+		cons.gridx = 0;
+		cons.gridy = 0;
+		pnAdd.add(new JTextField("Name", 10), cons);
+		cons.gridx = 0;
+		cons.gridy = 1;
+		pnAdd.add(new JTextField("Birthday", 10), cons);
+		cons.gridx = 0;
+		cons.gridy = 2;
+		pnAdd.add(new JTextField("Phone", 10), cons);
+		cons.gridx = 0;
+		cons.gridy = 3;
+		pnAdd.add(new JTextField("Salary", 10), cons);
+			//Save button
+		btSave = new JButton("Save");
+		cons.gridx = 0;
+		cons.gridy = 4;
+		btSave.addActionListener(btManager);
+		pnAdd.add(btSave, cons);
+		
+		screen.add(pnAdd, "Add Employee");
+		container.add(screen);
+		cardLayout = (CardLayout) screen.getLayout();
+		
 		
 		
 		
 		
 	}
+	private class ButtonManager implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			
+			if(e.getSource().equals(btAdd)) {
+				
+				cardLayout.show(screen, "Add Employee");
+			
+			}/* else if(e.getSource().equals(but)) {
+				
+				employeeCtrl.action();
+			
+			} else if(e.getSource().equals(but)) {
+				employeeCtrl.action();
+			}
+			*/
+		}
+	}
+	private void updateData() {
+		DefaultListModel model = new DefaultListModel();
+		for(Employee employee : employeeCtrl.getEmployees()) {
+			model.addElement(employee.getName());
+		}
+		lsEmployees.setModel(model);
+		this.repaint();
+	}
+	
+//	delEmployee();
+//	listEmployees();
+//employeeCtrl.mainMenu();
+//public void addEmployee() {
+//
+//System.out.println("Please enter the following information");
+//
+//System.out.println("Name: ");
+//System.out.println("Date of birth: ");
+//System.out.println("Phone: ");
+//System.out.println("Salary: ");
+//System.out.println("Please, enter the number corresponding to the chosen employment: ");
+//employeeCtrl.listEmployments();
+//Employment gen = employeeCtrl.findEmploymentByIndex(option);
+//Employee generic = employeeCtrl.addEmployee(name, birthDay, phone, salary);
+//employeeCtrl.addContract(gen, generic);
+//
+//System.out.println("-------------------------------------------------------------------------");
+//System.out.println("Congratulations, you have created a new employee with the following characteristics: ");
+//}		
+///**
+//* Tela responsÃ¡vel pela interaÃ§Ã£o do usuÃ¡rio com os mÃ©todos de ediÃ§Ã£o dos atributos do FuncionÃ¡rio;
+//*/
+//public void editEmployee() {
+//System.out.println("--------------------------------------------------------------------------------");
+//System.out.println("Please enter the number corresponding to your choice: ");
+//listEmployees();
+//System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
+//
+//System.out.println("1 - Name");
+//System.out.println("2 - Birthday");
+//System.out.println("3 - Phone");
+//System.out.println("4 - Salary");
+//System.out.println("5 - Employment");
+//System.out.println("Or 0 to exit");
+//	System.out.println("Enter a new name: ");
+//	System.out.println("Enter a new birthday: ");
+//	System.out.println("Enter a new phone");
+//	System.out.println("Enter a new salary");
+//	System.out.println("Enter the number corresponding to the new employment");
+//
+//}
+//
+///**
+//* Tela responsÃ¡vel pela interaÃ§Ã£o do usuÃ¡rio com o mÃ©todo de remoÃ§Ã£o de Employees;
+//*/
+//public void delEmployee() {
+//System.out.println("Select an employee to fire");
+//employeeCtrl.delEmployee(option);
+//
+	/*
 	public void addEmployee() {
 		try {
 			System.out.println("Please enter the following information");
@@ -149,86 +246,7 @@ public class EmployeeScreenI extends JFrame{
 			addEmployee();
 		}
 		
-	}	
-	private void updateData() {
-		DefaultListModel model = new DefaultListModel();
-		addEmployee();
-		for(Employee employee : employeeCtrl.getEmployees()) {
-			model.addElement(employee.getName());
-		}
-		lsEmployees.setModel(model);
-		this.repaint();
-	}
-//					delEmployee();
-//					listEmployees();
-//			employeeCtrl.mainMenu();
-//	public void addEmployee() {
-//
-//			System.out.println("Please enter the following information");
-//			
-//			System.out.println("Name: ");
-//			System.out.println("Date of birth: ");
-//			System.out.println("Phone: ");
-//			System.out.println("Salary: ");
-//			System.out.println("Please, enter the number corresponding to the chosen employment: ");
-//			employeeCtrl.listEmployments();
-//			Employment gen = employeeCtrl.findEmploymentByIndex(option);
-//			Employee generic = employeeCtrl.addEmployee(name, birthDay, phone, salary);
-//			employeeCtrl.addContract(gen, generic);
-//			
-//			System.out.println("-------------------------------------------------------------------------");
-//			System.out.println("Congratulations, you have created a new employee with the following characteristics: ");
-//	}		
-//	/**
-//	 * Tela responsÃ¡vel pela interaÃ§Ã£o do usuÃ¡rio com os mÃ©todos de ediÃ§Ã£o dos atributos do FuncionÃ¡rio;
-//	 */
-//	public void editEmployee() {
-//				System.out.println("--------------------------------------------------------------------------------");
-//				System.out.println("Please enter the number corresponding to your choice: ");
-//				listEmployees();
-//				System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
-//		
-//				System.out.println("1 - Name");
-//				System.out.println("2 - Birthday");
-//				System.out.println("3 - Phone");
-//				System.out.println("4 - Salary");
-//				System.out.println("5 - Employment");
-//				System.out.println("Or 0 to exit");
-//					System.out.println("Enter a new name: ");
-//					System.out.println("Enter a new birthday: ");
-//					System.out.println("Enter a new phone");
-//					System.out.println("Enter a new salary");
-//					System.out.println("Enter the number corresponding to the new employment");
-//		
-//	}
-//	
-//	/**
-//	 * Tela responsÃ¡vel pela interaÃ§Ã£o do usuÃ¡rio com o mÃ©todo de remoÃ§Ã£o de Employees;
-//	 */
-//	public void delEmployee() {
-//			System.out.println("Select an employee to fire");
-//			employeeCtrl.delEmployee(option);
-//			
-	private class ButtonManager implements ActionListener {
-
-		public void actionPerformed(ActionEvent e) {
-			
-			if(e.getSource().equals(btAdd)) {
-				
-				addEmployee();
-				updateData();
-			
-			}/* else if(e.getSource().equals(but)) {
-				
-				employeeCtrl.action();
-			
-			} else if(e.getSource().equals(but)) {
-				employeeCtrl.action();
-			}
-			*/
-		}
-	}
-	
+	}	*/
 	
 	
 }
