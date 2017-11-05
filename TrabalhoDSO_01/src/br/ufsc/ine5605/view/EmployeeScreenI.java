@@ -30,6 +30,7 @@ public class EmployeeScreenI extends JFrame{
 	private JPanel screen;
 	private JPanel pnAdd;
 	private JButton btSave;
+	//ok?
 	
 	/**
 	 * Construtor padrÃ£o da classe
