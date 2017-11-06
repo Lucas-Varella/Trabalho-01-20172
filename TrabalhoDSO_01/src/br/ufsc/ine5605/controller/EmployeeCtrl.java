@@ -53,6 +53,10 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	 * @param salary - double contendo o salário do Employee;
 	 * @return Employee - Retorna a instância do objeto criado;
 	 */
+	public ArrayList<Employment> getEmployments() {
+		return mainCtrl.getEmployments();
+	}
+	
 	public Employee addEmployee(String name, Date dateBirth, int phone, double salary) {
 		Employee generic = new Employee(this, getCode(), name, dateBirth, phone, salary);
 		employees.add(generic);

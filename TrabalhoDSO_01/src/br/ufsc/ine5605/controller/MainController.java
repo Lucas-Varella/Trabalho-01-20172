@@ -34,6 +34,9 @@ public class MainController {
 		accessCtrl = new AccessCtrl(this);
 		horaryCtrl = new HoraryCtrl(this);
 	}
+	public ArrayList<Employment> getEmployments() {
+		return employmentCtrl.getEmployments();
+	}
 	
 	public void showMainScreen() {
 		mainScreenCtrl.menu();

@@ -26,11 +26,16 @@ public class EmployeeScreenI extends JFrame{
 	private JButton btFSector;
 	private ButtonManager btManager;
 	private CardLayout cardLayout;
-	private JList lsEmployees;
+	private JList<String> lsEmployees;
 	private JPanel screen;
 	private JPanel pnAdd;
 	private JButton btSave;
+	private JPanel pnMain;
+	private JComboBox cbEmployments;
+	private JButton btReturn;
 	//ok?... please
+	private JButton btMainMenu;
+
 	
 	/**
 	 * Construtor padrÃ£o da classe
@@ -56,62 +61,118 @@ public class EmployeeScreenI extends JFrame{
 		setLocationRelativeTo(null);
 		setResizable(true);
 		
+		
+		
+		//Doin a lil' panel thingy
+		screen = new JPanel(new CardLayout());
+		
+		//Main panel
+		pnMain = new JPanel(new GridBagLayout());
 		//Screen label
 		lbEmpScrn = new JLabel("Please Select desired Employee to manage, or add a new one.");
 		cons.gridx = 0;
 		cons.gridy = 0;
-		container.add(lbEmpScrn, cons);
+		pnMain.add(lbEmpScrn, cons);
+						
+		
 		
 		//List of emps, now selectable(?)
 		lsEmployees = new JList();
 		lsEmployees.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		lsEmployees.setLayoutOrientation(JList.VERTICAL);
-		lsEmployees.setVisibleRowCount(-1);
-		cons.gridheight = 4;
-		cons.gridwidth = 2;
+		lsEmployees.setVisibleRowCount(10);
+		cons.gridheight = 20;
+		cons.gridwidth = 30;
 		cons.gridx = 0;
-		cons.gridy = 1;
+		cons.gridy = 4;
 		JScrollPane spListEmp = new JScrollPane(lsEmployees);
-		container.add(spListEmp, cons);
+		pnMain.add(spListEmp, cons);
 		
 		//addEmployee button
+		cons.gridheight = 2;
+		cons.gridwidth = 4;
 		btAdd = new JButton("Add new Employee");
 		cons.gridx = 0;
-		cons.gridy = 8;
-		container.add(btAdd, cons);
+		cons.gridy = 50;
 		btAdd.addActionListener(btManager);
-		
+		pnMain.add(btAdd, cons);
+						
+							
 		//edit button
-		btEdit = new JButton("Edit existing employee");
-		cons.gridx = 1;
-		cons.gridy = 1;
-		container.add(btAdd, cons);
+		btEdit = new JButton("Edit selected employee");
+		cons.gridx = 4;
+		cons.gridy = 50;
 		btEdit.addActionListener(btManager);
+		pnMain.add(btEdit, cons);
 		
-		//Doin a lil' panel thingy
-		screen = new JPanel(new CardLayout());
+		//Main Menu Button
+		btMainMenu = new JButton("Main Menu");
+		cons.gridx = 8;
+		cons.gridy = 50;
+		btMainMenu.addActionListener(btManager);
+		pnMain.add(btMainMenu, cons);
+		
+		
+		
+		screen.add(pnMain, "Employee Screen");
 		
 		//Add employee panel
 		pnAdd = new JPanel(new GridBagLayout());
-			//Text Fields
+			//Labels
+		
+			//Text Fields, labels
+		cons.gridheight = 2;
+		cons.gridwidth = 4;
 		cons.gridx = 0;
 		cons.gridy = 0;
-		pnAdd.add(new JTextField("Name", 10), cons);
-		cons.gridx = 0;
-		cons.gridy = 1;
-		pnAdd.add(new JTextField("Birthday", 10), cons);
-		cons.gridx = 0;
-		cons.gridy = 2;
-		pnAdd.add(new JTextField("Phone", 10), cons);
-		cons.gridx = 0;
-		cons.gridy = 3;
-		pnAdd.add(new JTextField("Salary", 10), cons);
-			//Save button
-		btSave = new JButton("Save");
+		pnAdd.add(new JLabel("Employee's Name:"), cons);
+		cons.gridx = 4;
+		cons.gridy = 0;
+		pnAdd.add(new JTextField(10), cons);
 		cons.gridx = 0;
 		cons.gridy = 4;
+		pnAdd.add(new JLabel("Employee's Birthday: "), cons);
+		cons.gridx = 4;
+		cons.gridy = 4;
+		pnAdd.add(new JTextField(10), cons);
+		cons.gridx = 0;
+		cons.gridy = 8;
+		pnAdd.add(new JLabel("Employee's Phone:"), cons);
+		cons.gridx = 4;
+		cons.gridy = 8;
+		pnAdd.add(new JTextField(10), cons);
+		cons.gridx = 0;
+		cons.gridy = 12;
+		pnAdd.add(new JLabel("Employee's Salary:"), cons);
+		cons.gridx = 4;
+		cons.gridy = 12;
+		pnAdd.add(new JTextField(10), cons);
+		
+		//combo employments
+		cons.gridx = 0;
+		cons.gridy = 16;
+		pnAdd.add(new JLabel("Employee's Employment: "), cons);
+		cbEmployments = new JComboBox(stringListCb());
+		cons.gridx = 4;
+		cons.gridy = 16;
+		cons.insets = new Insets(0, 0, 0,0);
+		cbEmployments.addActionListener(btManager);
+		pnAdd.add(cbEmployments, cons);
+		
+			//Save button
+		btSave = new JButton("Save");
+		cons.gridx = 4;
+		cons.gridy = 20;
 		btSave.addActionListener(btManager);
 		pnAdd.add(btSave, cons);
+		
+			//Return button
+		btReturn = new JButton("Return");
+		cons.gridx = 0;
+		cons.gridy = 20;
+		btReturn.addActionListener(btManager);
+		pnAdd.add(btReturn, cons);
+		
 		
 		screen.add(pnAdd, "Add Employee");
 		container.add(screen);
@@ -130,23 +191,60 @@ public class EmployeeScreenI extends JFrame{
 				
 				cardLayout.show(screen, "Add Employee");
 			
-			}/* else if(e.getSource().equals(but)) {
+			} else if(e.getSource().equals(btReturn)) {
 				
-				employeeCtrl.action();
+				cardLayout.show(screen, "Employee Screen");
 			
-			} else if(e.getSource().equals(but)) {
+			}else if(e.getSource().equals(btMainMenu)) {
+				
+				setVisible(false);
+				
+			}
+			/* else if(e.getSource().equals(but)) {
 				employeeCtrl.action();
 			}
 			*/
 		}
 	}
 	private void updateData() {
-		DefaultListModel model = new DefaultListModel();
-		for(Employee employee : employeeCtrl.getEmployees()) {
-			model.addElement(employee.getName());
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		if(employeeCtrl.getEmployees() != null) {
+
+			try {
+				for(Employee employee : employeeCtrl.getEmployees()) {
+					model.addElement(employee.getName());
+				}
+				this.repaint();
+			}finally {
+				this.repaint();
+			}
+		}else {
+			model.addElement("Please add employees.");
 		}
+		model.addElement("Please add employees.");
 		lsEmployees.setModel(model);
 		this.repaint();
+	}
+	/**
+	 * 
+	 * @return returns a String list, containing the names of all available employments
+	 */
+	private String[] stringListCb() {
+		try {
+			
+		
+		String[] naosei = new String[employeeCtrl.getEmployments().size()];
+		int i = 0;
+		for(Employment emp : employeeCtrl.getEmployments()) {
+			naosei[i] = emp.getName();
+			i++;
+		}
+		this.repaint();
+		return naosei;
+		}finally {
+			final String[] error = {"Please add Employments first."};
+			return error;
+		}
 	}
 	
 //	delEmployee();
