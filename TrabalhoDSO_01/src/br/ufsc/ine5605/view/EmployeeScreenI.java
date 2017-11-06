@@ -3,6 +3,8 @@ package br.ufsc.ine5605.view;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.sql.Date; 
 import java.text.ParseException;
 import java.util.Scanner;
@@ -33,9 +35,13 @@ public class EmployeeScreenI extends JFrame{
 	private JPanel pnMain;
 	private JComboBox cbEmployments;
 	private JButton btReturn;
-	//ok?... please
 	private JButton btMainMenu;
-
+	private JTextField tfName;
+	private JTextField tfBday;
+	private JTextField tfPhone;
+	private JTextField tfSalary;
+	private JButton btError;
+	private JButton btOk;
 	
 	/**
 	 * Construtor padrÃ£o da classe
@@ -128,25 +134,29 @@ public class EmployeeScreenI extends JFrame{
 		pnAdd.add(new JLabel("Employee's Name:"), cons);
 		cons.gridx = 4;
 		cons.gridy = 0;
-		pnAdd.add(new JTextField(10), cons);
+		tfName = new JTextField(10);
+		pnAdd.add(tfName, cons);
 		cons.gridx = 0;
 		cons.gridy = 4;
 		pnAdd.add(new JLabel("Employee's Birthday: "), cons);
 		cons.gridx = 4;
 		cons.gridy = 4;
-		pnAdd.add(new JTextField(10), cons);
+		tfBday = new JTextField(10);
+		pnAdd.add(tfBday, cons);
 		cons.gridx = 0;
 		cons.gridy = 8;
 		pnAdd.add(new JLabel("Employee's Phone:"), cons);
 		cons.gridx = 4;
 		cons.gridy = 8;
-		pnAdd.add(new JTextField(10), cons);
+		tfPhone = new JTextField(10);
+		pnAdd.add(tfPhone, cons);
 		cons.gridx = 0;
 		cons.gridy = 12;
 		pnAdd.add(new JLabel("Employee's Salary:"), cons);
 		cons.gridx = 4;
 		cons.gridy = 12;
-		pnAdd.add(new JTextField(10), cons);
+		tfSalary = new JTextField(10);
+		pnAdd.add(tfSalary, cons);
 		
 		//combo employments
 		cons.gridx = 0;
@@ -173,6 +183,19 @@ public class EmployeeScreenI extends JFrame{
 		btReturn.addActionListener(btManager);
 		pnAdd.add(btReturn, cons);
 		
+		//Save error panel
+		JPanel pnError = new JPanel(new GridBagLayout());
+		JLabel lbError = new JLabel("Please don't.");
+		cons.gridx = 0;
+		cons.gridy = 0;
+		pnError.add(lbError, cons);
+		btError = new JButton("OK... sorry");
+		btError.addActionListener(btManager);
+		cons.gridx = 0;
+		cons.gridy = 4;
+		pnError.add(btError, cons);
+		screen.add(pnError, "error");
+		
 		
 		screen.add(pnAdd, "Add Employee");
 		container.add(screen);
@@ -191,7 +214,7 @@ public class EmployeeScreenI extends JFrame{
 				
 				cardLayout.show(screen, "Add Employee");
 			
-			} else if(e.getSource().equals(btReturn)) {
+			} else if(e.getSource().equals(btReturn) || e.getSource().equals(btError) || e.getSource().equals(btOk)) {
 				
 				cardLayout.show(screen, "Employee Screen");
 			
@@ -199,11 +222,70 @@ public class EmployeeScreenI extends JFrame{
 				
 				setVisible(false);
 				
+			}else if(e.getSource().equals(btSave)) {
+				saveConditions();
+			}else if(e.getSource().equals(btError)) {
+				cardLayout.show(screen, "Employee Screen");
 			}
 			/* else if(e.getSource().equals(but)) {
 				employeeCtrl.action();
 			}
 			*/
+		}
+		
+		private void saveConditions() {
+			try {
+				String name = tfName.getText();
+				Date bday = employeeCtrl.strToDate(tfBday.getText());
+				int phone = Integer.parseInt(tfPhone.getText());
+				int salary = Integer.parseInt(tfSalary.getText());
+				if(cbEmployments.getSelectedItem().equals("Please add Employments first.")) {
+					cardLayout.show(screen, "error");
+				}else {
+					Employment employment = findEmploymentByName(cbEmployments.getSelectedItem());
+					Employee employee = employeeCtrl.addEmployee(name, bday, phone, salary);
+					try {
+						employeeCtrl.addContract(employment, employee);
+					} catch(Exception e) {
+						System.out.println(e.getMessage());
+					}
+					JPanel added = new JPanel(new GridBagLayout());
+					GridBagConstraints cons = new GridBagConstraints();
+					cons.gridx = 0;
+					cons.gridy = 0;
+					added.add(new JLabel("Employee's Name:     " + name), cons);
+					cons.gridx = 0;
+					cons.gridy = 4;
+					added.add(new JLabel("Employee's Birthday:     " + bday), cons);
+					cons.gridx = 0;
+					cons.gridy = 8;
+					added.add(new JLabel("Employee's Phone:     " + phone), cons);
+					cons.gridx = 0;
+					cons.gridy = 12;
+					added.add(new JLabel("Employee's Salary:     " + salary), cons);
+					cons.gridx = 0;
+					cons.gridy = 16;
+					added.add(new JLabel("Employee's Employment:     " +  cbEmployments.getSelectedItem()), cons);
+					btOk = new JButton("Return");
+					cons.gridx = 0;
+					cons.gridy = 20;
+					btOk.addActionListener(btManager);
+					added.add(btOk, cons);
+					screen.add(added, "added");
+					cardLayout.show(screen, "added");
+				}
+				
+			} catch (ParseException e1) {
+				
+				cardLayout.show(screen, "error");
+				
+				
+			}
+			
+		}
+
+		private Employment findEmploymentByName(Object item) {
+			return employeeCtrl.findEmploymentByIndex(employeeCtrl.getEmployments().indexOf((String)item));
 		}
 	}
 	private void updateData() {
@@ -220,6 +302,7 @@ public class EmployeeScreenI extends JFrame{
 			}
 		}else {
 			model.addElement("Please add employees.");
+			this.repaint();
 		}
 		model.addElement("Please add employees.");
 		lsEmployees.setModel(model);

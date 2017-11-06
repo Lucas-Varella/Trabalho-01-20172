@@ -148,7 +148,7 @@ public class AccessScreen extends JFrame {
 		
 	}
 	
-}
+
 	
 	/*
 	/**
@@ -183,7 +183,7 @@ public class AccessScreen extends JFrame {
 	 * Lista os acessos negados previamente filtrados por um número de matrícula;
 	 * @param a - Recebe a instância de Access que deverá ser exibida ao usuário;
 	 */
-	/*public void listDeniedAccessByNumRegistration(Access a) {
+	public void listDeniedAccessByNumRegistration(Access a) {
 		try {
 			System.out.println("______________________________________________________");
 			System.out.println("Number of Registration - " + a.getNumRegistration());
@@ -200,7 +200,7 @@ public class AccessScreen extends JFrame {
 	 * Lista os acessos negados previamente filtrados por um motivo de negação de acesso;
 	 * @param a - Recebe a instância de Access que deverá ser exibida ao usuário;
 	 */
-	/*public void listDeniedAccessByReason(Access a) {
+	public void listDeniedAccessByReason(Access a) {
 		try {
 			System.out.println("______________________________________________________");
 			System.out.println("Number of Registration - " + a.getNumRegistration());
@@ -213,4 +213,4 @@ public class AccessScreen extends JFrame {
 		
 	}
 	
-}*/
+}
