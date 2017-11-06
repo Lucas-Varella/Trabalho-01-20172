@@ -169,13 +169,18 @@ public class EmploymentScreenI extends JFrame {
 			
 			if(e.getSource().equals(btRegister)) {
 				cardLayout.show(pSetup, "pRegister");
+				repaint();
 			
 			} else if (e.getSource().equals(btOk)) {
+				
 				ctrl.addEmployment(tfNome.getText(), ctrl.stringToPrivilege(cbPrivileges.getSelectedItem().toString()));
 				JOptionPane.showMessageDialog(null, "Employment Created Successfully!");
 				cardLayout.show(pSetup, "pMain");
+				repaint();
+			
 			} else if (e.getSource().equals(btCancel)) {
 				cardLayout.show(pSetup, "pMain");
+				repaint();
 			}
 		}	
 	}
