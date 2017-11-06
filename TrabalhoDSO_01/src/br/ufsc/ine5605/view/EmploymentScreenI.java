@@ -154,13 +154,14 @@ public class EmploymentScreenI extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			
-
+			
 			
 			if(e.getSource().equals(btRegister)) {
 				cardLayout.show(pSetup, "pRegister");
 			
 			} else if (e.getSource().equals(btOk)) {
-				ctrl.addEmployment(tfNome.getText(), ctrl.stringToPrivilege(cbPrivileges.getSelectedItem().toString())); 
+				ctrl.addEmployment(tfNome.getText(), ctrl.stringToPrivilege(cbPrivileges.getSelectedItem().toString()));
+				cardLayout.show(pSetup, "pMain");
 			}
 		}	
 	}
