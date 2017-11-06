@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import br.ufsc.ine5605.controller.EmploymentCtrl;
+import br.ufsc.ine5605.model.Privileges;
 
 public class EmploymentScreenI extends JFrame {
 	
@@ -35,6 +36,7 @@ public class EmploymentScreenI extends JFrame {
 	private JPanel pRegister;
 	private CardLayout cardLayout;
 	private JComboBox cbPrivileges;
+	private JButton btOk;
 	
 	public EmploymentScreenI(EmploymentCtrl ctrl) {
 		super("Employment Sector");
@@ -101,24 +103,30 @@ public class EmploymentScreenI extends JFrame {
 		
 		//Text field para o nome do cargo
 		tfNome = new JTextField();
-		tfNome.setText("Nome do Cargo");
-		cons.fill = GridBagConstraints.CENTER; 
+		tfNome.setText("  Nome do Cargo  ");
+		cons.fill = GridBagConstraints.BOTH; 
 		cons.gridx = 0;  
-		cons.gridy = 0;
-		cons.gridwidth = 2;
-		cons.insets = new Insets(10,10,10,10);
+		cons.gridy = 1;
 		pRegister.add(tfNome, cons);
 		
 		// Combo Box de Privilegios
 		String[] privileges = { "Full", "Restricted", "No"};
 		cbPrivileges = new JComboBox(privileges);
-		cons.fill = GridBagConstraints.CENTER; 
+		cons.fill = GridBagConstraints.BOTH; 
 		cons.gridx = 3;  
-		cons.gridy = 0;
-		cons.insets = new Insets(10,10,10,10);
+		cons.gridy = 1;
 		cbPrivileges.addActionListener(btManager);
 		pRegister.add(cbPrivileges, cons);
 		
+		// Botao confirma
+		btOk = new JButton();
+		btOk.setText("OK");
+		cons.fill = GridBagConstraints.BOTH; 
+		cons.gridx = 2;  
+        cons.gridy = 4;
+        cons.gridwidth = 4;
+        btRegister.addActionListener(btManager);
+        pRegister.add(btOk, cons);
 		
 		pSetup.add(pRegister, "pRegister");
 		// Fim do Painer de registro
@@ -146,10 +154,15 @@ public class EmploymentScreenI extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 			
+
+			
 			if(e.getSource().equals(btRegister)) {
 				cardLayout.show(pSetup, "pRegister");
+			
+			} else if (e.getSource().equals(btOk)) {
+				ctrl.addEmployment(tfNome.getText(), ctrl.stringToPrivilege(cbPrivileges.getSelectedItem().toString())); 
 			}
-		}
-		
+		}	
 	}
+
 }

@@ -180,6 +180,22 @@ public class EmploymentCtrl implements Screen2{
 		}
 	}
 
+	public Privileges stringToPrivilege(String txt) {
+		
+		Privileges pConvertido = null;
+		
+		if (txt.equals("Full")) {
+			pConvertido = Privileges.Full;
+		} else if (txt.equals("Restricted")) {
+			pConvertido = Privileges.Restricted;
+		} else if (txt.equals("No")) {
+			pConvertido = Privileges.No;
+		}
+		
+		return pConvertido;
+	
+	}
+	
 //	public double conversionStringToDouble(String data)
 //			throws NumberFormatException {
 //		try {
