@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import br.ufsc.ine5605.model.Employee;
+import br.ufsc.ine5605.model.EmployeeDAO;
 import br.ufsc.ine5605.model.Employment;
 import br.ufsc.ine5605.model.Contract;
 import br.ufsc.ine5605.model.Horary;
@@ -27,7 +28,7 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	private MainController mainCtrl;
 	private Employee employee;
 	private EmployeeScreenI employeeScreen;
-	private ArrayList<Employee> employees;
+	private EmployeeDAO empDAO = new EmployeeDAO();
 	private static int code = 17200000;
 	
 	/**
@@ -37,7 +38,6 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	public EmployeeCtrl(MainController mainCtrl) {
 		this.mainCtrl = mainCtrl;
 		employeeScreen = new EmployeeScreenI(this);
-		employees = new ArrayList<Employee>();
 	}
 	
 	public void menu() {
@@ -59,7 +59,7 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	
 	public Employee addEmployee(String name, Date dateBirth, int phone, double salary) {
 		Employee generic = new Employee(this, getCode(), name, dateBirth, phone, salary);
-		employees.add(generic);
+		empDAO.put(generic);
 		setCode(getCode() + 1);
 		return generic;
 	}
@@ -83,7 +83,7 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	 * @param index - int do index do objeto a ser removido;
 	 */
 	public void delEmployee(int index) {
-		employees.remove(index);
+		empDAO.remove((Integer)index);
 	}
 	
 	/**
@@ -91,12 +91,12 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	 * @param e - Instância do objeto a ser removido;
 	 */
 	public void delEmployee(Employee e) {
-		employees.remove(e);
+		empDAO.remove((Integer)e.getNumRegistration());
 		
 	}
 	
 	public ArrayList<Employee> getEmployees() {
-		return employees;
+		return new ArrayList<Employee>(empDAO.getList());
 	}
 	
 	/**
@@ -106,8 +106,8 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	 * for incorreto(tentar acessar um indíce inexistente);
 	 */
 	public Employee getEmployee(int index) {
-		if(employees.size() >= index && index > -1) {
-			return employees.get(index);
+		if(getEmployees().size() >= index && index > -1) {
+			return getEmployees().get(index);
 		}
 		return null;
 	}
@@ -144,7 +144,7 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	 * @return boolean - Retorna true se existe algum Employee com o mesmo número de registro, false se não existe;
 	 */
 	public boolean validNumRegistration(int numRegistration) {
-		for(Employee e : employees) {
+		for(Employee e : getEmployees()) {
 			if(e.getNumRegistration() == numRegistration) {
 				return true;
 			}
@@ -178,7 +178,7 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	 * @return
 	 */
 	public Privileges getPrivilegeByNumRegistration(int numRegistration) {
-		for(Employee e : employees) {
+		for(Employee e : getEmployees()) {
 			if(e.getNumRegistration() == numRegistration) {
 				return e.getEmployment().getEmployment().getPrivilege();
 			}
@@ -192,7 +192,7 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	 * @return
 	 */
 	public ArrayList<Horary> getHoraryAccess(int numRegistration) {
-		for(Employee e: employees) {
+		for(Employee e: getEmployees()) {
 			if(e.getNumRegistration() == numRegistration) {
 				EmploymentRestrictAccess er= (EmploymentRestrictAccess) e.getEmployment().getEmployment();
 				return er.getHorarys();

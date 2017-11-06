@@ -229,7 +229,7 @@ public class EmployeeScreenI extends JFrame{
 			}else if(e.getSource().equals(btError)) {
 				cardLayout.show(screen, "Employee Screen");
 			}
-			/* else if(e.getSource().equals(but)) {
+			/* else if(e.getSource().equals(but)) {s
 				employeeCtrl.action();
 			}
 			*/
