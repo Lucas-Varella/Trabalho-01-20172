@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -163,6 +164,7 @@ public class EmploymentScreenI extends JFrame {
 			
 			} else if (e.getSource().equals(btOk)) {
 				ctrl.addEmployment(tfNome.getText(), ctrl.stringToPrivilege(cbPrivileges.getSelectedItem().toString()));
+				JOptionPane.showMessageDialog(null, "Employment Created Successfully!");
 				cardLayout.show(pSetup, "pMain");
 			}
 		}	
