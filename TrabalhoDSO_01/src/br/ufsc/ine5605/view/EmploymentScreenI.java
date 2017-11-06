@@ -104,19 +104,26 @@ public class EmploymentScreenI extends JFrame {
 		pRegister = new JPanel(new GridBagLayout());
 		
 		//Text field para o nome do cargo
-		tfNome = new JTextField();
-		tfNome.setText("  Nome do Cargo  ");
+		JLabel lbNomeCargo = new JLabel("Employment's name:     ");
+		cons.gridy = 4;
+		cons.gridx = 0;
+		pRegister.add(lbNomeCargo, cons);
+		tfNome = new JTextField(10);
 		cons.fill = GridBagConstraints.BOTH; 
-		cons.gridx = 0;  
-		cons.gridy = 1;
+		cons.gridx = 4;  
+		cons.gridy = 4;
 		pRegister.add(tfNome, cons);
 		
 		// Combo Box de Privilegios
+		JLabel lbPrivileges = new JLabel("Employment's privilege:     ");
+		cons.gridx = 0;  
+		cons.gridy = 8;
+		pRegister.add(lbPrivileges, cons);
 		String[] privileges = { "Full", "Restricted", "No"};
 		cbPrivileges = new JComboBox(privileges);
 		cons.fill = GridBagConstraints.BOTH; 
-		cons.gridx = 3;  
-		cons.gridy = 1;
+		cons.gridx = 4;  
+		cons.gridy = 8;
 		cbPrivileges.addActionListener(btManager);
 		pRegister.add(cbPrivileges, cons);
 		
@@ -124,8 +131,8 @@ public class EmploymentScreenI extends JFrame {
 		btOk = new JButton();
 		btOk.setText("OK");
 		cons.fill = GridBagConstraints.BOTH; 
-		cons.gridx = 2;  
-        cons.gridy = 4;
+		cons.gridx = 4;  
+        cons.gridy = 12;
         cons.gridwidth = 4;
         btOk.addActionListener(btManager);
         pRegister.add(btOk, cons);
@@ -134,8 +141,8 @@ public class EmploymentScreenI extends JFrame {
         btCancel = new JButton();
         btCancel.setText("Cancel");
 		cons.fill = GridBagConstraints.BOTH; 
-		cons.gridx = 2;  
-        cons.gridy = 6;
+		cons.gridx = 0;  
+        cons.gridy = 12;
         cons.gridwidth = 4;
         btCancel.addActionListener(btManager);
         pRegister.add(btCancel, cons);
@@ -172,7 +179,7 @@ public class EmploymentScreenI extends JFrame {
 			
 			} else if (e.getSource().equals(btOk)) {
 				ctrl.addEmployment(tfNome.getText(), ctrl.stringToPrivilege(cbPrivileges.getSelectedItem().toString()));
-				JOptionPane.showMessageDialog(null, "Employment Created Successfully!");
+				JOptionPane.showMessageDialog(null, "Employment '" + tfNome.getText() + "' Created Successfully!");
 				cardLayout.show(pSetup, "pMain");
 			} else if (e.getSource().equals(btCancel)) {
 				cardLayout.show(pSetup, "pMain");
