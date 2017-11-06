@@ -38,6 +38,7 @@ public class EmploymentScreenI extends JFrame {
 	private CardLayout cardLayout;
 	private JComboBox cbPrivileges;
 	private JButton btOk;
+	private JButton btCancel;
 	
 	public EmploymentScreenI(EmploymentCtrl ctrl) {
 		super("Employment Sector");
@@ -130,7 +131,14 @@ public class EmploymentScreenI extends JFrame {
         pRegister.add(btOk, cons);
         
         // Botão Cancela
-        
+        btCancel = new JButton();
+        btCancel.setText("Cancel");
+		cons.fill = GridBagConstraints.BOTH; 
+		cons.gridx = 2;  
+        cons.gridy = 6;
+        cons.gridwidth = 4;
+        btCancel.addActionListener(btManager);
+        pRegister.add(btCancel, cons);
 		
         
 		pSetup.add(pRegister, "pRegister");
@@ -165,6 +173,8 @@ public class EmploymentScreenI extends JFrame {
 			} else if (e.getSource().equals(btOk)) {
 				ctrl.addEmployment(tfNome.getText(), ctrl.stringToPrivilege(cbPrivileges.getSelectedItem().toString()));
 				JOptionPane.showMessageDialog(null, "Employment Created Successfully!");
+				cardLayout.show(pSetup, "pMain");
+			} else if (e.getSource().equals(btCancel)) {
 				cardLayout.show(pSetup, "pMain");
 			}
 		}	
