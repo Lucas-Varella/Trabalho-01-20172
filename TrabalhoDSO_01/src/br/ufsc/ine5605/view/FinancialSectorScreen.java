@@ -46,8 +46,8 @@ public class FinancialSectorScreen extends JFrame {
 	private JButton btAllDeniedAccess;
 	private JButton btDeniedAccessByNumber;
 	private JButton btDeniedAccessByReason;
-	private JButton retur;
 	private JButton enter;
+	private JButton retur;
 	private ButtonManager btManager;
 	private CardLayout cardLayout;
 	private JPanel cards;
@@ -84,7 +84,6 @@ public class FinancialSectorScreen extends JFrame {
         btDeniedAccessByNumber = new JButton("Denied Access By Number Registration");
         btDeniedAccessByReason = new JButton("Denied Access By Reason");
         enter = new JButton("Enter");
-        retur = new JButton("Return");
         
         //Add action listeners;
         btFinancialSector.addActionListener(btManager);
@@ -93,7 +92,7 @@ public class FinancialSectorScreen extends JFrame {
         btDeniedAccessByNumber.addActionListener(btManager);
         btDeniedAccessByReason.addActionListener(btManager);
         enter.addActionListener(btManager);
-        retur.addActionListener(btManager);
+        
         
         // Instantiating JLabel;
         text = new JLabel("Please enter the required information:");
@@ -125,10 +124,11 @@ public class FinancialSectorScreen extends JFrame {
         cons.gridy = 2;
         panel2.add(new JTextField("Time of access", 10), cons);
         cons.gridx = 0;
-        cons.gridy = 4;
+        cons.gridy = 3;
         panel2.add(enter, cons);
+        retur = new JButton("Return");
         cons.gridx = 0;
-        cons.gridy = 5;
+        cons.gridy = 4;
         panel2.add(retur, cons);
         cards.add(panel2, "panel2");
         
@@ -144,6 +144,7 @@ public class FinancialSectorScreen extends JFrame {
         cons.gridx = 0;
         cons.gridy = 3;
         panel3.add(btDeniedAccessByReason, cons);
+        retur = new JButton("Return");
         cons.gridx = 0;
         cons.gridy = 4;
         panel3.add(retur, cons);
@@ -157,6 +158,7 @@ public class FinancialSectorScreen extends JFrame {
         cons.gridx = 0;
         cons.gridy = 1;
         panel4.add(new JTextField("Number of Registration", 15), cons);
+        retur = new JButton("Return");
         cons.gridx = 0;
         cons.gridy = 2;  
         panel4.add(retur, cons);
@@ -167,11 +169,13 @@ public class FinancialSectorScreen extends JFrame {
         cons.gridx = 0;
         cons.gridy = 0;
         panel5.add(text, cons);
+        retur = new JButton("Return");
         cons.gridx = 0;
         cons.gridy = 1;
         panel5.add(retur, cons);
         cards.add(panel5, "panel5");
         
+        retur.addActionListener(btManager);
         container.add(cards);
         cardLayout = (CardLayout) cards.getLayout();
     }

@@ -19,6 +19,7 @@ public class AccessCtrl {
 	private MainController mainCtrl;
 	private AccessScreen accessScreen;
 	private ArrayList<Access> deniedAccess;
+	private ArrayList<Message> message;
 	
 	/**
 	 * Construtor padrão da classe;
@@ -29,6 +30,7 @@ public class AccessCtrl {
 		this.mainCtrl = mainController;
 		this.accessScreen = new AccessScreen(this);
 		deniedAccess = new ArrayList<Access>();
+		message = new ArrayList();
 	}
 	
 	/**
@@ -45,10 +47,45 @@ public class AccessCtrl {
 	
 	public void listAllDeniedAccess() throws IndexOutOfBoundsException {
 		if(deniedAccess.size() > 0) {
-			accessScreen.listAllDeniedAccess(deniedAccess);
+			for(Access a: deniedAccess) {
+				message.add(new Message(a.getNumRegistration(), a.getDate(), a.getHour(), a.getReason()));
+			}
+			accessScreen.listAllDeniedAccess(message);
 		}else {
 			throw new IndexOutOfBoundsException();
 		}
+	}
+	
+	private class Message {
+		private int numRegistration;
+		Date date;
+		Date hour;
+		Reasons reason;
+		
+		Message(int numRegistration, Date date, Date hour, Reasons reason) {
+			this.numRegistration = numRegistration;
+			this.date = date;
+			this.hour = hour;
+			this.reason = reason;
+		}
+
+		int getNumRegistration() {
+			return numRegistration;
+		}
+		
+		Date getDate() {
+			return date;
+		}
+		
+		Date getHour() {
+			return hour;
+		}
+		
+		Reasons getReason() {
+			return reason;
+		}
+
+		
 	}
 	
 	public void listDeniedAccessByNumRegistration(int numRegistration) throws IndexOutOfBoundsException {
