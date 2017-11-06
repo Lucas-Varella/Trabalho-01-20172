@@ -125,11 +125,15 @@ public class EmploymentScreenI extends JFrame {
 		cons.gridx = 2;  
         cons.gridy = 4;
         cons.gridwidth = 4;
-        btRegister.addActionListener(btManager);
+        btOk.addActionListener(btManager);
         pRegister.add(btOk, cons);
+        
+        // Botão Cancela
+        
 		
+        
 		pSetup.add(pRegister, "pRegister");
-		// Fim do Painer de registro
+		// Fim do Painel de registro
 		
 		
 		container.add(pSetup, cons);
@@ -153,8 +157,6 @@ public class EmploymentScreenI extends JFrame {
 	private class ButtonManager implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			
-			
 			
 			if(e.getSource().equals(btRegister)) {
 				cardLayout.show(pSetup, "pRegister");
