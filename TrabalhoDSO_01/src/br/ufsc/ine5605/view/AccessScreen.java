@@ -45,7 +45,7 @@ public class AccessScreen extends JFrame {
 	public AccessScreen(AccessCtrl accessCtrl) {
 		this.accessCtrl = accessCtrl;
 		btManager = new ButtonManager();
-		//initComponents();
+		initComponents();
 	}
 	
 	private void initComponents() {
@@ -112,17 +112,16 @@ public class AccessScreen extends JFrame {
         panel3 = new JPanel(new GridBagLayout());
         cons.gridx = 0;
         cons.gridy = 1;
-        panel3.add(btAllDeniedAccess, cons);
+        panel3.add(text1, cons);
         cons.gridx = 0;
         cons.gridy = 2;
-        panel3.add(btDeniedAccessByNumber, cons);
+        panel3.add(text2, cons);
         cons.gridx = 0;
         cons.gridy = 3;
-        panel3.add(btDeniedAccessByReason, cons);
-        retur = new JButton("Return");
+        panel3.add(text3, cons);
         cons.gridx = 0;
         cons.gridy = 4;
-        panel3.add(retur, cons);
+        panel3.add(text4, cons);
         cards.add(panel3, "panel3");
         
         // Config CardLayout
@@ -134,6 +133,10 @@ public class AccessScreen extends JFrame {
 		
 		
 		
+	}
+	
+	public void show(String panel, ArrayList<MessageAccess> message) {
+		cardLayout.show(cards, panel);
 	}
 	
 	private class ButtonManager implements ActionListener {

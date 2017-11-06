@@ -9,6 +9,7 @@ import java.util.Date;
 import br.ufsc.ine5605.model.Access;
 import br.ufsc.ine5605.model.Reasons;
 import br.ufsc.ine5605.view.AccessScreen;
+import br.ufsc.ine5605.view.MessageAccess;
 
 /**
  * Classe responsável pela comunicação das classes Access e AccessScreen entre si e com as outras classes;
@@ -19,7 +20,7 @@ public class AccessCtrl {
 	private MainController mainCtrl;
 	private AccessScreen accessScreen;
 	private ArrayList<Access> deniedAccess;
-	private ArrayList<Message> message;
+	private ArrayList<MessageAccess> message;
 	
 	/**
 	 * Construtor padrão da classe;
@@ -48,44 +49,16 @@ public class AccessCtrl {
 	public void listAllDeniedAccess() throws IndexOutOfBoundsException {
 		if(deniedAccess.size() > 0) {
 			for(Access a: deniedAccess) {
-				message.add(new Message(a.getNumRegistration(), a.getDate(), a.getHour(), a.getReason()));
+				message.add(new MessageAccess(a.getNumRegistration(), a.getDate(), a.getHour(), a.getReason()));
 			}
-			accessScreen.listAllDeniedAccess(message);
+			accessScreen.show("panel1", message);
 		}else {
 			throw new IndexOutOfBoundsException();
 		}
 	}
 	
-	private class Message {
-		private int numRegistration;
-		Date date;
-		Date hour;
-		Reasons reason;
-		
-		Message(int numRegistration, Date date, Date hour, Reasons reason) {
-			this.numRegistration = numRegistration;
-			this.date = date;
-			this.hour = hour;
-			this.reason = reason;
-		}
-
-		int getNumRegistration() {
-			return numRegistration;
-		}
-		
-		Date getDate() {
-			return date;
-		}
-		
-		Date getHour() {
-			return hour;
-		}
-		
-		Reasons getReason() {
-			return reason;
-		}
-
-		
+	public ArrayList<MessageAccess> getMessage() {
+		return message;
 	}
 	
 	public void listDeniedAccessByNumRegistration(int numRegistration) throws IndexOutOfBoundsException {
