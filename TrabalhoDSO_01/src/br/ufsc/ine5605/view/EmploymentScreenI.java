@@ -41,6 +41,10 @@ public class EmploymentScreenI extends JFrame {
 	private JButton btOk;
 	private JButton btCancel;
 	private JButton btDelete;
+	private JButton btMainMenu;
+	private JTable tbEmploymentsToDelete;
+	private JScrollPane spListaDel;
+	private JButton btDelCancel;
 	
 	public EmploymentScreenI(EmploymentCtrl ctrl) {
 		super("Employment Sector");
@@ -69,20 +73,20 @@ public class EmploymentScreenI extends JFrame {
 		//Guide Label 
 		lbGuide = new JLabel();
 		lbGuide.setText("Select an Employmet to edit it");
-		cons.fill = GridBagConstraints.CENTER; 
-		cons.gridx = 3;  
+		cons.fill = GridBagConstraints.BOTH; 
+		cons.gridx = 2;  
 		cons.gridy = 0;
 		pMain.add(lbGuide, cons);
 		
 		
 		// JTable de Employments
 		tbEmployments = new JTable();
-		tbEmployments.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		tbEmployments.setPreferredScrollableViewportSize(new Dimension(500, 150));
 		tbEmployments.setFillsViewportHeight(true);
-		cons.fill = GridBagConstraints.BOTH; 
+		cons.fill = GridBagConstraints.HORIZONTAL; 
 		cons.gridx = 0;  
 		cons.gridy = 2;
-		cons.gridwidth = 4;
+		cons.gridwidth = 6;
 		cons.gridheight = 2;
 		spLista = new JScrollPane(tbEmployments);
 		pMain.add(spLista, cons);
@@ -90,21 +94,30 @@ public class EmploymentScreenI extends JFrame {
 		// Register Button
 		btRegister = new JButton();
 		btRegister.setText("Register new Employment");
-		cons.fill = GridBagConstraints.CENTER; 
-		cons.gridx = 2;  
+		cons.fill = GridBagConstraints.HORIZONTAL; 
+		cons.gridx = 0;  
         cons.gridy = 4;
+        cons.gridwidth = 2;
         btRegister.addActionListener(btManager);
         pMain.add(btRegister, cons);
         
         //delete button
         btDelete = new JButton();
         btDelete.setText("Delete Employment");
-		cons.fill = GridBagConstraints.CENTER; 
-		cons.gridx = 0;  
+		cons.fill = GridBagConstraints.HORIZONTAL; 
+		cons.gridx = 2;  
         cons.gridy = 4;
+        cons.gridwidth = 2;
         btDelete.addActionListener(btManager);
         pMain.add(btDelete, cons);
 		
+        //Back to Main Menu Button
+        btMainMenu = new JButton("Back to Main Menu");
+        cons.fill = GridBagConstraints.HORIZONTAL; 
+        cons.gridx = 4;
+		cons.gridy = 4;
+		btMainMenu.addActionListener(btManager);
+		pMain.add(btMainMenu, cons);
 		
 		pSetup.add(pMain, "pMain");
 		// Fim do Painel Principal
@@ -161,9 +174,34 @@ public class EmploymentScreenI extends JFrame {
 		pSetup.add(pRegister, "pRegister");
 		// Fim do Painel de registro
 		
+		//Inicio Painel Deletar
 		pDelete = new JPanel(new GridBagLayout());
 		
+		//Lista de Empregos
+		tbEmploymentsToDelete = new JTable();
+		tbEmploymentsToDelete.setPreferredScrollableViewportSize(new Dimension(500, 150));
+		tbEmploymentsToDelete.setFillsViewportHeight(true);
+		cons.fill = GridBagConstraints.HORIZONTAL; 
+		cons.gridx = 0;  
+		cons.gridy = 2;
+		cons.gridwidth = 6;
+		cons.gridheight = 2;
+		spListaDel = new JScrollPane(tbEmploymentsToDelete);
+		pDelete.add(spListaDel, cons);
 		
+		//Botao Cancel de Delete
+		btDelCancel = new JButton();
+		btDelCancel.setText("Cancel");
+		cons.fill = GridBagConstraints.BOTH; 
+		cons.gridx = 2;  
+        cons.gridy = 4;
+        cons.gridwidth = 4;
+        btDelCancel.addActionListener(btManager);
+        pDelete.add(btDelCancel, cons);
+		
+		
+		pSetup.add(pDelete, "pDelete");
+		//Fim Panel Delete
 		
 		container.add(pSetup, cons);
 		cardLayout = (CardLayout) pSetup.getLayout();
@@ -198,10 +236,18 @@ public class EmploymentScreenI extends JFrame {
 				cardLayout.show(pSetup, "pMain");
 				repaint();
 			
-			} else if (e.getSource().equals(btCancel)) {
+			} else if (e.getSource().equals(btCancel)  || e.getSource().equals(btDelCancel)) {
 				cardLayout.show(pSetup, "pMain");
 				repaint();
-			}
+			
+			} else if(e.getSource().equals(btMainMenu)) {
+				setVisible(false);
+			
+			} else if (e.getSource().equals(btDelete)) {
+				cardLayout.show(pSetup, "pDelete");
+				repaint();
+			
+			} 
 		}	
 	}
 

@@ -11,6 +11,7 @@ import br.ufsc.ine5605.controller.EmploymentCtrl;
  *
  */
 public class Employment implements Serializable {
+	
 	protected int code;
 	protected String name;
 	protected Privileges privilege;
