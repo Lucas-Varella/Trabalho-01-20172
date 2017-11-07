@@ -1,5 +1,6 @@
 package br.ufsc.ine5605.model;
 
+import java.io.Serializable;
 import java.sql.Date; 
 
 import br.ufsc.ine5605.controller.EmployeeCtrl;
@@ -9,7 +10,7 @@ import br.ufsc.ine5605.controller.EmployeeCtrl;
  * @author Sadi Júnior Domingos Jacinto
  *
  */
-public class Employee {
+public class Employee implements Serializable{
 	private EmployeeCtrl employeeCtrl;
 	private int numRegistration;
 	private String name;

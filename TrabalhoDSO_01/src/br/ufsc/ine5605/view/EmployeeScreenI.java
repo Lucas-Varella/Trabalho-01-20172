@@ -213,6 +213,7 @@ public class EmployeeScreenI extends JFrame{
 			if(e.getSource().equals(btAdd)) {
 				
 				cardLayout.show(screen, "Add Employee");
+				updateData();
 			
 			} else if(e.getSource().equals(btReturn) || e.getSource().equals(btError) || e.getSource().equals(btOk)) {
 				
@@ -223,11 +224,12 @@ public class EmployeeScreenI extends JFrame{
 				setVisible(false);
 				
 			}else if(e.getSource().equals(btSave)) {
+				updateData();
 				saveConditions();
 			}else if(e.getSource().equals(btError)) {
 				cardLayout.show(screen, "Employee Screen");
 			}
-			/* else if(e.getSource().equals(but)) {
+			/* else if(e.getSource().equals(but)) {s
 				employeeCtrl.action();
 			}
 			*/
@@ -292,14 +294,10 @@ public class EmployeeScreenI extends JFrame{
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		if(employeeCtrl.getEmployees() != null) {
 
-			try {
-				for(Employee employee : employeeCtrl.getEmployees()) {
-					model.addElement(employee.getName());
-				}
-				this.repaint();
-			}finally {
-				this.repaint();
+			for(Employee employee : employeeCtrl.getEmployees()) {
+				model.addElement(employee.getName());
 			}
+			this.repaint();
 		}else {
 			model.addElement("Please add employees.");
 			this.repaint();
@@ -313,21 +311,25 @@ public class EmployeeScreenI extends JFrame{
 	 * @return returns a String list, containing the names of all available employments
 	 */
 	private String[] stringListCb() {
-		try {
-			
 		
-		String[] naosei = new String[employeeCtrl.getEmployments().size()];
-		int i = 0;
-		for(Employment emp : employeeCtrl.getEmployments()) {
-			naosei[i] = emp.getName();
-			i++;
-		}
+		String[] naosei = {"Please add Employments first."};
+		//alter employmentScreen so that every 'add' adds a string here.
+//		try {
+//			if(employeeCtrl.getEmployments() != null ) {
+//				naosei = new String[employeeCtrl.getEmployments().size()];
+//				int i = 0;
+//				for(Employment emp : employeeCtrl.getEmployments()) {
+//					naosei[i] = emp.getName();
+//					i++;
+//				}
+//			}
+//		}finally {
+//			this.repaint();
+//		}
 		this.repaint();
 		return naosei;
-		}finally {
-			final String[] error = {"Please add Employments first."};
-			return error;
-		}
+		
+
 	}
 	
 //	delEmployee();

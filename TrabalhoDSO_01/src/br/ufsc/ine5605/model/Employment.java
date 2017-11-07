@@ -1,5 +1,6 @@
 package br.ufsc.ine5605.model;
 
+import java.io.Serializable;
 import java.util.ArrayList; 
 
 import br.ufsc.ine5605.controller.EmploymentCtrl;
@@ -9,7 +10,7 @@ import br.ufsc.ine5605.controller.EmploymentCtrl;
  * @author Sadi Júnior Domingos Jacinto;
  *
  */
-public class Employment {
+public class Employment implements Serializable {
 	protected int code;
 	protected String name;
 	protected Privileges privilege;
