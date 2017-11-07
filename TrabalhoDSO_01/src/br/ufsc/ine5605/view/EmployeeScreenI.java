@@ -7,6 +7,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.sql.Date; 
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import javax.swing.*;
@@ -33,7 +34,7 @@ public class EmployeeScreenI extends JFrame{
 	private JPanel pnAdd;
 	private JButton btSave;
 	private JPanel pnMain;
-	private JComboBox cbEmployments;
+	private JComboBox<String> cbEmployments;
 	private JButton btReturn;
 	private JButton btMainMenu;
 	private JTextField tfName;
@@ -42,6 +43,8 @@ public class EmployeeScreenI extends JFrame{
 	private JTextField tfSalary;
 	private JButton btError;
 	private JButton btOk;
+	private HashMap<String, Employee> hashEmployee;
+	private HashMap<String, Employment> hashEmployment;
 	
 	/**
 	 * Construtor padrÃ£o da classe
@@ -163,7 +166,7 @@ public class EmployeeScreenI extends JFrame{
 		cons.gridx = 0;
 		cons.gridy = 16;
 		pnAdd.add(new JLabel("Employee's Employment: "), cons);
-		cbEmployments = new JComboBox<String>(stringListCb());
+		cbEmployments = new JComboBox<String>();
 		cons.gridx = 4;
 		cons.gridy = 16;
 		cons.insets = new Insets(0, 0, 0,0);
@@ -217,7 +220,7 @@ public class EmployeeScreenI extends JFrame{
 				updateData();
 			
 			} else if(e.getSource().equals(btReturn) || e.getSource().equals(btError) || e.getSource().equals(btOk)) {
-				
+				updateData();
 				cardLayout.show(screen, "Employee Screen");
 			
 			}else if(e.getSource().equals(btMainMenu)) {
@@ -245,9 +248,13 @@ public class EmployeeScreenI extends JFrame{
 				if(cbEmployments.getSelectedItem().equals("Please add Employments first.") || cbEmployments.getSelectedItem() == null ) {
 					cardLayout.show(screen, "error");
 				}else {
-					Employment employment = findEmploymentByName(cbEmployments.getSelectedItem());
+					System.out.println("here");
+					Employment employment = hashEmployment.get(cbEmployments.getSelectedItem());
+					System.out.println("does it do?");
 					Employee employee = employeeCtrl.addEmployee(name, bday, phone, salary);
+					System.out.println("added");
 					try {
+						System.out.println("contract");
 						employeeCtrl.addContract(employment, employee);
 					} catch(Exception e) {
 						System.out.println(e.getMessage());
@@ -268,6 +275,7 @@ public class EmployeeScreenI extends JFrame{
 					added.add(new JLabel("Employee's Salary:     " + salary), cons);
 					cons.gridx = 0;
 					cons.gridy = 16;
+					System.out.println("before empployment");
 					added.add(new JLabel("Employee's Employment:     " +  cbEmployments.getSelectedItem()), cons);
 					btOk = new JButton("Return");
 					cons.gridx = 0;
@@ -292,54 +300,64 @@ public class EmployeeScreenI extends JFrame{
 			
 		}
 
-		private Employment findEmploymentByName(Object item) {
-			return employeeCtrl.findEmploymentByIndex(employeeCtrl.getEmployments().indexOf((String)item));
-		}
+		
 	}
 	private void updateData() {
 		//about list of emps
-		DefaultListModel<String> model = new DefaultListModel<String>();
+		DefaultListModel<String> lsModel = new DefaultListModel<String>();
 		if(employeeCtrl.getEmployees() != null) {
 
 			for(Employee employee : employeeCtrl.getEmployees()) {
-				model.addElement(employee.getName());
+				hashEmployee.put(employee.getName(), employee);
+				lsModel.addElement(employee.getName());
 			}
 			this.repaint();
-		}else {
-			model.addElement("Please add employees.");
+		}	
+		lsEmployees.setModel(lsModel);
+		//about combo box
+		
+		DefaultComboBoxModel<String> cbModel = new DefaultComboBoxModel<String>();
+		try {
+			if(employeeCtrl.getEmployments() != null ) {
+				for(Employment emp : employeeCtrl.getEmployments()) {
+					hashEmployment.put(emp.getName(), emp);
+					cbModel.addElement(emp.getName());
+				}
+			}
+			cbEmployments.setModel(cbModel);
+
+			
+		}catch(NullPointerException e) {
 			this.repaint();
 		}
-		model.addElement("Please add employees.");
-		lsEmployees.setModel(model);
-		//about combo box
-		cbEmployments = new JComboBox<String>(stringListCb());
+
+
 		this.repaint();
+		
 	}
 	/**
 	 * 
 	 * @return returns a String list, containing the names of all available employments
 	 */
-	private String[] stringListCb() {
-		
-		String[] naosei = {"Please add Employments first."};
-		//alter employmentScreen so that every 'add' adds a string here.
-		try {
-			if(employeeCtrl.getEmployments() != null ) {
-				naosei = new String[employeeCtrl.getEmployments().size()];
-				int i = 0;
-				for(Employment emp : employeeCtrl.getEmployments()) {
-					naosei[i] = emp.getName();
-					i++;
-				}
-			}
-		}catch(NullPointerException e) {
-			this.repaint();
-		}
-		this.repaint();
-		return naosei;
-		
-
-	}
+//	private void stringListCb() {
+//		DefaultComboBoxModel<String> cbModel = new DefaultComboBoxModel<String>();
+//		//alter employmentScreen so that every 'add' adds a string here.
+//		try {
+//			if(employeeCtrl.getEmployments() != null ) {
+//				int i = 0;
+//				for(Employment emp : employeeCtrl.getEmployments()) {
+//					cbModel.addElement(emp.getName());
+//					i++;
+//				}
+//			}
+//		}catch(NullPointerException e) {
+//			this.repaint();
+//		}
+//		cbEmployments.setModel(cbModel);
+//		this.repaint();
+//		
+//
+//	}
 	
 //	delEmployee();
 //	listEmployees();
