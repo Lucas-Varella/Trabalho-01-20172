@@ -35,10 +35,12 @@ public class EmploymentScreenI extends JFrame {
 	private JPanel pSetup;
 	private JPanel pMain;
 	private JPanel pRegister;
+	private JPanel pDelete;
 	private CardLayout cardLayout;
 	private JComboBox cbPrivileges;
 	private JButton btOk;
 	private JButton btCancel;
+	private JButton btDelete;
 	
 	public EmploymentScreenI(EmploymentCtrl ctrl) {
 		super("Employment Sector");
@@ -66,9 +68,9 @@ public class EmploymentScreenI extends JFrame {
 		
 		//Guide Label 
 		lbGuide = new JLabel();
-		lbGuide.setText("What do you want to do?");
+		lbGuide.setText("Select an Employmet to edit it");
 		cons.fill = GridBagConstraints.CENTER; 
-		cons.gridx = 2;  
+		cons.gridx = 3;  
 		cons.gridy = 0;
 		pMain.add(lbGuide, cons);
 		
@@ -77,10 +79,10 @@ public class EmploymentScreenI extends JFrame {
 		tbEmployments = new JTable();
 		tbEmployments.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		tbEmployments.setFillsViewportHeight(true);
-		cons.fill = GridBagConstraints.CENTER; 
+		cons.fill = GridBagConstraints.BOTH; 
 		cons.gridx = 0;  
 		cons.gridy = 2;
-		cons.gridwidth = 3;
+		cons.gridwidth = 4;
 		cons.gridheight = 2;
 		spLista = new JScrollPane(tbEmployments);
 		pMain.add(spLista, cons);
@@ -88,11 +90,20 @@ public class EmploymentScreenI extends JFrame {
 		// Register Button
 		btRegister = new JButton();
 		btRegister.setText("Register new Employment");
-		cons.fill = GridBagConstraints.BOTH; 
-		cons.gridx = 1;  
-        cons.gridy = 5;
+		cons.fill = GridBagConstraints.CENTER; 
+		cons.gridx = 2;  
+        cons.gridy = 4;
         btRegister.addActionListener(btManager);
         pMain.add(btRegister, cons);
+        
+        //delete button
+        btDelete = new JButton();
+        btDelete.setText("Delete Employment");
+		cons.fill = GridBagConstraints.CENTER; 
+		cons.gridx = 0;  
+        cons.gridy = 4;
+        btDelete.addActionListener(btManager);
+        pMain.add(btDelete, cons);
 		
 		
 		pSetup.add(pMain, "pMain");
@@ -146,10 +157,12 @@ public class EmploymentScreenI extends JFrame {
         cons.gridwidth = 4;
         btCancel.addActionListener(btManager);
         pRegister.add(btCancel, cons);
-		
         
 		pSetup.add(pRegister, "pRegister");
 		// Fim do Painel de registro
+		
+		pDelete = new JPanel(new GridBagLayout());
+		
 		
 		
 		container.add(pSetup, cons);
