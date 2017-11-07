@@ -242,7 +242,7 @@ public class EmployeeScreenI extends JFrame{
 				Date bday = employeeCtrl.strToDate(tfBday.getText());
 				int phone = Integer.parseInt(tfPhone.getText());
 				int salary = Integer.parseInt(tfSalary.getText());
-				if(cbEmployments.getSelectedItem().equals("Please add Employments first.")) {
+				if(cbEmployments.getSelectedItem().equals("Please add Employments first.") || cbEmployments.getSelectedItem() == null ) {
 					cardLayout.show(screen, "error");
 				}else {
 					Employment employment = findEmploymentByName(cbEmployments.getSelectedItem());
@@ -285,6 +285,9 @@ public class EmployeeScreenI extends JFrame{
 				
 			} catch (ArrayIndexOutOfBoundsException e) {
 				cardLayout.show(screen, "error");
+			} catch (NullPointerException e) {
+				cardLayout.show(screen, "error");
+				
 			}
 			
 		}

@@ -55,6 +55,7 @@ public class EmploymentCtrl implements Screen2{
 		setCode(getCode() + 1 );
 	}
 	
+	
 	/**
 	 * Cria um novo EmploymentRestrictAccess e o adciona ao ArrayList<Employment>;
 	 * @param name - String contendo o nome do cargo;

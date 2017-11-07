@@ -71,6 +71,7 @@ public class MainController {
 			
 	}
 	
+	
 	public boolean validNumRegistration(int numRegistration) {
 		return employeeCtrl.validNumRegistration(numRegistration);
 
