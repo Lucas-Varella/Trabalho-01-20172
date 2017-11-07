@@ -56,6 +56,7 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	public ArrayList<Employment> getEmployments() {
 		return mainCtrl.getEmployments();
 	}
+
 	
 	public Employee addEmployee(String name, Date dateBirth, int phone, double salary) {
 		Employee generic = new Employee(this, getCode(), name, dateBirth, phone, salary);

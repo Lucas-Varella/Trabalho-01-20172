@@ -93,6 +93,7 @@ public class EmployeeScreenI extends JFrame{
 		cons.gridy = 4;
 		JScrollPane spListEmp = new JScrollPane(lsEmployees);
 		pnMain.add(spListEmp, cons);
+		updateData();
 		
 		//addEmployee button
 		cons.gridheight = 2;
@@ -162,7 +163,7 @@ public class EmployeeScreenI extends JFrame{
 		cons.gridx = 0;
 		cons.gridy = 16;
 		pnAdd.add(new JLabel("Employee's Employment: "), cons);
-		cbEmployments = new JComboBox(stringListCb());
+		cbEmployments = new JComboBox<String>(stringListCb());
 		cons.gridx = 4;
 		cons.gridy = 16;
 		cons.insets = new Insets(0, 0, 0,0);
@@ -282,6 +283,8 @@ public class EmployeeScreenI extends JFrame{
 				cardLayout.show(screen, "error");
 				
 				
+			} catch (ArrayIndexOutOfBoundsException e) {
+				cardLayout.show(screen, "error");
 			}
 			
 		}
@@ -291,6 +294,7 @@ public class EmployeeScreenI extends JFrame{
 		}
 	}
 	private void updateData() {
+		//about list of emps
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		if(employeeCtrl.getEmployees() != null) {
 
@@ -304,6 +308,8 @@ public class EmployeeScreenI extends JFrame{
 		}
 		model.addElement("Please add employees.");
 		lsEmployees.setModel(model);
+		//about combo box
+		cbEmployments = new JComboBox<String>(stringListCb());
 		this.repaint();
 	}
 	/**
@@ -314,18 +320,18 @@ public class EmployeeScreenI extends JFrame{
 		
 		String[] naosei = {"Please add Employments first."};
 		//alter employmentScreen so that every 'add' adds a string here.
-//		try {
-//			if(employeeCtrl.getEmployments() != null ) {
-//				naosei = new String[employeeCtrl.getEmployments().size()];
-//				int i = 0;
-//				for(Employment emp : employeeCtrl.getEmployments()) {
-//					naosei[i] = emp.getName();
-//					i++;
-//				}
-//			}
-//		}finally {
-//			this.repaint();
-//		}
+		try {
+			if(employeeCtrl.getEmployments() != null ) {
+				naosei = new String[employeeCtrl.getEmployments().size()];
+				int i = 0;
+				for(Employment emp : employeeCtrl.getEmployments()) {
+					naosei[i] = emp.getName();
+					i++;
+				}
+			}
+		}catch(NullPointerException e) {
+			this.repaint();
+		}
 		this.repaint();
 		return naosei;
 		

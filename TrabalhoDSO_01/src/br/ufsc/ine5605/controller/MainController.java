@@ -37,7 +37,7 @@ public class MainController {
 	public ArrayList<Employment> getEmployments() {
 		return employmentCtrl.getEmployments();
 	}
-	
+
 	public void showMainScreen() {
 		mainScreenCtrl.menu();
 	}

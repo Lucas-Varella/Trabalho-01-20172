@@ -32,7 +32,7 @@ public class EmploymentCtrl implements Screen2{
 	public EmploymentCtrl(MainController mainCtrl) {
 		this.mainCtrl = mainCtrl;
 		this.employmentScreen = new EmploymentScreenI(this);
-		this.employments = new ArrayList();
+		this.employments = new ArrayList<Employment>();
 		}
 
 	public void mainMenu() {
@@ -80,7 +80,7 @@ public class EmploymentCtrl implements Screen2{
 	}
 	
 	public ArrayList<Employment> getEmployments() {
-		return employments;
+		return this.employments;
 	}
 	
 	public void listAllEmployments() {
