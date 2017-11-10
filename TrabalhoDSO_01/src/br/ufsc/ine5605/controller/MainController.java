@@ -113,14 +113,7 @@ public class MainController {
 		accessCtrl.listDeniedAccessByReason(reason);		
 	}
 	
-	/**
-	 * @deprecated - excluir esse método depois de alguns testes;
-	 * @param numRegistration
-	 * @return
-	 */
-	public Employment getEmploymentByNumRegistration(int numRegistration) {
-		return employmentCtrl.getEmploymentByNumRegistration(numRegistration);
-	}
+	
 
 	public Privileges getPrivilegeByNumRegistration(int numRegistration) {
 		return employeeCtrl.getPrivilegeByNumRegistration(numRegistration);

@@ -1,11 +1,14 @@
 package br.ufsc.ine5605.controller;
  
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import br.ufsc.ine5605.model.Employment;
+import br.ufsc.ine5605.model.EmploymentDAO;
 import br.ufsc.ine5605.model.EmploymentRestrictAccess;
 import br.ufsc.ine5605.model.Privileges;
 import br.ufsc.ine5605.model.Contract;
+import br.ufsc.ine5605.model.Employee;
 import br.ufsc.ine5605.model.Horary;
 import br.ufsc.ine5605.view.EmploymentScreen;
 import br.ufsc.ine5605.view.EmploymentScreenI;
@@ -17,12 +20,12 @@ import br.ufsc.ine5605.model.Screen2;
  * @author Sadi Júnior Domingos Jacinto;
  *
  */
-public class EmploymentCtrl implements Screen2{
+public class EmploymentCtrl implements Screen2, Serializable{
 	private MainController mainCtrl;
 	private EmploymentScreenI employmentScreen;
 	private Employment employment;
 	private EmploymentRestrictAccess employmentRestrictAccess;
-	private ArrayList<Employment> employments;
+	private EmploymentDAO employmentDAO;
 	private static int code = 1000;
 	
 	/**
@@ -32,7 +35,7 @@ public class EmploymentCtrl implements Screen2{
 	public EmploymentCtrl(MainController mainCtrl) {
 		this.mainCtrl = mainCtrl;
 		this.employmentScreen = new EmploymentScreenI(this);
-		this.employments = new ArrayList<Employment>();
+		this.employmentDAO = new EmploymentDAO();
 		}
 
 	public void mainMenu() {
@@ -50,9 +53,9 @@ public class EmploymentCtrl implements Screen2{
 	 */
 	
 	public void addEmployment(String name, Privileges option) {
-		Employment employment = new Employment(getCode(), name, option, this);
-		employments.add(employment);
-		setCode(getCode() + 1 );
+		Employment generic = new Employment( 0, name, option, this);
+		employmentDAO.put(generic);
+		setCode(getCode() + 1);
 	}
 	
 	
@@ -64,7 +67,7 @@ public class EmploymentCtrl implements Screen2{
 	 */
 	public EmploymentRestrictAccess addEmploymentRestrictAccess(String name, Privileges option) {
 		EmploymentRestrictAccess em = new EmploymentRestrictAccess(getCode(), name, option, this);
-		employments.add(em);
+		employmentDAO.put(em);
 		setCode(getCode() + 1 );
 		return em;
 	}
@@ -73,15 +76,12 @@ public class EmploymentCtrl implements Screen2{
 	 * Deleta do sistema um Employment;
 	 * @param employment - a instância do Employment que será deletada;
 	 */
-	public void delEmployment(Employment employment) {
-		for(Contract c : employment.getEmployees()) {
-			mainCtrl.delEmployee(c.getEmployee());
-		}
-		employments.remove(employment);
+	public void delEmployment(Employment e) {
+		employmentDAO.remove((Integer)e.getCode());
 	}
 	
 	public ArrayList<Employment> getEmployments() {
-		return this.employments;
+		return new ArrayList<Employment>(employmentDAO.getList());
 	}
 	
 	public void listAllEmployments() {
@@ -100,7 +100,7 @@ public class EmploymentCtrl implements Screen2{
 	 */
 	public Employment getEmployment(int num) throws NullPointerException {
 		try {
-			return employments.get(num);
+			return getEmployments().get(num);
 		} catch(NullPointerException e) {
 			throw e;
 		}		
@@ -135,7 +135,7 @@ public class EmploymentCtrl implements Screen2{
 	 */
 	public Employment addEmployment(int code2, String name, Privileges privilege) {
 		Employment e = new Employment(code2, name, privilege, this);
-		employments.add(e);
+		employmentDAO.put(e);
 		return e;
 	}
 	
@@ -149,28 +149,10 @@ public class EmploymentCtrl implements Screen2{
 	public EmploymentRestrictAccess addEmploymentRestrictAccess(int code2,
 			String name, Privileges privilege) {
 		EmploymentRestrictAccess e = new EmploymentRestrictAccess(code, name, privilege, this);
-		employments.add(e);
+		employmentDAO.put(e);
 		return e;
 	}
-	/**
-	 * Busca um Employment que possui um Employee associado a ele com determinado número de registro;
-	 * @deprecated - Método criado, mas não usado
-	 * @param numRegistration - int do número de registro do funcionário;
-	 * @return Employment - Retorna o Employment encontrado, retorna null se não encontrar;
-	 */
-	public Employment getEmploymentByNumRegistration(int numRegistration) {
-		Employment e = null;
-		for(Employment en : employments) {
-			for(Contract c : en.getEmployees()) {
-				if(c.getEmployee().getNumRegistration() == numRegistration) {
-					e = en;
-					return e;
-				}
-			}
-				
-		}
-		return null;
-	}
+	
 	
 	public int conversionStringToInt(String data) throws NumberFormatException {
 		try {

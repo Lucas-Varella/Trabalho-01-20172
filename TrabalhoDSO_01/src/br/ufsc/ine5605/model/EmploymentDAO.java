@@ -67,4 +67,15 @@ public class EmploymentDAO {
 	public Collection<Employment> getList() {
 		return cacheEmployment.values();
 	}
+
+	public Employment get(int code) {
+		return cacheEmployment.get(code);
+	}
+	public void put(Employment emp) {
+		cacheEmployment.put(emp.getCode(), emp);
+		persist();
+	}
+	
+
+
 }
