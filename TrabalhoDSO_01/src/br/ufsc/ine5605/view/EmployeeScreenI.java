@@ -314,6 +314,7 @@ public class EmployeeScreenI extends JFrame{
 			this.repaint();
 		}	
 		lsEmployees.setModel(lsModel);
+		
 		//about combo box
 		
 		DefaultComboBoxModel<String> cbModel = new DefaultComboBoxModel<String>();

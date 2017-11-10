@@ -8,19 +8,25 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 import br.ufsc.ine5605.controller.EmploymentCtrl;
+import br.ufsc.ine5605.model.Employee;
+import br.ufsc.ine5605.model.Employment;
 import br.ufsc.ine5605.model.Privileges;
 
 public class EmploymentScreenI extends JFrame {
@@ -29,7 +35,7 @@ public class EmploymentScreenI extends JFrame {
 	private JLabel lbGuide;
 	private JButton btRegister;
 	private ButtonManager btManager;
-	private JTable tbEmployments;
+	private JList lsEmployments;
 	private JScrollPane spLista;
 	private JTextField tfNome;
 	private JPanel pSetup;
@@ -45,6 +51,7 @@ public class EmploymentScreenI extends JFrame {
 	private JTable tbEmploymentsToDelete;
 	private JScrollPane spListaDel;
 	private JButton btDelCancel;
+	private HashMap<String, Employment> hashEmployment;
 	
 	public EmploymentScreenI(EmploymentCtrl ctrl) {
 		super("Employment Sector");
@@ -79,17 +86,19 @@ public class EmploymentScreenI extends JFrame {
 		pMain.add(lbGuide, cons);
 		
 		
-		// JTable de Employments
-		tbEmployments = new JTable();
-		tbEmployments.setPreferredScrollableViewportSize(new Dimension(500, 150));
-		tbEmployments.setFillsViewportHeight(true);
-		cons.fill = GridBagConstraints.HORIZONTAL; 
-		cons.gridx = 0;  
-		cons.gridy = 2;
-		cons.gridwidth = 6;
-		cons.gridheight = 2;
-		spLista = new JScrollPane(tbEmployments);
-		pMain.add(spLista, cons);
+		// JList de Employments
+		lsEmployments = new JList();
+		lsEmployments.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		lsEmployments.setLayoutOrientation(JList.VERTICAL);
+		lsEmployments.setVisibleRowCount(10);
+		cons.gridheight = 20;
+		cons.gridwidth = 30;
+		cons.gridx = 0;
+		cons.gridy = 4;
+		JScrollPane spListEmp = new JScrollPane(lsEmployments);
+		pMain.add(spListEmp, cons);
+		updateData();
+
 		
 		// Register Button
 		btRegister = new JButton();
@@ -210,16 +219,20 @@ public class EmploymentScreenI extends JFrame {
 		
 	}
 	
-//	private void updateData() {
-//		
-//		DefaultTableModel modelTbEmployments = new DefaultTableModel();
-//		modelTbEmployments.addColumn("Position");
-//		modelTbEmployments.addColumn("Employee");
-//	
-//		tbEmployments.setModel(modelTbEmployments);
-//		this.repaint();
-//	
-//	}
+	private void updateData() {
+		//about list of emps
+		DefaultListModel<String> lsModel = new DefaultListModel<String>();
+		if(ctrl.getEmployments() != null) {
+
+			for(Employment e : ctrl.getEmployments()) {
+				hashEmployment.put(e.getName(), e);
+				lsModel.addElement(e.getName());
+			}
+			this.repaint();
+		}	
+		
+		lsEmployments.setModel(lsModel);
+	}	
 	
 	private class ButtonManager implements ActionListener {
 
