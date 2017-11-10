@@ -33,6 +33,8 @@ public class EmploymentDAO {
 			System.out.println(e);
 		} catch (ClassNotFoundException e) {
 			System.out.println(e);
+		} catch(NullPointerException e) {
+			persist();
 		}
 	} 
  

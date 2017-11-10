@@ -91,10 +91,10 @@ public class EmploymentScreenI extends JFrame {
 		lsEmployments.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		lsEmployments.setLayoutOrientation(JList.VERTICAL);
 		lsEmployments.setVisibleRowCount(10);
-		cons.gridheight = 20;
-		cons.gridwidth = 30;
+		cons.gridheight = 2;
+		cons.gridwidth = 6;
 		cons.gridx = 0;
-		cons.gridy = 4;
+		cons.gridy = 2;
 		JScrollPane spListEmp = new JScrollPane(lsEmployments);
 		pMain.add(spListEmp, cons);
 		updateData();
@@ -222,15 +222,20 @@ public class EmploymentScreenI extends JFrame {
 	private void updateData() {
 		//about list of emps
 		DefaultListModel<String> lsModel = new DefaultListModel<String>();
-		if(ctrl.getEmployments() != null) {
-
-			for(Employment e : ctrl.getEmployments()) {
-				hashEmployment.put(e.getName(), e);
-				lsModel.addElement(e.getName());
-			}
-			this.repaint();
-		}	
-		
+		try {
+			
+			if(ctrl.getEmployments() != null) {
+	
+				for(Employment e : ctrl.getEmployments()) {
+					hashEmployment.put(e.getName(), e);
+					lsModel.addElement(e.getName());
+				}
+				this.repaint();
+			}	
+		} catch(NullPointerException e) {
+			repaint();
+		}
+		repaint();
 		lsEmployments.setModel(lsModel);
 	}	
 	

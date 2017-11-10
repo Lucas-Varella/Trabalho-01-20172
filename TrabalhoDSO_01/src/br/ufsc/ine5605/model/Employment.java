@@ -12,6 +12,10 @@ import br.ufsc.ine5605.controller.EmploymentCtrl;
  */
 public class Employment implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1159385808063422574L;
 	protected int code;
 	protected String name;
 	protected Privileges privilege;

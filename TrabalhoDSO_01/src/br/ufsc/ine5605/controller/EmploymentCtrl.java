@@ -81,11 +81,7 @@ public class EmploymentCtrl implements Screen2, Serializable{
 	}
 	
 	public ArrayList<Employment> getEmployments() {
-		try {
-			new ArrayList<Employment>(employmentDAO.getList());
-		} catch	(NullPointerException e) {
-			
-		}
+		return new ArrayList<Employment>(employmentDAO.getList());
 	}
 	
 	public void listAllEmployments() {
