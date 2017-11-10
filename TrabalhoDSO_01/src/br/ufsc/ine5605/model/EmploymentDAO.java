@@ -6,11 +6,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 
-public class EmploymentDAO {
+public class EmploymentDAO implements Serializable {
  
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6515827450278877252L;
 	private HashMap<Integer, Employment> cacheEmployment = new HashMap<>();
 	private final String fileName = "employments.dat";
  
