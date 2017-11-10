@@ -158,7 +158,7 @@ public class FinancialSectorCtrl implements ConversionDates {
 	 * @return Employment
 	 */
 	public Employment getEmploymentByNumRegistration(int numRegistration) {
-		return mainCtrl.getEmploymentByNumRegistration(numRegistration);
+		return null;
 	}
 
 	public Privileges getPrivilegeByNumRegistration(int numRegistration) {

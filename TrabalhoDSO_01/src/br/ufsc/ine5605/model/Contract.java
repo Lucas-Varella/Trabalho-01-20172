@@ -1,7 +1,10 @@
 package br.ufsc.ine5605.model;
 
 
-import br.ufsc.ine5605.model.Employment; 
+import br.ufsc.ine5605.model.Employment;
+
+import java.io.Serializable;
+
 import br.ufsc.ine5605.model.Employee;
 
 /**
@@ -9,7 +12,11 @@ import br.ufsc.ine5605.model.Employee;
  * @author Sadi Júnior Domingos Jacinto;
  *
  */
-public class Contract {
+public class Contract implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Employment employment;
 	private Employee employee;
 	

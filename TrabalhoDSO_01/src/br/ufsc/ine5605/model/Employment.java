@@ -15,7 +15,7 @@ public class Employment implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -1159385808063422574L;
+	private static final long serialVersionUID = 1L;
 	protected int code;
 	protected String name;
 	protected Privileges privilege;

@@ -16,7 +16,7 @@ public class EmploymentDAO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 6515827450278877252L;
-	private HashMap<Integer, Employment> cacheEmployment = new HashMap<>();
+	private HashMap<Integer, Employment> cacheEmployment = new HashMap<Integer, Employment>();
 	private final String fileName = "employments.dat";
  
 	public EmploymentDAO() {
@@ -26,16 +26,17 @@ public class EmploymentDAO implements Serializable {
 	private void load() {
    
 		try { 
-			FileInputStream fiut = new FileInputStream(fileName);
+			FileInputStream fiut = new FileInputStream(this.fileName);
    
 			ObjectInputStream ois = new ObjectInputStream(fiut);
    
-			this.cacheEmployment  = (HashMap<Integer, Employment>) ois.readObject(); 
+			this.cacheEmployment = (HashMap<Integer, Employment>) ois.readObject();
  
 		} catch (FileNotFoundException e) {
 			persist();
 		} catch (IOException e) {
 			System.out.println(e);
+			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			System.out.println(e);
 		} catch(NullPointerException e) {
