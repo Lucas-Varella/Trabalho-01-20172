@@ -53,7 +53,7 @@ public class EmploymentCtrl implements Screen2, Serializable{
 	 */
 	
 	public void addEmployment(String name, Privileges option) {
-		Employment generic = new Employment( 0, name, option, this);
+		Employment generic = new Employment( 0, name, option);
 		employmentDAO.put(generic);
 		setCode(getCode() + 1);
 	}
@@ -134,7 +134,7 @@ public class EmploymentCtrl implements Screen2, Serializable{
 	 * @return Employment - A instância criada;
 	 */
 	public Employment addEmployment(int code2, String name, Privileges privilege) {
-		Employment e = new Employment(code2, name, privilege, this);
+		Employment e = new Employment(code2, name, privilege);
 		employmentDAO.put(e);
 		return e;
 	}

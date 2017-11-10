@@ -12,15 +12,11 @@ import br.ufsc.ine5605.controller.EmploymentCtrl;
  */
 public class Employment implements Serializable {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	protected int code;
 	protected String name;
 	protected Privileges privilege;
 	protected ArrayList<Contract> employees;
-	protected EmploymentCtrl employmentCtrl;
+	protected transient EmploymentCtrl employmentCtrl;
 	
 	/**
 	 * Construtor padrão da classe;
