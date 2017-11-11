@@ -15,56 +15,48 @@ import br.ufsc.ine5605.model.Employee;
  *
  */
 public class MainController {
-	private MainScreenCtrl mainScreenCtrl;
-	private EmployeeCtrl employeeCtrl;
-	private EmploymentCtrl employmentCtrl;
-	private FinancialSectorCtrl financialSectorCtrl;
-	private AccessCtrl accessCtrl;
-	private HoraryCtrl horaryCtrl;
+	private static final MainController instance = new MainController();
 	
 	/**
 	 * Construtor padrão da classe, no qual todos os outros controladores do sistema são instânciados,
 	 * passando uma instância desta classe como parâmetro; 
 	 */
 	public MainController() {
-		mainScreenCtrl = new MainScreenCtrl(this);
-		employeeCtrl = new EmployeeCtrl(this);
-		employmentCtrl = new EmploymentCtrl(this);
-		financialSectorCtrl = new FinancialSectorCtrl(this);
-		accessCtrl = new AccessCtrl(this);
-		horaryCtrl = new HoraryCtrl(this);
+	}
+	public static MainController getInstance() {
+		return instance;
 	}
 	public ArrayList<Employment> getEmployments() {
-		return employmentCtrl.getEmployments();
+		return EmploymentCtrl.getInstance().getEmployments();
 	}
 
 	public void showMainScreen() {
-		mainScreenCtrl.menu();
+		MainScreenCtrl.getInstance().menu();
 	}
 	
 	public void showEmployeeMenu() {
-		employeeCtrl.menu();
+		EmployeeCtrl.getInstance().menu();
 	}
 	
 	public void showEmploymentMenu() {
-		employmentCtrl.menu();
+		EmploymentCtrl.getInstance().menu();
 	}
 	
 	public void showFinancialSectorMenu() {
-		financialSectorCtrl.menu();
+		FinancialSectorCtrl.getInstance().menu();
 	}
 	
 	public void showHoraryMenu() {
-		horaryCtrl.menuAdd();
+		HoraryCtrl.getInstance().menuAdd();
 	}
 	
 	public void listEmployments() {
-		employmentCtrl.listAllEmployments();
+		EmploymentCtrl.getInstance().listAllEmployments();
 	}
 	
 	public Employment findEmploymentByIndex(int index) throws NullPointerException {
 		try {
-			return employmentCtrl.getEmployment(index);
+			return EmploymentCtrl.getInstance().getEmployment(index);
 		} catch(NullPointerException e) {
 			throw e;
 		}
@@ -73,58 +65,58 @@ public class MainController {
 	
 	
 	public boolean validNumRegistration(int numRegistration) {
-		return employeeCtrl.validNumRegistration(numRegistration);
+		return EmployeeCtrl.getInstance().validNumRegistration(numRegistration);
 
 	}
 	
 	public Horary addHorary() {
-		return horaryCtrl.menuAdd();
+		return HoraryCtrl.getInstance().menuAdd();
 	}
 
 	public Horary editHorary(Horary horary) {
-		return horaryCtrl.editHorary(horary);
+		return HoraryCtrl.getInstance().editHorary(horary);
 		
 	}
 
 	public void delEmployee(Employee employee) {
-		employeeCtrl.delEmployee(employee);
+		EmployeeCtrl.getInstance().delEmployee(employee);
 		
 	}
 
 	public void addAccess(int numRegistration, Date date, Date hour, Reasons reason) {
-		accessCtrl.addAccess(numRegistration, date, hour, reason);
+		AccessCtrl.getInstance().addAccess(numRegistration, date, hour, reason);
 	}
 
 	public boolean isAccessBloqued(int numRegistration) {
-		return accessCtrl.isAccessBloqued(numRegistration);
+		return AccessCtrl.getInstance().isAccessBloqued(numRegistration);
 		
 	}
 
 	public void showAllDeniedAccess() {
-		accessCtrl.listAllDeniedAccess();
+		AccessCtrl.getInstance().listAllDeniedAccess();
 	}
 
 	public void showDeniedAccessByNumRegistration(int numRegistration) {
-		accessCtrl.listDeniedAccessByNumRegistration(numRegistration);
+		AccessCtrl.getInstance().listDeniedAccessByNumRegistration(numRegistration);
 		
 	}
 
 	public void showDeniedAccessByReason(Reasons reason) {
-		accessCtrl.listDeniedAccessByReason(reason);		
+		AccessCtrl.getInstance().listDeniedAccessByReason(reason);		
 	}
 	
 	
 
 	public Privileges getPrivilegeByNumRegistration(int numRegistration) {
-		return employeeCtrl.getPrivilegeByNumRegistration(numRegistration);
+		return EmployeeCtrl.getInstance().getPrivilegeByNumRegistration(numRegistration);
 	}
 
 	public ArrayList<Horary> getHoraryAccess(int numRegistration) {
-		return employeeCtrl.getHoraryAccess(numRegistration);
+		return EmployeeCtrl.getInstance().getHoraryAccess(numRegistration);
 	}
 
 	public Reasons getReasonBy() {
-		return accessCtrl.getReasonsBy();
+		return AccessCtrl.getInstance().getReasonsBy();
 		
 	}
 	

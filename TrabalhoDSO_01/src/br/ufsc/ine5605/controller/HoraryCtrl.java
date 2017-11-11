@@ -15,25 +15,27 @@ import br.ufsc.ine5605.view.HoraryScreen;
  *
  */
 public class HoraryCtrl {
-	private MainController mainCtrl;
+	private static final HoraryCtrl instance = new HoraryCtrl();
 	private HoraryScreen horaryScreen;
-	private Horary horary;
 	
 	/**
 	 * Construtor padrão da classe;
 	 * @param mainCtrl - Recebe uma instância do MainController, o que permite a comunicação com outras classes;
 	 */
-	public HoraryCtrl(MainController mainCtrl) {
-		this.mainCtrl = mainCtrl;
-		this.horaryScreen = new HoraryScreen(this);
+	public HoraryCtrl() {
+		this.horaryScreen = new HoraryScreen();
 	}
 	
+	public static HoraryCtrl getInstance() {
+		return instance;
+	}
+
 	public Horary menuAdd() {
 		return horaryScreen.menuAdd();
 	}
 
 	public void mainMenu() {
-		mainCtrl.showMainScreen();
+		MainController.getInstance().showMainScreen();
 	}
 	
 	/**

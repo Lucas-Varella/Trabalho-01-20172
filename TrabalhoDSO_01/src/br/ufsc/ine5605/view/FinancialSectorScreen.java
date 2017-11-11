@@ -1,32 +1,20 @@
 package br.ufsc.ine5605.view;
 
-import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Component;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.LayoutManager;
-import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.event.WindowStateListener;
 import java.text.ParseException;   
 import java.util.Date;
 import java.util.Scanner;
 
-import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -46,9 +34,15 @@ public class FinancialSectorScreen extends JFrame {
 	private JButton btAllDeniedAccess;
 	private JButton btDeniedAccessByNumber;
 	private JButton btDeniedAccessByReason;
+	private JButton mainMenu;
 	private JButton enter;
-	private JButton retur;
+	private JButton return1;
+	private JButton return2;
+	private JButton return3;
+	private JButton return4;
+	private JButton return5;
 	private ButtonManager btManager;
+	private ButtonReturn btReturn;
 	private CardLayout cardLayout;
 	private JPanel cards;
 	private JPanel panel1;
@@ -58,10 +52,10 @@ public class FinancialSectorScreen extends JFrame {
 	private JPanel panel4;
 	private JPanel panel5;
 	
-	public FinancialSectorScreen(FinancialSectorCtrl financialSectorCtrl) {
+	public FinancialSectorScreen() {
 		super("Menu Financial Sector");
-		this.financialSectorCtrl = financialSectorCtrl;
 		btManager = new ButtonManager();
+		btReturn = new ButtonReturn();
 		initComponents();
 	}
 	
@@ -70,9 +64,7 @@ public class FinancialSectorScreen extends JFrame {
 		//Config container;
 		Container container = getContentPane();
 		GridBagConstraints cons = new GridBagConstraints();
-		//O erro tava no fato de eu tentar settar o layout para todos os panels ao invés de settar individualmente;
-		//container.setLayout(new GridBagLayout());
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 250);
         setLocationRelativeTo(null);
         setResizable(true);
@@ -83,7 +75,12 @@ public class FinancialSectorScreen extends JFrame {
         btAllDeniedAccess = new JButton("All Denied Access");
         btDeniedAccessByNumber = new JButton("Denied Access By Number Registration");
         btDeniedAccessByReason = new JButton("Denied Access By Reason");
+        mainMenu = new JButton("Main Menu");
         enter = new JButton("Enter");
+        return1 = new JButton("Return");
+        return2 = new JButton("Return");
+        return3 = new JButton("Return");
+        return4 = new JButton("Return");
         
         //Add action listeners;
         btFinancialSector.addActionListener(btManager);
@@ -91,7 +88,12 @@ public class FinancialSectorScreen extends JFrame {
         btAllDeniedAccess.addActionListener(btManager);
         btDeniedAccessByNumber.addActionListener(btManager);
         btDeniedAccessByReason.addActionListener(btManager);
+        mainMenu.addActionListener(btManager);
         enter.addActionListener(btManager);
+        return1.addActionListener(btReturn);
+        return2.addActionListener(btReturn);
+        return3.addActionListener(btReturn);
+        return4.addActionListener(btReturn);
         
         
         // Instantiating JLabel;
@@ -110,6 +112,9 @@ public class FinancialSectorScreen extends JFrame {
         cons.gridx = 0;  
         cons.gridy = 2;
         panel1.add(btDeniedAccess, cons);
+        cons.gridx = 0;
+        cons.gridy = 3;
+        panel1.add(mainMenu, cons);
         cards.add(panel1, "panel1");
         
         //Financial Sector Panel
@@ -126,10 +131,9 @@ public class FinancialSectorScreen extends JFrame {
         cons.gridx = 0;
         cons.gridy = 3;
         panel2.add(enter, cons);
-        retur = new JButton("Return");
         cons.gridx = 0;
         cons.gridy = 4;
-        panel2.add(retur, cons);
+        panel2.add(return1, cons);
         cards.add(panel2, "panel2");
         
         
@@ -144,10 +148,9 @@ public class FinancialSectorScreen extends JFrame {
         cons.gridx = 0;
         cons.gridy = 3;
         panel3.add(btDeniedAccessByReason, cons);
-        retur = new JButton("Return");
         cons.gridx = 0;
         cons.gridy = 4;
-        panel3.add(retur, cons);
+        panel3.add(return2, cons);
         cards.add(panel3, "panel3");       
         
         // Denied Access By Number Registration;
@@ -158,10 +161,9 @@ public class FinancialSectorScreen extends JFrame {
         cons.gridx = 0;
         cons.gridy = 1;
         panel4.add(new JTextField("Number of Registration", 15), cons);
-        retur = new JButton("Return");
         cons.gridx = 0;
         cons.gridy = 2;  
-        panel4.add(retur, cons);
+        panel4.add(return3, cons);
         cards.add(panel4, "panel4");
         
         // Denied Access By Reason;
@@ -169,13 +171,11 @@ public class FinancialSectorScreen extends JFrame {
         cons.gridx = 0;
         cons.gridy = 0;
         panel5.add(text, cons);
-        retur = new JButton("Return");
         cons.gridx = 0;
         cons.gridy = 1;
-        panel5.add(retur, cons);
+        panel5.add(return4, cons);
         cards.add(panel5, "panel5");
         
-        retur.addActionListener(btManager);
         container.add(cards);
         cardLayout = (CardLayout) cards.getLayout();
     }
@@ -190,25 +190,46 @@ public class FinancialSectorScreen extends JFrame {
 			}else if(e.getSource().equals(btDeniedAccess)){
 				cardLayout.show(cards, "panel3");
 				
-			}else if(e.getSource().equals(retur)) {
-				cardLayout.show(cards, "panel1");
-			
+			}else if(e.getSource().equals(mainMenu)) {
+				setVisible(false);
+				FinancialSectorCtrl.getInstance().mainMenu();
+				
 			}else if(e.getSource().equals(btAllDeniedAccess)) {
 				getContentPane().setVisible(false);
-				financialSectorCtrl.showAllDeniedAccess();
+				FinancialSectorCtrl.getInstance().showAllDeniedAccess();
+				cardLayout.show(cards, "panel3");
+				
 			}else if(e.getSource().equals(btDeniedAccessByNumber)) {
 				cardLayout.show(cards, "panel4");
-				//getContentPane().setVisible(false);
-				//financialSectorCtrl.showDeniedAccessByNumRegistration(numRegistration);
+				
 			}else if(e.getSource().equals(btDeniedAccessByReason)) {
 				cardLayout.show(cards, "panel5");
-				//getContentPane().setVisible(false);
-				//financialSectorCtrl.showDeniedAccessByReason(reason);
+
 			}
 			
 			
 		}
 
+		
+	}
+	
+	private class ButtonReturn implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			
+			if(e.getSource().equals(return1)) {
+				cardLayout.show(cards, "panel1");
+				
+			}else if(e.getSource().equals(return2)) {
+				cardLayout.show(cards, "panel1");
+				
+			}else if(e.getSource().equals(return3)) {
+				cardLayout.show(cards, "panel3");
+			
+			}else if(e.getSource().equals(return4)) {
+				cardLayout.show(cards, "panel3");
+			}
+		}
 		
 	}
 

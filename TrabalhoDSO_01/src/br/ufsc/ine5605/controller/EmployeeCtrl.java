@@ -25,7 +25,7 @@ import br.ufsc.ine5605.model.ConversionDates;
  *
  */
 public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
-	private MainController mainCtrl;
+	private static final EmployeeCtrl instance = new EmployeeCtrl();
 	private Employee employee;
 	private EmployeeScreenI employeeScreen;
 	private EmployeeDAO empDAO = new EmployeeDAO();
@@ -35,11 +35,14 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	 * Construtor padrão da classe;
 	 * @param mainCtrl - Recebe uma instância do MainController, o que permite a comunicação com as outras classes, através do MainController;
 	 */
-	public EmployeeCtrl(MainController mainCtrl) {
-		this.mainCtrl = mainCtrl;
-		employeeScreen = new EmployeeScreenI(this);
+	public EmployeeCtrl() {
+		employeeScreen = new EmployeeScreenI();
 	}
 	
+	public static EmployeeCtrl getInstance() {
+		return instance;
+	}
+
 	public void menu() {
 		employeeScreen.setVisible(true);
 		//c'mon
@@ -54,7 +57,7 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	 * @return Employee - Retorna a instância do objeto criado;
 	 */
 	public ArrayList<Employment> getEmployments() {
-		return mainCtrl.getEmployments();
+		return MainController.getInstance().getEmployments();
 	}
 
 	
@@ -115,12 +118,12 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	
 	
 	public void listEmployments() {
-		mainCtrl.listEmployments();
+		MainController.getInstance().listEmployments();
 	}
 	
 	public Employment findEmploymentByIndex(int index) throws NullPointerException {
 		try {
-			return mainCtrl.findEmploymentByIndex(index);
+			return MainController.getInstance().findEmploymentByIndex(index);
 		} catch(NullPointerException e) {
 			throw e;
 		}
@@ -135,7 +138,7 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	}
 
 	public void mainMenu() {
-		mainCtrl.showMainScreen();
+		MainController.getInstance().showMainScreen();
 		
 	}
 	

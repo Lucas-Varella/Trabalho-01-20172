@@ -9,7 +9,7 @@ public class EmployeeDAO implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private HashMap<Integer, Employee> cacheEmployees = new HashMap<>();
+	private HashMap<Integer, Employee> cacheEmployees = new HashMap<Integer, Employee>();
 	private final String filename = "employees.dat";
 	
 	public EmployeeDAO() {

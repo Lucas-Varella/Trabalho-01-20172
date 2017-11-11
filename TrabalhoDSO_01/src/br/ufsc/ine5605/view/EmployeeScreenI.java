@@ -22,7 +22,6 @@ import br.ufsc.ine5605.model.*;
  */
 public class EmployeeScreenI extends JFrame{
 	
-	private EmployeeCtrl employeeCtrl;
 	private JLabel lbEmpScrn;
 	private JButton btAdd;
 	private JButton btEdit;
@@ -50,9 +49,8 @@ public class EmployeeScreenI extends JFrame{
 	 * Construtor padrÃ£o da classe
 	 * @param employeeCtrl - Recebe uma instÃ¢ncia do EmployeeCtrl, o que permite a comunicaÃ§Ã£o com outras classes;
 	 */
-	public EmployeeScreenI(EmployeeCtrl employeeCtrl) {
+	public EmployeeScreenI() {
 		super("Employee Management and Data");
-		this.employeeCtrl = employeeCtrl;
 		btManager = new ButtonManager();
 		config();
 		
@@ -242,7 +240,7 @@ public class EmployeeScreenI extends JFrame{
 		private void saveConditions() {
 			try {
 				String name = tfName.getText();
-				Date bday = employeeCtrl.strToDate(tfBday.getText());
+				Date bday = EmployeeCtrl.getInstance().strToDate(tfBday.getText());
 				int phone = Integer.parseInt(tfPhone.getText());
 				int salary = Integer.parseInt(tfSalary.getText());
 				if(cbEmployments.getSelectedItem().equals("Please add Employments first.") || cbEmployments.getSelectedItem() == null ) {
@@ -251,11 +249,11 @@ public class EmployeeScreenI extends JFrame{
 					System.out.println("here");
 					Employment employment = hashEmployment.get(cbEmployments.getSelectedItem());
 					System.out.println("does it do?");
-					Employee employee = employeeCtrl.addEmployee(name, bday, phone, salary);
+					Employee employee = EmployeeCtrl.getInstance().addEmployee(name, bday, phone, salary);
 					System.out.println("added");
 					try {
 						System.out.println("contract");
-						employeeCtrl.addContract(employment, employee);
+						EmployeeCtrl.getInstance().addContract(employment, employee);
 					} catch(Exception e) {
 						System.out.println(e.getMessage());
 					}
@@ -305,9 +303,9 @@ public class EmployeeScreenI extends JFrame{
 	private void updateData() {
 		//about list of emps
 		DefaultListModel<String> lsModel = new DefaultListModel<String>();
-		if(employeeCtrl.getEmployees() != null) {
+		if(EmployeeCtrl.getInstance().getEmployees() != null) {
 
-			for(Employee employee : employeeCtrl.getEmployees()) {
+			for(Employee employee : EmployeeCtrl.getInstance().getEmployees()) {
 				hashEmployee.put(employee.getName(), employee);
 				lsModel.addElement(employee.getName());
 			}
@@ -319,8 +317,8 @@ public class EmployeeScreenI extends JFrame{
 		
 		DefaultComboBoxModel<String> cbModel = new DefaultComboBoxModel<String>();
 		try {
-			if(employeeCtrl.getEmployments() != null ) {
-				for(Employment emp : employeeCtrl.getEmployments()) {
+			if(EmployeeCtrl.getInstance().getEmployments() != null ) {
+				for(Employment emp : EmployeeCtrl.getInstance().getEmployments()) {
 					hashEmployment.put(emp.getName(), emp);
 					cbModel.addElement(emp.getName());
 				}

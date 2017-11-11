@@ -1,5 +1,6 @@
 package br.ufsc.ine5605.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,8 @@ import java.util.Date;
  * @author Sadi Júnior Domingos Jacinto;
  *
  */
-public class Access {
+public class Access implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private int numRegistration;
 	private Date date;
 	private Date hour;

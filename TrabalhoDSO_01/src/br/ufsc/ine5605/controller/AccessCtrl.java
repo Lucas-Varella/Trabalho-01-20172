@@ -17,7 +17,7 @@ import br.ufsc.ine5605.view.MessageAccess;
  *
  */
 public class AccessCtrl {
-	private MainController mainCtrl;
+	private static final AccessCtrl instance = new AccessCtrl();
 	private AccessScreen accessScreen;
 	private ArrayList<Access> deniedAccess;
 	private ArrayList<MessageAccess> message;
@@ -27,13 +27,16 @@ public class AccessCtrl {
 	 * @param mainController - Recebe uma instância do MainController, o que permite a comuncicação 
 	 * desta classe com todas as outras através do MainController;
 	 */
-	public AccessCtrl(MainController mainController) {
-		this.mainCtrl = mainController;
+	public AccessCtrl() {
 		this.accessScreen = new AccessScreen(this);
 		deniedAccess = new ArrayList<Access>();
 		message = new ArrayList();
 	}
 	
+	public static AccessCtrl getInstance() {
+		return instance;
+	}
+
 	/**
 	 * Cria e adiciona uma nova instância de Access no ArrayList<Access>
 	 * @param numRegistration - int do número de registro usado para tentar acessar o Setor Financeiro;

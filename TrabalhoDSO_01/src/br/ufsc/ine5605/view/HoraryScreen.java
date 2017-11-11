@@ -15,15 +15,13 @@ import br.ufsc.ine5605.model.Horary;
  *
  */
 public class HoraryScreen {
-	private HoraryCtrl horaryCtrl;
 	private Scanner keyboard;
 	
 	/**
 	 * Construtor padrao da classe;
 	 * @param horaryCtrl - Recebe uma instancia do HoraryCtrl, permitindo a comunicacao entre classes;
 	 */
-	public HoraryScreen(HoraryCtrl horaryCtrl) {
-		this.horaryCtrl = horaryCtrl;
+	public HoraryScreen() {
 		this.keyboard = new Scanner(System.in);
 	}
 	/**
@@ -40,10 +38,10 @@ public class HoraryScreen {
 			 * Criar um try catch aqui para caso o usuario digite um horario
 			 * que não se encaixa no padrão Date formatado(hh:mm);
 			 */
-			Date hourBegin = horaryCtrl.strToDateHour(keyboard.nextLine());
+			Date hourBegin = HoraryCtrl.getInstance().strToDateHour(keyboard.nextLine());
 			System.out.println("Hour Finish: ");
-			Date hourFinish = horaryCtrl.strToDateHour(keyboard.nextLine());
-			return horaryCtrl.addHorary(hourBegin, hourFinish);
+			Date hourFinish = HoraryCtrl.getInstance().strToDateHour(keyboard.nextLine());
+			return HoraryCtrl.getInstance().addHorary(hourBegin, hourFinish);
 				
 		}catch(ParseException e) {
 			System.out.println("The typed time does not follow the formatting standard hh:mm");
@@ -69,19 +67,19 @@ public class HoraryScreen {
 				System.out.println("1 - " + horary.getHourBegin());
 				System.out.println("2 - " + horary.getHourFinish());
 				
-				option = horaryCtrl.conversionStringToInt(keyboard.nextLine());
+				option = HoraryCtrl.getInstance().conversionStringToInt(keyboard.nextLine());
 				switch(option) {
 				case 1:
 					System.out.println("Enter the new time");
-					Date newHorary = horaryCtrl.strToDateHour(keyboard.nextLine());
-					Date horaryConvert = horaryCtrl.strToDateHour(horary.getHourFinish());
-					return horaryCtrl.addHorary(newHorary, horaryConvert);
+					Date newHorary = HoraryCtrl.getInstance().strToDateHour(keyboard.nextLine());
+					Date horaryConvert = HoraryCtrl.getInstance().strToDateHour(horary.getHourFinish());
+					return HoraryCtrl.getInstance().addHorary(newHorary, horaryConvert);
 					
 				case 2:
 					System.out.println("Enter the new time");
-					newHorary = horaryCtrl.strToDateHour(keyboard.nextLine());
-					horaryConvert = horaryCtrl.strToDateHour(horary.getHourBegin());
-					return horaryCtrl.addHorary(horaryConvert, newHorary);
+					newHorary = HoraryCtrl.getInstance().strToDateHour(keyboard.nextLine());
+					horaryConvert = HoraryCtrl.getInstance().strToDateHour(horary.getHourBegin());
+					return HoraryCtrl.getInstance().addHorary(horaryConvert, newHorary);
 					
 				default:
 					System.out.println("Please enter a valid option");

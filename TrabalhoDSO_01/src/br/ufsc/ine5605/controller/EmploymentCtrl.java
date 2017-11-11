@@ -16,11 +16,11 @@ import br.ufsc.ine5605.model.Screen2;
  * @author Sadi Júnior Domingos Jacinto;
  *
  */
-public class EmploymentCtrl implements Screen2{
-	private MainController mainCtrl;
+public class EmploymentCtrl implements Screen2 {
+	private static final EmploymentCtrl instance = new EmploymentCtrl();
 	private EmploymentScreenI employmentScreen;
-	private Employment employment;
-	private EmploymentRestrictAccess employmentRestrictAccess;
+	//private Employment employment;
+	//private EmploymentRestrictAccess employmentRestrictAccess;
 	private EmploymentDAO employmentDAO;
 	private static int code = 1000;
 	
@@ -28,14 +28,17 @@ public class EmploymentCtrl implements Screen2{
 	 * Construtor padrão da classe;
 	 * @param mainCtrl - recebe uma instância do MainController, o que permite a comunicação com o mesmo;
 	 */
-	public EmploymentCtrl(MainController mainCtrl) {
-		this.mainCtrl = mainCtrl;
+	public EmploymentCtrl() {
 		this.employmentScreen = new EmploymentScreenI(this);
 		this.employmentDAO = new EmploymentDAO();
 		}
 
+	public static EmploymentCtrl getInstance() {
+		return instance;
+	}
+
 	public void mainMenu() {
-		mainCtrl.showMainScreen();
+		MainController.getInstance().showMainScreen();
 	}
 	
 	public void menu() {
@@ -85,7 +88,7 @@ public class EmploymentCtrl implements Screen2{
 	}
 	
 	public Horary addHorary() {
-		return mainCtrl.addHorary();
+		return MainController.getInstance().addHorary();
 	}
 	
 	/**
@@ -119,7 +122,7 @@ public class EmploymentCtrl implements Screen2{
 	}
 
 	public Horary editHorary(Horary horary) {
-		return mainCtrl.editHorary(horary);
+		return MainController.getInstance().editHorary(horary);
 		
 	}
 	/**

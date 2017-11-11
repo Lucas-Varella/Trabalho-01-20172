@@ -17,7 +17,6 @@ import br.ufsc.ine5605.controller.MainScreenCtrl;
 
 public class MainScreen extends JFrame{
 	
-	private MainScreenCtrl screenCtrl; 
 	private JLabel lbGuide;
 	private JButton btEmployee;
 	private JButton btEmployment;
@@ -28,7 +27,6 @@ public class MainScreen extends JFrame{
 	
 	public MainScreen(MainScreenCtrl screenCtrl) {
 		super("Welcome!");
-		this.screenCtrl = screenCtrl;
 		btManager = new ButtonManager();
 		config();
 	}
@@ -89,14 +87,14 @@ public class MainScreen extends JFrame{
 			
 			if(e.getSource().equals(btEmployee)) {
 				
-				screenCtrl.employeeMenu();
+				MainScreenCtrl.getInstance().employeeMenu();
 			
 			} else if(e.getSource().equals(btEmployment)) {
 				
-				screenCtrl.employmentMenu();
+				MainScreenCtrl.getInstance().employmentMenu();
 			
 			} else if(e.getSource().equals(btFSector)) {
-				screenCtrl.financialSectorMenu();
+				MainScreenCtrl.getInstance().financialSectorMenu();
 			}
 		}
 	}

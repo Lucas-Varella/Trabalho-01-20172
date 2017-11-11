@@ -26,7 +26,8 @@ import br.ufsc.ine5605.model.ConversionDates;
  * @author Marcos Laydner;
  * @author Lucas Varella
  */
-public class FinancialSectorCtrl implements ConversionDates {
+public class FinancialSectorCtrl {
+	private static final FinancialSectorCtrl instance = new FinancialSectorCtrl();
 	private MainController mainCtrl;
 	private FinancialSectorScreen financialSectorScreen;
 	private FinancialSector financialSector;
@@ -38,14 +39,19 @@ public class FinancialSectorCtrl implements ConversionDates {
 	 * 
 	 * @author Sadi Júnior Domingos Jacinto;
 	 */
-	public FinancialSectorCtrl(MainController mainController) {
-		this.mainCtrl = mainController;
+	public FinancialSectorCtrl() {
+		//this.mainCtrl = mainController;
 		//this.financialSectorScreen = new FinancialSectorScreen(this);
-		this.financialSector = new FinancialSector(this);
-		this.financialSectorScreen = new FinancialSectorScreen(this);
+		this.financialSector = new FinancialSector();
+		this.financialSectorScreen = new FinancialSectorScreen();
 	}
 	
 	
+	public static FinancialSectorCtrl getInstance() {
+		return instance;
+	}
+
+
 	public void mainMenu() {
 		mainCtrl.showMainScreen();
 	}
@@ -57,70 +63,36 @@ public class FinancialSectorCtrl implements ConversionDates {
 	
 	
 	public boolean validAccess(int numRegistration, Date hourAccess, Date dateAccess) {
-		return financialSector.validAccess(numRegistration, hourAccess, dateAccess);
-	}
-	
-	public boolean validNumRegistration(int numRegistration) {
-		return mainCtrl.validNumRegistration(numRegistration);
-	}
-	
-	public int conversionStringToInt(String data) throws NumberFormatException {
 		try {
-			int num = Integer.parseInt(data);	
-			return num;
-		} catch(NumberFormatException e ) {
-			throw new NumberFormatException();
+			if(!mainCtrl.isAccessBloqued(numRegistration)) {
+				addAccess(numRegistration, dateAccess, hourAccess, Reasons.BLOCK);
+				return false;
+			}
+			
+			if(!mainCtrl.validNumRegistration(numRegistration)) {
+				addAccess(numRegistration, dateAccess, hourAccess, Reasons.NONUMREGS);
+				return false;
+			}
+			if(financialSector.isPrivilegeFull(getPrivilegeByNumRegistration(numRegistration))) {
+				return true;
+			}
+			if(financialSector.isPrivilegeNo(getPrivilegeByNumRegistration(numRegistration))) {
+				addAccess(numRegistration, dateAccess, hourAccess, Reasons.NOACCESS);
+				return false;
+			}
+			if(!financialSector.isPrivilegeRestrict(getPrivilegeByNumRegistration(numRegistration), getHoraryAccess(numRegistration),hourAccess)) {
+				addAccess(numRegistration, dateAccess, hourAccess, Reasons.INCTIME);
+				return false;
+			}
+			
+		}catch(Exception e) {
+			
 		}
-	}
-	
-	/**
-	 * Converte uma String em um Date no formato HH:mm;
-	 * @param data - String de entrada
-	 * @return Date;
-	 * @throws ParseException ocorre quando o input do usuário não corresponde ao formato esperado;
-	 */
-	public Date strToDateHour(String data) throws ParseException {
-			if (data == null) {
-	            return null;
-	        }
-	        Date dataF = null;
-	        try {
-	            DateFormat dateFormat = new SimpleDateFormat("HH:mm");
-	            long time = dateFormat.parse(data).getTime();
-	            dataF = new Date(time);
-	        } catch (ParseException e) {
-	        	throw new ParseException(data, 0);
-	        }
-	        return dataF;
-	}
-	
-	/**
-	 * Converte uma String em um Date no formato HH:mm;
-	 * @param data - String de entrada
-	 * @return Date;
-	 * @throws ParseException ocorre quando o input do usuário não corresponde ao formato esperado;
-	 */
-	public Date strToDate(String data) throws ParseException {
-		if (data == null) {
-            return null;
-        }
-        Date dataF = null;
-        try {
-            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            long time = dateFormat.parse(data).getTime();
-            dataF = new Date(time);
-        } catch (ParseException e) {
-            throw new ParseException(data, 0);
-        }
-        return dataF;
+		return false;
 	}
 	
 	public void addAccess(int numRegistration, Date date, Date hour, Reasons reason) {
 		mainCtrl.addAccess(numRegistration, date, hour, reason);
-	}
-
-	public boolean isAccessBloqued(int numRegistration) {
-		return mainCtrl.isAccessBloqued(numRegistration);
 	}
 
 	public void showAllDeniedAccess() {

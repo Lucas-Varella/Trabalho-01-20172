@@ -27,12 +27,7 @@ import br.ufsc.ine5605.model.Access;
  */
 public class AccessScreen extends JFrame {
 	private AccessCtrl accessCtrl;
-	private ButtonManager btManager;
-	private CardLayout cardLayout;
-	private JPanel cards;
-	private JPanel panel1;
-	private JPanel panel2;
-	private JPanel panel3;
+	private JPanel panel;
 	private JLabel text1;
 	private JLabel text2;
 	private JLabel text3;
@@ -44,7 +39,6 @@ public class AccessScreen extends JFrame {
 	
 	public AccessScreen(AccessCtrl accessCtrl) {
 		this.accessCtrl = accessCtrl;
-		btManager = new ButtonManager();
 		initComponents();
 	}
 	
@@ -67,84 +61,29 @@ public class AccessScreen extends JFrame {
 		hour = new JLabel();
 		reason = new JLabel();
 		
-		// Instantiating JPanel with CardLayout;
-        cards = new JPanel(new CardLayout());
+		
         
         //Create the cards
         
         //All Denied Access
-        panel1 = new JPanel(new GridBagLayout());
+        panel = new JPanel(new GridBagLayout());
         cons.gridx = 0;  
         cons.gridy = 0;
-        panel1.add(text1, cons);
+        panel.add(text1, cons);
         cons.gridx = 0;  
         cons.gridy = 1;
-        panel1.add(text2, cons);
+        panel.add(text2, cons);
         cons.gridx = 0;  
         cons.gridy = 2;
-        panel1.add(text3, cons);
+        panel.add(text3, cons);
         cons.gridx = 0;  
         cons.gridy = 3;
-        panel1.add(text4, cons);
+        panel.add(text4, cons);
         
-        cards.add(panel1, "panel1");
-        
-        //Financial Sector Panel
-        panel2 = new JPanel(new GridBagLayout());
-        cons.gridx = 0;
-        cons.gridy = 0;
-        panel2.add(text1, cons);
-        cons.gridx = 0;
-        cons.gridy = 1;
-        panel2.add(text2, cons);
-        cons.gridx = 0;
-        cons.gridy = 2;
-        panel2.add(text3, cons);
-        cons.gridx = 0;
-        cons.gridy = 3;
-        panel2.add(text4, cons);
-        
-        
-        cards.add(panel2, "panel2");
-        
-        
-        // Denied Access Panel
-        panel3 = new JPanel(new GridBagLayout());
-        cons.gridx = 0;
-        cons.gridy = 1;
-        panel3.add(text1, cons);
-        cons.gridx = 0;
-        cons.gridy = 2;
-        panel3.add(text2, cons);
-        cons.gridx = 0;
-        cons.gridy = 3;
-        panel3.add(text3, cons);
-        cons.gridx = 0;
-        cons.gridy = 4;
-        panel3.add(text4, cons);
-        cards.add(panel3, "panel3");
-        
-        // Config CardLayout
-        container.add(cards);
-        cardLayout = (CardLayout) cards.getLayout();
-		
-		
-		
-		
-		
 		
 	}
 	
 	public void show(String panel, ArrayList<MessageAccess> message) {
-		cardLayout.show(cards, panel);
-	}
-	
-	private class ButtonManager implements ActionListener {
-
-		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
 		
 	}
 	

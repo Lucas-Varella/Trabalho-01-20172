@@ -1,6 +1,8 @@
 package br.ufsc.ine5605.model;
 
+import java.text.DateFormat;
 import java.text.ParseException; 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,19 +14,15 @@ import br.ufsc.ine5605.controller.FinancialSectorCtrl;
  * @author Sadi Júnior Domingos Jacinto;
  *
  */
-public class FinancialSector {
-	
-	private FinancialSectorCtrl financialSectorCtrl;
+public class FinancialSector implements ConversionDates {
 	
 	/**
 	 * Contrutor padrão da classe;
-	 * @param financialSectorCtrl - recebe uma instância do FinancialSectorCtrl, que permite à classe
-	 * se comunicar com seu controlador, para obtenção de dados de outras classes;
 	 * 
 	 * @author Sadi Júnior Domingos Jacinto;
 	 */
-	public FinancialSector(FinancialSectorCtrl financialSectorCtrl) {
-		this.financialSectorCtrl = financialSectorCtrl;
+	public FinancialSector() {
+		
 	}
 	
 	/**
@@ -40,48 +38,32 @@ public class FinancialSector {
 	 *
 	 * @author Sadi Júnior Domingos Jacinto;
 	 */
-	public boolean validAccess(int numRegistration, Date hour, Date dateAccess) {//método revisado, OK;
+	
+	public boolean isPrivilegeFull(Privileges p) {
+		if(p.equals(Privileges.Full)) {
+			return true;
 		
-		try {
-			
-			if(financialSectorCtrl.isAccessBloqued(numRegistration)) {
-				financialSectorCtrl.addAccess(numRegistration, dateAccess, hour, Reasons.BLOCK);
-				return false;
-			}
-			
-			if(!financialSectorCtrl.validNumRegistration(numRegistration)) {
-				financialSectorCtrl.addAccess(numRegistration, dateAccess, hour, Reasons.NONUMREGS);
-				return false;
-			}
-			
-			Privileges p = financialSectorCtrl.getPrivilegeByNumRegistration(numRegistration);
-		
-			if(p.equals(Privileges.Full)) {
-				return true;
-			
-			}else if(p.equals(Privileges.Restricted)) {
-				ArrayList<Horary> horaryAccess = financialSectorCtrl.getHoraryAccess(numRegistration);
-				
-				if(validHour(horaryAccess, hour)) {
-					return true;
-				
-				}else {
-					financialSectorCtrl.addAccess(numRegistration, dateAccess, hour, Reasons.INCTIME);
-					return false;
-				}
-			
-			}else if(p.equals(Privileges.No)) {
-				financialSectorCtrl.addAccess(numRegistration, dateAccess, hour, Reasons.NOACCESS);
-				return false;
-			}
-			
-			
-		} catch(ParseException e) {
-			System.out.println("Se eu chegar a ler isso, significa que deu merda na conversão das datas");
 		}
-		
 		return false;
 	}
+	
+	public boolean isPrivilegeRestrict(Privileges p, ArrayList<Horary> horaryAccess, Date hour) throws ParseException {
+		if(p.equals(Privileges.Restricted)) {
+			
+			if(validHour(horaryAccess, hour)) {
+				return true;
+			
+			}
+		}
+		return false;
+	}
+		
+		public boolean isPrivilegeNo(Privileges p) {
+			if(p.equals(Privileges.No)) {
+				return true;
+			}
+			return false;
+		}
 	
 	/**
 	 * Método que válida se o horário de tentativa de entrada no Setor Financeiro é correspondente ao
@@ -100,10 +82,10 @@ public class FinancialSector {
 		boolean valid = false;
 		
 		for(Horary h : horarys) {
-			Date hourBegin = financialSectorCtrl.strToDateHour(h.getHourBegin());
-			Date hourFinish = financialSectorCtrl.strToDateHour(h.getHourFinish());
-			if(hourFinish.equals(financialSectorCtrl.strToDateHour("00:00"))) {
-				hourFinish = financialSectorCtrl.strToDateHour("24:00");
+			Date hourBegin = strToDateHour(h.getHourBegin());
+			Date hourFinish = strToDateHour(h.getHourFinish());
+			if(hourFinish.equals(strToDateHour("00:00"))) {
+				hourFinish = strToDateHour("24:00");
 			}
 			if(access.compareTo(hourBegin) >= 0 && access.compareTo(hourFinish) <= 0) {
 				valid = true; 
@@ -112,6 +94,48 @@ public class FinancialSector {
 		}
 		
 		return valid;
+	}
+	
+	/**
+	 * Converte uma String em um Date no formato HH:mm;
+	 * @param data - String de entrada
+	 * @return Date;
+	 * @throws ParseException ocorre quando o input do usuário não corresponde ao formato esperado;
+	 */
+	public Date strToDateHour(String data) throws ParseException {
+			if (data == null) {
+	            return null;
+	        }
+	        Date dataF = null;
+	        try {
+	            DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+	            long time = dateFormat.parse(data).getTime();
+	            dataF = new Date(time);
+	        } catch (ParseException e) {
+	        	throw new ParseException(data, 0);
+	        }
+	        return dataF;
+	}
+	
+	/**
+	 * Converte uma String em um Date no formato HH:mm;
+	 * @param data - String de entrada
+	 * @return Date;
+	 * @throws ParseException ocorre quando o input do usuário não corresponde ao formato esperado;
+	 */
+	public Date strToDate(String data) throws ParseException {
+		if (data == null) {
+            return null;
+        }
+        Date dataF = null;
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            long time = dateFormat.parse(data).getTime();
+            dataF = new Date(time);
+        } catch (ParseException e) {
+            throw new ParseException(data, 0);
+        }
+        return dataF;
 	}
 	
 	

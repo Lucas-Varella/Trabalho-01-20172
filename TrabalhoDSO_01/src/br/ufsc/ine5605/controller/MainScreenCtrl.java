@@ -13,7 +13,7 @@ import br.ufsc.ine5605.model.Screen2;
  * @author lucas
  */
 public class MainScreenCtrl implements Screen2 {
-	private MainController mainCtrl;
+	private static final MainScreenCtrl instance = new MainScreenCtrl();
 	private MainScreen mainScreen;
 	
 	/**
@@ -22,25 +22,28 @@ public class MainScreenCtrl implements Screen2 {
 	 * @param mainCtrl - Recebe uma instância do MainController;
 	 * 
 	 */
-	public MainScreenCtrl(MainController mainCtrl) {
-		this.mainCtrl = mainCtrl;
+	public MainScreenCtrl() {
 		mainScreen = new MainScreen(this);
 	}
 	
+	public static MainScreenCtrl getInstance() {
+		return instance;
+	}
+
 	public void menu() {
 		mainScreen.setVisible(true); 
 	}
 	
 	public void employeeMenu() {
-		mainCtrl.showEmployeeMenu();
+		MainController.getInstance().showEmployeeMenu();
 	}
 	
 	public void employmentMenu() {
-		mainCtrl.showEmploymentMenu();
+		MainController.getInstance().showEmploymentMenu();
 	}
 	
 	public void financialSectorMenu() {
-		mainCtrl.showFinancialSectorMenu();
+		MainController.getInstance().showFinancialSectorMenu();
 	}
 	
 	public int conversionStringToInt(String data) throws NumberFormatException {
