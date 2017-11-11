@@ -1,16 +1,12 @@
 package br.ufsc.ine5605.controller;
  
-import java.io.Serializable;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 import br.ufsc.ine5605.model.Employment;
 import br.ufsc.ine5605.model.EmploymentDAO;
 import br.ufsc.ine5605.model.EmploymentRestrictAccess;
 import br.ufsc.ine5605.model.Privileges;
-import br.ufsc.ine5605.model.Contract;
-import br.ufsc.ine5605.model.Employee;
 import br.ufsc.ine5605.model.Horary;
-import br.ufsc.ine5605.view.EmploymentScreen;
 import br.ufsc.ine5605.view.EmploymentScreenI;
 import br.ufsc.ine5605.model.Screen2;
 
@@ -20,7 +16,7 @@ import br.ufsc.ine5605.model.Screen2;
  * @author Sadi Júnior Domingos Jacinto;
  *
  */
-public class EmploymentCtrl implements Screen2, Serializable{
+public class EmploymentCtrl implements Screen2{
 	private MainController mainCtrl;
 	private EmploymentScreenI employmentScreen;
 	private Employment employment;
@@ -66,7 +62,7 @@ public class EmploymentCtrl implements Screen2, Serializable{
 	 * @return EmploymentRestrictAccess - o novo EmploymentRestrictAccess criado; 
 	 */
 	public EmploymentRestrictAccess addEmploymentRestrictAccess(String name, Privileges option) {
-		EmploymentRestrictAccess em = new EmploymentRestrictAccess(getCode(), name, option, this);
+		EmploymentRestrictAccess em = new EmploymentRestrictAccess(getCode(), name, option);
 		employmentDAO.put(em);
 		setCode(getCode() + 1 );
 		return em;
@@ -148,7 +144,7 @@ public class EmploymentCtrl implements Screen2, Serializable{
 	 */
 	public EmploymentRestrictAccess addEmploymentRestrictAccess(int code2,
 			String name, Privileges privilege) {
-		EmploymentRestrictAccess e = new EmploymentRestrictAccess(code, name, privilege, this);
+		EmploymentRestrictAccess e = new EmploymentRestrictAccess(code, name, privilege);
 		employmentDAO.put(e);
 		return e;
 	}

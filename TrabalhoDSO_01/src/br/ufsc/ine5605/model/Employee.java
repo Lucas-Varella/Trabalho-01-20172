@@ -3,7 +3,7 @@
 import java.io.Serializable;
 import java.sql.Date; 
 
-import br.ufsc.ine5605.controller.EmployeeCtrl;
+
 
 /**
  * Classe que contém os atributos e métodos necessários para a criação de um Employee;

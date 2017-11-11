@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import br.ufsc.ine5605.controller.HoraryCtrl;
 
 /**
  * Classe que contém os atributos e métodos responsáveis pela criação de um objeto Horary;

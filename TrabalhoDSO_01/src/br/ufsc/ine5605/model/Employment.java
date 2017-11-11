@@ -3,7 +3,6 @@ package br.ufsc.ine5605.model;
 import java.io.Serializable;
 import java.util.ArrayList; 
 
-import br.ufsc.ine5605.controller.EmploymentCtrl;
 
 /**
  * Classe que contém os métodos relativos ao Employment;

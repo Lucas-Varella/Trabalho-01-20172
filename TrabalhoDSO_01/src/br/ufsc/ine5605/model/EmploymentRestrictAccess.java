@@ -3,7 +3,7 @@ package br.ufsc.ine5605.model;
 import java.io.Serializable;
 import java.util.ArrayList; 
 
-import br.ufsc.ine5605.controller.EmploymentCtrl;
+
 
 /**
  * Classe que contém os atributos e métodos responsáveis pela criação de um objeto 
@@ -23,7 +23,7 @@ public class EmploymentRestrictAccess extends Employment implements Serializable
 	 * do contrutor da classe Employment;
 	 */
 	public EmploymentRestrictAccess(int code, String name,
-			Privileges privilege, EmploymentCtrl employmentCtrl) {
+			Privileges privilege) {
 		super(code, name, privilege);
 		horarys = new ArrayList<>();
 		
