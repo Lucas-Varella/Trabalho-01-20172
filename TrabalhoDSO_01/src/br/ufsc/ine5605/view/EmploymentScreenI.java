@@ -31,7 +31,6 @@ import br.ufsc.ine5605.model.Privileges;
 
 public class EmploymentScreenI extends JFrame {
 	
-	private EmploymentCtrl ctrl;
 	private JLabel lbGuide;
 	private JButton btRegister;
 	private ButtonManager btManager;
@@ -53,9 +52,8 @@ public class EmploymentScreenI extends JFrame {
 	private JButton btDelCancel;
 	private HashMap<String, Employment> hashEmployment;
 	
-	public EmploymentScreenI(EmploymentCtrl ctrl) {
+	public EmploymentScreenI() {
 		super("Employment Sector");
-		this.ctrl = ctrl;
 		btManager = new ButtonManager();
 		mainConfig();
 	}
@@ -224,9 +222,9 @@ public class EmploymentScreenI extends JFrame {
 		DefaultListModel<String> lsModel = new DefaultListModel<String>();
 		try {
 			
-			if(ctrl.getEmployments() != null) {
+			if(EmploymentCtrl.getInstance().getEmployments() != null) {
 	
-				for(Employment e : ctrl.getEmployments()) {
+				for(Employment e : EmploymentCtrl.getInstance().getEmployments()) {
 					hashEmployment.put(e.getName(), e);
 					lsModel.addElement(e.getName());
 				}
@@ -249,7 +247,7 @@ public class EmploymentScreenI extends JFrame {
 			
 			} else if (e.getSource().equals(btOk)) {
 				
-				ctrl.addEmployment(tfNome.getText(), ctrl.stringToPrivilege(cbPrivileges.getSelectedItem().toString()));
+				EmploymentCtrl.getInstance().addEmployment(tfNome.getText(), EmploymentCtrl.getInstance().stringToPrivilege(cbPrivileges.getSelectedItem().toString()));
 				JOptionPane.showMessageDialog(null, "Employment '" + tfNome.getText() + "' Created Successfully!");
 				cardLayout.show(pSetup, "pMain");
 				repaint();

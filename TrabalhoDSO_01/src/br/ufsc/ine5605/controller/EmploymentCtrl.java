@@ -29,7 +29,7 @@ public class EmploymentCtrl implements Screen2 {
 	 * @param mainCtrl - recebe uma instância do MainController, o que permite a comunicação com o mesmo;
 	 */
 	public EmploymentCtrl() {
-		this.employmentScreen = new EmploymentScreenI(this);
+		this.employmentScreen = new EmploymentScreenI();
 		this.employmentDAO = new EmploymentDAO();
 		}
 

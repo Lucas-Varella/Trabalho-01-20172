@@ -22,6 +22,7 @@ public class MainController {
 	 * passando uma instância desta classe como parâmetro; 
 	 */
 	public MainController() {
+		
 	}
 	public static MainController getInstance() {
 		return instance;
