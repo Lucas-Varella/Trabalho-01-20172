@@ -22,7 +22,7 @@ public class EmploymentDAO implements Serializable {
 	public EmploymentDAO() {
 		load();
 	}
-//nvm
+
 	private void load() {
    
 		try { 
