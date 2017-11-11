@@ -13,6 +13,7 @@ import br.ufsc.ine5605.controller.FinancialSectorCtrl;
  *
  */
 public class FinancialSector {
+	
 	private FinancialSectorCtrl financialSectorCtrl;
 	
 	/**

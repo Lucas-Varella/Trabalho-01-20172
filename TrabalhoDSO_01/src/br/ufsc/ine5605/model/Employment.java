@@ -12,11 +12,11 @@ import br.ufsc.ine5605.controller.EmploymentCtrl;
  */
 public class Employment implements Serializable {
 	
-	protected int code;
-	protected String name;
-	protected Privileges privilege;
-	protected ArrayList<Contract> employees;
-	protected transient EmploymentCtrl employmentCtrl;
+	private int code;
+	private String name;
+	private Privileges privilege;
+	private ArrayList<Contract> employees;
+
 	
 	/**
 	 * Construtor padrão da classe;
@@ -25,11 +25,10 @@ public class Employment implements Serializable {
 	 * @param privilege - Privilégio concedido ao Employment;
 	 * @param employmentCtrl - Instância do EmploymentCtrl, permitindo a comunicação dessa classe com as demais;
 	 */
-	public Employment(int code, String name, Privileges privilege, EmploymentCtrl employmentCtrl) {
+	public Employment(int code, String name, Privileges privilege) {
 		this.code = code;
 		this.name = name;
 		this.privilege = privilege;
-		this.employmentCtrl = employmentCtrl;
 		employees = new ArrayList<Contract>();
 	}
 	

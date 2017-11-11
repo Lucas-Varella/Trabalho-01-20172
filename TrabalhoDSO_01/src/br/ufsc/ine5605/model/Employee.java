@@ -1,4 +1,4 @@
-package br.ufsc.ine5605.model;
+ package br.ufsc.ine5605.model;
 
 import java.io.Serializable;
 import java.sql.Date; 
@@ -15,7 +15,6 @@ public class Employee implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private transient EmployeeCtrl employeeCtrl;
 	private int numRegistration;
 	private String name;
 	private Date dateBirth;
@@ -32,8 +31,7 @@ public class Employee implements Serializable{
 	 * @param phone - int contendo o número de telefone do Employee;
 	 * @param salary - double contendo o salário do Employee;
 	 */
-	public Employee(EmployeeCtrl employeeCtrl, int numRegistration, String name, Date dateBirth, int phone, double salary) {
-		this.employeeCtrl = employeeCtrl;
+	public Employee(int numRegistration, String name, Date dateBirth, int phone, double salary) {
 		this.numRegistration = numRegistration;
 		this.name = name;
 		this.dateBirth = dateBirth;

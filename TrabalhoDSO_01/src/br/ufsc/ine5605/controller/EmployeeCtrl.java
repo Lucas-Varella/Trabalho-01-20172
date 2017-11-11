@@ -59,7 +59,7 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 
 	
 	public Employee addEmployee(String name, Date dateBirth, int phone, double salary) {
-		Employee generic = new Employee(this, getCode(), name, dateBirth, phone, salary);
+		Employee generic = new Employee(getCode(), name, dateBirth, phone, salary);
 		empDAO.put(generic);
 		setCode(getCode() + 1);
 		return generic;

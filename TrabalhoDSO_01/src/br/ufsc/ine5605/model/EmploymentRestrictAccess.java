@@ -11,6 +11,11 @@ import br.ufsc.ine5605.controller.EmploymentCtrl;
  * @author Sadi Júnior Domingos Jacinto;
  */
 public class EmploymentRestrictAccess extends Employment implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Horary> horarys;
 	
 	/**
@@ -19,8 +24,8 @@ public class EmploymentRestrictAccess extends Employment implements Serializable
 	 */
 	public EmploymentRestrictAccess(int code, String name,
 			Privileges privilege, EmploymentCtrl employmentCtrl) {
-		super(code, name, privilege, employmentCtrl);
-		horarys = new ArrayList();
+		super(code, name, privilege);
+		horarys = new ArrayList<>();
 		
 	}
 	
