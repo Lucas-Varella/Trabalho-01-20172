@@ -86,14 +86,15 @@ public class MainScreen extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			
 			if(e.getSource().equals(btEmployee)) {
-				
+				setVisible(false);
 				MainScreenCtrl.getInstance().employeeMenu();
 			
 			} else if(e.getSource().equals(btEmployment)) {
-				
+				setVisible(false);
 				MainScreenCtrl.getInstance().employmentMenu();
 			
 			} else if(e.getSource().equals(btFSector)) {
+				setVisible(false);
 				MainScreenCtrl.getInstance().financialSectorMenu();
 			}
 		}

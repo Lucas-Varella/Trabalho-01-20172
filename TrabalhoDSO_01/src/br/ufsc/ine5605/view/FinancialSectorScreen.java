@@ -195,9 +195,9 @@ public class FinancialSectorScreen extends JFrame {
 				FinancialSectorCtrl.getInstance().mainMenu();
 				
 			}else if(e.getSource().equals(btAllDeniedAccess)) {
-				getContentPane().setVisible(false);
+				//setVisible(false);
 				FinancialSectorCtrl.getInstance().showAllDeniedAccess();
-				cardLayout.show(cards, "panel3");
+				//setVisible(true);
 				
 			}else if(e.getSource().equals(btDeniedAccessByNumber)) {
 				cardLayout.show(cards, "panel4");

@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import br.ufsc.ine5605.model.Access;
+import br.ufsc.ine5605.model.MessageAccess;
 import br.ufsc.ine5605.model.Reasons;
 import br.ufsc.ine5605.view.AccessScreen;
-import br.ufsc.ine5605.view.MessageAccess;
 
 /**
  * Classe responsável pela comunicação das classes Access e AccessScreen entre si e com as outras classes;
@@ -28,7 +28,7 @@ public class AccessCtrl {
 	 * desta classe com todas as outras através do MainController;
 	 */
 	public AccessCtrl() {
-		this.accessScreen = new AccessScreen(this);
+		this.accessScreen = new AccessScreen();
 		deniedAccess = new ArrayList<Access>();
 		message = new ArrayList();
 	}
@@ -50,14 +50,15 @@ public class AccessCtrl {
 	}
 	
 	public void listAllDeniedAccess() throws IndexOutOfBoundsException {
-		if(deniedAccess.size() > 0) {
-			for(Access a: deniedAccess) {
-				message.add(new MessageAccess(a.getNumRegistration(), a.getDate(), a.getHour(), a.getReason()));
-			}
-			accessScreen.show("panel1", message);
-		}else {
-			throw new IndexOutOfBoundsException();
-		}
+//		if(deniedAccess.size() > 0) {
+//			for(Access a: deniedAccess) {
+//				message.add(new MessageAccess(a.getNumRegistration(), a.getDate(), a.getHour(), a.getReason()));
+//			}
+//			//accessScreen.show(message);
+//		}else {
+//			throw new IndexOutOfBoundsException();
+//		}
+		accessScreen.setVisible(true);
 	}
 	
 	public ArrayList<MessageAccess> getMessage() {
@@ -68,7 +69,7 @@ public class AccessCtrl {
 		if(deniedAccess.size() > 0) {
 			for(Access a: deniedAccess) {
 				if(a.getNumRegistration() == numRegistration) {
-					accessScreen.listDeniedAccessByNumRegistration(a);
+					//accessScreen.listDeniedAccessByNumRegistration(a);
 				}
 			}
 			System.out.println("There is no denied access that has this registration number");
@@ -82,7 +83,7 @@ public class AccessCtrl {
 		if(deniedAccess.size() > 0) {
 			for(Access a : deniedAccess) {
 				if(a.getReason().equals(reason)) {
-					accessScreen.listDeniedAccessByReason(a);
+					//accessScreen.listDeniedAccessByReason(a);
 				}
 			}
 			System.out.println("There is no denied access registered with this denial motive");

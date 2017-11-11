@@ -1,8 +1,7 @@
-package br.ufsc.ine5605.view;
+package br.ufsc.ine5605.model;
 
 import java.util.Date;
 
-import br.ufsc.ine5605.model.Reasons;
 
 public class MessageAccess {
 	private int numRegistration;

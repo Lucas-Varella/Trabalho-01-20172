@@ -24,9 +24,11 @@ public class MainController {
 	public MainController() {
 		
 	}
+	
 	public static MainController getInstance() {
 		return instance;
 	}
+	
 	public ArrayList<Employment> getEmployments() {
 		return EmploymentCtrl.getInstance().getEmployments();
 	}

@@ -28,7 +28,6 @@ import br.ufsc.ine5605.model.ConversionDates;
  */
 public class FinancialSectorCtrl {
 	private static final FinancialSectorCtrl instance = new FinancialSectorCtrl();
-	private MainController mainCtrl;
 	private FinancialSectorScreen financialSectorScreen;
 	private FinancialSector financialSector;
 	
@@ -40,7 +39,7 @@ public class FinancialSectorCtrl {
 	 * @author Sadi Júnior Domingos Jacinto;
 	 */
 	public FinancialSectorCtrl() {
-		//this.mainCtrl = mainController;
+		//this.MainController.getInstance() = mainController;
 		//this.financialSectorScreen = new FinancialSectorScreen(this);
 		this.financialSector = new FinancialSector();
 		this.financialSectorScreen = new FinancialSectorScreen();
@@ -53,7 +52,7 @@ public class FinancialSectorCtrl {
 
 
 	public void mainMenu() {
-		mainCtrl.showMainScreen();
+		MainController.getInstance().showMainScreen();
 	}
 	
 	
@@ -64,12 +63,12 @@ public class FinancialSectorCtrl {
 	
 	public boolean validAccess(int numRegistration, Date hourAccess, Date dateAccess) {
 		try {
-			if(!mainCtrl.isAccessBloqued(numRegistration)) {
+			if(!MainController.getInstance().isAccessBloqued(numRegistration)) {
 				addAccess(numRegistration, dateAccess, hourAccess, Reasons.BLOCK);
 				return false;
 			}
 			
-			if(!mainCtrl.validNumRegistration(numRegistration)) {
+			if(!MainController.getInstance().validNumRegistration(numRegistration)) {
 				addAccess(numRegistration, dateAccess, hourAccess, Reasons.NONUMREGS);
 				return false;
 			}
@@ -92,21 +91,21 @@ public class FinancialSectorCtrl {
 	}
 	
 	public void addAccess(int numRegistration, Date date, Date hour, Reasons reason) {
-		mainCtrl.addAccess(numRegistration, date, hour, reason);
+		MainController.getInstance().addAccess(numRegistration, date, hour, reason);
 	}
 
 	public void showAllDeniedAccess() {
-		mainCtrl.showAllDeniedAccess();
+		MainController.getInstance().showAllDeniedAccess();
 		
 	}
 
 	public void showDeniedAccessByNumRegistration(int numRegistration) {
-		mainCtrl.showDeniedAccessByNumRegistration(numRegistration);
+		MainController.getInstance().showDeniedAccessByNumRegistration(numRegistration);
 		
 	}
 
 	public void showDeniedAccessByReason(Reasons reason) {
-		mainCtrl.showDeniedAccessByReason(reason);
+		MainController.getInstance().showDeniedAccessByReason(reason);
 	}
 	/**
 	 * Método que, quando invocado, registra e retorna a data atual do sistema no qual 
@@ -134,16 +133,16 @@ public class FinancialSectorCtrl {
 	}
 
 	public Privileges getPrivilegeByNumRegistration(int numRegistration) {
-		return mainCtrl.getPrivilegeByNumRegistration(numRegistration);
+		return MainController.getInstance().getPrivilegeByNumRegistration(numRegistration);
 	}
 
 	public ArrayList<Horary> getHoraryAccess(int numRegistration) {
-		return mainCtrl.getHoraryAccess(numRegistration);
+		return MainController.getInstance().getHoraryAccess(numRegistration);
 	}
 	
 
 	public Reasons getReasonBy() {
-		return mainCtrl.getReasonBy();		
+		return MainController.getInstance().getReasonBy();		
 	}
 	
 }

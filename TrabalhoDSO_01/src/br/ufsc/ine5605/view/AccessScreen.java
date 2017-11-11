@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import java.awt.CardLayout;
@@ -19,6 +21,7 @@ import java.awt.GridBagLayout;
 
 import br.ufsc.ine5605.controller.AccessCtrl;
 import br.ufsc.ine5605.model.Access;
+import br.ufsc.ine5605.model.MessageAccess;
 
 /**
  * Classe responsável por exibir ao usuário um relatório de acessos negados;
@@ -26,19 +29,11 @@ import br.ufsc.ine5605.model.Access;
  *
  */
 public class AccessScreen extends JFrame {
-	private AccessCtrl accessCtrl;
+	private JTable jtTable;
+	private JScrollPane spScroll;
 	private JPanel panel;
-	private JLabel text1;
-	private JLabel text2;
-	private JLabel text3;
-	private JLabel text4;
-	private JLabel numberRegistration;
-	private JLabel date;
-	private JLabel hour;
-	private JLabel reason;
 	
-	public AccessScreen(AccessCtrl accessCtrl) {
-		this.accessCtrl = accessCtrl;
+	public AccessScreen() {
 		initComponents();
 	}
 	
@@ -47,45 +42,24 @@ public class AccessScreen extends JFrame {
 		Container container = getContentPane();
 		GridBagConstraints cons = new GridBagConstraints();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(400, 250);
+        setSize(1000, 250);
         setLocationRelativeTo(null);
         setResizable(true);
-        
-        // Instantiating JLabels;
-        text1 = new JLabel("Number of Registration: ");
-        text2 = new JLabel("Date of Access: ");
-		text3 = new JLabel("Hour of Access: ");
-		text4 = new JLabel("Reason for denial of access: ");
-		numberRegistration = new JLabel();
-		date = new JLabel();
-		hour = new JLabel();
-		reason = new JLabel();
 		
+		// Inicializa os cabeçalhos das colunas.
+		String[] Headings = { "Number of Registration", "Date of Access", "Hour of Access", "Reason for Denied Acess" };
+		// Inicializa data.
+		String[][] data = {};
 		
-        
-        //Create the cards
-        
-        //All Denied Access
-        panel = new JPanel(new GridBagLayout());
-        cons.gridx = 0;  
-        cons.gridy = 0;
-        panel.add(text1, cons);
-        cons.gridx = 0;  
-        cons.gridy = 1;
-        panel.add(text2, cons);
-        cons.gridx = 0;  
-        cons.gridy = 2;
-        panel.add(text3, cons);
-        cons.gridx = 0;  
-        cons.gridy = 3;
-        panel.add(text4, cons);
-        
+		// Cria a tabela.
+		jtTable = new JTable(data, Headings);
+		// Adiciona a tabela a um painel de rolagem.
+		spScroll = new JScrollPane(jtTable); 
+		// Adiciona o painel de rolagem ao painel de conteúdo.
+		container.add(spScroll);
 		
 	}
-	
-	public void show(String panel, ArrayList<MessageAccess> message) {
-		
-	}
+}
 	
 
 	
@@ -122,7 +96,7 @@ public class AccessScreen extends JFrame {
 	 * Lista os acessos negados previamente filtrados por um número de matrícula;
 	 * @param a - Recebe a instância de Access que deverá ser exibida ao usuário;
 	 */
-	public void listDeniedAccessByNumRegistration(Access a) {
+	/*public void listDeniedAccessByNumRegistration(Access a) {
 		try {
 			System.out.println("______________________________________________________");
 			System.out.println("Number of Registration - " + a.getNumRegistration());
@@ -139,7 +113,7 @@ public class AccessScreen extends JFrame {
 	 * Lista os acessos negados previamente filtrados por um motivo de negação de acesso;
 	 * @param a - Recebe a instância de Access que deverá ser exibida ao usuário;
 	 */
-	public void listDeniedAccessByReason(Access a) {
+	/*public void listDeniedAccessByReason(Access a) {
 		try {
 			System.out.println("______________________________________________________");
 			System.out.println("Number of Registration - " + a.getNumRegistration());
@@ -153,3 +127,4 @@ public class AccessScreen extends JFrame {
 	}
 	
 }
+*/
