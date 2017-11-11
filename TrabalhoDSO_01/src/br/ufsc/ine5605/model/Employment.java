@@ -12,6 +12,10 @@ import br.ufsc.ine5605.controller.EmploymentCtrl;
  */
 public class Employment implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int code;
 	private String name;
 	private Privileges privilege;

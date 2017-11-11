@@ -3,8 +3,12 @@ package br.ufsc.ine5605.model;
 import java.io.*;
 import java.util.*;
 
-public class EmployeeDAO {
+public class EmployeeDAO implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private HashMap<Integer, Employee> cacheEmployees = new HashMap<>();
 	private final String filename = "employees.dat";
 	

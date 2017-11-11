@@ -15,7 +15,7 @@ public class EmploymentDAO implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6515827450278877252L;
+	private static final long serialVersionUID = 1L;
 	private HashMap<Integer, Employment> cacheEmployment = new HashMap<Integer, Employment>();
 	private final String fileName = "employments.dat";
  
