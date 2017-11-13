@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import br.ufsc.ine5605.model.Access;
+import br.ufsc.ine5605.model.AccessDAO;
 import br.ufsc.ine5605.model.MessageAccess;
 import br.ufsc.ine5605.model.Reasons;
 import br.ufsc.ine5605.view.AccessScreen;
@@ -20,8 +21,9 @@ import br.ufsc.ine5605.view.AccessScreen;
 public class AccessCtrl implements Serializable {
 	private static final AccessCtrl instance = new AccessCtrl();
 	private AccessScreen accessScreen;
-	private ArrayList<Access> deniedAccess;
-	private ArrayList<MessageAccess> message;
+	private AccessDAO accessDAO = new AccessDAO();
+	//private ArrayList<Access> getMessage();
+	//private ArrayList<MessageAccess> message;
 	
 	/**
 	 * Construtor padrão da classe;
@@ -30,8 +32,8 @@ public class AccessCtrl implements Serializable {
 	 */
 	public AccessCtrl() {
 		this.accessScreen = new AccessScreen();
-		deniedAccess = new ArrayList<Access>();
-		message = new ArrayList();
+		//getMessage() = new ArrayList<Access>();
+		//message = new ArrayList();
 	}
 	
 	public static AccessCtrl getInstance() {
@@ -47,48 +49,56 @@ public class AccessCtrl implements Serializable {
 	 */
 	public void addAccess(int numRegistration, Date date, Date hour, Reasons reason) {
 		Access a = new Access(numRegistration, date, hour, reason );
-		deniedAccess.add(a);
+		accessDAO.put(a);
+		//getMessage().add(a);
 	}
 	
-	public void listAllDeniedAccess() {//throws IndexOutOfBoundsException {
-//		if(deniedAccess.size() > 0) {
-//			for(Access a: deniedAccess) {
-//				message.add(new MessageAccess(a.getNumRegistration(), a.getDate(), a.getHour(), a.getReason()));
-//			}
-//			//accessScreen.show(message);
-//		}else {
-//			throw new IndexOutOfBoundsException();
-//		}
-		accessScreen.show();
+	public void listAllDeniedAccess() throws IndexOutOfBoundsException {
+		if(getMessage().size() > 0) {
+			
+			accessScreen.show(getMessage());
+		}else {
+			new IndexOutOfBoundsException();
+		}
+		
 	}
 	
-	public ArrayList<MessageAccess> getMessage() {
-		return message;
+	public ArrayList<Access> getMessage() {
+		return new ArrayList<Access>(accessDAO.getList());
 	}
 	
 	public void listDeniedAccessByNumRegistration(int numRegistration) throws IndexOutOfBoundsException {
-//		if(deniedAccess.size() > 0) {
-//			for(Access a: deniedAccess) {
-//				if(a.getNumRegistration() == numRegistration) {
-//					//accessScreen.listDeniedAccessByNumRegistration(a);
-//				}
-//			}
-//			System.out.println("There is no denied access that has this registration number");
-//		}else {
-//			throw new IndexOutOfBoundsException();
-//		}
-		accessScreen.show();
+		if(getMessage().size() > 0) {
+			ArrayList<Access> access = new ArrayList();
+			for(Access a : getMessage()) {
+				if(a.getNumRegistration() == numRegistration) {
+					access.add(a);
+				}
+			}
+			if(access.size() > 0) {
+				accessScreen.show(access);
+			}else {
+				accessScreen.noNumRegistration();
+			}
+		}else {
+			new IndexOutOfBoundsException();
+		}
 
 	}
 	
 	public void listDeniedAccessByReason(Reasons reason) throws IndexOutOfBoundsException {
-		if(deniedAccess.size() > 0) {
-			for(Access a : deniedAccess) {
+		if(getMessage().size() > 0) {
+			ArrayList<Access> access = new ArrayList();
+			for(Access a : getMessage()) {
 				if(a.getReason().equals(reason)) {
-					//accessScreen.listDeniedAccessByReason(a);
+					access.add(a);
 				}
 			}
-			System.out.println("There is no denied access registered with this denial motive");
+			if(access.size() > 0) {
+				accessScreen.show(access); 
+			} else {
+				accessScreen.noReason();
+			}
 		}else {
 			throw new IndexOutOfBoundsException();
 		}
@@ -101,9 +111,9 @@ public class AccessCtrl implements Serializable {
 	 * @return boolean - Retorna true se o acesso está bloqueado, false caso contrário;
 	 */
 	public boolean isAccessBloqued(int numRegistration) {
-		if(deniedAccess != null ) {
+		if(getMessage() != null ) {
 			int cont = 0;
-			for(Access a : deniedAccess) {
+			for(Access a : getMessage()) {
 				if(a.getNumRegistration() == numRegistration) {
 					cont++;
 				}
@@ -111,12 +121,8 @@ public class AccessCtrl implements Serializable {
 			if(cont == 3) {
 				return true;
 			}
-			return false;
-			
 		}
-
 		return false;
-		
 	}
 	
 	/**
@@ -127,7 +133,7 @@ public class AccessCtrl implements Serializable {
 	 * @return Reasons - Retorna o motivo da negação de acesso;
 	 */
 	public Reasons getReasonsBy() {
-		return deniedAccess.get(deniedAccess.size() - 1).getReason();
+		return getMessage().get(getMessage().size() - 1).getReason();
 	}
 	
 	public String dateToStringHour(Date data) throws ParseException {

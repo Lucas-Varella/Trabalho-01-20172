@@ -262,22 +262,22 @@ public class FinancialSectorScreen extends JFrame {
 					Date hours = FinancialSectorCtrl.getInstance().strToDateHour(hour.getText());
 					boolean b = FinancialSectorCtrl.getInstance().validAccess(number, hours);
 					if(b) {
-						JOptionPane.showMessageDialog(null, null, "Welcome to Financial Sector", 1);
+						JOptionPane.showMessageDialog(null, "Welcome to Financial Sector", "Welcome", 1);
 					}else {
-						JOptionPane.showMessageDialog(null, null, "You are not worthy of entrance, for: \n" + FinancialSectorCtrl.getInstance().getReasonBy(), 1);
+						JOptionPane.showMessageDialog(null, "You are not worthy of entrance, for: \n" + FinancialSectorCtrl.getInstance().getReasonBy(), "Error" ,1);
 					}
 				} catch(ParseException ex) {
 					// Criar mensagem genérica de erro depois; 
-					JOptionPane.showMessageDialog(null, null, "A conversion error has occurred, make sure you have entered the required data correctly", 1);
+					JOptionPane.showMessageDialog(null, "A conversion error has occurred, make sure you have entered the required data correctly", "Error" ,1);
 				} catch(NumberFormatException ex) {
-					JOptionPane.showMessageDialog(null, null, "Please enter only valid numbers", 1);
+					JOptionPane.showMessageDialog(null, "Please enter only valid numbers", "Error", 1);
 				}
 			} else if(e.getSource().equals(enter2)) {
 				try {
 					int number = FinancialSectorCtrl.getInstance().conversionStringToInt(number1.getText());
 					FinancialSectorCtrl.getInstance().showDeniedAccessByNumRegistration(number);
 				}catch(NumberFormatException ex) {
-					JOptionPane.showMessageDialog(null, null, "Please enter only valid numbers", 1);
+					JOptionPane.showMessageDialog(null, "Please enter only valid numbers", "Error", 1);
 				}
 			} else if(e.getSource().equals(enter3)) {
 				String s = reasons.getSelectedItem().toString();
