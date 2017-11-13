@@ -42,6 +42,8 @@ public class EmploymentCtrl implements Screen2 {
 	}
 	
 	public void menu() {
+		
+		employmentScreen.updateData();
 		employmentScreen.setVisible(true);
 	}
 	
@@ -55,7 +57,6 @@ public class EmploymentCtrl implements Screen2 {
 		Employment generic = new Employment(getCode() , name, option);
 		employmentDAO.put(generic);
 		employmentScreen.updateData();
-		setCode(getCode() + 1);
 	}
 	
 	
@@ -66,9 +67,9 @@ public class EmploymentCtrl implements Screen2 {
 	 * @return EmploymentRestrictAccess - o novo EmploymentRestrictAccess criado; 
 	 */
 	public EmploymentRestrictAccess addEmploymentRestrictAccess(String name, Privileges option) {
-		EmploymentRestrictAccess em = new EmploymentRestrictAccess(getCode(), name, option);
+		EmploymentRestrictAccess em = new EmploymentRestrictAccess(0, name, option);
 		employmentDAO.put(em);
-		setCode(getCode() + 1 );
+		//setCode(getCode() + 1 );
 		return em;
 	}
 	

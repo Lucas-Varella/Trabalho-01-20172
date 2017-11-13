@@ -80,6 +80,7 @@ public class EmploymentDAO implements Serializable {
 		return cacheEmployment.get(code);
 	}
 	public void put(Employment emp) {
+		emp.setCode(cacheEmployment.size() + 1001);
 		cacheEmployment.put(emp.getCode(), emp);
 		persist();
 	}
