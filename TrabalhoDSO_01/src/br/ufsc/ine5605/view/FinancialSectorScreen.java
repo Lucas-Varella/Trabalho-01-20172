@@ -264,10 +264,32 @@ public class FinancialSectorScreen extends JFrame {
 					if(b) {
 						JOptionPane.showMessageDialog(null, null, "Welcome to Financial Sector", 1);
 					}else {
-						JOptionPane.showMessageDialog(null, null, "You are not worthy of entrance", 1);
+						JOptionPane.showMessageDialog(null, null, "You are not worthy of entrance, for: \n" + FinancialSectorCtrl.getInstance().getReasonBy(), 1);
 					}
 				} catch(ParseException ex) {
-					
+					// Criar mensagem genérica de erro depois; 
+					JOptionPane.showMessageDialog(null, null, "A conversion error has occurred, make sure you have entered the required data correctly", 1);
+				} catch(NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, null, "Please enter only valid numbers", 1);
+				}
+			} else if(e.getSource().equals(enter2)) {
+				try {
+					int number = FinancialSectorCtrl.getInstance().conversionStringToInt(number1.getText());
+					FinancialSectorCtrl.getInstance().showDeniedAccessByNumRegistration(number);
+				}catch(NumberFormatException ex) {
+					JOptionPane.showMessageDialog(null, null, "Please enter only valid numbers", 1);
+				}
+			} else if(e.getSource().equals(enter3)) {
+				String s = reasons.getSelectedItem().toString();
+
+				if(s.equals(Reasons.BLOCK)) {
+					FinancialSectorCtrl.getInstance().showDeniedAccessByReason(Reasons.BLOCK);
+				}else if(s.equals(Reasons.INCTIME)) {
+					FinancialSectorCtrl.getInstance().showDeniedAccessByReason(Reasons.INCTIME);
+				}else if(s.equals(Reasons.NOACCESS)) {
+					FinancialSectorCtrl.getInstance().showDeniedAccessByReason(Reasons.NOACCESS);
+				}else {
+					FinancialSectorCtrl.getInstance().showDeniedAccessByReason(Reasons.NONUMREGS);
 				}
 			}
 			

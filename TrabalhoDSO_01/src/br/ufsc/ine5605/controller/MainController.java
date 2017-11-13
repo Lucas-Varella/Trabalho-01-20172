@@ -105,7 +105,7 @@ public class MainController {
 	}
 
 	public void showDeniedAccessByReason(Reasons reason) {
-		AccessCtrl.getInstance().listDeniedAccessByReason(reason);		
+		AccessCtrl.getInstance().listDeniedAccessByReason(reason);	
 	}
 	
 	
