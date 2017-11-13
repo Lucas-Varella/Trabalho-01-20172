@@ -13,9 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.CardLayout;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -42,22 +44,47 @@ public class AccessScreen extends JFrame {
 		Container container = getContentPane();
 		GridBagConstraints cons = new GridBagConstraints();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(1000, 250);
-        setLocationRelativeTo(null);
-        setResizable(true);
-		
-		// Inicializa os cabeçalhos das colunas.
-		String[] Headings = { "Number of Registration", "Date of Access", "Hour of Access", "Reason for Denied Acess" };
-		// Inicializa data.
-		String[][] data = {};
-		
+        		
 		// Cria a tabela.
-		jtTable = new JTable(data, Headings);
+		jtTable = new JTable();
+		
+		jtTable.setPreferredScrollableViewportSize(new Dimension(750, 150));
+		jtTable.setFillsViewportHeight(true);
+		
 		// Adiciona a tabela a um painel de rolagem.
 		spScroll = new JScrollPane(jtTable); 
 		// Adiciona o painel de rolagem ao painel de conteúdo.
-		container.add(spScroll);
 		
+		container.add(spScroll);
+		setSize(1000, 250);
+        setLocationRelativeTo(null);
+        setResizable(true);
+		
+	}
+	
+	private void updateData() {
+		DefaultTableModel model = (DefaultTableModel) jtTable.getModel();
+		model.addColumn("Number of Registration");
+		model.addColumn("Date of Access");
+		model.addColumn("Hour of Access");
+		model.addColumn("Reason for Denied Acess");
+		
+		/*
+		 * for(MessageAcess a : deniedAccess) {
+		 * 	model.addRow(new Object[]{a.getNumberRegistartion(), a.getDate(), a.getHour(), 
+		 * a.getReason()});
+		 * }
+		 * 
+		 * jtTable.setModel(model);
+		 * this.repaint();
+		 */
+		repaint();
+		
+	}
+	
+	public void show() {
+		updateData();
+		this.setVisible(true);
 	}
 }
 	

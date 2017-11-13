@@ -11,8 +11,10 @@ import java.util.Date;
 import java.util.Scanner;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -35,22 +37,32 @@ public class FinancialSectorScreen extends JFrame {
 	private JButton btDeniedAccessByNumber;
 	private JButton btDeniedAccessByReason;
 	private JButton mainMenu;
-	private JButton enter;
+	private JButton enter1;
+	private JButton enter2;
+	private JButton enter3;
 	private JButton return1;
 	private JButton return2;
 	private JButton return3;
 	private JButton return4;
-	private JButton return5;
 	private ButtonManager btManager;
 	private ButtonReturn btReturn;
 	private CardLayout cardLayout;
 	private JPanel cards;
 	private JPanel panel1;
-	private JLabel text;
+	private JLabel text1;
+	private JLabel text2;
+	private JLabel text3;
+	private JLabel text4;
+	private JLabel text5;
+	private JLabel text6;
 	private JPanel panel2;
 	private JPanel panel3;
 	private JPanel panel4;
 	private JPanel panel5;
+	private JTextField number1;
+	private JTextField number2;
+	private JTextField hour;
+	private JComboBox<String> reasons;
 	
 	public FinancialSectorScreen() {
 		super("Menu Financial Sector");
@@ -76,7 +88,9 @@ public class FinancialSectorScreen extends JFrame {
         btDeniedAccessByNumber = new JButton("Denied Access By Number Registration");
         btDeniedAccessByReason = new JButton("Denied Access By Reason");
         mainMenu = new JButton("Main Menu");
-        enter = new JButton("Enter");
+        enter1 = new JButton("OK");
+        enter2 = new JButton("OK");
+        enter3 = new JButton("OK");
         return1 = new JButton("Return");
         return2 = new JButton("Return");
         return3 = new JButton("Return");
@@ -89,7 +103,9 @@ public class FinancialSectorScreen extends JFrame {
         btDeniedAccessByNumber.addActionListener(btManager);
         btDeniedAccessByReason.addActionListener(btManager);
         mainMenu.addActionListener(btManager);
-        enter.addActionListener(btManager);
+        enter1.addActionListener(btManager);
+        enter2.addActionListener(btManager);
+        enter3.addActionListener(btManager);
         return1.addActionListener(btReturn);
         return2.addActionListener(btReturn);
         return3.addActionListener(btReturn);
@@ -97,7 +113,19 @@ public class FinancialSectorScreen extends JFrame {
         
         
         // Instantiating JLabel;
-        text = new JLabel("Please enter the required information:");
+        text1 = new JLabel("Please enter the required information:");
+        text2 = new JLabel("Number of Registration");
+        text3 = new JLabel("Date of Access");
+        text4 = new JLabel("Reason of Denied Access");
+        text5 = new JLabel("Number of Registration");
+        text6 = new JLabel("Please enter the required information:");
+        
+        
+        // Instantiating JTextField
+        
+        number1 = new JTextField(10);
+        number2 = new JTextField(10);
+        hour = new JTextField(10);
         
         // Instantiating JPanel with CardLayout;
         cards = new JPanel(new CardLayout());
@@ -121,18 +149,24 @@ public class FinancialSectorScreen extends JFrame {
         panel2 = new JPanel(new GridBagLayout());
         cons.gridx = 0;
         cons.gridy = 0;
-        panel2.add(text, cons);
+        panel2.add(text1, cons);
         cons.gridx = 0;
         cons.gridy = 1;
-        panel2.add(new JTextField("Number of Registration", 15), cons);
+        panel2.add(text2, cons);
         cons.gridx = 0;
         cons.gridy = 2;
-        panel2.add(new JTextField("Time of access", 10), cons);
+        panel2.add(number1, cons);
         cons.gridx = 0;
         cons.gridy = 3;
-        panel2.add(enter, cons);
+        panel2.add(text3, cons);
         cons.gridx = 0;
         cons.gridy = 4;
+        panel2.add(hour, cons);
+        cons.gridx = 0;
+        cons.gridy = 5;
+        panel2.add(enter1, cons);
+        cons.gridx = 0;
+        cons.gridy = 6;
         panel2.add(return1, cons);
         cards.add(panel2, "panel2");
         
@@ -157,12 +191,18 @@ public class FinancialSectorScreen extends JFrame {
         panel4 = new JPanel(new GridBagLayout());
         cons.gridx = 0;
         cons.gridy = 0;
-        panel4.add(text, cons);
+        panel4.add(text6, cons);
         cons.gridx = 0;
         cons.gridy = 1;
-        panel4.add(new JTextField("Number of Registration", 15), cons);
+        panel4.add(text5, cons);
         cons.gridx = 0;
         cons.gridy = 2;  
+        panel4.add(number2, cons);
+        cons.gridx = 0;
+        cons.gridy = 3;
+        panel4.add(enter2, cons);
+        cons.gridx = 0;
+        cons.gridy = 4;
         panel4.add(return3, cons);
         cards.add(panel4, "panel4");
         
@@ -170,9 +210,21 @@ public class FinancialSectorScreen extends JFrame {
         panel5 = new JPanel(new GridBagLayout());
         cons.gridx = 0;
         cons.gridy = 0;
-        panel5.add(text, cons);
+        panel5.add(text1, cons);
         cons.gridx = 0;
-        cons.gridy = 1;
+        cons.gridy = 2;
+        panel5.add(text4, cons);
+        String[] reason = new String[]{"The number registration does not exist", "You do not have access", "The access time is not allowed",
+        		"Access blocked"};
+        reasons = new JComboBox<>(reason);
+        cons.gridx = 0;
+        cons.gridy = 3;
+        panel5.add(reasons, cons);
+        cons.gridx = 0;
+        cons.gridy = 4;
+        panel5.add(enter3, cons);
+        cons.gridx = 0;
+        cons.gridy = 5;
         panel5.add(return4, cons);
         cards.add(panel5, "panel5");
         
@@ -195,16 +247,28 @@ public class FinancialSectorScreen extends JFrame {
 				FinancialSectorCtrl.getInstance().mainMenu();
 				
 			}else if(e.getSource().equals(btAllDeniedAccess)) {
-				//setVisible(false);
 				FinancialSectorCtrl.getInstance().showAllDeniedAccess();
-				//setVisible(true);
 				
 			}else if(e.getSource().equals(btDeniedAccessByNumber)) {
 				cardLayout.show(cards, "panel4");
 				
 			}else if(e.getSource().equals(btDeniedAccessByReason)) {
 				cardLayout.show(cards, "panel5");
-
+				
+			//
+			}else if(e.getSource().equals(enter1)) {
+				try{
+					int number = FinancialSectorCtrl.getInstance().conversionStringToInt(number1.getText());
+					Date hours = FinancialSectorCtrl.getInstance().strToDateHour(hour.getText());
+					boolean b = FinancialSectorCtrl.getInstance().validAccess(number, hours);
+					if(b) {
+						JOptionPane.showMessageDialog(null, null, "Welcome to Financial Sector", 1);
+					}else {
+						JOptionPane.showMessageDialog(null, null, "You are not worthy of entrance", 1);
+					}
+				} catch(ParseException ex) {
+					
+				}
 			}
 			
 			

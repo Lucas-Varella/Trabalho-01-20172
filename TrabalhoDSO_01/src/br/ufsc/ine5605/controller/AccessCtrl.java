@@ -1,5 +1,6 @@
 package br.ufsc.ine5605.controller;
 
+import java.io.Serializable;
 import java.text.DateFormat; 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,7 +17,7 @@ import br.ufsc.ine5605.view.AccessScreen;
  * @author Sadi Júnior Domingos Jacinto;
  *
  */
-public class AccessCtrl {
+public class AccessCtrl implements Serializable {
 	private static final AccessCtrl instance = new AccessCtrl();
 	private AccessScreen accessScreen;
 	private ArrayList<Access> deniedAccess;
@@ -49,7 +50,7 @@ public class AccessCtrl {
 		deniedAccess.add(a);
 	}
 	
-	public void listAllDeniedAccess() throws IndexOutOfBoundsException {
+	public void listAllDeniedAccess() {//throws IndexOutOfBoundsException {
 //		if(deniedAccess.size() > 0) {
 //			for(Access a: deniedAccess) {
 //				message.add(new MessageAccess(a.getNumRegistration(), a.getDate(), a.getHour(), a.getReason()));
@@ -58,7 +59,7 @@ public class AccessCtrl {
 //		}else {
 //			throw new IndexOutOfBoundsException();
 //		}
-		accessScreen.setVisible(true);
+		accessScreen.show();
 	}
 	
 	public ArrayList<MessageAccess> getMessage() {
@@ -66,16 +67,17 @@ public class AccessCtrl {
 	}
 	
 	public void listDeniedAccessByNumRegistration(int numRegistration) throws IndexOutOfBoundsException {
-		if(deniedAccess.size() > 0) {
-			for(Access a: deniedAccess) {
-				if(a.getNumRegistration() == numRegistration) {
-					//accessScreen.listDeniedAccessByNumRegistration(a);
-				}
-			}
-			System.out.println("There is no denied access that has this registration number");
-		}else {
-			throw new IndexOutOfBoundsException();
-		}
+//		if(deniedAccess.size() > 0) {
+//			for(Access a: deniedAccess) {
+//				if(a.getNumRegistration() == numRegistration) {
+//					//accessScreen.listDeniedAccessByNumRegistration(a);
+//				}
+//			}
+//			System.out.println("There is no denied access that has this registration number");
+//		}else {
+//			throw new IndexOutOfBoundsException();
+//		}
+		accessScreen.show();
 
 	}
 	

@@ -61,8 +61,9 @@ public class FinancialSectorCtrl {
 	}
 	
 	
-	public boolean validAccess(int numRegistration, Date hourAccess, Date dateAccess) {
+	public boolean validAccess(int numRegistration, Date hourAccess) {
 		try {
+			Date dateAccess = getCurrenteDate();
 			if(!MainController.getInstance().isAccessBloqued(numRegistration)) {
 				addAccess(numRegistration, dateAccess, hourAccess, Reasons.BLOCK);
 				return false;
@@ -122,6 +123,15 @@ public class FinancialSectorCtrl {
 		return df.parse(dateFormat);
 	}
 	
+	public int conversionStringToInt(String data) throws NumberFormatException {
+		try {
+			int num = Integer.parseInt(data);	
+			return num;
+		} catch(NumberFormatException e ) {
+			throw new NumberFormatException();
+		}
+	}
+
 	/**
 	 * Método que busca um Employment baseado no número de Registro de um funcionário;
 	 * @deprecated - método criado, mas nunca usado;
@@ -143,6 +153,22 @@ public class FinancialSectorCtrl {
 
 	public Reasons getReasonBy() {
 		return MainController.getInstance().getReasonBy();		
+	}
+
+
+	public Date strToDateHour(String data) throws ParseException {
+		if (data == null) {
+            return null;
+        }
+        Date dataF = null;
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+            long time = dateFormat.parse(data).getTime();
+            dataF = new Date(time);
+        } catch (ParseException e) {
+        	throw new ParseException(data, 0);
+        }
+        return dataF;
 	}
 	
 }
