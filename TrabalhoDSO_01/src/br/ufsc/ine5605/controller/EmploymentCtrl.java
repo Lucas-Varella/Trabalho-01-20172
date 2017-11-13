@@ -54,6 +54,7 @@ public class EmploymentCtrl implements Screen2 {
 	public void addEmployment(String name, Privileges option) {
 		Employment generic = new Employment(getCode() , name, option);
 		employmentDAO.put(generic);
+		employmentScreen.updateData();
 		setCode(getCode() + 1);
 	}
 	

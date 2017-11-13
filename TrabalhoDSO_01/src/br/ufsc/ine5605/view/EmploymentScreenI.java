@@ -217,7 +217,7 @@ public class EmploymentScreenI extends JFrame {
 		
 	}
 	
-	private void updateData() {
+	public void updateData() {
 		//about list of emps
 		DefaultListModel<String> lsModel = new DefaultListModel<String>();
 		try {
@@ -225,7 +225,7 @@ public class EmploymentScreenI extends JFrame {
 			if(EmploymentCtrl.getInstance().getEmployments() != null) {
 	
 				for(Employment e : EmploymentCtrl.getInstance().getEmployments()) {
-					hashEmployment.put(e.getName(), e);
+					//hashEmployment.put(e.getName(), e);
 					lsModel.addElement(e.getName());
 				}
 				this.repaint();
