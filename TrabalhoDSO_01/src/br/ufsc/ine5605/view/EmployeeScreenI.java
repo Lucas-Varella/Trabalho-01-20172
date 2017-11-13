@@ -24,6 +24,7 @@ public class EmployeeScreenI extends JFrame{
 	
 	private JLabel lbEmpScrn;
 	private JButton btAdd;
+	private EmploymentDAO employmentDAO;
 	private JButton btEdit;
 	private JButton btFSector;
 	private ButtonManager btManager;
@@ -33,7 +34,7 @@ public class EmployeeScreenI extends JFrame{
 	private JPanel pnAdd;
 	private JButton btSave;
 	private JPanel pnMain;
-	private JComboBox<String> cbEmployments;
+	private JComboBox<Integer> cbEmployments;
 	private JButton btReturn;
 	private JButton btMainMenu;
 	private JTextField tfName;
@@ -164,7 +165,7 @@ public class EmployeeScreenI extends JFrame{
 		cons.gridx = 0;
 		cons.gridy = 16;
 		pnAdd.add(new JLabel("Employee's Employment: "), cons);
-		cbEmployments = new JComboBox<String>();
+		cbEmployments = new JComboBox<Integer>();
 		cons.gridx = 4;
 		cons.gridy = 16;
 		cons.insets = new Insets(0, 0, 0,0);
@@ -225,6 +226,7 @@ public class EmployeeScreenI extends JFrame{
 				
 				setVisible(false);
 				EmployeeCtrl.getInstance().mainMenu();
+				updateData();
 				
 			}else if(e.getSource().equals(btSave)) {
 				updateData();
@@ -248,7 +250,7 @@ public class EmployeeScreenI extends JFrame{
 					cardLayout.show(screen, "error");
 				}else {
 					System.out.println("here");
-					Employment employment = hashEmployment.get(cbEmployments.getSelectedItem());
+					Employment employment = employmentDAO.get((Integer)cbEmployments.getSelectedItem());
 					System.out.println("does it do?");
 					Employee employee = EmployeeCtrl.getInstance().addEmployee(name, bday, phone, salary);
 					System.out.println("added");
@@ -286,14 +288,17 @@ public class EmployeeScreenI extends JFrame{
 				}
 				
 			} catch (ParseException e1) {
-				
 				cardLayout.show(screen, "error");
-				
+				System.out.println(e1.getMessage());
 				
 			} catch (ArrayIndexOutOfBoundsException e) {
 				cardLayout.show(screen, "error");
+				System.out.println(e.getMessage());
+				
 			} catch (NullPointerException e) {
 				cardLayout.show(screen, "error");
+				System.out.println(e.getMessage());
+				e.printStackTrace();
 				
 			}
 			
@@ -308,7 +313,7 @@ public class EmployeeScreenI extends JFrame{
 		if(EmployeeCtrl.getInstance().getEmployees() != null) {
 
 			for(Employee employee : EmployeeCtrl.getInstance().getEmployees()) {
-				hashEmployee.put(employee.getName(), employee);
+				//hashEmployee.put(employee.getName(), employee);
 				lsModel.addElement(employee.getName());
 			}
 			this.repaint();
@@ -317,12 +322,12 @@ public class EmployeeScreenI extends JFrame{
 		
 		//about combo box
 		
-		DefaultComboBoxModel<String> cbModel = new DefaultComboBoxModel<String>();
+		DefaultComboBoxModel<Integer> cbModel = new DefaultComboBoxModel<Integer>();
 		try {
 			if(EmployeeCtrl.getInstance().getEmployments() != null ) {
 				for(Employment emp : EmployeeCtrl.getInstance().getEmployments()) {
-					hashEmployment.put(emp.getName(), emp);
-					cbModel.addElement(emp.getName());
+					//hashEmployment.put(emp.getName(), emp);
+					cbModel.addElement(emp.getCode());
 				}
 			}
 			cbEmployments.setModel(cbModel);

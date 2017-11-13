@@ -237,6 +237,9 @@ public class EmploymentScreenI extends JFrame {
 		lsEmployments.setModel(lsModel);
 	}	
 	
+	public JList<String> latrocinio() {
+		return this.lsEmployments;
+	}
 	private class ButtonManager implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
