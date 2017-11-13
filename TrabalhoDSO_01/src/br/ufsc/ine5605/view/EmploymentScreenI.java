@@ -258,6 +258,7 @@ public class EmploymentScreenI extends JFrame {
 			
 			} else if(e.getSource().equals(btMainMenu)) {
 				setVisible(false);
+				EmploymentCtrl.getInstance().mainMenu();
 			
 			} else if (e.getSource().equals(btDelete)) {
 				cardLayout.show(pSetup, "pDelete");

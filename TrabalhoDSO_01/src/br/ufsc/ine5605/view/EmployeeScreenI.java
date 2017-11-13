@@ -94,7 +94,7 @@ public class EmployeeScreenI extends JFrame{
 		cons.gridy = 4;
 		JScrollPane spListEmp = new JScrollPane(lsEmployees);
 		pnMain.add(spListEmp, cons);
-		updateData();
+		//updateData();
 		
 		//addEmployee button
 		cons.gridheight = 2;
@@ -224,6 +224,7 @@ public class EmployeeScreenI extends JFrame{
 			}else if(e.getSource().equals(btMainMenu)) {
 				
 				setVisible(false);
+				EmployeeCtrl.getInstance().mainMenu();
 				
 			}else if(e.getSource().equals(btSave)) {
 				updateData();
@@ -302,6 +303,7 @@ public class EmployeeScreenI extends JFrame{
 	}
 	private void updateData() {
 		//about list of emps
+		
 		DefaultListModel<String> lsModel = new DefaultListModel<String>();
 		if(EmployeeCtrl.getInstance().getEmployees() != null) {
 

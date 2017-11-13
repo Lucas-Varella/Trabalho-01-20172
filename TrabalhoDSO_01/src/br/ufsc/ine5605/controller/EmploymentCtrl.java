@@ -52,7 +52,7 @@ public class EmploymentCtrl implements Screen2 {
 	 */
 	
 	public void addEmployment(String name, Privileges option) {
-		Employment generic = new Employment( 0, name, option);
+		Employment generic = new Employment(getCode() , name, option);
 		employmentDAO.put(generic);
 		setCode(getCode() + 1);
 	}
