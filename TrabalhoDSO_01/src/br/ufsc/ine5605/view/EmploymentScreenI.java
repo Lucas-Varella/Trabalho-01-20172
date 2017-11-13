@@ -264,8 +264,8 @@ public class EmploymentScreenI extends JFrame {
 				EmploymentCtrl.getInstance().mainMenu();
 			
 			} else if (e.getSource().equals(btDelete)) {
-				cardLayout.show(pSetup, "pDelete");
-				repaint();
+				EmploymentCtrl.getInstance().delEmployment(EmploymentCtrl.getInstance().getEmployment(lsEmployments.getSelectedIndex()));
+				updateData();
 			
 			} 
 		}	
