@@ -2,14 +2,10 @@ package br.ufsc.ine5605.view;
 
 import java.awt.CardLayout;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,15 +15,11 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-
 import br.ufsc.ine5605.controller.EmploymentCtrl;
-import br.ufsc.ine5605.model.Employee;
 import br.ufsc.ine5605.model.Employment;
-import br.ufsc.ine5605.model.Privileges;
+
 
 public class EmploymentScreenI extends JFrame {
 	
@@ -52,10 +44,6 @@ public class EmploymentScreenI extends JFrame {
 	private JButton btDelete;
 	private JButton btMainMenu;
 	private JButton btEdit;
-	private JTable tbEmploymentsToDelete;
-	private JScrollPane spListaDel;
-	private JButton btDelCancel;
-	private HashMap<String, Employment> hashEmployment;
 	
 	public EmploymentScreenI() {
 		super("Employment Sector");
@@ -294,7 +282,7 @@ public class EmploymentScreenI extends JFrame {
 				cardLayout.show(pSetup, "pMain");
 				repaint();
 			
-			} else if (e.getSource().equals(btCancel)  || e.getSource().equals(btDelCancel)) {
+			} else if (e.getSource().equals(btCancel)  || e.getSource().equals(btEdCancel)) {
 				cardLayout.show(pSetup, "pMain");
 				repaint();
 			
@@ -314,7 +302,7 @@ public class EmploymentScreenI extends JFrame {
 			
 			}  else if (e.getSource().equals(btEdOk)) {
 				EmploymentCtrl.getInstance().getEmployment(lsEmployments.getSelectedIndex()).setName(tfEdNome.getText());
-				
+				EmploymentCtrl.getInstance().getEmployment(lsEmployments.getSelectedIndex()).setPrivilege(EmploymentCtrl.getInstance().stringToPrivilege(cbEdPrivileges.getSelectedItem().toString()));
 				cardLayout.show(pSetup, "pMain");
 				updateData();
 			}
