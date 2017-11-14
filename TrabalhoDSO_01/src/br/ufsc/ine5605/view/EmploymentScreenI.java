@@ -57,7 +57,7 @@ public class EmploymentScreenI extends JFrame {
 		container.setLayout(new GridBagLayout());
 		
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setSize(750, 600);
+		setSize(850, 600);
 		setLocationRelativeTo(null);
 		
 		
@@ -70,9 +70,9 @@ public class EmploymentScreenI extends JFrame {
 		
 		//Guide Label 
 		lbGuide = new JLabel();
-		lbGuide.setText("Select an Employmet to edit it");
+		lbGuide.setText("Select an Employmet on the list, and click the button");
 		cons.fill = GridBagConstraints.BOTH; 
-		cons.gridx = 2;  
+		cons.gridx = 0;  
 		cons.gridy = 0;
 		pMain.add(lbGuide, cons);
 		
