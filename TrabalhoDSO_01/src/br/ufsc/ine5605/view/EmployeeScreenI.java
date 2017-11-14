@@ -312,7 +312,9 @@ public class EmployeeScreenI extends JFrame{
 		
 		private void editConditions() {
 			try {
-				Employee emp = EmployeeCtrl.getInstance().findEmployeeByNumReg(Integer.parseInt(lsEmployees.getSelectedValue().substring(lsEmployees.getSelectedValue().length() - 8, lsEmployees.getSelectedValue().length() - 1)));
+				String code = lsEmployees.getSelectedValue();
+				System.out.println(code);
+				Employee emp = EmployeeCtrl.getInstance().findEmployeeByNumReg(Integer.parseInt(lsEmployees.getSelectedValue().substring(lsEmployees.getSelectedValue().length() - 8, lsEmployees.getSelectedValue().length())));
 				String name = tfNewName.getText();
 				Date bday = EmployeeCtrl.getInstance().strToDate(tfNewBday.getText());
 				int phone = Integer.parseInt(tfNewPhone.getText());
