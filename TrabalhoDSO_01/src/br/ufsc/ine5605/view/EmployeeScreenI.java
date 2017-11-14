@@ -312,7 +312,7 @@ public class EmployeeScreenI extends JFrame{
 		
 		private void editConditions() {
 			try {
-				Employee emp = EmployeeCtrl.getInstance().getEmployee(lsEmployees.getSelectedIndex() -1);
+				Employee emp = EmployeeCtrl.getInstance().findEmployeeByNumReg(Integer.parseInt(lsEmployees.getSelectedValue().substring(lsEmployees.getSelectedValue().length() - 8, lsEmployees.getSelectedValue().length() - 1)));
 				String name = tfNewName.getText();
 				Date bday = EmployeeCtrl.getInstance().strToDate(tfNewBday.getText());
 				int phone = Integer.parseInt(tfNewPhone.getText());
@@ -436,7 +436,7 @@ public class EmployeeScreenI extends JFrame{
 
 			for(Employee employee : EmployeeCtrl.getInstance().getEmployees()) {
 				//hashEmployee.put(employee.getName(), employee);
-				lsModel.addElement(employee.getName());
+				lsModel.addElement("Name:  " + employee.getName() + "  Code:  " +  employee.getNumRegistration());
 			}
 			this.repaint();
 		}	
