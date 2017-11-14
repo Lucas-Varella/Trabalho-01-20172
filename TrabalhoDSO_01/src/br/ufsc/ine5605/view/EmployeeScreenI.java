@@ -312,12 +312,12 @@ public class EmployeeScreenI extends JFrame{
 		
 		private void editConditions() {
 			try {
-				Employee emp = EmployeeCtrl.getInstance().getEmployee(lsEmployees.getSelectedIndex());
+				Employee emp = EmployeeCtrl.getInstance().getEmployee(lsEmployees.getSelectedIndex() -1);
 				String name = tfNewName.getText();
 				Date bday = EmployeeCtrl.getInstance().strToDate(tfNewBday.getText());
 				int phone = Integer.parseInt(tfNewPhone.getText());
 				int salary = Integer.parseInt(tfNewSalary.getText());
-				Employment employment = EmploymentCtrl.getInstance().getEmployment(cbEmployments.getSelectedIndex());
+				Employment employment = EmploymentCtrl.getInstance().getEmployment(cbEmployments.getSelectedIndex() - 1);
 				emp.setName(name);
 				emp.setDateBirth(bday);
 				emp.setPhone(phone);
@@ -352,10 +352,11 @@ public class EmployeeScreenI extends JFrame{
 			} catch (ParseException e1) {
 				cardLayout.show(screen, "error");
 				System.out.println(e1.getMessage());
-				
+				e1.printStackTrace();
 			} catch (ArrayIndexOutOfBoundsException e) {
 				cardLayout.show(screen, "error");
 				System.out.println(e.getMessage());
+				e.printStackTrace();
 				
 			} catch (NullPointerException e) {
 				cardLayout.show(screen, "error");
