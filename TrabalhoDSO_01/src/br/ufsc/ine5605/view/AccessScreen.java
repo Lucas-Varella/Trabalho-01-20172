@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -22,6 +23,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import br.ufsc.ine5605.controller.AccessCtrl;
+import br.ufsc.ine5605.controller.FinancialSectorCtrl;
 import br.ufsc.ine5605.model.Access;
 import br.ufsc.ine5605.model.MessageAccess;
 
@@ -63,19 +65,30 @@ public class AccessScreen extends JFrame {
 	}
 	
 	private void updateData(ArrayList<Access> m) {
-		DefaultTableModel model = (DefaultTableModel) jtTable.getModel();
-		model.addColumn("Number of Registration");
-		model.addColumn("Date of Access");
-		model.addColumn("Hour of Access");
-		model.addColumn("Reason for Denied Acess");
-		
-		for(Access a : m) {
-			model.addRow(new Object[]{a.getNumRegistration(), a.getDate(), a.getHour(), 
-						a.getReason()});
-		}
+		try{
+			
+			DefaultTableModel model = (DefaultTableModel) jtTable.getModel();
+			model.addColumn("Number of Registration");
+			model.addColumn("Date of Access");
+			model.addColumn("Hour of Access");
+			model.addColumn("Reason for Denied Acess");
+			if(m != null) {
+				for(Access a : m) {
+					model.addRow(new Object[]{a.getNumRegistration(), AccessCtrl.getInstance().dateToStringDate(a.getDate()), 
+							AccessCtrl.getInstance().dateToStringHour(a.getHour()), a.getReason()});
+				}
 
-		jtTable.setModel(model);
-		repaint();
+				jtTable.setModel(model);
+				repaint();
+				model.removeTableModelListener(jtTable);
+			}else {
+				JOptionPane.showMessageDialog(null, "There are no records of denied accesses", "Error" ,1);
+			}
+			
+	
+		}catch(ParseException e) {
+			
+		}
 		
 	}
 	

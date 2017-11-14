@@ -3,7 +3,9 @@ package br.ufsc.ine5605.view;
 
 import java.text.ParseException; 
 import java.util.Date;
-import java.util.Scanner;
+
+import javax.swing.*;
+import java.awt.*;
 
 import br.ufsc.ine5605.controller.HoraryCtrl;
 import br.ufsc.ine5605.model.Horary;
@@ -14,30 +16,24 @@ import br.ufsc.ine5605.model.Horary;
  * @author Sadi Junior Domingos Jacinto;
  *
  */
-public class HoraryScreen {
+public class HoraryScreen extends JFrame {
+	
+	
+	
+	
+	/*
 	private Scanner keyboard;
 	
-	/**
-	 * Construtor padrao da classe;
-	 * @param horaryCtrl - Recebe uma instancia do HoraryCtrl, permitindo a comunicacao entre classes;
-	 */
 	public HoraryScreen() {
 		this.keyboard = new Scanner(System.in);
 	}
-	/**
-	 * Tela responsavel pela interacao do usuario com a criacao de um objeto do tipo Horary;
-	 * @return Horary - Retorna a instancia do objeto criada;
-	 */
+	
 	public Horary menuAdd() {
 		try {
 			
 			System.out.println("Please enter the times of access to the financial sector allowed to this position: ");
 			System.out.println("Hour Start: ");
-			/*
-			 * Formatar para Date depois;
-			 * Criar um try catch aqui para caso o usuario digite um horario
-			 * que não se encaixa no padrão Date formatado(hh:mm);
-			 */
+			
 			Date hourBegin = HoraryCtrl.getInstance().strToDateHour(keyboard.nextLine());
 			System.out.println("Hour Finish: ");
 			Date hourFinish = HoraryCtrl.getInstance().strToDateHour(keyboard.nextLine());
@@ -54,11 +50,7 @@ public class HoraryScreen {
 		
 	}
 	
-	/**
-	 * Tela responsavel pela interacao do usuario com a edicao de um objeto Horary;
-	 * @param horary - Instancia de Horary que sera modificada;
-	 * @return Horary - Retorna a instancia modificada;
-	 */
+	
 	public Horary edit(Horary horary) {
 		try {
 			int option = 0;
@@ -96,5 +88,5 @@ public class HoraryScreen {
 		return null;
 		
 	}
-
+*/
 }
