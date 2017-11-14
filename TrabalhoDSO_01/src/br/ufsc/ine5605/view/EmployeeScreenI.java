@@ -378,7 +378,7 @@ public class EmployeeScreenI extends JFrame{
 					Employment employment = EmploymentCtrl.getInstance().getEmployment(cbEmployments.getSelectedIndex());
 					Employee employee = EmployeeCtrl.getInstance().addEmployee(name, bday, phone, salary);
 					try {
-						System.out.println("contract");
+						//System.out.println("contract");
 						EmployeeCtrl.getInstance().addContract(employment, employee);
 					} catch(Exception e) {
 						System.out.println(e.getMessage());

@@ -54,7 +54,7 @@ public class AccessCtrl implements Serializable {
 	}
 	
 	public void listAllDeniedAccess() throws IndexOutOfBoundsException {
-		if(getMessage().size() > 0) {
+		if(getMessage().size() > 0 && getMessage() != null) {
 			
 			accessScreen.show(getMessage());
 		}else {
