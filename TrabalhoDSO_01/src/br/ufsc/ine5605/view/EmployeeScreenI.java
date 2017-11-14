@@ -43,6 +43,14 @@ public class EmployeeScreenI extends JFrame{
 	private JTextField tfSalary;
 	private JButton btError;
 	private JButton btOk;
+	private JPanel pnEdit;
+	private JTextField tfNewName;
+	private JTextField tfNewBday;
+	private JTextField tfNewPhone;
+	private JTextField tfNewSalary;
+	private JComboBox<String> cbNewEmployments;
+	private JButton btCancel;
+	private JButton btConEdit;
 	
 	/**
 	 * Construtor padrÃ£o da classe
@@ -125,7 +133,6 @@ public class EmployeeScreenI extends JFrame{
 		
 		//Add employee panel
 		pnAdd = new JPanel(new GridBagLayout());
-			//Labels
 		
 			//Text Fields, labels
 		cons.gridheight = 2;
@@ -197,10 +204,69 @@ public class EmployeeScreenI extends JFrame{
 		pnError.add(btError, cons);
 		screen.add(pnError, "error");
 		
+		//Edit panel
+		pnEdit = new JPanel(new GridBagLayout());
+		//Text fields
+		cons.gridheight = 2;
+		cons.gridwidth = 4;
+		cons.gridx = 0;
+		cons.gridy = 0;
+		pnEdit.add(new JLabel("New Name:"), cons);
+		cons.gridx = 4;
+		cons.gridy = 0;
+		tfNewName = new JTextField(10);
+		pnEdit.add(tfNewName, cons);
+		cons.gridx = 0;
+		cons.gridy = 4;
+		pnEdit.add(new JLabel("New Birthday: "), cons);
+		cons.gridx = 4;
+		cons.gridy = 4;
+		tfNewBday = new JTextField(10);
+		pnEdit.add(tfNewBday, cons);
+		cons.gridx = 0;
+		cons.gridy = 8;
+		pnEdit.add(new JLabel("Employee's Phone:"), cons);
+		cons.gridx = 4;
+		cons.gridy = 8;
+		tfNewPhone = new JTextField(10);
+		pnEdit.add(tfNewPhone, cons);
+		cons.gridx = 0;
+		cons.gridy = 12;
+		pnEdit.add(new JLabel("Employee's Salary:"), cons);
+		cons.gridx = 4;
+		cons.gridy = 12;
+		tfNewSalary = new JTextField(10);
+		pnEdit.add(tfNewSalary, cons);
+		cons.gridx = 0;
+		cons.gridy = 16;
+		pnEdit.add(new JLabel("New Employment: "), cons);
+		//cb new
+		cbNewEmployments = new JComboBox<String>();
+		cons.gridx = 4;
+		cons.gridy = 16;
+		cons.insets = new Insets(0, 0, 0,0);
+		cbNewEmployments.addActionListener(btManager);
+		pnEdit.add(cbNewEmployments, cons);
+		//cancel button
+		btCancel = new JButton("Cancel");
+		cons.gridx = 0;
+		cons.gridy = 20;
+		btCancel.addActionListener(btManager);
+		pnEdit.add(btCancel, cons);
+		//Confirm Edit button
+		btConEdit = new JButton("Confirm Editing");
+		cons.gridx = 4;
+		cons.gridy = 20;
+		btConEdit.addActionListener(btManager);
+		pnEdit.add(btConEdit, cons);
+		
 		
 		screen.add(pnAdd, "Add Employee");
+		screen.add(pnEdit, "Edit Employee");
 		container.add(screen);
 		cardLayout = (CardLayout) screen.getLayout();
+		
+		
 		
 		
 		
@@ -209,19 +275,21 @@ public class EmployeeScreenI extends JFrame{
 	}
 	private class ButtonManager implements ActionListener {
 
+		private AbstractButton btEdOk;
+
 		public void actionPerformed(ActionEvent e) {
 			
 			if(e.getSource().equals(btAdd)) {
-				
-				cardLayout.show(screen, "Add Employee");
 				updateData();
+				cardLayout.show(screen, "Add Employee");
+				
 			
-			} else if(e.getSource().equals(btReturn) || e.getSource().equals(btError) || e.getSource().equals(btOk)) {
+			} else if(e.getSource().equals(btReturn) || e.getSource().equals(btEdOk) || e.getSource().equals(btError) || e.getSource().equals(btOk) || e.getSource().equals(btCancel)) {
 				updateData();
 				cardLayout.show(screen, "Employee Screen");
 			
 			}else if(e.getSource().equals(btMainMenu)) {
-				
+				updateData();
 				setVisible(false);
 				EmployeeCtrl.getInstance().mainMenu();
 				updateData();
@@ -229,10 +297,12 @@ public class EmployeeScreenI extends JFrame{
 			}else if(e.getSource().equals(btSave)) {
 				updateData();
 				saveConditions();
-			}else if(e.getSource().equals(btError)) {
-				cardLayout.show(screen, "Employee Screen");
 			}else if (e.getSource().equals(btEdit)) {
-				cardLayout.show(screen, "Add Employee");
+				updateData();
+				cardLayout.show(screen, "Edit Employee");
+			}else if (e.getSource().equals(btConEdit)) {
+				updateData();
+				editConditions();
 			}
 			/* else if(e.getSource().equals(but)) {s
 				employeeCtrl.action();
@@ -240,6 +310,61 @@ public class EmployeeScreenI extends JFrame{
 			*/
 		}
 		
+		private void editConditions() {
+			try {
+				Employee emp = EmployeeCtrl.getInstance().getEmployee(lsEmployees.getSelectedIndex());
+				String name = tfNewName.getText();
+				Date bday = EmployeeCtrl.getInstance().strToDate(tfNewBday.getText());
+				int phone = Integer.parseInt(tfNewPhone.getText());
+				int salary = Integer.parseInt(tfNewSalary.getText());
+				Employment employment = EmploymentCtrl.getInstance().getEmployment(cbEmployments.getSelectedIndex());
+				emp.setName(name);
+				emp.setDateBirth(bday);
+				emp.setPhone(phone);
+				emp.setSalary(salary);
+				emp.setEmployment(employment);
+				
+				JPanel edited = new JPanel(new GridBagLayout());
+				GridBagConstraints cons = new GridBagConstraints();
+				cons.gridx = 0;
+				cons.gridy = 0;
+				edited.add(new JLabel("Employee's Name:     " + name), cons);
+				cons.gridx = 0;
+				cons.gridy = 4;
+				edited.add(new JLabel("Employee's Birthday:     " + bday), cons);
+				cons.gridx = 0;
+				cons.gridy = 8;
+				edited.add(new JLabel("Employee's Phone:     " + phone), cons);
+				cons.gridx = 0;
+				cons.gridy = 12;
+				edited.add(new JLabel("Employee's Salary:     " + salary), cons);
+				cons.gridx = 0;
+				cons.gridy = 16;
+				edited.add(new JLabel("Employee's Employment:     " +  cbEmployments.getSelectedItem()), cons);
+				btEdOk = new JButton("Return");
+				cons.gridx = 0;
+				cons.gridy = 20;
+				btEdOk.addActionListener(btManager);
+				edited.add(btEdOk, cons);
+				screen.add(edited, "added");
+				cardLayout.show(screen, "added");
+				
+			} catch (ParseException e1) {
+				cardLayout.show(screen, "error");
+				System.out.println(e1.getMessage());
+				
+			} catch (ArrayIndexOutOfBoundsException e) {
+				cardLayout.show(screen, "error");
+				System.out.println(e.getMessage());
+				
+			} catch (NullPointerException e) {
+				cardLayout.show(screen, "error");
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+				
+			}
+		}
+
 		private void saveConditions() {
 			try {
 				String name = tfName.getText();
@@ -249,11 +374,8 @@ public class EmployeeScreenI extends JFrame{
 				if(cbEmployments.getSelectedItem().equals("Please add Employments first.") || EmploymentCtrl.getInstance().getEmployment(cbEmployments.getSelectedIndex()) == null ) {
 					cardLayout.show(screen, "error");
 				}else {
-					System.out.println("here");
 					Employment employment = EmploymentCtrl.getInstance().getEmployment(cbEmployments.getSelectedIndex());
-					System.out.println("does it do?");
 					Employee employee = EmployeeCtrl.getInstance().addEmployee(name, bday, phone, salary);
-					System.out.println("added");
 					try {
 						System.out.println("contract");
 						EmployeeCtrl.getInstance().addContract(employment, employee);
@@ -276,7 +398,6 @@ public class EmployeeScreenI extends JFrame{
 					added.add(new JLabel("Employee's Salary:     " + salary), cons);
 					cons.gridx = 0;
 					cons.gridy = 16;
-					System.out.println("before empployment");
 					added.add(new JLabel("Employee's Employment:     " +  cbEmployments.getSelectedItem()), cons);
 					btOk = new JButton("Return");
 					cons.gridx = 0;
@@ -331,7 +452,7 @@ public class EmployeeScreenI extends JFrame{
 				}
 			}
 			cbEmployments.setModel(cbModel);
-
+			cbNewEmployments.setModel(cbModel);
 			
 		}catch(NullPointerException e) {
 			this.repaint();
