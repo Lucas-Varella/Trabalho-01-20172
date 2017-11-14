@@ -64,7 +64,7 @@ public class FinancialSectorCtrl {
 	public boolean validAccess(int numRegistration, Date hourAccess) {
 		try {
 			Date dateAccess = getCurrenteDate();
-			if(!MainController.getInstance().isAccessBloqued(numRegistration)) {
+			if(MainController.getInstance().isAccessBloqued(numRegistration)) {
 				addAccess(numRegistration, dateAccess, hourAccess, Reasons.BLOCK);
 				return false;
 			}

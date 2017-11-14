@@ -63,19 +63,23 @@ public class AccessScreen extends JFrame {
 	}
 	
 	private void updateData(ArrayList<Access> m) {
-		DefaultTableModel model = (DefaultTableModel) jtTable.getModel();
-		model.addColumn("Number of Registration");
-		model.addColumn("Date of Access");
-		model.addColumn("Hour of Access");
-		model.addColumn("Reason for Denied Acess");
-		
-		for(Access a : m) {
-			model.addRow(new Object[]{a.getNumRegistration(), a.getDate(), a.getHour(), 
-						a.getReason()});
+		try{
+			DefaultTableModel model = (DefaultTableModel) jtTable.getModel();
+			model.addColumn("Number of Registration");
+			model.addColumn("Date of Access");
+			model.addColumn("Hour of Access");
+			model.addColumn("Reason for Denied Acess");
+			
+			for(Access a : m) {
+				model.addRow(new Object[]{a.getNumRegistration(), AccessCtrl.getInstance().dateToStringDate(a.getDate()), 
+						AccessCtrl.getInstance().dateToStringHour(a.getHour()), a.getReason()});
+			}
+	
+			jtTable.setModel(model);
+			repaint(); 
+		}catch(ParseException e) {
+			
 		}
-
-		jtTable.setModel(model);
-		repaint();
 		
 	}
 	
