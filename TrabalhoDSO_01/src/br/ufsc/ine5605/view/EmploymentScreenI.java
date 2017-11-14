@@ -37,16 +37,21 @@ public class EmploymentScreenI extends JFrame {
 	private JList lsEmployments;
 	private JScrollPane spLista;
 	private JTextField tfNome;
+	private JTextField tfEdNome;
 	private JPanel pSetup;
 	private JPanel pMain;
 	private JPanel pRegister;
-	private JPanel pDelete;
+	private JPanel pEdit;
 	private CardLayout cardLayout;
 	private JComboBox cbPrivileges;
+	private JComboBox cbEdPrivileges;
 	private JButton btOk;
+	private JButton btEdOk;
 	private JButton btCancel;
+	private JButton btEdCancel;
 	private JButton btDelete;
 	private JButton btMainMenu;
+	private JButton btEdit;
 	private JTable tbEmploymentsToDelete;
 	private JScrollPane spListaDel;
 	private JButton btDelCancel;
@@ -64,7 +69,7 @@ public class EmploymentScreenI extends JFrame {
 		container.setLayout(new GridBagLayout());
 		
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setSize(600, 600);
+		setSize(750, 600);
 		setLocationRelativeTo(null);
 		
 		
@@ -90,7 +95,7 @@ public class EmploymentScreenI extends JFrame {
 		lsEmployments.setLayoutOrientation(JList.VERTICAL);
 		lsEmployments.setVisibleRowCount(10);
 		cons.gridheight = 2;
-		cons.gridwidth = 6;
+		cons.gridwidth = 8;
 		cons.gridx = 0;
 		cons.gridy = 2;
 		JScrollPane spListEmp = new JScrollPane(lsEmployments);
@@ -118,10 +123,21 @@ public class EmploymentScreenI extends JFrame {
         btDelete.addActionListener(btManager);
         pMain.add(btDelete, cons);
 		
+        //Edit Button
+        btEdit = new JButton();
+        btEdit.setText("Edit Employment");
+		cons.fill = GridBagConstraints.HORIZONTAL; 
+		cons.gridx = 4;  
+        cons.gridy = 4;
+        cons.gridwidth = 2;
+        btEdit.addActionListener(btManager);
+        pMain.add(btEdit, cons);
+        
+        
         //Back to Main Menu Button
         btMainMenu = new JButton("Back to Main Menu");
         cons.fill = GridBagConstraints.HORIZONTAL; 
-        cons.gridx = 4;
+        cons.gridx = 6;
 		cons.gridy = 4;
 		btMainMenu.addActionListener(btManager);
 		pMain.add(btMainMenu, cons);
@@ -181,34 +197,57 @@ public class EmploymentScreenI extends JFrame {
 		pSetup.add(pRegister, "pRegister");
 		// Fim do Painel de registro
 		
-//		//Inicio Painel Deletar
-//		pDelete = new JPanel(new GridBagLayout());
-//		
-//		//Lista de Empregos
-//		tbEmploymentsToDelete = new JTable();
-//		tbEmploymentsToDelete.setPreferredScrollableViewportSize(new Dimension(500, 150));
-//		tbEmploymentsToDelete.setFillsViewportHeight(true);
-//		cons.fill = GridBagConstraints.HORIZONTAL; 
-//		cons.gridx = 0;  
-//		cons.gridy = 2;
-//		cons.gridwidth = 6;
-//		cons.gridheight = 2;
-//		spListaDel = new JScrollPane(tbEmploymentsToDelete);
-//		pDelete.add(spListaDel, cons);
-//		
-//		//Botao Cancel de Delete
-//		btDelCancel = new JButton();
-//		btDelCancel.setText("Cancel");
-//		cons.fill = GridBagConstraints.BOTH; 
-//		cons.gridx = 2;  
-//        cons.gridy = 4;
-//        cons.gridwidth = 4;
-//        btDelCancel.addActionListener(btManager);
-//        pDelete.add(btDelCancel, cons);
-//		
-//		
-//		pSetup.add(pDelete, "pDelete");
-//		//Fim Panel Delete
+		//Inicio Painel Editar
+		pEdit = new JPanel(new GridBagLayout());
+		
+		//Texte field Nome do Painel Editar
+		JLabel lbEdNomeCargo = new JLabel("Employment's New Name:     ");
+		cons.gridy = 4;
+		cons.gridx = 0;
+		pEdit.add(lbEdNomeCargo, cons);
+		tfEdNome = new JTextField(10);
+		cons.fill = GridBagConstraints.BOTH; 
+		cons.gridx = 4;  
+		cons.gridy = 4;
+		pEdit.add(tfEdNome, cons);
+		
+		//Combo Box Privilegios do Painel Editar
+		JLabel lbEdPrivileges = new JLabel("Employment's New privilege:     ");
+		cons.gridx = 0;  
+		cons.gridy = 8;
+		pEdit.add(lbEdPrivileges, cons);
+		cbEdPrivileges = new JComboBox(privileges);
+		cons.fill = GridBagConstraints.BOTH; 
+		cons.gridx = 4;  
+		cons.gridy = 8;
+		cbEdPrivileges.addActionListener(btManager);
+		pEdit.add(cbEdPrivileges, cons);
+		
+		//Botao ok do Painel Editar
+		btEdOk = new JButton();
+		btEdOk.setText("OK");
+		cons.fill = GridBagConstraints.BOTH; 
+		cons.gridx = 4;  
+        cons.gridy = 12;
+        cons.gridwidth = 4;
+        btEdOk.addActionListener(btManager);
+        pEdit.add(btEdOk, cons);
+        
+        // Botão Cancela do painel editar
+        btEdCancel = new JButton();
+        btEdCancel.setText("Cancel");
+		cons.fill = GridBagConstraints.BOTH; 
+		cons.gridx = 0;  
+        cons.gridy = 12;
+        cons.gridwidth = 4;
+        btEdCancel.addActionListener(btManager);
+        pEdit.add(btEdCancel, cons);
+		
+		pSetup.add(pEdit, "pEdit");
+		//Fim Panel Editar
+		
+		
+		
 		
 		container.add(pSetup, cons);
 		cardLayout = (CardLayout) pSetup.getLayout();
@@ -264,10 +303,21 @@ public class EmploymentScreenI extends JFrame {
 				EmploymentCtrl.getInstance().mainMenu();
 			
 			} else if (e.getSource().equals(btDelete)) {
+				
 				EmploymentCtrl.getInstance().delEmployment(EmploymentCtrl.getInstance().getEmployment(lsEmployments.getSelectedIndex()));
 				updateData();
+				JOptionPane.showMessageDialog(null, "Employment Deleted Successfully!");
+				
 			
-			} 
+			} else if (e.getSource().equals(btEdit)) {
+				cardLayout.show(pSetup, "pEdit");
+			
+			}  else if (e.getSource().equals(btEdOk)) {
+				EmploymentCtrl.getInstance().getEmployment(lsEmployments.getSelectedIndex()).setName(tfNome.getText());
+				
+				cardLayout.show(pSetup, "pMain");
+				updateData();
+			}
 		}	
 	}
 
