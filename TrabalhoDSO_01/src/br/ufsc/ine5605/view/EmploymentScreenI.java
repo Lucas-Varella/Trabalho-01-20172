@@ -313,7 +313,7 @@ public class EmploymentScreenI extends JFrame {
 				cardLayout.show(pSetup, "pEdit");
 			
 			}  else if (e.getSource().equals(btEdOk)) {
-				EmploymentCtrl.getInstance().getEmployment(lsEmployments.getSelectedIndex()).setName(tfNome.getText());
+				EmploymentCtrl.getInstance().getEmployment(lsEmployments.getSelectedIndex()).setName(tfEdNome.getText());
 				
 				cardLayout.show(pSetup, "pMain");
 				updateData();
