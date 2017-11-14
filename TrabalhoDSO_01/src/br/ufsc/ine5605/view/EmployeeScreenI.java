@@ -14,6 +14,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import br.ufsc.ine5605.controller.EmployeeCtrl;
+import br.ufsc.ine5605.controller.EmploymentCtrl;
 import br.ufsc.ine5605.model.*;
 
 /**
@@ -26,7 +27,6 @@ public class EmployeeScreenI extends JFrame{
 	private JButton btAdd;
 	private EmploymentDAO employmentDAO;
 	private JButton btEdit;
-	private JButton btFSector;
 	private ButtonManager btManager;
 	private CardLayout cardLayout;
 	private JList<String> lsEmployees;
@@ -34,7 +34,7 @@ public class EmployeeScreenI extends JFrame{
 	private JPanel pnAdd;
 	private JButton btSave;
 	private JPanel pnMain;
-	private JComboBox<Integer> cbEmployments;
+	private JComboBox<String> cbEmployments;
 	private JButton btReturn;
 	private JButton btMainMenu;
 	private JTextField tfName;
@@ -43,8 +43,6 @@ public class EmployeeScreenI extends JFrame{
 	private JTextField tfSalary;
 	private JButton btError;
 	private JButton btOk;
-	private HashMap<String, Employee> hashEmployee;
-	private HashMap<String, Employment> hashEmployment;
 	
 	/**
 	 * Construtor padrÃ£o da classe
@@ -165,7 +163,7 @@ public class EmployeeScreenI extends JFrame{
 		cons.gridx = 0;
 		cons.gridy = 16;
 		pnAdd.add(new JLabel("Employee's Employment: "), cons);
-		cbEmployments = new JComboBox<Integer>();
+		cbEmployments = new JComboBox<String>();
 		cons.gridx = 4;
 		cons.gridy = 16;
 		cons.insets = new Insets(0, 0, 0,0);
@@ -233,6 +231,8 @@ public class EmployeeScreenI extends JFrame{
 				saveConditions();
 			}else if(e.getSource().equals(btError)) {
 				cardLayout.show(screen, "Employee Screen");
+			}else if (e.getSource().equals(btEdit)) {
+				cardLayout.show(screen, "Add Employee");
 			}
 			/* else if(e.getSource().equals(but)) {s
 				employeeCtrl.action();
@@ -246,11 +246,11 @@ public class EmployeeScreenI extends JFrame{
 				Date bday = EmployeeCtrl.getInstance().strToDate(tfBday.getText());
 				int phone = Integer.parseInt(tfPhone.getText());
 				int salary = Integer.parseInt(tfSalary.getText());
-				if(cbEmployments.getSelectedItem().equals("Please add Employments first.") || cbEmployments.getSelectedItem() == null ) {
+				if(cbEmployments.getSelectedItem().equals("Please add Employments first.") || EmploymentCtrl.getInstance().getEmployment(cbEmployments.getSelectedIndex()) == null ) {
 					cardLayout.show(screen, "error");
 				}else {
 					System.out.println("here");
-					Employment employment = employmentDAO.get((Integer)cbEmployments.getSelectedItem());
+					Employment employment = EmploymentCtrl.getInstance().getEmployment(cbEmployments.getSelectedIndex());
 					System.out.println("does it do?");
 					Employee employee = EmployeeCtrl.getInstance().addEmployee(name, bday, phone, salary);
 					System.out.println("added");
@@ -322,12 +322,12 @@ public class EmployeeScreenI extends JFrame{
 		
 		//about combo box
 		
-		DefaultComboBoxModel<Integer> cbModel = new DefaultComboBoxModel<Integer>();
+		DefaultComboBoxModel<String> cbModel = new DefaultComboBoxModel<String>();
 		try {
 			if(EmployeeCtrl.getInstance().getEmployments() != null ) {
 				for(Employment emp : EmployeeCtrl.getInstance().getEmployments()) {
 					//hashEmployment.put(emp.getName(), emp);
-					cbModel.addElement(emp.getCode());
+					cbModel.addElement(emp.getName());
 				}
 			}
 			cbEmployments.setModel(cbModel);
