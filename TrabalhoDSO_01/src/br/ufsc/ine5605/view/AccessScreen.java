@@ -68,6 +68,7 @@ public class AccessScreen extends JFrame {
 		try{
 			
 			DefaultTableModel model = (DefaultTableModel) jtTable.getModel();
+			model.setRowCount(0);
 			model.addColumn("Number of Registration");
 			model.addColumn("Date of Access");
 			model.addColumn("Hour of Access");
@@ -81,6 +82,7 @@ public class AccessScreen extends JFrame {
 				jtTable.setModel(model);
 				repaint();
 				model.removeTableModelListener(jtTable);
+				
 			}else {
 				JOptionPane.showMessageDialog(null, "There are no records of denied accesses", "Error" ,1);
 			}
