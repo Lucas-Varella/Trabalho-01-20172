@@ -47,17 +47,19 @@ public class AccessScreen extends JFrame {
 		GridBagConstraints cons = new GridBagConstraints();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         		
-		// Cria a tabela.
+		// Instantiating JTable;
 		jtTable = new JTable();
 		
 		jtTable.setPreferredScrollableViewportSize(new Dimension(750, 150));
 		jtTable.setFillsViewportHeight(true);
-		
-		// Adiciona a tabela a um painel de rolagem.
+
+		// Instantiating JScrollPane;
 		spScroll = new JScrollPane(jtTable); 
-		// Adiciona o painel de rolagem ao painel de conteúdo.
+		
 		
 		container.add(spScroll);
+
+		// Another config container;
 		setSize(1000, 250);
         setLocationRelativeTo(null);
         setResizable(true);
