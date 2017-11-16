@@ -318,12 +318,13 @@ public class EmployeeScreenI extends JFrame{
 				Date bday = EmployeeCtrl.getInstance().strToDate(tfNewBday.getText());
 				int phone = Integer.parseInt(tfNewPhone.getText());
 				int salary = Integer.parseInt(tfNewSalary.getText());
+				Employee employee = EmployeeCtrl.getInstance().getEmployee(cbEmployments.getSelectedIndex());
 				Employment employment = EmploymentCtrl.getInstance().getEmployment(cbEmployments.getSelectedIndex());
-				selected.setName(name);
-				selected.setDateBirth(bday);
-				selected.setPhone(phone);
-				selected.setSalary(salary);
-				selected.setEmployment(employment);
+				employee.setName(name);
+				employee.setDateBirth(bday);
+				employee.setPhone(phone);
+				employee.setSalary(salary);
+				employee.setEmployment(employment);
 				
 				JPanel edited = new JPanel(new GridBagLayout());
 				GridBagConstraints cons = new GridBagConstraints();
