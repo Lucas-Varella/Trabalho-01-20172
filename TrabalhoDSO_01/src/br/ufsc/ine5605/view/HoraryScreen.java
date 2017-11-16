@@ -39,6 +39,7 @@ public class HoraryScreen extends JFrame {
 	private JList list;
 	private ButtonManager btManager;
 	
+	/*porra, sadi...
 <<<<<<< HEAD
 	private ButtonManager btManager;
 	private JPanel screen;
@@ -55,11 +56,12 @@ public class HoraryScreen extends JFrame {
 		config();
 		
 =======
+*/
 	public HoraryScreen() {
 		super("Timetable screen");
 		btManager = new ButtonManager();
 		initComponents();
->>>>>>> branch 'master' of https://github.com/Raspbwolf/Trabalho-01-20172.git
+//>>>>>>> branch 'master' of https://github.com/Raspbwolf/Trabalho-01-20172.git
 	}
 	
 	private void initComponents() {
@@ -241,7 +243,7 @@ public class HoraryScreen extends JFrame {
 	public void show(String string) {
 		cardLayout.show(cards, string);		
 	}
-	
+	/*
 	public void config() {
 		Container container = getContentPane();
 		GridBagConstraints cons = new GridBagConstraints();
@@ -309,7 +311,7 @@ public class HoraryScreen extends JFrame {
 		
 		
 	}
-	
+	*/
 	/*
 	private Scanner keyboard;
 	

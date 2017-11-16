@@ -30,9 +30,9 @@ public class HoraryCtrl {
 		return instance;
 	}
 
-	@Deprecated
-	public Horary menuAdd() {
-		horaryScreen.show("Add");
+	
+	public void menuAdd() {
+		horaryScreen.setVisible(true);
 	}
 
 	public void mainMenu() {

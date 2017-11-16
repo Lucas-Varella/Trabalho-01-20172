@@ -71,13 +71,12 @@ public class MainController {
 		return EmployeeCtrl.getInstance().validNumRegistration(numRegistration);
 
 	}
-	@Deprecated
-	public Horary addHorary() {
-		return HoraryCtrl.getInstance().menuAdd();
+	public void addHorary() {
+		HoraryCtrl.getInstance().menuAdd();
 	}
 
-	public Horary editHorary(Horary horary) {
-		return HoraryCtrl.getInstance().editHorary(horary);
+	public void editHorary(Horary horary) {
+		HoraryCtrl.getInstance().editHorary(horary);
 		
 	}
 
