@@ -48,7 +48,7 @@ public class MainController {
 	public void showFinancialSectorMenu() {
 		FinancialSectorCtrl.getInstance().menu();
 	}
-	
+	@Deprecated
 	public void showHoraryMenu() {
 		HoraryCtrl.getInstance().menuAdd();
 	}
@@ -71,7 +71,7 @@ public class MainController {
 		return EmployeeCtrl.getInstance().validNumRegistration(numRegistration);
 
 	}
-	
+	@Deprecated
 	public Horary addHorary() {
 		return HoraryCtrl.getInstance().menuAdd();
 	}

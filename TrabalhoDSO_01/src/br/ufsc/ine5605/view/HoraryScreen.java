@@ -6,6 +6,8 @@ import java.util.Date;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import br.ufsc.ine5605.controller.HoraryCtrl;
 import br.ufsc.ine5605.model.Horary;
@@ -18,8 +20,90 @@ import br.ufsc.ine5605.model.Horary;
  */
 public class HoraryScreen extends JFrame {
 	
+	private ButtonManager btManager;
+	private JPanel screen;
+	private JPanel pnMain;
+	private JComboBox<String> cbHorarys;
+	private JButton btAdd;
+	private JButton btEdit;
+	private JButton btMainMenu;
+
+
+	public HoraryScreen() {
+		super("Access time management");
+		btManager = new ButtonManager();
+		config();
+		
+	}
 	
 	
+	public void config() {
+		Container container = getContentPane();
+		GridBagConstraints cons = new GridBagConstraints();
+		container.setLayout(new GridBagLayout());
+		
+		cons.fill = GridBagConstraints.BOTH;
+
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(800, 300);
+		setLocationRelativeTo(null);
+		setResizable(true);
+		cons.gridheight = 2;
+		cons.gridwidth = 4;
+		
+		screen = new JPanel(new CardLayout());
+		
+		//main panel
+		pnMain = new JPanel(new GridBagLayout());
+		//Screen label
+		cons.gridx = 0;
+		cons.gridy = 0;
+		pnMain.add(new JLabel("Please Select desired time range to manage, or add a new one."), cons);
+		
+		//Add new button
+		btAdd = new JButton("Add new Access time");
+		cons.gridx = 0;
+		cons.gridy = 50;
+		btAdd.addActionListener(btManager);
+		pnMain.add(btAdd, cons);		
+		
+		//edit button
+		btEdit = new JButton("Edit Times");
+		cons.gridx = 4;
+		cons.gridy = 50;
+		btEdit.addActionListener(btManager);
+		pnMain.add(btEdit, cons);		
+		
+		//Main Menu Button
+		btMainMenu = new JButton("Main Menu");
+		cons.gridx = 8;
+		cons.gridy = 50;
+		btMainMenu.addActionListener(btManager);
+		pnMain.add(btMainMenu, cons);
+						
+		
+		//Access time cb (to edit.)
+		cbHorarys = new JComboBox<String>();
+		cons.gridheight = 2;
+		cons.gridwidth = 4;
+		
+		screen.add(pnMain, "Main Screen");
+		
+		
+		
+	}
+
+
+	private class ButtonManager implements ActionListener {
+
+		public void actionPerformed(ActionEvent e) {
+			
+			
+		}
+		
+		
+	}
 	
 	/*
 	private Scanner keyboard;

@@ -51,6 +51,7 @@ public class EmployeeScreenI extends JFrame{
 	private JComboBox<String> cbNewEmployments;
 	private JButton btCancel;
 	private JButton btConEdit;
+	private Employee selected;
 	
 	/**
 	 * Construtor padrÃ£o da classe
@@ -301,6 +302,7 @@ public class EmployeeScreenI extends JFrame{
 				updateData();
 				cardLayout.show(screen, "Edit Employee");
 			}else if (e.getSource().equals(btConEdit)) {
+				selected = EmployeeCtrl.getInstance().getEmployee(lsEmployees.getSelectedIndex());
 				updateData();
 				editConditions();
 			}
@@ -312,19 +314,16 @@ public class EmployeeScreenI extends JFrame{
 		
 		private void editConditions() {
 			try {
-				String code = lsEmployees.getSelectedValue();
-				System.out.println(code);
-				Employee emp = EmployeeCtrl.getInstance().findEmployeeByNumReg(Integer.parseInt(lsEmployees.getSelectedValue().substring(lsEmployees.getSelectedValue().length() - 8, lsEmployees.getSelectedValue().length())));
 				String name = tfNewName.getText();
 				Date bday = EmployeeCtrl.getInstance().strToDate(tfNewBday.getText());
 				int phone = Integer.parseInt(tfNewPhone.getText());
 				int salary = Integer.parseInt(tfNewSalary.getText());
-				Employment employment = EmploymentCtrl.getInstance().getEmployment(cbEmployments.getSelectedIndex() - 1);
-				emp.setName(name);
-				emp.setDateBirth(bday);
-				emp.setPhone(phone);
-				emp.setSalary(salary);
-				emp.setEmployment(employment);
+				Employment employment = EmploymentCtrl.getInstance().getEmployment(cbEmployments.getSelectedIndex());
+				selected.setName(name);
+				selected.setDateBirth(bday);
+				selected.setPhone(phone);
+				selected.setSalary(salary);
+				selected.setEmployment(employment);
 				
 				JPanel edited = new JPanel(new GridBagLayout());
 				GridBagConstraints cons = new GridBagConstraints();

@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import br.ufsc.ine5605.controller.EmploymentCtrl;
 import br.ufsc.ine5605.model.Employment;
+import br.ufsc.ine5605.model.Privileges;
 
 
 public class EmploymentScreenI extends JFrame {
@@ -273,11 +274,15 @@ public class EmploymentScreenI extends JFrame {
 				repaint();
 			
 			} else if (e.getSource().equals(btOk)) {
+				if(!cbPrivileges.equals(Privileges.Restricted)) {
+					EmploymentCtrl.getInstance().addEmployment(tfNome.getText(), EmploymentCtrl.getInstance().stringToPrivilege(cbPrivileges.getSelectedItem().toString()));
+					JOptionPane.showMessageDialog(null, "Employment '" + tfNome.getText() + "' Created Successfully!");
+					cardLayout.show(pSetup, "pMain");
+					repaint();
+				}else {
+					
+				}
 				
-				EmploymentCtrl.getInstance().addEmployment(tfNome.getText(), EmploymentCtrl.getInstance().stringToPrivilege(cbPrivileges.getSelectedItem().toString()));
-				JOptionPane.showMessageDialog(null, "Employment '" + tfNome.getText() + "' Created Successfully!");
-				cardLayout.show(pSetup, "pMain");
-				repaint();
 			
 			} else if (e.getSource().equals(btCancel)  || e.getSource().equals(btEdCancel)) {
 				cardLayout.show(pSetup, "pMain");

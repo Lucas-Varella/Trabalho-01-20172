@@ -30,6 +30,7 @@ public class HoraryCtrl {
 		return instance;
 	}
 
+	@Deprecated
 	public Horary menuAdd() {
 		return horaryScreen.menuAdd();
 	}
