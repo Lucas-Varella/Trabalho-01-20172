@@ -54,11 +54,10 @@ public class AccessCtrl implements Serializable {
 	}
 	
 	public void listAllDeniedAccess() throws IndexOutOfBoundsException {
-		if(getMessage().size() > 0 && getMessage() != null) {
-			
+		if(getMessage().size() > 0) {
 			accessScreen.show(getMessage());
 		}else {
-			new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException();
 		}
 		
 	}
@@ -78,10 +77,10 @@ public class AccessCtrl implements Serializable {
 			if(access.size() > 0) {
 				accessScreen.show(access);
 			}else {
-				accessScreen.noNumRegistration();
+				throw new IndexOutOfBoundsException();
 			}
 		}else {
-			new IndexOutOfBoundsException();
+			throw new IndexOutOfBoundsException();
 		}
 
 	}

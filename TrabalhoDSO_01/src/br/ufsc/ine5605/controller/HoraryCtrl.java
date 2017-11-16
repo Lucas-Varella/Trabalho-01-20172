@@ -32,7 +32,7 @@ public class HoraryCtrl {
 
 	@Deprecated
 	public Horary menuAdd() {
-		return horaryScreen.menuAdd();
+		horaryScreen.show("Add");
 	}
 
 	public void mainMenu() {

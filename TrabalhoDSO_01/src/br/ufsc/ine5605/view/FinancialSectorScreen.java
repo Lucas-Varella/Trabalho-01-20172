@@ -115,7 +115,7 @@ public class FinancialSectorScreen extends JFrame {
         // Instantiating JLabel;
         text1 = new JLabel("Please enter the required information:");
         text2 = new JLabel("Number of Registration");
-        text3 = new JLabel("Date of Access");
+        text3 = new JLabel("Hour of Access");
         text4 = new JLabel("Reason of Denied Access");
         text5 = new JLabel("Number of Registration");
         text6 = new JLabel("Please enter the required information:");
@@ -247,8 +247,11 @@ public class FinancialSectorScreen extends JFrame {
 				FinancialSectorCtrl.getInstance().mainMenu();
 				
 			}else if(e.getSource().equals(btAllDeniedAccess)) {
-				FinancialSectorCtrl.getInstance().showAllDeniedAccess();
-				
+				try{
+					FinancialSectorCtrl.getInstance().showAllDeniedAccess();
+				} catch(IndexOutOfBoundsException ex) {
+					JOptionPane.showMessageDialog(null, "There are no records of denied accesses in the system", "Attention", 1);
+				}
 			}else if(e.getSource().equals(btDeniedAccessByNumber)) {
 				cardLayout.show(cards, "panel4");
 				
@@ -267,19 +270,18 @@ public class FinancialSectorScreen extends JFrame {
 						JOptionPane.showMessageDialog(null, "You are not worthy of entrance, for: \n" + FinancialSectorCtrl.getInstance().getReasonBy(), "Error" ,1);
 					}
 				} catch(ParseException ex) {
-					// Criar mensagem genérica de erro depois; 
 					JOptionPane.showMessageDialog(null, "A conversion error has occurred, make sure you have entered the required data correctly", "Error" ,1);
 				} catch(NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null, "Please enter only valid numbers", "Error", 1);
 				}
 			} else if(e.getSource().equals(enter2)) {
 				try {
-					int number = FinancialSectorCtrl.getInstance().conversionStringToInt(number1.getText());
+					int number = FinancialSectorCtrl.getInstance().conversionStringToInt(number2.getText());
 					FinancialSectorCtrl.getInstance().showDeniedAccessByNumRegistration(number);
 				}catch(NumberFormatException ex) {
 					JOptionPane.showMessageDialog(null, "Please enter only valid numbers", "Error", 1);
 				}catch(IndexOutOfBoundsException ex) {
-					
+					JOptionPane.showMessageDialog(null, "There are no access records denied with \nthis registration number in the system", "Attention", 1);
 				}
 			} else if(e.getSource().equals(enter3)) {
 				try {
@@ -296,7 +298,7 @@ public class FinancialSectorScreen extends JFrame {
 						FinancialSectorCtrl.getInstance().showDeniedAccessByReason(Reasons.NONUMREGS);
 					}
 				}catch(IndexOutOfBoundsException ex) {
-					
+					JOptionPane.showMessageDialog(null, "There are no access records denied with this denial motive", "Attention", 1);
 				}
 			}
 			
