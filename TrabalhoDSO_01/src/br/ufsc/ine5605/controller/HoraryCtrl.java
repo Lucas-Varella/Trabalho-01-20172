@@ -31,7 +31,7 @@ public class HoraryCtrl {
 	}
 
 	public Horary menuAdd() {
-		return horaryScreen.menuAdd();
+		horaryScreen.show("Add");
 	}
 
 	public void mainMenu() {
