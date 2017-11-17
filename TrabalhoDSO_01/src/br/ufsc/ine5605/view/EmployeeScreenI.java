@@ -42,7 +42,7 @@ public class EmployeeScreenI extends JFrame{
 	private JTextField tfBday;
 	private JTextField tfPhone;
 	private JTextField tfSalary;
-	private JButton btError;
+	private JButton btErrorNew;
 	private JButton btOk;
 	private JPanel pnEdit;
 	private JTextField tfNewName;
@@ -55,7 +55,8 @@ public class EmployeeScreenI extends JFrame{
 	private Employee selected;
 	private JButton btDel;
 	private JLabel lbError = new JLabel();
-
+	private JButton btErrorEdit;
+	private boolean edit;
 	
 	/**
 	 * Construtor padrÃ£o da classe
@@ -281,7 +282,7 @@ public class EmployeeScreenI extends JFrame{
 
 		public void actionPerformed(ActionEvent e) {
 			
-			if( e.getSource().equals(btError) || e.getSource().equals(btAdd)) {
+			if( e.getSource().equals(btErrorNew) || e.getSource().equals(btAdd)) {
 				updateData();
 				cardLayout.show(screen, "Add Employee");
 				
@@ -299,7 +300,7 @@ public class EmployeeScreenI extends JFrame{
 			}else if(e.getSource().equals(btSave)) {
 				updateData();
 				saveConditions();
-			}else if (e.getSource().equals(btEdit)) {
+			}else if (e.getSource().equals(btEdit) || e.getSource().equals(btErrorEdit)) {
 				updateData();
 				cardLayout.show(screen, "Edit Employee");
 			}else if (e.getSource().equals(btConEdit)) {
@@ -317,6 +318,7 @@ public class EmployeeScreenI extends JFrame{
 		}
 		
 		private void editConditions() {
+			edit = true;
 			try {
 				String name = tfNewName.getText();
 				Date bday = EmployeeCtrl.getInstance().strToDate(tfNewBday.getText());
@@ -355,24 +357,23 @@ public class EmployeeScreenI extends JFrame{
 				screen.add(edited, "added");
 				cardLayout.show(screen, "added");
 				
-			} catch (ParseException e1) {
-				cardLayout.show(screen, "error");
-				System.out.println(e1.getMessage());
-				e1.printStackTrace();
 			} catch (ArrayIndexOutOfBoundsException e) {
-				cardLayout.show(screen, "error");
-				System.out.println(e.getMessage());
-				e.printStackTrace();
-				
+				lbError.setText("Please add an Employment First");
+				error();
 			} catch (NullPointerException e) {
-				cardLayout.show(screen, "error");
-				System.out.println(e.getMessage());
-				e.printStackTrace();
-				
+				lbError.setText("Please add an Employment First");
+				error();
+			} catch (NumberFormatException e) {
+				lbError.setText("Please Type Required Information, knowing that Phone number and Salary are numbers.");
+				error();
+			} catch (ParseException e) {
+				lbError.setText("Please Type the Date in a correct DD/MM/YYY Format.");
+				error();
 			}
 		}
 
 		private void saveConditions() {
+			edit = false;
 			try {
 				String name = tfName.getText();
 				Date bday = EmployeeCtrl.getInstance().strToDate(tfBday.getText());
@@ -417,21 +418,17 @@ public class EmployeeScreenI extends JFrame{
 				
 			
 			} catch (ArrayIndexOutOfBoundsException e) {
+				lbError.setText("Please add an Employment First");
 				error();
-				System.out.println("array");
 			} catch (NullPointerException e) {
 				lbError.setText("Please add an Employment First");
 				error();
-				System.out.println("Please add an Employment First");
 			} catch (NumberFormatException e) {
-				System.out.println("numform");
 				lbError.setText("Please Type Required Information, knowing that Phone number and Salary are numbers.");
-
 				error();
 			} catch (ParseException e) {
 				lbError.setText("Please Type the Date in a correct DD/MM/YYY Format.");
 				error();
-				System.out.println("parse");
 			}
 		}
 
@@ -444,11 +441,21 @@ public class EmployeeScreenI extends JFrame{
 		cons.gridx = 0;
 		cons.gridy = 0;
 		pnError.add(lbError, cons);
-		btError = new JButton("Try Again");
-		btError.addActionListener(btManager);
-		cons.gridx = 0;
-		cons.gridy = 4;
-		pnError.add(btError, cons);
+		if(edit) {
+			btErrorEdit = new JButton("Try Again");
+			btErrorEdit.addActionListener(btManager);
+			cons.gridx = 0;
+			cons.gridy = 4;
+			pnError.add(btErrorEdit, cons);
+		}else {
+			btErrorNew = new JButton("Try Again");
+			btErrorNew.addActionListener(btManager);
+			cons.gridx = 0;
+			cons.gridy = 4;
+			pnError.add(btErrorNew, cons);
+		}
+		
+		
 		screen.add(pnError, "error");
 		cardLayout.show(screen, "error");
 		
