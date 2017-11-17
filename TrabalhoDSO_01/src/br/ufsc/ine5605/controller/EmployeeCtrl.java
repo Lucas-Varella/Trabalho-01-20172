@@ -97,7 +97,7 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	 */
 	public void delEmployee(Employee e) {
 		empDAO.remove((Integer)e.getNumRegistration());
-		
+		//kek
 	}
 	
 	public ArrayList<Employee> getEmployees() {
