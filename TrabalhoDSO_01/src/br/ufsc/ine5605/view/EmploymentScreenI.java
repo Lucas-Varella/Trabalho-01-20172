@@ -17,8 +17,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+
+import br.ufsc.ine5605.controller.EmployeeCtrl;
 import br.ufsc.ine5605.controller.EmploymentCtrl;
 import br.ufsc.ine5605.controller.HoraryCtrl;
+import br.ufsc.ine5605.model.Contract;
 import br.ufsc.ine5605.model.Employment;
 import br.ufsc.ine5605.model.Privileges;
 
@@ -59,7 +62,7 @@ public class EmploymentScreenI extends JFrame {
 		container.setLayout(new GridBagLayout());
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(800, 300);
+		setSize(850, 300);
 		setLocationRelativeTo(null);
 		setResizable(true);
 		
@@ -81,7 +84,7 @@ public class EmploymentScreenI extends JFrame {
 		
 		//yeah
 		// JList de Employments
-		lsEmployments = new JList();
+		lsEmployments = new JList<>();
 		lsEmployments.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		lsEmployments.setLayoutOrientation(JList.VERTICAL);
 		lsEmployments.setVisibleRowCount(10);
@@ -273,19 +276,23 @@ public class EmploymentScreenI extends JFrame {
 			
 			if(e.getSource().equals(btRegister)) {
 				cardLayout.show(pSetup, "pRegister");
-				//Added this just to test the screen. will need to do cbEmployments check.
-				HoraryCtrl.getInstance().menuAdd();
-				HoraryCtrl.getInstance().updateData();;
+				//Added this just to test the screen. will need to do cbEmployments check
 				
 				repaint();
 			
 			} else if (e.getSource().equals(btOk)) {
 				
-				EmploymentCtrl.getInstance().addEmployment(tfNome.getText(), EmploymentCtrl.getInstance().stringToPrivilege(cbPrivileges.getSelectedItem().toString()));
-				JOptionPane.showMessageDialog(null, "Employment '" + tfNome.getText() + "' Created Successfully!");
-				cardLayout.show(pSetup, "pMain");
-				repaint();				
-			
+				if (cbPrivileges.getSelectedItem().toString().equals("Restricted")) {
+					HoraryCtrl.getInstance().menuAdd();
+					HoraryCtrl.getInstance().updateData();
+					
+				} else {
+					EmploymentCtrl.getInstance().addEmployment(tfNome.getText(), EmploymentCtrl.getInstance().stringToPrivilege(cbPrivileges.getSelectedItem().toString()));
+					JOptionPane.showMessageDialog(null, "Employment '" + tfNome.getText() + "' Created Successfully!");
+					cardLayout.show(pSetup, "pMain");
+					repaint();				
+				}	
+					
 			} else if (e.getSource().equals(btCancel)  || e.getSource().equals(btEdCancel)) {
 				cardLayout.show(pSetup, "pMain");
 				repaint();
@@ -296,18 +303,38 @@ public class EmploymentScreenI extends JFrame {
 			
 			} else if (e.getSource().equals(btDelete)) {
 				
-				EmploymentCtrl.getInstance().delEmployment(EmploymentCtrl.getInstance().getEmployment(lsEmployments.getSelectedIndex()));
-				updateData();
-				JOptionPane.showMessageDialog(null, "Employment Deleted Successfully!");
+				Employment employment = EmploymentCtrl.getInstance().getEmployment(lsEmployments.getSelectedIndex());
 				
+				if (employment.getEmployees().size() == 0)  {
+					
+					EmploymentCtrl.getInstance().delEmployment(employment);
+					updateData();
+					
+					JOptionPane.showMessageDialog(null, "Employment Deleted Successfully!");
+				} else {
+					
+					int option = JOptionPane.showConfirmDialog(null, "Employment has Employees Linked to it \n Do you want to delete all of them?");
+					
+					if(option == JOptionPane.YES_OPTION) {
+						for(Contract c: employment.getEmployees()) {
+							EmployeeCtrl.getInstance().delEmployee(c.getEmployee());
+						}
+						
+						EmploymentCtrl.getInstance().delEmployment(employment);
+						JOptionPane.showMessageDialog(null, "Employment and Employments Deleted Successfully!");
+						updateData();
+					}
+				}
 			
 			} else if (e.getSource().equals(btEdit)) {
 				cardLayout.show(pSetup, "pEdit");
 				tfEdNome.setText(lsEmployments.getSelectedValue().toString());
 			
 			}  else if (e.getSource().equals(btEdOk)) {
-				EmploymentCtrl.getInstance().getEmployment(lsEmployments.getSelectedIndex()).setName(tfEdNome.getText());
-				EmploymentCtrl.getInstance().getEmployment(lsEmployments.getSelectedIndex()).setPrivilege(EmploymentCtrl.getInstance().stringToPrivilege(cbEdPrivileges.getSelectedItem().toString()));
+				Employment	employment = EmploymentCtrl.getInstance().getEmployment(lsEmployments.getSelectedIndex());
+				
+				employment.setName(tfEdNome.getText());
+				employment.setPrivilege(EmploymentCtrl.getInstance().stringToPrivilege(cbEdPrivileges.getSelectedItem().toString()));
 				cardLayout.show(pSetup, "pMain");
 				updateData();
 			}
