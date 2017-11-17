@@ -276,8 +276,6 @@ public class EmploymentScreenI extends JFrame {
 			
 			if(e.getSource().equals(btRegister)) {
 				cardLayout.show(pSetup, "pRegister");
-				//Added this just to test the screen. will need to do cbEmployments check
-				
 				repaint();
 			
 			} else if (e.getSource().equals(btOk)) {
