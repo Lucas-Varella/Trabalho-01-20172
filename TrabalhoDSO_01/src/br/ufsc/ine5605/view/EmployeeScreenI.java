@@ -52,6 +52,7 @@ public class EmployeeScreenI extends JFrame{
 	private JButton btCancel;
 	private JButton btConEdit;
 	private Employee selected;
+	private JButton btDel;
 	
 	/**
 	 * Construtor padrÃ£o da classe
@@ -121,9 +122,16 @@ public class EmployeeScreenI extends JFrame{
 		btEdit.addActionListener(btManager);
 		pnMain.add(btEdit, cons);
 		
+		//Delete button
+		btDel = new JButton("Delete Selected Employee");
+		cons.gridx = 8;
+		cons.gridy = 50;
+		btDel.addActionListener(btManager);
+		pnMain.add(btDel, cons);
+		
 		//Main Menu Button
 		btMainMenu = new JButton("Main Menu");
-		cons.gridx = 8;
+		cons.gridx = 12;
 		cons.gridy = 50;
 		btMainMenu.addActionListener(btManager);
 		pnMain.add(btMainMenu, cons);

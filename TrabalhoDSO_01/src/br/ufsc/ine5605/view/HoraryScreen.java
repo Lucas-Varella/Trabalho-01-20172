@@ -1,7 +1,8 @@
 package br.ufsc.ine5605.view;
 
 
-import java.text.ParseException; 
+import java.text.ParseException;
+import java.util.ConcurrentModificationException;
 import java.util.Date;
 
 import javax.swing.*;
@@ -50,7 +51,7 @@ public class HoraryScreen extends JFrame {
 		Container container = getContentPane();
 		GridBagConstraints cons = new GridBagConstraints();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(800, 300);
+		setSize(550, 300);
 		setLocationRelativeTo(null);
 		setResizable(true);
 		
@@ -202,6 +203,22 @@ public class HoraryScreen extends JFrame {
 			
 			} else if(e.getSource().equals(btCancel) || e.getSource().equals(btOk)) {
 				show("Main");
+			} else if(e.getSource().equals(btDel)) {
+//				Horary horary = HoraryCtrl.getInstance().getTime(lsTimes.getSelectedIndex());
+				HoraryCtrl.getInstance().delHoraryInt(lsTimes.getSelectedIndex());
+				/*
+				String name = lsTimes.getSelectedValue().substring(lsTimes.getSelectedValue().indexOf(">") + 1, lsTimes.getSelectedValue().indexOf("<"));
+//				System.out.println(name);
+				try {
+					HoraryCtrl.getInstance().delHorary(name);
+				}catch(ConcurrentModificationException e2){
+					updateData();
+					JOptionPane.showMessageDialog(null, "Time range deleted Successfully!");
+
+				}*/
+				updateData();
+				JOptionPane.showMessageDialog(null, "Time range deleted Successfully!");
+			
 			}
 			
 		}
@@ -215,7 +232,7 @@ public class HoraryScreen extends JFrame {
 
 			for(Horary horary : HoraryCtrl.getInstance().getTimes()) {
 				
-				lsModel.addElement("Name:  " + horary.getName() + " --  Hours(Beginning/End):  " +  horary.getHourBegin() + "  /-/  " + horary.getHourFinish());
+				lsModel.addElement("Name:  >" + horary.getName() + "< --  Hours(Beginning/End):  " +  horary.getHourBegin() + "  /-/  " + horary.getHourFinish());
 			}
 			this.repaint();
 		}	

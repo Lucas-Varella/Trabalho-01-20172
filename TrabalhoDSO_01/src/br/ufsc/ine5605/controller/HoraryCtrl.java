@@ -68,6 +68,16 @@ public class HoraryCtrl {
 	public void addHorary(String name, Date hourBegin, Date hourFinish) {
 		times.add(new Horary(name, hourBegin, hourFinish));
 	}
+	public void delHoraryName(String name) {
+		for(Horary h : times) {
+			if(h.getName().equals(name)) {
+				times.remove(h);
+			}
+		}
+	}
+	public void delHoraryInt(int index) {
+		times.remove(index);
+	}
 
 	public int conversionStringToInt(String data) throws NumberFormatException {
 		try {
@@ -102,5 +112,12 @@ public class HoraryCtrl {
 	public ArrayList<Horary> getTimes() {
 		// TODO Auto-generated method stub
 		return times;
+	}
+
+	public Horary getTime(int index) {
+		if(getTimes().size() >= index && index > -1) {
+			return getTimes().get(index);
+		}
+		return null;
 	}
 }
