@@ -52,11 +52,11 @@ public class EmployeeScreenI extends JFrame{
 	private JComboBox<String> cbNewEmployments;
 	private JButton btCancel;
 	private JButton btConEdit;
-	private Employee selected;
 	private JButton btDel;
 	private JLabel lbError = new JLabel();
 	private JButton btErrorEdit;
 	private boolean edit;
+	private Employee employee;
 	
 	/**
 	 * Construtor padrÃ£o da classe
@@ -98,7 +98,7 @@ public class EmployeeScreenI extends JFrame{
 		
 		
 		//List of emps, now selectable(?)
-		lsEmployees = new JList();
+		lsEmployees = new JList<String>();
 		lsEmployees.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		lsEmployees.setLayoutOrientation(JList.VERTICAL);
 		lsEmployees.setVisibleRowCount(10);
@@ -302,9 +302,16 @@ public class EmployeeScreenI extends JFrame{
 				saveConditions();
 			}else if (e.getSource().equals(btEdit) || e.getSource().equals(btErrorEdit)) {
 				updateData();
-				cardLayout.show(screen, "Edit Employee");
+				employee = EmployeeCtrl.getInstance().getEmployee(lsEmployees.getSelectedIndex());
+
+				if(lsEmployees.getSelectedIndex() < -1) {
+					JOptionPane.showMessageDialog(null, "Please Select or Create an Employee!");
+
+				}else {
+					cardLayout.show(screen, "Edit Employee");
+
+				}
 			}else if (e.getSource().equals(btConEdit)) {
-				selected = EmployeeCtrl.getInstance().getEmployee(lsEmployees.getSelectedIndex());
 				updateData();
 				editConditions();
 			}
@@ -324,45 +331,21 @@ public class EmployeeScreenI extends JFrame{
 				Date bday = EmployeeCtrl.getInstance().strToDate(tfNewBday.getText());
 				int phone = Integer.parseInt(tfNewPhone.getText());
 				int salary = Integer.parseInt(tfNewSalary.getText());
-				Employee employee = EmployeeCtrl.getInstance().getEmployee(cbEmployments.getSelectedIndex());
-				Employment employment = EmploymentCtrl.getInstance().getEmployment(cbEmployments.getSelectedIndex());
+				employee = EmployeeCtrl.getInstance().getEmployee(lsEmployees.getSelectedIndex());
+				Employment employment = EmploymentCtrl.getInstance().getEmployment(cbNewEmployments.getSelectedIndex());
 				employee.setName(name);
 				employee.setDateBirth(bday);
 				employee.setPhone(phone);
 				employee.setSalary(salary);
 				employee.setEmployment(employment);
-				
-				JPanel edited = new JPanel(new GridBagLayout());
-				GridBagConstraints cons = new GridBagConstraints();
-				cons.gridx = 0;
-				cons.gridy = 0;
-				edited.add(new JLabel("Employee's Name:     " + name), cons);
-				cons.gridx = 0;
-				cons.gridy = 4;
-				edited.add(new JLabel("Employee's Birthday:     " + bday), cons);
-				cons.gridx = 0;
-				cons.gridy = 8;
-				edited.add(new JLabel("Employee's Phone:     " + phone), cons);
-				cons.gridx = 0;
-				cons.gridy = 12;
-				edited.add(new JLabel("Employee's Salary:     " + salary), cons);
-				cons.gridx = 0;
-				cons.gridy = 16;
-				edited.add(new JLabel("Employee's Employment:     " +  cbEmployments.getSelectedItem()), cons);
-				btEdOk = new JButton("Return");
-				cons.gridx = 0;
-				cons.gridy = 20;
-				btEdOk.addActionListener(btManager);
-				edited.add(btEdOk, cons);
-				screen.add(edited, "added");
-				cardLayout.show(screen, "added");
+				listing("","","","", "");
 				
 			} catch (ArrayIndexOutOfBoundsException e) {
 				lbError.setText("Please add an Employment First");
 				error();
 			} catch (NullPointerException e) {
-				lbError.setText("Please add an Employment First");
-				error();
+				listing("","","","", "");
+				
 			} catch (NumberFormatException e) {
 				lbError.setText("Please Type Required Information, knowing that Phone number and Salary are numbers.");
 				error();
@@ -370,6 +353,41 @@ public class EmployeeScreenI extends JFrame{
 				lbError.setText("Please Type the Date in a correct DD/MM/YYY Format.");
 				error();
 			}
+		}
+
+		private void listing(String name, String bday, String phone, String salary, String employment){
+			// TODO Auto-generated method stub
+			if(edit) {
+				name = tfNewName.getText();
+				bday = tfNewBday.getText();
+				phone = tfNewPhone.getText();
+				salary = tfNewSalary.getText();
+				employment = (String) cbNewEmployments.getSelectedItem();
+			}
+			JPanel edited = new JPanel(new GridBagLayout());
+			GridBagConstraints cons = new GridBagConstraints();
+			cons.gridx = 0;
+			cons.gridy = 0;
+			edited.add(new JLabel("Employee's Name:     " + name), cons);
+			cons.gridx = 0;
+			cons.gridy = 4;
+			edited.add(new JLabel("Employee's Birthday:     " + bday), cons);
+			cons.gridx = 0;
+			cons.gridy = 8;
+			edited.add(new JLabel("Employee's Phone:     " + phone), cons);
+			cons.gridx = 0;
+			cons.gridy = 12;
+			edited.add(new JLabel("Employee's Salary:     " + salary), cons);
+			cons.gridx = 0;
+			cons.gridy = 16;
+			edited.add(new JLabel("Employee's Employment:     " +  employment), cons);
+			btEdOk = new JButton("Return");
+			cons.gridx = 0;
+			cons.gridy = 20;
+			btEdOk.addActionListener(btManager);
+			edited.add(btEdOk, cons);
+			screen.add(edited, "added");
+			cardLayout.show(screen, "added");
 		}
 
 		private void saveConditions() {
@@ -390,30 +408,7 @@ public class EmployeeScreenI extends JFrame{
 					} catch(Exception e) {
 						System.out.println(e.getMessage());
 					}
-					JPanel added = new JPanel(new GridBagLayout());
-					GridBagConstraints cons = new GridBagConstraints();
-					cons.gridx = 0;
-					cons.gridy = 0;
-					added.add(new JLabel("Employee's Name:     " + name), cons);
-					cons.gridx = 0;
-					cons.gridy = 4;
-					added.add(new JLabel("Employee's Birthday:     " + bday), cons);
-					cons.gridx = 0;
-					cons.gridy = 8;
-					added.add(new JLabel("Employee's Phone:     " + phone), cons);
-					cons.gridx = 0;
-					cons.gridy = 12;
-					added.add(new JLabel("Employee's Salary:     " + salary), cons);
-					cons.gridx = 0;
-					cons.gridy = 16;
-					added.add(new JLabel("Employee's Employment:     " +  cbEmployments.getSelectedItem()), cons);
-					btOk = new JButton("Return");
-					cons.gridx = 0;
-					cons.gridy = 20;
-					btOk.addActionListener(btManager);
-					added.add(btOk, cons);
-					screen.add(added, "added");
-					cardLayout.show(screen, "added");
+					listing(name, tfBday.getText(), tfPhone.getText(), tfSalary.getText(), (String) cbEmployments.getSelectedItem());
 				}
 				
 			
@@ -469,7 +464,7 @@ public class EmployeeScreenI extends JFrame{
 
 			for(Employee employee : EmployeeCtrl.getInstance().getEmployees()) {
 				//hashEmployee.put(employee.getName(), employee);
-				lsModel.addElement("Name:  " + employee.getName() + "  Code:  " +  employee.getNumRegistration());
+				lsModel.addElement("Name:  " + employee.getName() + "  |  Birthday:  " + employee.getDateBirth() + "  |  Phone:  " + employee.getPhone() + "  |  Salary:  " + employee.getSalary() +  "  |  Code:  " +  employee.getNumRegistration());
 			}
 			this.repaint();
 		}	

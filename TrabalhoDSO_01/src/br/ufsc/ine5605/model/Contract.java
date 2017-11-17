@@ -48,6 +48,11 @@ public class Contract implements Serializable {
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
+
+	public String getName() {
+		// TODO Auto-generated method stub
+		return employment.getName();
+	}
 	
 
 }

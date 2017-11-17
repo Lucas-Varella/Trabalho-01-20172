@@ -111,10 +111,10 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	 * for incorreto(tentar acessar um indíce inexistente);
 	 */
 	public Employee getEmployee(int index) {
-		if(getEmployees().size() >= index && index > -1) {
-			return getEmployees().get(index);
+		for(Employee e : getEmployees()) {
+			System.out.println(e.getName());
 		}
-		return null;
+		return getEmployees().get(index + 1);
 	}
 	
 	public Employee findEmployeeByNumReg(int num) {
