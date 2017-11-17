@@ -116,7 +116,7 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 		}
 		return getEmployees().get(index + 1);
 	}
-	
+	//cmon
 	public Employee findEmployeeByNumReg(int num) {
 		for(Employee e : getEmployees()) {
 			if(e.getNumRegistration() == num) {

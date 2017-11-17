@@ -323,7 +323,7 @@ public class EmployeeScreenI extends JFrame{
 			}
 			
 		}
-		
+		//jason
 		private void editConditions() {
 			edit = true;
 			try {

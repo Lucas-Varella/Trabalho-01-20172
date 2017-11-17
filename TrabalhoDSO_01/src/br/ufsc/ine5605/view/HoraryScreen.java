@@ -292,7 +292,7 @@ public class HoraryScreen extends JFrame {
 		screen.add(added, "added");
 		cardLayout.show(screen, "added");
 	}
-	
+	//cmon
 	public void updateData() {
 		//about list of emps
 		

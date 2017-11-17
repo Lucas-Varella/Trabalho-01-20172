@@ -32,7 +32,7 @@ public class Contract implements Serializable {
 		employee.addContract(this);
 		employment.addContract(this);
 	}
-
+//yeehaw
 	public Employment getEmployment() {
 		return employment;
 	}
