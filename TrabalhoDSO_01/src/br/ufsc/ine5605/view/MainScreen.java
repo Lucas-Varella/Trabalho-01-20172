@@ -88,7 +88,6 @@ public class MainScreen extends JFrame{
 			if(e.getSource().equals(btEmployee)) {
 				setVisible(false);
 				MainScreenCtrl.getInstance().employeeMenu();
-			
 			} else if(e.getSource().equals(btEmployment)) {
 				setVisible(false);
 				MainScreenCtrl.getInstance().employmentMenu();

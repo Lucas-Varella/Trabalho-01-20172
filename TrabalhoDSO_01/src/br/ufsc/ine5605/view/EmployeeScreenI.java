@@ -54,6 +54,8 @@ public class EmployeeScreenI extends JFrame{
 	private JButton btConEdit;
 	private Employee selected;
 	private JButton btDel;
+	private JLabel lbError = new JLabel();
+
 	
 	/**
 	 * Construtor padrÃ£o da classe
@@ -87,6 +89,7 @@ public class EmployeeScreenI extends JFrame{
 		pnMain = new JPanel(new GridBagLayout());
 		//Screen label
 		lbEmpScrn = new JLabel("Please Select desired Employee to manage, or add a new one.");
+		cons.gridwidth = 30;
 		cons.gridx = 0;
 		cons.gridy = 0;
 		pnMain.add(lbEmpScrn, cons);
@@ -100,8 +103,9 @@ public class EmployeeScreenI extends JFrame{
 		lsEmployees.setVisibleRowCount(10);
 		cons.gridheight = 20;
 		cons.gridwidth = 30;
+		
 		cons.gridx = 0;
-		cons.gridy = 4;
+		cons.gridy = 2;
 		JScrollPane spListEmp = new JScrollPane(lsEmployees);
 		pnMain.add(spListEmp, cons);
 		//updateData();
@@ -201,18 +205,6 @@ public class EmployeeScreenI extends JFrame{
 		btReturn.addActionListener(btManager);
 		pnAdd.add(btReturn, cons);
 		
-		//Save error panel
-		JPanel pnError = new JPanel(new GridBagLayout());
-		JLabel lbError = new JLabel("Please don't.");
-		cons.gridx = 0;
-		cons.gridy = 0;
-		pnError.add(lbError, cons);
-		btError = new JButton("OK... sorry");
-		btError.addActionListener(btManager);
-		cons.gridx = 0;
-		cons.gridy = 4;
-		pnError.add(btError, cons);
-		screen.add(pnError, "error");
 		
 		//Edit panel
 		pnEdit = new JPanel(new GridBagLayout());
@@ -289,12 +281,12 @@ public class EmployeeScreenI extends JFrame{
 
 		public void actionPerformed(ActionEvent e) {
 			
-			if(e.getSource().equals(btAdd)) {
+			if( e.getSource().equals(btError) || e.getSource().equals(btAdd)) {
 				updateData();
 				cardLayout.show(screen, "Add Employee");
 				
 			
-			} else if(e.getSource().equals(btReturn) || e.getSource().equals(btEdOk) || e.getSource().equals(btError) || e.getSource().equals(btOk) || e.getSource().equals(btCancel)) {
+			} else if(e.getSource().equals(btReturn) || e.getSource().equals(btEdOk) || e.getSource().equals(btOk) || e.getSource().equals(btCancel)) {
 				updateData();
 				cardLayout.show(screen, "Employee Screen");
 			
@@ -386,7 +378,7 @@ public class EmployeeScreenI extends JFrame{
 				Date bday = EmployeeCtrl.getInstance().strToDate(tfBday.getText());
 				int phone = Integer.parseInt(tfPhone.getText());
 				int salary = Integer.parseInt(tfSalary.getText());
-				if(cbEmployments.getSelectedItem().equals("Please add Employments first.") || EmploymentCtrl.getInstance().getEmployment(cbEmployments.getSelectedIndex()) == null ) {
+				if(cbEmployments.getSelectedItem() == null || EmploymentCtrl.getInstance().getEmployment(cbEmployments.getSelectedIndex()) == null ) {
 					cardLayout.show(screen, "error");
 				}else {
 					Employment employment = EmploymentCtrl.getInstance().getEmployment(cbEmployments.getSelectedIndex());
@@ -423,26 +415,46 @@ public class EmployeeScreenI extends JFrame{
 					cardLayout.show(screen, "added");
 				}
 				
-			} catch (ParseException e1) {
-				cardLayout.show(screen, "error");
-				System.out.println(e1.getMessage());
-				
-			} catch (ArrayIndexOutOfBoundsException e) {
-				cardLayout.show(screen, "error");
-				System.out.println(e.getMessage());
-				
-			} catch (NullPointerException e) {
-				cardLayout.show(screen, "error");
-				System.out.println(e.getMessage());
-				e.printStackTrace();
-				
-			}
 			
+			} catch (ArrayIndexOutOfBoundsException e) {
+				error();
+				System.out.println("array");
+			} catch (NullPointerException e) {
+				lbError.setText("Please add an Employment First");
+				error();
+				System.out.println("Please add an Employment First");
+			} catch (NumberFormatException e) {
+				System.out.println("numform");
+				lbError.setText("Please Type Required Information, knowing that Phone number and Salary are numbers.");
+
+				error();
+			} catch (ParseException e) {
+				lbError.setText("Please Type the Date in a correct DD/MM/YYY Format.");
+				error();
+				System.out.println("parse");
+			}
 		}
 
 		
 	}
-	private void updateData() {
+	public void error() {
+		//Save error panel
+		JPanel pnError = new JPanel(new GridBagLayout());
+		GridBagConstraints cons = new GridBagConstraints();
+		cons.gridx = 0;
+		cons.gridy = 0;
+		pnError.add(lbError, cons);
+		btError = new JButton("Try Again");
+		btError.addActionListener(btManager);
+		cons.gridx = 0;
+		cons.gridy = 4;
+		pnError.add(btError, cons);
+		screen.add(pnError, "error");
+		cardLayout.show(screen, "error");
+		
+	}
+	
+	public void updateData() {
 		//about list of emps
 		
 		DefaultListModel<String> lsModel = new DefaultListModel<String>();

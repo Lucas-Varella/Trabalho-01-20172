@@ -74,12 +74,12 @@ public class MainController {
 	public void addHorary() {
 		HoraryCtrl.getInstance().menuAdd();
 	}
-
+/*
 	public void editHorary(Horary horary) {
 		HoraryCtrl.getInstance().editHorary(horary);
 		
 	}
-
+*/
 	public void delEmployee(Employee employee) {
 		EmployeeCtrl.getInstance().delEmployee(employee);
 		

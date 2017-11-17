@@ -45,7 +45,7 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 
 	public void menu() {
 		employeeScreen.setVisible(true);
-		//c'mon
+		employeeScreen.updateData();
 	}
 	
 	/**
@@ -263,6 +263,7 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
         }
         return dataF;
 	}
-	
+
+
 
 }
