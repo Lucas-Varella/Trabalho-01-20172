@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 import br.ufsc.ine5605.controller.EmployeeCtrl;
 import br.ufsc.ine5605.controller.EmploymentCtrl;
+import br.ufsc.ine5605.controller.HoraryCtrl;
 import br.ufsc.ine5605.model.*;
 
 /**
@@ -314,10 +315,13 @@ public class EmployeeScreenI extends JFrame{
 				updateData();
 				editConditions();
 			}
-			/* else if(e.getSource().equals(but)) {s
-				employeeCtrl.action();
+			 else if(e.getSource().equals(btDel)) {
+				EmployeeCtrl.getInstance().delEmployee(EmployeeCtrl.getInstance().getEmployee(lsEmployees.getSelectedIndex()));
+				updateData();
+				JOptionPane.showMessageDialog(null, "Employee deleted Successfully!");
+			
 			}
-			*/
+			
 		}
 		
 		private void editConditions() {

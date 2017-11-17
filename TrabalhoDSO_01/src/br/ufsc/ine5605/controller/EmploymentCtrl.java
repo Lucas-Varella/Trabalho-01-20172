@@ -88,11 +88,11 @@ public class EmploymentCtrl implements Screen2 {
 	public void listAllEmployments() {
 		
 	}
-	
+	/*
 	public Horary addHorary() {
 		return MainController.getInstance().addHorary();
 	}
-	
+	*/
 	/**
 	 * Busca um Employment no ArrayList<Employment> baseado no index;
 	 * @param num - int contendo o index do objeto no ArrayList;
@@ -122,11 +122,11 @@ public class EmploymentCtrl implements Screen2 {
 	public ArrayList<Horary> getHorarys(EmploymentRestrictAccess e)  {
 		return e.getHorarys();
 	}
-
+	/*
 	public Horary editHorary(Horary horary) {
 		return MainController.getInstance().editHorary(horary);
 		
-	}
+	}*/
 	/**
 	 * Cria e adiciona um novo Employment. A única diferença com o outro método é a adição de um novo parâmetro de entrada;
 	 * @param code2 - int do código do Employment;

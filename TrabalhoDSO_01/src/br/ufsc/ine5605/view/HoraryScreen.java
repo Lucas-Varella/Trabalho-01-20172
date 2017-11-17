@@ -37,6 +37,10 @@ public class HoraryScreen extends JFrame {
 	private JTextField tfName;
 	private JList<String> lsTimes;
 	private ButtonManager btManager;
+	private JTextField tfNewName;
+	private JTextField tfNewH1;
+	private JButton btConEdit;
+	private JTextField tfNewH2;
 	
 	
 	public HoraryScreen() {
@@ -118,6 +122,7 @@ public class HoraryScreen extends JFrame {
 		pnMain.add(btReturn, cons);
 		screen.add(pnMain, "Main");
 		
+		//add panel
 		pnAdd = new JPanel(new GridBagLayout());
 		cons.gridx = 0;
 		cons.gridy = 0;
@@ -145,9 +150,43 @@ public class HoraryScreen extends JFrame {
 		pnAdd.add(btCancel, cons);
 		screen.add(pnAdd, "Add");
 		
+		//edit panel
 		pnEdit = new JPanel(new GridBagLayout());
+		cons.gridheight = 2;
+		cons.gridwidth = 4;
+		cons.gridx = 0;
+		cons.gridy = 0;
+		pnEdit.add(new JLabel("New Name:"), cons);
+		cons.gridx = 4;
+		cons.gridy = 0;
+		tfNewName = new JTextField(10);
+		pnEdit.add(tfNewName, cons);
+		cons.gridx = 0;
+		cons.gridy = 4;
+		pnEdit.add(new JLabel("New Starting time: "), cons);
+		cons.gridx = 4;
+		cons.gridy = 4;
+		tfNewH1 = new JTextField(10);
+		pnEdit.add(tfNewH1, cons);
+		cons.gridx = 0;
+		cons.gridy = 8;
+		pnEdit.add(new JLabel("New ending time:"), cons);
+		cons.gridx = 4;
+		cons.gridy = 8;
+		tfNewH2 = new JTextField(10);
+		pnEdit.add(tfNewH2, cons);
+		btCancel1 = new JButton("Cancel");
+		cons.gridx = 4;
+		cons.gridy = 12;
+		btCancel1.addActionListener(btManager);
+		pnEdit.add(btCancel1, cons);
+		btConEdit = new JButton("Confirm");
+		cons.gridx = 0;
+		cons.gridy = 12;
+		btConEdit.addActionListener(btManager);
+		pnEdit.add(btConEdit, cons);
+		screen.add(pnEdit, "Edit");
 		
-
 		container.add(screen);
 		cardLayout = (CardLayout) screen.getLayout();
 		
@@ -171,27 +210,28 @@ public class HoraryScreen extends JFrame {
 					String hour2 = tfHour2.getText();
 					addHorary(name, hour1, hour2);
 					updateData();
-					JPanel added = new JPanel(new GridBagLayout());
-					GridBagConstraints cons = new GridBagConstraints();
-					cons.gridx = 0;
-					cons.gridy = 4;
-					added.add(new JLabel("Time added Successfully:"));
-					cons.gridx = 0;
-					cons.gridy = 4;
-					added.add(new JLabel("Time's Identifier:     " + name), cons);
-					cons.gridx = 0;
-					cons.gridy = 8;
-					added.add(new JLabel("Time's start Hour:     " + hour1), cons);
-					cons.gridx = 0;
-					cons.gridy = 12;
-					added.add(new JLabel("Time's ending Hour:     " + hour2), cons);
-				    btOk = new JButton("Return");
-					cons.gridx = 0;
-					cons.gridy = 16;
-					btOk.addActionListener(btManager);
-					added.add(btOk, cons);
-					screen.add(added, "added");
-					cardLayout.show(screen, "added");
+					listing(name, hour1, hour2);
+//					JPanel added = new JPanel(new GridBagLayout());
+//					GridBagConstraints cons = new GridBagConstraints();
+//					cons.gridx = 0;
+//					cons.gridy = 4;
+//					added.add(new JLabel("Time added Successfully:"));
+//					cons.gridx = 0;
+//					cons.gridy = 4;
+//					added.add(new JLabel("Time's Identifier:     " + name), cons);
+//					cons.gridx = 0;
+//					cons.gridy = 8;
+//					added.add(new JLabel("Time's start Hour:     " + hour1), cons);
+//					cons.gridx = 0;
+//					cons.gridy = 12;
+//					added.add(new JLabel("Time's ending Hour:     " + hour2), cons);
+//				    btOk = new JButton("Return");
+//					cons.gridx = 0;
+//					cons.gridy = 16;
+//					btOk.addActionListener(btManager);
+//					added.add(btOk, cons);
+//					screen.add(added, "added");
+//					cardLayout.show(screen, "added");
 				} catch (ParseException e1) {
 					JOptionPane.showMessageDialog(null, "The time you entered is not in the default hh:mm", "Error", 1);
 					cardLayout.show(screen, "Add");
@@ -201,29 +241,58 @@ public class HoraryScreen extends JFrame {
 				setVisible(false);
 				EmploymentCtrl.getInstance().menu();
 			
-			} else if(e.getSource().equals(btCancel) || e.getSource().equals(btOk)) {
+			} else if(e.getSource().equals(btCancel) || e.getSource().equals(btOk) || e.getSource().equals(btCancel1)) {
 				show("Main");
 			} else if(e.getSource().equals(btDel)) {
-//				Horary horary = HoraryCtrl.getInstance().getTime(lsTimes.getSelectedIndex());
 				HoraryCtrl.getInstance().delHoraryInt(lsTimes.getSelectedIndex());
-				/*
-				String name = lsTimes.getSelectedValue().substring(lsTimes.getSelectedValue().indexOf(">") + 1, lsTimes.getSelectedValue().indexOf("<"));
-//				System.out.println(name);
-				try {
-					HoraryCtrl.getInstance().delHorary(name);
-				}catch(ConcurrentModificationException e2){
-					updateData();
-					JOptionPane.showMessageDialog(null, "Time range deleted Successfully!");
-
-				}*/
+				
 				updateData();
 				JOptionPane.showMessageDialog(null, "Time range deleted Successfully!");
 			
+			}else if(e.getSource().equals(btEdit)) {
+				show("Edit");
+			} else if (e.getSource().equals(btConEdit)) {
+				try {
+					Horary h = HoraryCtrl.getInstance().getTime(lsTimes.getSelectedIndex());
+					h.setName(tfNewName.getText());
+					h.setHourBegin(HoraryCtrl.getInstance().strToDateHour(tfNewH1.getText()));
+					h.setHourFinish(HoraryCtrl.getInstance().strToDateHour(tfNewH2.getText()));
+					updateData();
+					listing(tfNewName.getText(), tfNewH1.getText(), tfNewH2.getText());
+				} catch (ParseException e1) {
+					JOptionPane.showMessageDialog(null, "The time you entered is not in the default hh:mm", "Error", 1);
+					cardLayout.show(screen, "Edit");
+					updateData();
+				}
 			}
 			
 		}
 		
 	}
+	public void listing(String t1, String t2, String t3) {
+		JPanel added = new JPanel(new GridBagLayout());
+		GridBagConstraints cons = new GridBagConstraints();
+		cons.gridx = 0;
+		cons.gridy = 4;
+		added.add(new JLabel("Time added Successfully:"));
+		cons.gridx = 0;
+		cons.gridy = 4;
+		added.add(new JLabel("Time's Identifier:     " + t1), cons);
+		cons.gridx = 0;
+		cons.gridy = 8;
+		added.add(new JLabel("Time's start Hour:     " + t2), cons);
+		cons.gridx = 0;
+		cons.gridy = 12;
+		added.add(new JLabel("Time's ending Hour:     " + t3), cons);
+	    btOk = new JButton("Return");
+		cons.gridx = 0;
+		cons.gridy = 16;
+		btOk.addActionListener(btManager);
+		added.add(btOk, cons);
+		screen.add(added, "added");
+		cardLayout.show(screen, "added");
+	}
+	
 	public void updateData() {
 		//about list of emps
 		

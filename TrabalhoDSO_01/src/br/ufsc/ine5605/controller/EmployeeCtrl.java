@@ -87,6 +87,7 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	 * @param index - int do index do objeto a ser removido;
 	 */
 	public void delEmployee(int index) {
+		
 		empDAO.remove((Integer)index);
 	}
 	

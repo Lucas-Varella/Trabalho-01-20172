@@ -42,4 +42,19 @@ public class Horary {
 		// TODO Auto-generated method stub
 		return this.name;
 	}
+
+	public void setName(String name) {
+		// TODO Auto-generated method stub
+		this.name = name;
+	}
+
+	public void setHourBegin(Date hour) {
+		// TODO Auto-generated method stub
+		this.hourBegin = hour;
+	}
+
+	public void setHourFinish(Date strToDateHour) {
+		// TODO Auto-generated method stub
+		this.hourFinish = strToDateHour;
+	}
 }
