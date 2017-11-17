@@ -58,9 +58,10 @@ public class EmploymentScreenI extends JFrame {
 		GridBagConstraints cons = new GridBagConstraints();
 		container.setLayout(new GridBagLayout());
 		
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setSize(850, 600);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(800, 300);
 		setLocationRelativeTo(null);
+		setResizable(true);
 		
 		
 		// Panel geral
@@ -274,6 +275,8 @@ public class EmploymentScreenI extends JFrame {
 				cardLayout.show(pSetup, "pRegister");
 				//Added this just to test the screen. will need to do cbEmployments check.
 				HoraryCtrl.getInstance().menuAdd();
+				HoraryCtrl.getInstance().updateData();;
+				
 				repaint();
 			
 			} else if (e.getSource().equals(btOk)) {

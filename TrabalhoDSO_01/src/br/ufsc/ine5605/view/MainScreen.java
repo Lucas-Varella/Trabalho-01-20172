@@ -38,10 +38,10 @@ public class MainScreen extends JFrame{
 		
 		
 		cons.fill = GridBagConstraints.BOTH; 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(400, 150);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(800, 300);
 		setLocationRelativeTo(null);
-		
+		setResizable(true);
 		//Guide Label 
 		lbGuide = new JLabel();
 		lbGuide.setText("Select the Sector you want to go to:");

@@ -1,5 +1,6 @@
 package br.ufsc.ine5605.controller;
 
+import java.util.ArrayList;
 import java.util.Date; 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -17,6 +18,7 @@ import br.ufsc.ine5605.view.HoraryScreen;
 public class HoraryCtrl {
 	private static final HoraryCtrl instance = new HoraryCtrl();
 	private HoraryScreen horaryScreen;
+	private ArrayList<Horary> times;
 	
 	/**
 	 * Construtor padrão da classe;
@@ -24,6 +26,21 @@ public class HoraryCtrl {
 	 */
 	public HoraryCtrl() {
 		this.horaryScreen = new HoraryScreen();
+		times = new ArrayList<>();
+		try {
+			Horary commercial = new Horary("Commercial",  strToDateHour("08:00"), strToDateHour("18:00"));
+			Horary night = new Horary("Nocturnal", strToDateHour("18:00"), strToDateHour("24:00"));
+			Horary day = new Horary("Diurnal", strToDateHour("08:00"), strToDateHour("12:00"));
+			Horary afternoon = new Horary("Evening", strToDateHour("12:00"), strToDateHour("18:00"));
+			
+			times.add(day);
+			times.add(afternoon);
+			times.add(night);
+			times.add(commercial);
+			
+		} catch (ParseException e) {
+			System.out.println("not gonna happen.");
+		}
 	}
 	
 	public static HoraryCtrl getInstance() {
@@ -33,6 +50,9 @@ public class HoraryCtrl {
 	
 	public void menuAdd() {
 		horaryScreen.setVisible(true);
+	}
+	public void updateData() {
+		horaryScreen.updateData();
 	}
 
 	public void mainMenu() {
@@ -45,8 +65,8 @@ public class HoraryCtrl {
 	 * @param hourFinish - Date contendo a hora final;
 	 * @return Horary - Retorna o objeto criado;
 	 */
-	public Horary addHorary(Date hourBegin, Date hourFinish) {
-		return (new Horary(hourBegin, hourFinish));
+	public void addHorary(String name, Date hourBegin, Date hourFinish) {
+		times.add(new Horary(name, hourBegin, hourFinish));
 	}
 
 	public int conversionStringToInt(String data) throws NumberFormatException {
@@ -72,10 +92,15 @@ public class HoraryCtrl {
         }
         return dataF;
 	}
-
+/*
 	public Horary editHorary(Horary horary) {
 		return horaryScreen.edit(horary);
 		
 	}
+*/
 
+	public ArrayList<Horary> getTimes() {
+		// TODO Auto-generated method stub
+		return times;
+	}
 }

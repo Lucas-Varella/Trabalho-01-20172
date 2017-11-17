@@ -13,13 +13,15 @@ import java.util.Date;
 public class Horary {
 	private Date hourBegin;
 	private Date hourFinish;
+	private String name;
 	
 	/**
 	 * Construtor padrão da classe;
 	 * @param hourBegin - Date contendo a hora de início
 	 * @param hourFinish - Date contendo a hora de fim;
 	 */
-	public Horary(Date hourBegin, Date hourFinish) {
+	public Horary(String name, Date hourBegin, Date hourFinish) {
+		this.name = name;
 		this.hourBegin = hourBegin;
 		this.hourFinish = hourFinish;
 	}
@@ -34,5 +36,10 @@ public class Horary {
 		DateFormat dateFormat = new SimpleDateFormat("HH:mm");
 		String returned = dateFormat.format(hourFinish);
 		return returned;
+	}
+
+	public String getName() {
+		// TODO Auto-generated method stub
+		return this.name;
 	}
 }

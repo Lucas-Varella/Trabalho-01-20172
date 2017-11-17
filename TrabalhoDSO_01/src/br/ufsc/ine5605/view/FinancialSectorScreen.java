@@ -76,10 +76,10 @@ public class FinancialSectorScreen extends JFrame {
 		//Config container;
 		Container container = getContentPane();
 		GridBagConstraints cons = new GridBagConstraints();
-		 setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(400, 250);
-        setLocationRelativeTo(null);
-        setResizable(true);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setSize(800, 300);
+		setLocationRelativeTo(null);
+		setResizable(true);
         
         // Instantiating JButtons;
         btFinancialSector = new JButton("Enter Financial Sector");

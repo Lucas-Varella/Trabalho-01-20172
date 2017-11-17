@@ -46,7 +46,9 @@ public class AccessScreen extends JFrame {
 		Container container = getContentPane();
 		GridBagConstraints cons = new GridBagConstraints();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        		
+		setSize(800, 300);
+		setLocationRelativeTo(null);
+		setResizable(true);
 		// Instantiating JTable;
 		jtTable = new JTable();
 		
