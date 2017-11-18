@@ -102,15 +102,6 @@ public class AccessScreen extends JFrame {
 		updateData(m);
 		this.setVisible(true);
 	}
-	
-	public void noReason() {
-		
-	}
-
-	public void noNumRegistration() {
-		// TODO Auto-generated method stub
-		
-	}
 }
 	
 

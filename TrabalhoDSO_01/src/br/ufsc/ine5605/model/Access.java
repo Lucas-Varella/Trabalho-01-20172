@@ -10,6 +10,7 @@ import java.util.Date;
  */
 public class Access implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private Integer key;
 	private int numRegistration;
 	private Date date;
 	private Date hour;
@@ -27,6 +28,14 @@ public class Access implements Serializable {
 		this.date = date;
 		this.hour = hour;
 		this.reason = reason;
+	}
+	
+	public void setKey(Integer i) {
+		this.key = i;
+	}
+	
+	public Integer getKey() {
+		return key;
 	}
 
 	public int getNumRegistration() {

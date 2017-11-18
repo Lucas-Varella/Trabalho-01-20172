@@ -285,13 +285,13 @@ public class FinancialSectorScreen extends JFrame {
 				}
 			} else if(e.getSource().equals(enter3)) {
 				try {
-					String s = reasons.getSelectedItem().toString();
+					String s = (String) reasons.getSelectedItem();//.toString();
 				
 
-					if(s.equals(Reasons.BLOCK)) {
-						FinancialSectorCtrl.getInstance().showDeniedAccessByReason(Reasons.BLOCK);
-					}else if(s.equals(Reasons.INCTIME)) {
+					if(s.equals(Reasons.INCTIME)) {
 						FinancialSectorCtrl.getInstance().showDeniedAccessByReason(Reasons.INCTIME);
+					}else if(s.equals(Reasons.BLOCK)) {
+						FinancialSectorCtrl.getInstance().showDeniedAccessByReason(Reasons.BLOCK);
 					}else if(s.equals(Reasons.NOACCESS)) {
 						FinancialSectorCtrl.getInstance().showDeniedAccessByReason(Reasons.NOACCESS);
 					}else {

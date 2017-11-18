@@ -96,7 +96,7 @@ public class AccessCtrl implements Serializable {
 			if(access.size() > 0) {
 				accessScreen.show(access); 
 			} else {
-				accessScreen.noReason();
+				throw new IndexOutOfBoundsException();
 			}
 		}else {
 			throw new IndexOutOfBoundsException();

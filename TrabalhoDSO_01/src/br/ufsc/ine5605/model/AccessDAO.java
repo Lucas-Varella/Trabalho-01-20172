@@ -78,7 +78,8 @@ public class AccessDAO implements Serializable {
 		return cacheAccess.get(code);
 	}
 	public void put(Access emp) {
-		cacheAccess.put(emp.getNumRegistration(), emp);
+		emp.setKey(cacheAccess.size() + 1);
+		cacheAccess.put(emp.getKey(), emp);
 		persist();
 	}
 	
