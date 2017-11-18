@@ -57,9 +57,9 @@ public class EmployeeScreenI extends JFrame{
 	private JLabel lbError = new JLabel();
 	private JButton btErrorEdit;
 	private boolean edit;
-	private Employee employee;
 	private JTextField tfEmployment;
 	private JTextField tfNewEmployment;
+	private JTextField tfEmployee;
 	
 	/**
 	 * Construtor padrÃ£o da classe
@@ -222,6 +222,12 @@ public class EmployeeScreenI extends JFrame{
 		cons.gridheight = 2;
 		cons.gridwidth = 4;
 		cons.gridx = 0;
+		cons.gridy = 0;
+		pnEdit.add(new JLabel("Employee's Code:"), cons);
+		cons.gridx = 4;
+		tfEmployee = new JTextField(10);
+		pnEdit.add(tfEmployee, cons);
+		cons.gridx = 0;
 		cons.gridy = 4;
 		pnEdit.add(new JLabel("New Name:"), cons);
 		cons.gridx = 4;
@@ -275,14 +281,14 @@ public class EmployeeScreenI extends JFrame{
 		pnEdit.add(btConEdit, cons);
 		
 		//Cb employees!
-		cbEmployees = new JComboBox<Employee>();
-		cons.gridx = 0;
-		cons.gridy = 0;
-		pnEdit.add(new JLabel("Select Employee:"), cons);
-		cons.gridx = 4;
-		cons.gridy = 0;
-		cons.insets = new Insets(0, 0, 0, 0);
-		pnEdit.add(cbEmployees, cons);
+//		cbEmployees = new JComboBox<Employee>();
+//		cons.gridx = 0;
+//		cons.gridy = 0;
+//		pnEdit.add(new JLabel("Select Employee:"), cons);
+//		cons.gridx = 4;
+//		cons.gridy = 0;
+//		cons.insets = new Insets(0, 0, 0, 0);
+//		pnEdit.add(cbEmployees, cons);
 		
 		
 		screen.add(pnAdd, "Add Employee");
@@ -342,7 +348,7 @@ public class EmployeeScreenI extends JFrame{
 					Date bday = EmployeeCtrl.getInstance().strToDate(tfNewBday.getText());
 					int phone = Integer.parseInt(tfNewPhone.getText());
 					int salary = Integer.parseInt(tfNewSalary.getText());
-					employee = cbEmployees.getItemAt(cbEmployees.getSelectedIndex());
+					Employee employee = EmployeeCtrl.getInstance().findEmployeeByNumReg(Integer.parseInt(tfEmployee.getText()));
 					Employment employment = EmploymentCtrl.getInstance().findEmploymentByCode(Integer.parseInt(tfNewEmployment.getText()));
 					employee.setName(name);
 					employee.setDateBirth(bday);
@@ -357,16 +363,17 @@ public class EmployeeScreenI extends JFrame{
 //				} catch (ArrayIndexOutOfBoundsException e1) {
 //					lbError.setText("Please add an Employment First");
 //					error();
-				} catch (NullPointerException e1) {
-					lbError.setText("FUCK");
-					error();
-					
+//				} catch (NullPointerException e1) {
+//					lbError.setText("FUCK");
+//					error();
+//					
 				} catch (NumberFormatException e1) {
 					lbError.setText("Please Type Required Information, knowing that Phone number and Salary are numbers.");
 					error();
 				} catch (ParseException e1) {
-					lbError.setText("Please Type the Date in a correct DD/MM/YYY Format.");
-					error();
+//					lbError.setText("Please Type the Date in a correct DD/MM/YYY Format.");
+//					error();
+					e1.printStackTrace();
 				}
 			}
 			 else if(e.getSource().equals(btDel)) {
@@ -523,17 +530,17 @@ public class EmployeeScreenI extends JFrame{
 		
 		//CbEmps
 		
-		DefaultComboBoxModel<Employee> cbModel1 = new DefaultComboBoxModel<Employee>();
-		if(EmployeeCtrl.getInstance().getEmployees() != null) {
-
-			for(Employee employee : EmployeeCtrl.getInstance().getEmployees()) {
-				//hashEmployee.put(employee.getName(), employee);
-				cbModel1.addElement(employee);
-			}
-			this.repaint();
-		}	
-		cbEmployees.setModel(cbModel1);
-		
+//		DefaultComboBoxModel<Employee> cbModel1 = new DefaultComboBoxModel<Employee>();
+//		if(EmployeeCtrl.getInstance().getEmployees() != null) {
+//
+//			for(Employee employee : EmployeeCtrl.getInstance().getEmployees()) {
+//				//hashEmployee.put(employee.getName(), employee);
+//				cbModel1.addElement(employee);
+//			}
+//			this.repaint();
+//		}	
+//		cbEmployees.setModel(cbModel1);
+//		
 		//about combo box
 		
 		DefaultComboBoxModel<String> cbModel = new DefaultComboBoxModel<String>();
