@@ -38,7 +38,7 @@ public class MainScreen extends JFrame{
 		
 		
 		cons.fill = GridBagConstraints.BOTH; 
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(800, 300);
 		setLocationRelativeTo(null);
 		setResizable(true);
