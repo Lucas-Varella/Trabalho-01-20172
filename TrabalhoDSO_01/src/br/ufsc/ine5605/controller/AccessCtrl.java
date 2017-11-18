@@ -110,14 +110,14 @@ public class AccessCtrl implements Serializable {
 	 * @return boolean - Retorna true se o acesso está bloqueado, false caso contrário;
 	 */
 	public boolean isAccessBloqued(int numRegistration) {
-		if(getMessage() != null ) {
+		if(getMessage().size() > 0 ) {
 			int cont = 0;
 			for(Access a : getMessage()) {
 				if(a.getNumRegistration() == numRegistration) {
 					cont++;
 				}
 			}
-			if(cont == 3) {
+			if(cont >= 3) {
 				return true;
 			}
 		}

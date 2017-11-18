@@ -65,18 +65,10 @@ public class AccessDAO implements Serializable {
   
 	}
  
-	public void remove(int index) {
-		cacheAccess.remove((Integer) index);
-		persist();
-	}
- 
 	public Collection<Access> getList() {
 		return cacheAccess.values();
 	}
 
-	public Access get(int code) {
-		return cacheAccess.get(code);
-	}
 	public void put(Access emp) {
 		emp.setKey(cacheAccess.size() + 1);
 		cacheAccess.put(emp.getKey(), emp);
