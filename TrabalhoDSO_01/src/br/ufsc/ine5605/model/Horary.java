@@ -1,5 +1,6 @@
 package br.ufsc.ine5605.model;
 
+import java.io.Serializable;
 import java.text.DateFormat; 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,7 +11,11 @@ import java.util.Date;
  * @author Sadi Júnior Domingos Jacinto;
  *
  */
-public class Horary {
+public class Horary implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Date hourBegin;
 	private Date hourFinish;
 	private String name;

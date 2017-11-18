@@ -122,6 +122,10 @@ public class Employment implements Serializable {
 	public void setCode(int code) {
 		this.code = code;		
 	}
+	@Override
+	public String toString() {
+		return "Name:  " +getName()+ "  Code:  " + getCode();
+	}
 	
 	
 }

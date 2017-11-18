@@ -92,6 +92,15 @@ public class Employee implements Serializable{
 	public void setEmployment(Employment employment) {
 		this.employment.setEmployment(employment);
 	}
+	@Override
+	public String toString() {
+		return "Name :  " + getName() + "  Code :  " + getNumRegistration();
+	}
+
+	public void setNumRegistration(int i) {
+		// TODO Auto-generated method stub
+		this.numRegistration = i;
+	}
 
 	
 }

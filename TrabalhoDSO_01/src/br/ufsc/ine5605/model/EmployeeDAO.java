@@ -21,6 +21,7 @@ public class EmployeeDAO implements Serializable {
 		return cacheEmployees.get(numReg);
 	}
 	public void put(Employee emp) {
+		emp.setNumRegistration(cacheEmployees.size() + 17100001);
 		cacheEmployees.put(emp.getNumRegistration(), emp);
 		persist();
 	}
@@ -30,7 +31,7 @@ public class EmployeeDAO implements Serializable {
 		return cacheEmployees.values();
 	}
 	
-	private void persist() {
+	public void persist() {
 		try {			
 			FileOutputStream fot = new FileOutputStream(filename);
 			
@@ -52,7 +53,7 @@ public class EmployeeDAO implements Serializable {
 		}
 		
 	}
-	private void load() {
+	public void load() {
 		try {		
 			FileInputStream fiut = new FileInputStream(filename);
 		
