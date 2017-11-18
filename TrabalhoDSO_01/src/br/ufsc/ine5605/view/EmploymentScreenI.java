@@ -23,7 +23,6 @@ import br.ufsc.ine5605.controller.EmploymentCtrl;
 import br.ufsc.ine5605.controller.HoraryCtrl;
 import br.ufsc.ine5605.model.Contract;
 import br.ufsc.ine5605.model.Employment;
-import br.ufsc.ine5605.model.EmploymentRestrictAccess;
 import br.ufsc.ine5605.model.Privileges;
 
 
@@ -338,11 +337,18 @@ public class EmploymentScreenI extends JFrame {
 				tfEdNome.setText(lsEmployments.getSelectedValue().toString());
 			
 			}  else if (e.getSource().equals(btEdOk)) {
-				Employment	employment = EmploymentCtrl.getInstance().getEmployment(lsEmployments.getSelectedIndex());
 				
-				employment.setName(tfEdNome.getText());
-				employment.setPrivilege(EmploymentCtrl.getInstance().stringToPrivilege(cbEdPrivileges.getSelectedItem().toString()));
-				cardLayout.show(pSetup, "pMain");
+				if (cbPrivileges.getSelectedItem().toString().equals("Restricted")) { 
+					
+					
+				} else {
+				
+					Employment	employment = EmploymentCtrl.getInstance().getEmployment(lsEmployments.getSelectedIndex());
+					employment.setName(tfEdNome.getText());
+					employment.setPrivilege(EmploymentCtrl.getInstance().stringToPrivilege(cbEdPrivileges.getSelectedItem().toString()));
+					cardLayout.show(pSetup, "pMain");
+				}
+				
 				updateData();
 			}
 		}	
