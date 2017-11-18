@@ -27,6 +27,7 @@ public class HoraryScreen extends JFrame {
 	private JButton btCancel;
 	private JButton btCancel1;
 	private JButton btOk;
+	private JButton btAddToEmp;
 	private JPanel screen;
 	private CardLayout cardLayout;
 	private JPanel pnMain;
@@ -41,6 +42,7 @@ public class HoraryScreen extends JFrame {
 	private JTextField tfNewH1;
 	private JButton btConEdit;
 	private JTextField tfNewH2;
+	private Horary time;
 	
 	
 	public HoraryScreen() {
@@ -55,7 +57,7 @@ public class HoraryScreen extends JFrame {
 		Container container = getContentPane();
 		GridBagConstraints cons = new GridBagConstraints();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(550, 300);
+		setSize(700, 300);
 		setLocationRelativeTo(null);
 		setResizable(true);
 		
@@ -70,6 +72,7 @@ public class HoraryScreen extends JFrame {
 		btReturn = new JButton("Return");
 		btCancel = new JButton("Cancel");
 		btCancel1 = new JButton("Cancel");
+		btAddToEmp = new JButton("Add to Employee");
 		
 		// Add action listeners;
 		btConfirm.addActionListener(btManager);
@@ -79,6 +82,8 @@ public class HoraryScreen extends JFrame {
 		btReturn.addActionListener(btManager);
 		btCancel.addActionListener(btManager);
 		btCancel1.addActionListener(btManager);
+		btAddToEmp.addActionListener(btManager);
+		
 		
 		// Instantiating JLabels;
 		JLabel lbName = new JLabel("Enter this time's Identifier:");
@@ -101,7 +106,7 @@ public class HoraryScreen extends JFrame {
 		lsTimes.setLayoutOrientation(JList.VERTICAL);
 		lsTimes.setVisibleRowCount(10);
 		cons.gridheight = 40;
-		cons.gridwidth = 60;
+		cons.gridwidth =70;
 		cons.gridx = 0;
 		cons.gridy = 4;
 		JScrollPane spListEmp = new JScrollPane(lsTimes);
@@ -120,6 +125,9 @@ public class HoraryScreen extends JFrame {
 		cons.gridx = 12;
 		cons.gridy = 50;
 		pnMain.add(btReturn, cons);
+		cons.gridx = 16;
+		cons.gridy = 50;
+		pnMain.add(btAddToEmp, cons);
 		screen.add(pnMain, "Main");
 		
 		//add panel
@@ -264,10 +272,17 @@ public class HoraryScreen extends JFrame {
 					cardLayout.show(screen, "Edit");
 					updateData();
 				}
-			}
 			
+			} else if(e.getSource().equals(btAddToEmp)) {
+				
+				EmploymentCtrl empCtrl = EmploymentCtrl.getInstance();
+				Horary time = HoraryCtrl.getInstance().getTime(lsTimes.getSelectedIndex());
+				empCtrl.getEmpDeEnvio().addHorary(time);
+					
+				JOptionPane.showMessageDialog(null, "Work time Successfully Added to " + empCtrl.getEmpDeEnvio().getName());
+			
+			}
 		}
-		
 	}
 	public void listing(String t1, String t2, String t3) {
 		JPanel added = new JPanel(new GridBagLayout());
@@ -314,7 +329,13 @@ public class HoraryScreen extends JFrame {
 
 	public void show(String string) {
 		cardLayout.show(screen, string);		
-	}/*
+	}
+	
+//	public void setIndexSelectedEmployment(int index) {
+//		this.indexSelectedEmployment = index;
+//	}
+	
+	/*
 	private Scanner keyboard;
 	
 	public HoraryScreen() {

@@ -23,6 +23,7 @@ import br.ufsc.ine5605.controller.EmploymentCtrl;
 import br.ufsc.ine5605.controller.HoraryCtrl;
 import br.ufsc.ine5605.model.Contract;
 import br.ufsc.ine5605.model.Employment;
+import br.ufsc.ine5605.model.EmploymentRestrictAccess;
 import br.ufsc.ine5605.model.Privileges;
 
 
@@ -49,6 +50,7 @@ public class EmploymentScreenI extends JFrame {
 	private JButton btDelete;
 	private JButton btMainMenu;
 	private JButton btEdit;
+	
 	
 	public EmploymentScreenI() {
 		super("Employment Sector");
@@ -281,8 +283,15 @@ public class EmploymentScreenI extends JFrame {
 			} else if (e.getSource().equals(btOk)) {
 				
 				if (cbPrivileges.getSelectedItem().toString().equals("Restricted")) {
+					
+					EmploymentCtrl ctrl = EmploymentCtrl.getInstance();
+					ctrl.setEmpDeEnvio(ctrl.addEmploymentRestrictAccess(tfNome.getText(), Privileges.Restricted));
+					
 					HoraryCtrl.getInstance().menuAdd();
 					HoraryCtrl.getInstance().updateData();
+					cardLayout.show(pSetup, "pMain");
+					
+					updateData();
 					
 				} else {
 					EmploymentCtrl.getInstance().addEmployment(tfNome.getText(), EmploymentCtrl.getInstance().stringToPrivilege(cbPrivileges.getSelectedItem().toString()));

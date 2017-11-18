@@ -22,6 +22,7 @@ public class EmploymentCtrl implements Screen2 {
 	//private Employment employment;
 	//private EmploymentRestrictAccess employmentRestrictAccess;
 	private EmploymentDAO employmentDAO;
+	private EmploymentRestrictAccess empDeEnvio;
 	private static int code = 1000;
 	
 	/**
@@ -180,6 +181,13 @@ public class EmploymentCtrl implements Screen2 {
 	
 	}
 	
+	public void setEmpDeEnvio(EmploymentRestrictAccess emp) {
+		this.empDeEnvio = emp;
+	}
+	
+	public EmploymentRestrictAccess getEmpDeEnvio() {
+		return empDeEnvio;
+	}
 //	public double conversionStringToDouble(String data)
 //			throws NumberFormatException {
 //		try {

@@ -109,6 +109,10 @@ public class HoraryCtrl {
 	}
 */
 
+//	public void setIndexSelectedEmployment(int index) {
+//		horaryScreen.setIndexSelectedEmployment(index);
+//	}
+	
 	public ArrayList<Horary> getTimes() {
 		// TODO Auto-generated method stub
 		return times;
