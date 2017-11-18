@@ -260,7 +260,7 @@ public class EmploymentScreenI extends JFrame {
 	
 				for(Employment e : EmploymentCtrl.getInstance().getEmployments()) {
 					//hashEmployment.put(e.getName(), e);
-					lsModel.addElement(e.getName());
+					lsModel.addElement("Name :  " + e.getName() + "  Code:  " + e.getCode());
 				}
 				this.repaint();
 			}	

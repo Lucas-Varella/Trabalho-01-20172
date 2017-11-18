@@ -58,6 +58,8 @@ public class EmployeeScreenI extends JFrame{
 	private JButton btErrorEdit;
 	private boolean edit;
 	private Employee employee;
+	private JTextField tfEmployment;
+	private JTextField tfNewEmployment;
 	
 	/**
 	 * Construtor padrÃ£o da classe
@@ -187,13 +189,17 @@ public class EmployeeScreenI extends JFrame{
 		//combo employments
 		cons.gridx = 0;
 		cons.gridy = 20;
-		pnAdd.add(new JLabel("Employee's Employment: "), cons);
-		cbEmployments = new JComboBox<String>();
+		pnAdd.add(new JLabel("Employment's Code: "), cons);
+//		cbEmployments = new JComboBox<String>();
+//		cons.gridx = 4;
+//		cons.gridy = 20;
+//		cons.insets = new Insets(0, 0, 0,0);
+//		cbEmployments.addActionListener(btManager);
+//		pnAdd.add(cbEmployments, cons);
 		cons.gridx = 4;
 		cons.gridy = 20;
-		cons.insets = new Insets(0, 0, 0,0);
-		cbEmployments.addActionListener(btManager);
-		pnAdd.add(cbEmployments, cons);
+		tfEmployment = new JTextField(10);
+		pnAdd.add(tfEmployment, cons);
 		
 			//Save button
 		btSave = new JButton("Save");
@@ -245,14 +251,16 @@ public class EmployeeScreenI extends JFrame{
 		pnEdit.add(tfNewSalary, cons);
 		cons.gridx = 0;
 		cons.gridy = 20;
-		pnEdit.add(new JLabel("New Employment: "), cons);
+		pnEdit.add(new JLabel("New Employment's code: "), cons);
 		//cb new
 		cbNewEmployments = new JComboBox<String>();
 		cons.gridx = 4;
 		cons.gridy = 20;
-		cons.insets = new Insets(0, 0, 0,0);
-		cbNewEmployments.addActionListener(btManager);
-		pnEdit.add(cbNewEmployments, cons);
+//		cons.insets = new Insets(0, 0, 0,0);
+//		cbNewEmployments.addActionListener(btManager);
+//		pnEdit.add(cbNewEmployments, cons);
+		tfNewEmployment = new JTextField(10);
+		pnEdit.add(tfNewEmployment, cons);
 		//cancel button
 		btCancel = new JButton("Cancel");
 		cons.gridx = 0;
@@ -335,7 +343,7 @@ public class EmployeeScreenI extends JFrame{
 					int phone = Integer.parseInt(tfNewPhone.getText());
 					int salary = Integer.parseInt(tfNewSalary.getText());
 					employee = cbEmployees.getItemAt(cbEmployees.getSelectedIndex());
-					Employment employment = EmploymentCtrl.getInstance().getEmployment(cbNewEmployments.getSelectedIndex());
+					Employment employment = EmploymentCtrl.getInstance().findEmploymentByCode(Integer.parseInt(tfNewEmployment.getText()));
 					employee.setName(name);
 					employee.setDateBirth(bday);
 					employee.setPhone(phone);
@@ -346,9 +354,9 @@ public class EmployeeScreenI extends JFrame{
 					employeeDAO.load();
 					updateData();
 					
-				} catch (ArrayIndexOutOfBoundsException e1) {
-					lbError.setText("Please add an Employment First");
-					error();
+//				} catch (ArrayIndexOutOfBoundsException e1) {
+//					lbError.setText("Please add an Employment First");
+//					error();
 				} catch (NullPointerException e1) {
 					lbError.setText("FUCK");
 					error();
@@ -408,7 +416,7 @@ public class EmployeeScreenI extends JFrame{
 				bday = tfNewBday.getText();
 				phone = tfNewPhone.getText();
 				salary = tfNewSalary.getText();
-				employment = (String) cbNewEmployments.getSelectedItem();
+				employment = tfNewEmployment.getText();
 			}
 			JPanel edited = new JPanel(new GridBagLayout());
 			GridBagConstraints cons = new GridBagConstraints();
@@ -426,7 +434,7 @@ public class EmployeeScreenI extends JFrame{
 			edited.add(new JLabel("Employee's Salary:     " + salary), cons);
 			cons.gridx = 0;
 			cons.gridy = 16;
-			edited.add(new JLabel("Employee's Employment:     " +  employment), cons);
+			edited.add(new JLabel("Employment's Code:     " +  employment), cons);
 			btEdOk = new JButton("Return");
 			cons.gridx = 0;
 			cons.gridy = 20;
@@ -443,27 +451,24 @@ public class EmployeeScreenI extends JFrame{
 				Date bday = EmployeeCtrl.getInstance().strToDate(tfBday.getText());
 				int phone = Integer.parseInt(tfPhone.getText());
 				int salary = Integer.parseInt(tfSalary.getText());
-				if(cbEmployments.getSelectedItem() == null || EmploymentCtrl.getInstance().getEmployment(cbEmployments.getSelectedIndex()) == null ) {
-					cardLayout.show(screen, "error");
-				}else {
-					Employment employment = EmploymentCtrl.getInstance().getEmployment(cbEmployments.getSelectedIndex());
-					Employee employee = EmployeeCtrl.getInstance().addEmployee(name, bday, phone, salary);
-					try {
-						//System.out.println("contract");
-						EmployeeCtrl.getInstance().addContract(employment, employee);
-					} catch(Exception e) {
-						System.out.println(e.getMessage());
-					}
-					listing(name, tfBday.getText(), tfPhone.getText(), tfSalary.getText(), (String) cbEmployments.getSelectedItem());
+				Employment employment = EmploymentCtrl.getInstance().findEmploymentByCode(Integer.parseInt(tfEmployment.getText()));
+				Employee employee = EmployeeCtrl.getInstance().addEmployee(name, bday, phone, salary);
+				try {
+					//System.out.println("contract");
+					EmployeeCtrl.getInstance().addContract(employment, employee);
+				} catch(Exception e) {
+					System.out.println(e.getMessage());
 				}
+				listing(name, tfBday.getText(), tfPhone.getText(), tfSalary.getText(), tfEmployment.getText());
+				
 				
 			
-			} catch (ArrayIndexOutOfBoundsException e) {
-				lbError.setText("Please add an Employment First");
-				error();
-			} catch (NullPointerException e) {
-				lbError.setText("Please add an Employment First");
-				error();
+//			} catch (ArrayIndexOutOfBoundsException e) {
+//				lbError.setText("Please add an Employment First");
+//				error();
+//			} catch (NullPointerException e) {
+//				lbError.setText("Please add an Employment First");
+//				error();
 			} catch (NumberFormatException e) {
 				lbError.setText("Please Type Required Information, knowing that Phone number and Salary are numbers.");
 				error();

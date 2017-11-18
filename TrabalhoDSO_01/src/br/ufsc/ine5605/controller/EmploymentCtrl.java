@@ -107,6 +107,18 @@ public class EmploymentCtrl implements Screen2 {
 			throw e;
 		}		
 	}
+	public Employment findEmploymentByCode(int code) {
+		if(employmentDAO.get(code) == null) {
+			return employmentDAO.get(code);
+		}else {
+			for(Employment e : getEmployments()) {
+				if(e.getCode() == code) {
+					return e;
+				}
+			}
+			return new Employment(0001, "erro", Privileges.Full);
+		}
+	}
 
 	public static int getCode() {
 		return code;
