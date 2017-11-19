@@ -288,6 +288,8 @@ public class EmploymentScreenI extends JFrame {
 					
 					HoraryCtrl.getInstance().menuAdd();
 					HoraryCtrl.getInstance().updateData();
+					updateData();
+					
 					cardLayout.show(pSetup, "pMain");
 					
 					updateData();

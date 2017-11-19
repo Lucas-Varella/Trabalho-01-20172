@@ -75,12 +75,10 @@ public class FinancialSectorCtrl {
 			}
 			if(financialSector.isPrivilegeFull(getPrivilegeByNumRegistration(numRegistration))) {
 				return true;
-			}
-			if(financialSector.isPrivilegeNo(getPrivilegeByNumRegistration(numRegistration))) {
+			} else 	if(financialSector.isPrivilegeNo(getPrivilegeByNumRegistration(numRegistration))) {
 				addAccess(numRegistration, dateAccess, hourAccess, Reasons.NOACCESS);
 				return false;
-			}
-			if(!financialSector.isPrivilegeRestrict(getPrivilegeByNumRegistration(numRegistration), getHoraryAccess(numRegistration),hourAccess)) {
+			} else if(!financialSector.isPrivilegeRestrict(getPrivilegeByNumRegistration(numRegistration), getHoraryAccess(numRegistration),hourAccess)) {
 				addAccess(numRegistration, dateAccess, hourAccess, Reasons.INCTIME);
 				return false;
 			}

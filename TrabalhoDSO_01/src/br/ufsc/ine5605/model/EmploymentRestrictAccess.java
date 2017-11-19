@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 
 
+
 /**
  * Classe que contém os atributos e métodos responsáveis pela criação de um objeto 
  * do tipo EmploymentRestrictAccess. Essa classe extende da classe Employment;

@@ -79,7 +79,14 @@ public class EmploymentDAO implements Serializable {
 	public Employment get(int code) {
 		return cacheEmployment.get(code);
 	}
+	
 	public void put(Employment emp) {
+		emp.setCode(cacheEmployment.size() + 1001);
+		cacheEmployment.put(emp.getCode(), emp);
+		persist();
+	}
+	
+	public void put(EmploymentRestrictAccess emp) {
 		emp.setCode(cacheEmployment.size() + 1001);
 		cacheEmployment.put(emp.getCode(), emp);
 		persist();

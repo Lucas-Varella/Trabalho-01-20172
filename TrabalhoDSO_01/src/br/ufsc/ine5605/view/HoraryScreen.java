@@ -280,7 +280,7 @@ public class HoraryScreen extends JFrame {
 				empCtrl.getEmpDeEnvio().addHorary(time);
 					
 				JOptionPane.showMessageDialog(null, "Work time Successfully Added to " + empCtrl.getEmpDeEnvio().getName());
-			
+				
 			}
 		}
 	}
