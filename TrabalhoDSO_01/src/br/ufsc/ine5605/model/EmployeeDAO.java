@@ -24,6 +24,8 @@ public class EmployeeDAO implements Serializable {
 		emp.setNumRegistration(cacheEmployees.size() + 17100001);
 		cacheEmployees.put(emp.getNumRegistration(), emp);
 		persist();
+	}public void put(Integer code, Employee emp) {
+		cacheEmployees.put(code, emp);
 	}
 	
 	//returns a collection of employees.  
@@ -71,6 +73,13 @@ public class EmployeeDAO implements Serializable {
 	}
 	public void remove(int index) {
 		cacheEmployees.remove((Integer) index);
+		persist();
+	}
+
+
+	public void override(Employee employee) {
+		cacheEmployees.remove(employee.getNumRegistration());
+		cacheEmployees.put(employee.getNumRegistration(), employee);
 		persist();
 	}
 	

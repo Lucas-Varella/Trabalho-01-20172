@@ -26,7 +26,7 @@ public class EmployeeScreenI extends JFrame{
 	
 	private JLabel lbEmpScrn;
 	private JButton btAdd;
-	private EmployeeDAO employeeDAO;
+	private EmployeeDAO employeeDAO = new EmployeeDAO();
 	private JButton btEdit;
 	private ButtonManager btManager;
 	private CardLayout cardLayout;
@@ -356,10 +356,12 @@ public class EmployeeScreenI extends JFrame{
 					employee.setSalary(salary);
 					employee.setEmployment(employment);
 					listing("","","","", "");
-					employeeDAO.persist();
+					employeeDAO.override(employee);
 					employeeDAO.load();
 					updateData();
+					employeeDAO.persist();
 					
+
 //				} catch (ArrayIndexOutOfBoundsException e1) {
 //					lbError.setText("Please add an Employment First");
 //					error();
@@ -371,9 +373,9 @@ public class EmployeeScreenI extends JFrame{
 					lbError.setText("Please Type Required Information, knowing that Phone number and Salary are numbers.");
 					error();
 				} catch (ParseException e1) {
-//					lbError.setText("Please Type the Date in a correct DD/MM/YYY Format.");
-//					error();
-					e1.printStackTrace();
+					lbError.setText("Please Type the Date in a correct DD/MM/YYY Format.");
+					error();
+//					e1.printStackTrace();
 				}
 			}
 			 else if(e.getSource().equals(btDel)) {
