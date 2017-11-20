@@ -216,30 +216,15 @@ public class HoraryScreen extends JFrame {
 					String name = tfName.getText();
 					String hour1 = tfHour1.getText();
 					String hour2 = tfHour2.getText();
-					addHorary(name, hour1, hour2);
-					updateData();
-					listing(name, hour1, hour2);
-//					JPanel added = new JPanel(new GridBagLayout());
-//					GridBagConstraints cons = new GridBagConstraints();
-//					cons.gridx = 0;
-//					cons.gridy = 4;
-//					added.add(new JLabel("Time added Successfully:"));
-//					cons.gridx = 0;
-//					cons.gridy = 4;
-//					added.add(new JLabel("Time's Identifier:     " + name), cons);
-//					cons.gridx = 0;
-//					cons.gridy = 8;
-//					added.add(new JLabel("Time's start Hour:     " + hour1), cons);
-//					cons.gridx = 0;
-//					cons.gridy = 12;
-//					added.add(new JLabel("Time's ending Hour:     " + hour2), cons);
-//				    btOk = new JButton("Return");
-//					cons.gridx = 0;
-//					cons.gridy = 16;
-//					btOk.addActionListener(btManager);
-//					added.add(btOk, cons);
-//					screen.add(added, "added");
-//					cardLayout.show(screen, "added");
+					System.out.println(hour2.substring(0, 2) + hour2.substring(3, 5));
+					if(Integer.parseInt(hour2.substring(0, 2) + hour2.substring(3, 5)) < Integer.parseInt(hour1.substring(0, 2) + hour1.substring(3, 5))) {
+						JOptionPane.showMessageDialog(null, "Ending hour cannot be greater than starting. \n Please create two Access times, splitting at Midnight.");
+					}else {
+						addHorary(name, hour1, hour2);
+						updateData();
+						listing(name, hour1, hour2);
+					}
+					
 				} catch (ParseException e1) {
 					JOptionPane.showMessageDialog(null, "The time you entered is not in the default hh:mm", "Error", 1);
 					cardLayout.show(screen, "Add");
