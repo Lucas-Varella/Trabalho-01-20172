@@ -1,6 +1,5 @@
 package br.ufsc.ine5605.controller;
 
-import java.io.Serializable;
 import java.text.DateFormat; 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,7 +8,6 @@ import java.util.Date;
 
 import br.ufsc.ine5605.model.Access;
 import br.ufsc.ine5605.model.AccessDAO;
-import br.ufsc.ine5605.model.MessageAccess;
 import br.ufsc.ine5605.model.Reasons;
 import br.ufsc.ine5605.view.AccessScreen;
 
@@ -18,7 +16,7 @@ import br.ufsc.ine5605.view.AccessScreen;
  * @author Sadi Júnior Domingos Jacinto;
  *
  */
-public class AccessCtrl implements Serializable {
+public class AccessCtrl {
 	private static final AccessCtrl instance = new AccessCtrl();
 	private AccessScreen accessScreen;
 	private AccessDAO accessDAO = new AccessDAO();
@@ -135,6 +133,7 @@ public class AccessCtrl implements Serializable {
 		return getMessage().get(getMessage().size() - 1).getReason();
 	}
 	
+	
 	public String dateToStringHour(Date data) throws ParseException {
 		if (data == null) {
             return null;
@@ -144,7 +143,7 @@ public class AccessCtrl implements Serializable {
          dataF = dateFormat.format(data);
         return dataF;
 	}
-
+	
 	public String dateToStringDate(Date data) throws ParseException {
 		if (data == null) {
 	        return null;

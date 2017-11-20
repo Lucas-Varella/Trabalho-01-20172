@@ -6,8 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import br.ufsc.ine5605.controller.FinancialSectorCtrl;
-
 /**
  * Classe responsável por validar a entrada do usuário no Setor Financeiro;
  * 
@@ -87,15 +85,11 @@ public class FinancialSector implements ConversionDates {
 			if(hourFinish.equals(strToDateHour("00:00"))) {
 				hourFinish = strToDateHour("24:00");
 			}
+			
 			if(access.compareTo(hourBegin) >= 0 && access.compareTo(hourFinish) <= 0) {
 				valid = true; 
 			}
-			if(valid) {
-				return valid;
-			}
-			
 		}
-		
 		return valid;
 	}
 	

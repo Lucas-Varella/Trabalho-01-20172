@@ -30,6 +30,11 @@ public class AccessDAO implements Serializable {
 			ObjectInputStream ois = new ObjectInputStream(fiut);
    
 			this.cacheAccess = (HashMap<Integer, Access>) ois.readObject();
+			
+			ois.close();
+			fiut.close();
+			ois = null;
+			fiut = null;
  
 		} catch (FileNotFoundException e) {
 			persist();

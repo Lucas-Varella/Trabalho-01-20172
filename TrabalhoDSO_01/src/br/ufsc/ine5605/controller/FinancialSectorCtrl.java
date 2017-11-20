@@ -7,15 +7,12 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import sun.awt.RepaintArea;
-
 import br.ufsc.ine5605.model.Employment;
 import br.ufsc.ine5605.model.FinancialSector;
 import br.ufsc.ine5605.model.Horary;
 import br.ufsc.ine5605.model.Privileges;
 import br.ufsc.ine5605.model.Reasons;
 import br.ufsc.ine5605.view.FinancialSectorScreen;
-import br.ufsc.ine5605.model.ConversionDates;
 
 /**
  * Classe responsável por transmitir o input do usuário para a classe FinancialSector, onde
