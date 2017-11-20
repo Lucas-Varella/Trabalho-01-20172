@@ -44,8 +44,10 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	}
 
 	public void menu() {
-		employeeScreen.setVisible(true);
+		
+		empDAO.load();
 		employeeScreen.updateData();
+		employeeScreen.setVisible(true);
 	}
 	
 	/**
@@ -65,7 +67,9 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 		Employee generic = new Employee(getCode(), name, dateBirth, phone, salary);
 		empDAO.put(generic);
 		setCode(getCode() + 1);
+		empDAO.persist();
 		return generic;
+		
 	}
 	
 	/**

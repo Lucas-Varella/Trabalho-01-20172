@@ -462,6 +462,8 @@ public class EmployeeScreenI extends JFrame{
 				int salary = Integer.parseInt(tfSalary.getText());
 				Employment employment = EmploymentCtrl.getInstance().findEmploymentByCode(Integer.parseInt(tfEmployment.getText()));
 				Employee employee = EmployeeCtrl.getInstance().addEmployee(name, bday, phone, salary);
+				employeeDAO.put(employee);
+				employeeDAO.persist();
 				try {
 					//System.out.println("contract");
 					EmployeeCtrl.getInstance().addContract(employment, employee);
