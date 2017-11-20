@@ -216,9 +216,8 @@ public class HoraryScreen extends JFrame {
 					String name = tfName.getText();
 					String hour1 = tfHour1.getText();
 					String hour2 = tfHour2.getText();
-					System.out.println(hour2.substring(0, 2) + hour2.substring(3, 5));
 					if(Integer.parseInt(hour2.substring(0, 2) + hour2.substring(3, 5)) < Integer.parseInt(hour1.substring(0, 2) + hour1.substring(3, 5))) {
-						JOptionPane.showMessageDialog(null, "Ending hour cannot be greater than starting. \n Please create two Access times, splitting at Midnight.");
+						throw new FinalTimeBiggerException();
 					}else {
 						addHorary(name, hour1, hour2);
 						updateData();
@@ -229,6 +228,9 @@ public class HoraryScreen extends JFrame {
 					JOptionPane.showMessageDialog(null, "The time you entered is not in the default hh:mm", "Error", 1);
 					cardLayout.show(screen, "Add");
 					updateData();
+				} catch (FinalTimeBiggerException e1) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 			} else if(e.getSource().equals(btReturn)) {// || e.getSource().equals(btEdOk) || e.getSource().equals(btError) || e.getSource().equals(btOk) || e.getSource().equals(btCancel)) {
 				setVisible(false);

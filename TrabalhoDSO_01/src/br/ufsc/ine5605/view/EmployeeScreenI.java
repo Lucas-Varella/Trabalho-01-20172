@@ -3,25 +3,14 @@ package br.ufsc.ine5605.view;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.sql.Date; 
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Scanner;
-
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
 import br.ufsc.ine5605.controller.EmployeeCtrl;
 import br.ufsc.ine5605.controller.EmploymentCtrl;
-import br.ufsc.ine5605.controller.HoraryCtrl;
 import br.ufsc.ine5605.model.*;
 
-/**
- * Tela responsÃ¡vel pela interaÃ§Ã£o do usuÃ¡rio com as funcionalidades relacionadas aos Employees;
- * @author Sadi JÃºnior Domingos Jacinto;
- */
+
 public class EmployeeScreenI extends JFrame{
 	
 	private JLabel lbEmpScrn;
@@ -35,8 +24,6 @@ public class EmployeeScreenI extends JFrame{
 	private JPanel pnAdd;
 	private JButton btSave;
 	private JPanel pnMain;
-	private JComboBox<String> cbEmployments;
-	private JComboBox<Employee> cbEmployees;
 	private JButton btReturn;
 	private JButton btMainMenu;
 	private JTextField tfName;
@@ -50,21 +37,16 @@ public class EmployeeScreenI extends JFrame{
 	private JTextField tfNewBday;
 	private JTextField tfNewPhone;
 	private JTextField tfNewSalary;
-	private JComboBox<String> cbNewEmployments;
 	private JButton btCancel;
 	private JButton btConEdit;
 	private JButton btDel;
-	private JLabel lbError = new JLabel();
 	private JButton btErrorEdit;
 	private boolean edit;
 	private JTextField tfEmployment;
 	private JTextField tfNewEmployment;
 	private JTextField tfEmployee;
 	
-	/**
-	 * Construtor padrÃ£o da classe
-	 * @param employeeCtrl - Recebe uma instÃ¢ncia do EmployeeCtrl, o que permite a comunicaÃ§Ã£o com outras classes;
-	 */
+	
 	public EmployeeScreenI() {
 		super("Employee Management and Data");
 		btManager = new ButtonManager();
@@ -100,7 +82,7 @@ public class EmployeeScreenI extends JFrame{
 						
 		
 		
-		//List of emps, now selectable(?)
+		//List of emps
 		lsEmployees = new JList<String>();
 		lsEmployees.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		lsEmployees.setLayoutOrientation(JList.VERTICAL);
@@ -186,16 +168,11 @@ public class EmployeeScreenI extends JFrame{
 		tfSalary = new JTextField(10);
 		pnAdd.add(tfSalary, cons);
 		
-		//combo employments
+		//Text Field employments
 		cons.gridx = 0;
 		cons.gridy = 20;
 		pnAdd.add(new JLabel("Employment's Code: "), cons);
-//		cbEmployments = new JComboBox<String>();
-//		cons.gridx = 4;
-//		cons.gridy = 20;
-//		cons.insets = new Insets(0, 0, 0,0);
-//		cbEmployments.addActionListener(btManager);
-//		pnAdd.add(cbEmployments, cons);
+
 		cons.gridx = 4;
 		cons.gridy = 20;
 		tfEmployment = new JTextField(10);
@@ -258,13 +235,9 @@ public class EmployeeScreenI extends JFrame{
 		cons.gridx = 0;
 		cons.gridy = 20;
 		pnEdit.add(new JLabel("New Employment's code: "), cons);
-		//cb new
-		cbNewEmployments = new JComboBox<String>();
+		//Tf New Employment
 		cons.gridx = 4;
 		cons.gridy = 20;
-//		cons.insets = new Insets(0, 0, 0,0);
-//		cbNewEmployments.addActionListener(btManager);
-//		pnEdit.add(cbNewEmployments, cons);
 		tfNewEmployment = new JTextField(10);
 		pnEdit.add(tfNewEmployment, cons);
 		//cancel button
@@ -280,28 +253,12 @@ public class EmployeeScreenI extends JFrame{
 		btConEdit.addActionListener(btManager);
 		pnEdit.add(btConEdit, cons);
 		
-		//Cb employees!
-//		cbEmployees = new JComboBox<Employee>();
-//		cons.gridx = 0;
-//		cons.gridy = 0;
-//		pnEdit.add(new JLabel("Select Employee:"), cons);
-//		cons.gridx = 4;
-//		cons.gridy = 0;
-//		cons.insets = new Insets(0, 0, 0, 0);
-//		pnEdit.add(cbEmployees, cons);
-		
-		
+
 		screen.add(pnAdd, "Add Employee");
 		screen.add(pnEdit, "Edit Employee");
 		container.add(screen);
 		cardLayout = (CardLayout) screen.getLayout();
-		
-		
-		
-		
-		
-		
-		
+
 	}
 	private class ButtonManager implements ActionListener {
 
@@ -351,11 +308,10 @@ public class EmployeeScreenI extends JFrame{
 					Employee employee = EmployeeCtrl.getInstance().findEmployeeByNumReg(Integer.parseInt(tfEmployee.getText()));
 					Employment employment = EmploymentCtrl.getInstance().findEmploymentByCode(Integer.parseInt(tfNewEmployment.getText()));
 					if(!EmployeeCtrl.getInstance().validNumRegistration(Integer.parseInt(tfEmployee.getText()))) {
-						lbError.setText("Incorrect Employee Registration number!");
-						error();
+						throw new IncorrectRegistrationException();
 					}else if(!EmploymentCtrl.getInstance().validCode(Integer.parseInt(tfNewEmployment.getText()))) {
-						lbError.setText("Incorrect employment code!");
-						error();
+						throw new IncorrectCodeException();
+
 					}else {
 						employee.setName(name);
 						employee.setDateBirth(bday);
@@ -370,21 +326,14 @@ public class EmployeeScreenI extends JFrame{
 					}
 					
 					
-
-//				} catch (ArrayIndexOutOfBoundsException e1) {
-//					lbError.setText("Please add an Employment First");
-//					error();
-//				} catch (NullPointerException e1) {
-//					lbError.setText("FUCK");
-//					error();
-//					
 				} catch (NumberFormatException e1) {
-					lbError.setText("Please Type Required Information, knowing that Phone number and Salary are numbers.");
-					error();
+					JOptionPane.showMessageDialog(null, "\"Please Type Required Information, knowing that Phone number and Salary are numbers.\"");
 				} catch (ParseException e1) {
-					lbError.setText("Please Type the Date in a correct DD/MM/YYY Format.");
-					error();
-//					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Please Type the Date in a correct DD/MM/YYY Format.");
+				} catch (IncorrectRegistrationException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+				} catch (IncorrectCodeException e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 			}
 			 else if(e.getSource().equals(btDel)) {
@@ -400,40 +349,8 @@ public class EmployeeScreenI extends JFrame{
 			}
 			
 		}
-		//jason
-//		private void editConditions() {
-//			edit = true;
-//			try {
-//				String name = tfNewName.getText();
-//				Date bday = EmployeeCtrl.getInstance().strToDate(tfNewBday.getText());
-//				int phone = Integer.parseInt(tfNewPhone.getText());
-//				int salary = Integer.parseInt(tfNewSalary.getText());
-//				employee = cbEmployees.getItemAt(cbEmployees.getSelectedIndex());
-//				Employment employment = EmploymentCtrl.getInstance().getEmployment(cbNewEmployments.getSelectedIndex());
-//				employee.setName(name);
-//				employee.setDateBirth(bday);
-//				employee.setPhone(phone);
-//				employee.setSalary(salary);
-//				employee.setEmployment(employment);
-//				listing("","","","", "");
-//				
-//			} catch (ArrayIndexOutOfBoundsException e) {
-//				lbError.setText("Please add an Employment First");
-//				error();
-//			} catch (NullPointerException e) {
-//				listing("","","","", "");
-//				
-//			} catch (NumberFormatException e) {
-//				lbError.setText("Please Type Required Information, knowing that Phone number and Salary are numbers.");
-//				error();
-//			} catch (ParseException e) {
-//				lbError.setText("Please Type the Date in a correct DD/MM/YYY Format.");
-//				error();
-//			}
-//		}
 
 		private void listing(String name, String bday, String phone, String salary, String employment){
-			// TODO Auto-generated method stub
 			if(edit) {
 				name = tfNewName.getText();
 				bday = tfNewBday.getText();
@@ -476,8 +393,7 @@ public class EmployeeScreenI extends JFrame{
 				int salary = Integer.parseInt(tfSalary.getText());
 				Employment employment = EmploymentCtrl.getInstance().findEmploymentByCode(Integer.parseInt(tfEmployment.getText()));
 				if(!EmploymentCtrl.getInstance().validCode(Integer.parseInt(tfEmployment.getText()))) {
-					lbError.setText("Incorrect employment code!");
-					error();
+					throw new IncorrectCodeException();
 				}else {
 					try {
 					Employee employee = EmployeeCtrl.getInstance().addEmployee(name, bday, phone, salary);
@@ -485,60 +401,26 @@ public class EmployeeScreenI extends JFrame{
 					employeeDAO.put(employee);
 					employeeDAO.persist();
 						
-					//System.out.println("contract");
 					}catch(Exception e) {
-					System.out.println(e.getMessage());
+						JOptionPane.showMessageDialog(null, e.getMessage());
 					}
 					listing(name, tfBday.getText(), tfPhone.getText(), tfSalary.getText(), tfEmployment.getText());
 				}	
 				
 				
 			
-//			} catch (ArrayIndexOutOfBoundsException e) {
-//				lbError.setText("Please add an Employment First");
-//				error();
-//			} catch (NullPointerException e) {
-//				lbError.setText("Please add an Employment First");
-//				error();
 			} catch (NumberFormatException e) {
-				lbError.setText("Please Type Required Information, knowing that Phone number and Salary are numbers.");
-				error();
-//				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Please Type Required Information, knowing that Phone number and Salary are numbers.");
 			} catch (ParseException e) {
-				lbError.setText("Please Type the Date in a correct DD/MM/YYY Format.");
-				error();
+				JOptionPane.showMessageDialog(null, "Please Type the Date in a correct DD/MM/YYY Format.");
+			} catch (IncorrectCodeException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
 		}
 
 		
 	}
-	public void error() {
-		//Save error panel
-		JPanel pnError = new JPanel(new GridBagLayout());
-		GridBagConstraints cons = new GridBagConstraints();
-		cons.gridx = 0;
-		cons.gridy = 0;
-		pnError.add(lbError, cons);
-		if(edit) {
-			btErrorEdit = new JButton("Try Again");
-			btErrorEdit.addActionListener(btManager);
-			cons.gridx = 0;
-			cons.gridy = 4;
-			pnError.add(btErrorEdit, cons);
-		}else {
-			btErrorNew = new JButton("Try Again");
-			btErrorNew.addActionListener(btManager);
-			cons.gridx = 0;
-			cons.gridy = 4;
-			pnError.add(btErrorNew, cons);
-		}
-		
-		
-		screen.add(pnError, "error");
-		cardLayout.show(screen, "error");
-		
-	}
-	
+
 	public void updateData() {
 		//about list of emps
 		
@@ -551,165 +433,9 @@ public class EmployeeScreenI extends JFrame{
 			}
 			this.repaint();
 		}	
+		
 		lsEmployees.setModel(lsModel);
-		
-		//CbEmps
-		
-//		DefaultComboBoxModel<Employee> cbModel1 = new DefaultComboBoxModel<Employee>();
-//		if(EmployeeCtrl.getInstance().getEmployees() != null) {
-//
-//			for(Employee employee : EmployeeCtrl.getInstance().getEmployees()) {
-//				//hashEmployee.put(employee.getName(), employee);
-//				cbModel1.addElement(employee);
-//			}
-//			this.repaint();
-//		}	
-//		cbEmployees.setModel(cbModel1);
-//		
-		//about combo box
-		
-		DefaultComboBoxModel<String> cbModel = new DefaultComboBoxModel<String>();
-		try {
-			if(EmployeeCtrl.getInstance().getEmployments() != null ) {
-				for(Employment emp : EmployeeCtrl.getInstance().getEmployments()) {
-					//hashEmployment.put(emp.getName(), emp);
-					cbModel.addElement(emp.getName());
-				}
-			}
-			cbEmployments.setModel(cbModel);
-			cbNewEmployments.setModel(cbModel);
-			
-		}catch(NullPointerException e) {
-			this.repaint();
-		}
-
-
 		this.repaint();
-		
 	}
-	/**
-	 * 
-	 * @return returns a String list, containing the names of all available employments
-	 */
-//	private void stringListCb() {
-//		DefaultComboBoxModel<String> cbModel = new DefaultComboBoxModel<String>();
-//		//alter employmentScreen so that every 'add' adds a string here.
-//		try {
-//			if(employeeCtrl.getEmployments() != null ) {
-//				int i = 0;
-//				for(Employment emp : employeeCtrl.getEmployments()) {
-//					cbModel.addElement(emp.getName());
-//					i++;
-//				}
-//			}
-//		}catch(NullPointerException e) {
-//			this.repaint();
-//		}
-//		cbEmployments.setModel(cbModel);
-//		this.repaint();
-//		
-//
-//	}
-	
-//	delEmployee();
-//	listEmployees();
-//employeeCtrl.mainMenu();
-//public void addEmployee() {
-//
-//System.out.println("Please enter the following information");
-//
-//System.out.println("Name: ");
-//System.out.println("Date of birth: ");
-//System.out.println("Phone: ");
-//System.out.println("Salary: ");
-//System.out.println("Please, enter the number corresponding to the chosen employment: ");
-//employeeCtrl.listEmployments();
-//Employment gen = employeeCtrl.findEmploymentByIndex(option);
-//Employee generic = employeeCtrl.addEmployee(name, birthDay, phone, salary);
-//employeeCtrl.addContract(gen, generic);
-//
-//System.out.println("-------------------------------------------------------------------------");
-//System.out.println("Congratulations, you have created a new employee with the following characteristics: ");
-//}		
-///**
-//* Tela responsÃ¡vel pela interaÃ§Ã£o do usuÃ¡rio com os mÃ©todos de ediÃ§Ã£o dos atributos do FuncionÃ¡rio;
-//*/
-//public void editEmployee() {
-//System.out.println("--------------------------------------------------------------------------------");
-//System.out.println("Please enter the number corresponding to your choice: ");
-//listEmployees();
-//System.out.println("Please enter the number corresponding to the characteristic you want to change: ");
-//
-//System.out.println("1 - Name");
-//System.out.println("2 - Birthday");
-//System.out.println("3 - Phone");
-//System.out.println("4 - Salary");
-//System.out.println("5 - Employment");
-//System.out.println("Or 0 to exit");
-//	System.out.println("Enter a new name: ");
-//	System.out.println("Enter a new birthday: ");
-//	System.out.println("Enter a new phone");
-//	System.out.println("Enter a new salary");
-//	System.out.println("Enter the number corresponding to the new employment");
-//
-//}
-//
-///**
-//* Tela responsÃ¡vel pela interaÃ§Ã£o do usuÃ¡rio com o mÃ©todo de remoÃ§Ã£o de Employees;
-//*/
-//public void delEmployee() {
-//System.out.println("Select an employee to fire");
-//employeeCtrl.delEmployee(option);
-//
-	/*
-	public void addEmployee() {
-		try {
-			System.out.println("Please enter the following information");
-			
-			System.out.println("Name: ");
-			Scanner keyboard = new Scanner(System.in);
-			String name = keyboard .nextLine();
-			
-			System.out.println("Date of birth: ");
-		
-			Date birthDay = employeeCtrl.strToDate(keyboard.nextLine());
-			
-			
-			System.out.println("Phone: ");
-			int phone = employeeCtrl.conversionStringToInt(keyboard.nextLine()); 
-			
-			
-			System.out.println("Salary: ");
-			double salary = employeeCtrl.conversionStringToDouble(keyboard.nextLine());
-			
-			
-			System.out.println("Please, enter the number corresponding to the chosen employment: ");
-			
-			employeeCtrl.listEmployments();
-			
-			int option = employeeCtrl.conversionStringToInt(keyboard.nextLine()) - 1;
-			Employment gen = employeeCtrl.findEmploymentByIndex(option);
-		
-			Employee generic = employeeCtrl.addEmployee(name, birthDay, phone, salary);
-			
-			System.out.println("-------------------------------------------------------------------------");
-			System.out.println("Congratulations, you have created a new employee with the following characteristics: ");
-			System.out.println("Number of registration - " + generic.getNumRegistration());
-			System.out.println("Name - " + generic.getName());
-			System.out.println("Birthday - " + generic.getDateBirth());
-			System.out.println("Phone - " + generic.getPhone());
-			System.out.println("Salary - " + generic.getSalary());
-			System.out.println("Employment - " + generic.getEmployment().getEmployment().getName());
-		
-		
-		} catch(ParseException e) {
-			System.out.println("The date format entered by the user is not correct\n"+ 
-							   "Please try again based on this format:\n" + "dd/MM/yyyy");
-			System.out.println("-------------------------------------------------------------------------");
-			addEmployee();
-		}
-		
-	}	*/
-	
 	
 }
