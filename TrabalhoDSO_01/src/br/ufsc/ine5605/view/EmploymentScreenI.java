@@ -340,7 +340,7 @@ public class EmploymentScreenI extends JFrame {
 			
 			} else if (e.getSource().equals(btEdit)) {
 				cardLayout.show(pSetup, "pEdit");
-				tfEdNome.setText(lsEmployments.getSelectedValue().toString());
+				tfEdNome.setText(EmploymentCtrl.getInstance().getEmployment(lsEmployments.getSelectedIndex()).getName());
 			
 			}  else if (e.getSource().equals(btEdOk)) {
 				
