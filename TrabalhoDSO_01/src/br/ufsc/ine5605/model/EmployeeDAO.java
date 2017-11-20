@@ -83,4 +83,20 @@ public class EmployeeDAO implements Serializable {
 		persist();
 	}
 	
+	
+	public void clearData() {
+		try {
+			for(Employee e : cacheEmployees.values()) {
+				cacheEmployees.remove(e.getNumRegistration());
+			}
+			
+	
+		} catch (ConcurrentModificationException e) {
+			clearData();
+		}
+		persist();
+		load();
+		
+	}
+	
 }

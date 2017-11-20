@@ -2,6 +2,8 @@ package br.ufsc.ine5605.controller;
  
 
 import java.util.ArrayList;
+
+import br.ufsc.ine5605.model.Employee;
 import br.ufsc.ine5605.model.Employment;
 import br.ufsc.ine5605.model.EmploymentDAO;
 import br.ufsc.ine5605.model.EmploymentRestrictAccess;
@@ -209,5 +211,18 @@ public class EmploymentCtrl implements Screen2 {
 //			throw new NumberFormatException();
 //		}
 //	}
+
+	public boolean validCode(int code) {
+		for(Employment e : getEmployments()) {
+			if(e.getCode() == code) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void clearData() {
+		employmentDAO.clearData();
+	}
 
 }

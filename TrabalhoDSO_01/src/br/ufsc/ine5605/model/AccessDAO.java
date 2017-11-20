@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 
 public class AccessDAO implements Serializable {
@@ -73,6 +74,18 @@ public class AccessDAO implements Serializable {
 		emp.setKey(cacheAccess.size() + 1);
 		cacheAccess.put(emp.getKey(), emp);
 		persist();
+	}
+	public void clearData() {
+		try {
+			for(Access e : cacheAccess.values()) {
+				cacheAccess.remove(e.getKey());
+			}
+		} catch (ConcurrentModificationException e) {
+			clearData();
+		}
+		persist();
+		load();
+		
 	}
 	
 

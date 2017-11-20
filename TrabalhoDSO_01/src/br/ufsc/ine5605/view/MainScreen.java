@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import br.ufsc.ine5605.controller.MainScreenCtrl;
 
@@ -22,6 +23,7 @@ public class MainScreen extends JFrame{
 	private JButton btEmployment;
 	private JButton btFSector;
 	private ButtonManager btManager;
+	private JButton btClear;
 	
 	
 	
@@ -77,6 +79,13 @@ public class MainScreen extends JFrame{
         container.add(btFSector, cons);
 		btFSector.addActionListener(btManager);
 		
+		//Clear Data Button
+		btClear = new JButton("Clear Data");
+		cons.gridx = 8;
+		cons.gridy = 8;
+		btClear.addActionListener(btManager);
+		container.add(btClear, cons);
+		
 	}
 	
 	
@@ -95,6 +104,16 @@ public class MainScreen extends JFrame{
 			} else if(e.getSource().equals(btFSector)) {
 				setVisible(false);
 				MainScreenCtrl.getInstance().financialSectorMenu();
+			} else if(e.getSource().equals(btClear)) {
+				int option = JOptionPane.showConfirmDialog(null, "This will clear all Registered Employees, Employments, and Access logs \n Do you wish to continue?");	
+				if(option == JOptionPane.YES_OPTION) {
+					int option1 = JOptionPane.showConfirmDialog(null, "Are you sure you want to clear all data?");	
+					if(option1 == JOptionPane.YES_OPTION) {
+						MainScreenCtrl.clearData();
+					}
+
+				}
+			
 			}
 		}
 	}

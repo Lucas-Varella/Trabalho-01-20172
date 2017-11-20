@@ -121,5 +121,11 @@ public class MainController {
 		return AccessCtrl.getInstance().getReasonsBy();
 		
 	}
+
+	public void clearData() {
+		EmploymentCtrl.getInstance().clearData();
+		EmployeeCtrl.getInstance().clearData();
+		AccessCtrl.getInstance().clearData();
+	}
 	
 }

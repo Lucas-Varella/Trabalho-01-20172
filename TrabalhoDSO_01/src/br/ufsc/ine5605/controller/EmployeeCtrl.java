@@ -115,9 +115,9 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
 	 * for incorreto(tentar acessar um indíce inexistente);
 	 */
 	public Employee getEmployee(int index) {
-		for(Employee e : getEmployees()) {
-			System.out.println(e.getName());
-		}
+//		for(Employee e : getEmployees()) {
+//			System.out.println(e.getName());
+//		}
 		return getEmployees().get(index + 1);
 	}
 	//cmon
@@ -266,6 +266,10 @@ public class EmployeeCtrl implements Screen2, ConversionDates, Screen {
         	throw new ParseException(data, 0);
         }
         return dataF;
+	}
+
+	public void clearData() {
+		empDAO.clearData();
 	}
 
 

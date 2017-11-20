@@ -350,16 +350,25 @@ public class EmployeeScreenI extends JFrame{
 					int salary = Integer.parseInt(tfNewSalary.getText());
 					Employee employee = EmployeeCtrl.getInstance().findEmployeeByNumReg(Integer.parseInt(tfEmployee.getText()));
 					Employment employment = EmploymentCtrl.getInstance().findEmploymentByCode(Integer.parseInt(tfNewEmployment.getText()));
-					employee.setName(name);
-					employee.setDateBirth(bday);
-					employee.setPhone(phone);
-					employee.setSalary(salary);
-					employee.setEmployment(employment);
-					listing("","","","", "");
-					employeeDAO.override(employee);
-					employeeDAO.load();
-					updateData();
-					employeeDAO.persist();
+					if(!EmployeeCtrl.getInstance().validNumRegistration(Integer.parseInt(tfEmployee.getText()))) {
+						lbError.setText("Incorrect Employee Registration number!");
+						error();
+					}else if(!EmploymentCtrl.getInstance().validCode(Integer.parseInt(tfNewEmployment.getText()))) {
+						lbError.setText("Incorrect employment code!");
+						error();
+					}else {
+						employee.setName(name);
+						employee.setDateBirth(bday);
+						employee.setPhone(phone);
+						employee.setSalary(salary);
+						employee.setEmployment(employment);
+						listing("","","","", "");
+						employeeDAO.override(employee);
+						employeeDAO.load();
+						updateData();
+						employeeDAO.persist();
+					}
+					
 					
 
 //				} catch (ArrayIndexOutOfBoundsException e1) {
@@ -379,9 +388,14 @@ public class EmployeeScreenI extends JFrame{
 				}
 			}
 			 else if(e.getSource().equals(btDel)) {
-				EmployeeCtrl.getInstance().delEmployee(EmployeeCtrl.getInstance().getEmployee(lsEmployees.getSelectedIndex() - 1));
-				updateData();
-				JOptionPane.showMessageDialog(null, "Employee deleted Successfully!");
+				try {
+					EmployeeCtrl.getInstance().delEmployee(EmployeeCtrl.getInstance().getEmployee(lsEmployees.getSelectedIndex() - 1));
+					updateData();
+					JOptionPane.showMessageDialog(null, "Employee deleted Successfully!");
+						
+				} catch(ArrayIndexOutOfBoundsException e1) {
+					JOptionPane.showMessageDialog(null, "Please select an Employee first!");
+				}
 			
 			}
 			
@@ -461,16 +475,22 @@ public class EmployeeScreenI extends JFrame{
 				int phone = Integer.parseInt(tfPhone.getText());
 				int salary = Integer.parseInt(tfSalary.getText());
 				Employment employment = EmploymentCtrl.getInstance().findEmploymentByCode(Integer.parseInt(tfEmployment.getText()));
-				Employee employee = EmployeeCtrl.getInstance().addEmployee(name, bday, phone, salary);
-				employeeDAO.put(employee);
-				employeeDAO.persist();
-				try {
-					//System.out.println("contract");
+				if(!EmploymentCtrl.getInstance().validCode(Integer.parseInt(tfEmployment.getText()))) {
+					lbError.setText("Incorrect employment code!");
+					error();
+				}else {
+					try {
+					Employee employee = EmployeeCtrl.getInstance().addEmployee(name, bday, phone, salary);
 					EmployeeCtrl.getInstance().addContract(employment, employee);
-				} catch(Exception e) {
+					employeeDAO.put(employee);
+					employeeDAO.persist();
+						
+					//System.out.println("contract");
+					}catch(Exception e) {
 					System.out.println(e.getMessage());
-				}
-				listing(name, tfBday.getText(), tfPhone.getText(), tfSalary.getText(), tfEmployment.getText());
+					}
+					listing(name, tfBday.getText(), tfPhone.getText(), tfSalary.getText(), tfEmployment.getText());
+				}	
 				
 				
 			
@@ -483,6 +503,7 @@ public class EmployeeScreenI extends JFrame{
 			} catch (NumberFormatException e) {
 				lbError.setText("Please Type Required Information, knowing that Phone number and Salary are numbers.");
 				error();
+//				e.printStackTrace();
 			} catch (ParseException e) {
 				lbError.setText("Please Type the Date in a correct DD/MM/YYY Format.");
 				error();

@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 
 public class EmploymentDAO implements Serializable {
@@ -91,6 +92,19 @@ public class EmploymentDAO implements Serializable {
 		cacheEmployment.put(emp.getCode(), emp);
 		persist();
 	}
+	public void clearData() {
+		try {
+			for(Employment e : cacheEmployment.values()) {
+				cacheEmployment.remove(e.getCode());
+			}
+		} catch (ConcurrentModificationException e) {
+		clearData();
+		}
+		persist();
+		load();
+		
+	}
+	
 	
 
 

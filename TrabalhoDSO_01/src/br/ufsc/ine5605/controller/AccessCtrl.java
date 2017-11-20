@@ -155,4 +155,8 @@ public class AccessCtrl implements Serializable {
 	    return dataF;
 	}
 
+	public void clearData() {
+		accessDAO.clearData();
+	}
+
 }

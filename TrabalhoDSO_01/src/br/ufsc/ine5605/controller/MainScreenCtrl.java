@@ -54,4 +54,9 @@ public class MainScreenCtrl implements Screen2 {
 			throw new NumberFormatException();
 		}
 	}
+
+	public static void clearData() {
+		MainController.getInstance().clearData();
+		
+	}
 }
