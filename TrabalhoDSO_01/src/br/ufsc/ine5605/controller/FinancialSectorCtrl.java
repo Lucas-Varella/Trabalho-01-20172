@@ -86,7 +86,7 @@ public class FinancialSectorCtrl {
 		}catch(Exception e) {
 			
 		}
-		return false;
+		return true;
 	}
 	
 	public void addAccess(int numRegistration, Date date, Date hour, Reasons reason) {

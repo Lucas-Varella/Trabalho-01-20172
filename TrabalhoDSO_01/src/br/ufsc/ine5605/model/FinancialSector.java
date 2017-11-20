@@ -90,6 +90,9 @@ public class FinancialSector implements ConversionDates {
 			if(access.compareTo(hourBegin) >= 0 && access.compareTo(hourFinish) <= 0) {
 				valid = true; 
 			}
+			if(valid) {
+				return valid;
+			}
 			
 		}
 		
