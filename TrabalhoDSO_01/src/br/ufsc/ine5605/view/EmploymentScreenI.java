@@ -282,8 +282,8 @@ public class EmploymentScreenI extends JFrame {
 			} else if (e.getSource().equals(btOk)) {
 				
 				EmploymentCtrl ctrl = EmploymentCtrl.getInstance();
+				
 				if (cbPrivileges.getSelectedItem().toString().equals("Restricted")) {
-					
 					
 					ctrl.setEmpDeEnvio(ctrl.addEmploymentRestrictAccess(tfNome.getText(), Privileges.Restricted));
 					
@@ -299,6 +299,7 @@ public class EmploymentScreenI extends JFrame {
 					
 					ctrl.addEmployment(tfNome.getText(), ctrl.stringToPrivilege(cbPrivileges.getSelectedItem().toString()));
 					JOptionPane.showMessageDialog(null, "Employment '" + tfNome.getText() + "' Created Successfully!");
+					
 					cardLayout.show(pSetup, "pMain");
 					repaint();				
 				}	
@@ -314,6 +315,7 @@ public class EmploymentScreenI extends JFrame {
 			} else if (e.getSource().equals(btDelete)) {
 				
 				Employment employment = EmploymentCtrl.getInstance().getEmployment(lsEmployments.getSelectedIndex());
+				System.out.println(employment.getEmployees().size());
 				
 				if (employment.getEmployees().size() == 0)  {
 					
